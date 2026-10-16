@@ -44,3 +44,4 @@ Checked 2026-10-15 from the LICENSE files in the cloned repositories.
 | axe-core, @axe-core/playwright | MPL-2.0 | Yes | dev dependency, not shipped |
 | next, react, next-intl, tailwindcss | MIT | Yes | |
 | openapi-typescript 7.13 (dev, packages/shared) | MIT | Yes | generates src/api.d.ts from openapi.json |
+| three 0.170, gsap 3.12.5, lenis 1.1.0 via unpkg/esm.sh (prototype only) | MIT / GSAP standard licence (no charge, commercial use allowed) / MIT | 2026-10-16 |

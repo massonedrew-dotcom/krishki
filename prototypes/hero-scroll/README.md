@@ -18,7 +18,7 @@ Do not open the file directly (ES modules + importmap need http). `?fps` shows a
 | `lid-sko.glb` | SKO I-82 lid + wikel ring, Draco, 53 KB (from `assets/blender/lid-sko.blend`) |
 | `lid-twist.glb` | Twist-Off 82 lid + plastisol, white inside, Draco, 57 KB (from `assets/blender/lid-twist.blend`) |
 | `tex/*.webp` | 1024 px circular lid-top lithography textures (planar top UV, edge at r = 0.488) |
-| `img/*.webp` | partner logos, «Мечта хозяйки» logo, cucumber photo, Blender still of the gold lid |
+| `img/*.webp` | partner logos, «Мечта хозяйки» logo, cucumber photo |
 | `tools/make-textures.mjs` + `lid-ellipses.json` | unwarps lid tops from the old-site photos (ellipse → circle, sharpen); draws the Ibrat top as SVG |
 | `tools/prep-assets.mjs` | copies partner logos / logo / photo to WebP |
 | `tools/shoot.mjs` | Playwright screenshots → `qa/screens/prototype/` (`--only 1440|390`, `--pick p01,p02`, `--rm`) |
