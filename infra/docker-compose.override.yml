@@ -1,0 +1,5 @@
+# Local development only. Never deploy with this file (use `-f docker-compose.yml` explicitly).
+services:
+  db:
+    ports:
+      - "127.0.0.1:5432:5432"

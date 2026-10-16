@@ -1,0 +1,11 @@
+class ApiError(Exception):
+    """Error rendered as {error: {code, message}}. Messages are static, never user input."""
+
+    def __init__(
+        self, status_code: int, code: str, message: str, headers: dict[str, str] | None = None
+    ) -> None:
+        super().__init__(code)
+        self.status_code = status_code
+        self.code = code
+        self.message = message
+        self.headers = headers

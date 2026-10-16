@@ -1,0 +1,27 @@
+{$SITE_DOMAIN:localhost} {
+	encode zstd gzip
+
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		Permissions-Policy "camera=(), microphone=(), geolocation=()"
+		# Only frame-ancestors here; the full CSP with nonces is set by Next.js.
+		Content-Security-Policy "frame-ancestors 'none'"
+		-Server
+	}
+
+	# The only public API route. Everything else of the API stays internal.
+	handle /api/healthz {
+		rewrite * /healthz
+		reverse_proxy api:8000
+	}
+
+	handle /api/* {
+		respond "Not found" 404
+	}
+
+	handle {
+		reverse_proxy {$WEB_UPSTREAM:host.docker.internal:3000}
+	}
+}

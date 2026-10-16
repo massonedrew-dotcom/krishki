@@ -1,0 +1,368 @@
+/*
+ * Component styles. Interactive states are written as :hover/:focus-visible and mirrored
+ * by [data-state="hover|focus"] so the styleguide can show them without a pointer.
+ * Everything reads the surface variables, so one rule set serves light and dark surfaces.
+ */
+@layer components {
+  /* ---------- Button ---------- */
+  .btn {
+    --btn-h: 3rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    min-height: var(--btn-h);
+    padding: 0 var(--space-6);
+    border: 1px solid transparent;
+    border-radius: var(--radius-ui);
+    font-family: var(--font-mono-stack);
+    font-size: 0.8125rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 500;
+    line-height: 1.2;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    transition:
+      background-color var(--dur-fast) var(--ease-out),
+      border-color var(--dur-fast) var(--ease-out),
+      color var(--dur-fast) var(--ease-out);
+  }
+  .btn--sm {
+    --btn-h: 2.5rem;
+    padding: 0 var(--space-4);
+    font-size: 0.75rem;
+  }
+  .btn--lg {
+    --btn-h: 3.5rem;
+    padding: 0 var(--space-8);
+    font-size: 0.875rem;
+  }
+  .btn--primary {
+    background: var(--accent);
+    color: var(--on-accent);
+  }
+  .btn--primary:hover,
+  .btn--primary[data-state="hover"] {
+    background: var(--accent-hover);
+  }
+  .btn--secondary {
+    background: transparent;
+    color: var(--fg);
+    border-color: var(--fg);
+  }
+  .btn--secondary:hover,
+  .btn--secondary[data-state="hover"] {
+    background: var(--fg);
+    color: var(--surface);
+  }
+  .btn--ghost {
+    background: transparent;
+    color: var(--fg);
+    padding-inline: var(--space-3);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.3em;
+  }
+  .btn--ghost:hover,
+  .btn--ghost[data-state="hover"] {
+    text-decoration-thickness: 2px;
+    background: color-mix(in srgb, var(--fg) 8%, transparent);
+  }
+  .btn:focus-visible,
+  .btn[data-state="focus"] {
+    outline: 2px solid var(--focus);
+    outline-offset: 3px;
+  }
+  .btn:disabled,
+  .btn[aria-disabled="true"]:not([aria-busy="true"]) {
+    background: var(--disabled-bg);
+    color: var(--disabled-fg);
+    border-color: transparent;
+    text-decoration: none;
+    cursor: not-allowed;
+  }
+  .btn[aria-busy="true"] {
+    cursor: progress;
+  }
+  .btn__spinner {
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid currentColor;
+    border-right-color: transparent;
+    border-radius: var(--radius-lid);
+    animation: btn-spin var(--dur-slow) linear infinite;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .btn__spinner {
+      animation: none;
+      border-right-color: currentColor;
+      border-style: dotted;
+    }
+  }
+  @keyframes btn-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* ---------- Link ---------- */
+  .link {
+    color: var(--link);
+    text-decoration: underline;
+    text-decoration-color: currentColor;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.25em;
+    transition: text-decoration-thickness var(--dur-fast) var(--ease-out);
+  }
+  .link:hover,
+  .link[data-state="hover"] {
+    text-decoration-thickness: 3px;
+  }
+  .link:focus-visible,
+  .link[data-state="focus"] {
+    outline: 2px solid var(--focus);
+    outline-offset: 3px;
+    border-radius: var(--radius-ui);
+  }
+
+  /* ---------- Form controls ---------- */
+  .control {
+    display: block;
+    width: 100%;
+    min-height: 3rem;
+    padding: var(--space-3) var(--space-4);
+    background: var(--surface-raised);
+    color: var(--fg);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-ui);
+    font-family: var(--font-text-stack);
+    font-size: var(--text-16);
+    line-height: 1.4;
+    transition: border-color var(--dur-fast) var(--ease-out);
+  }
+  .control::placeholder {
+    color: var(--fg-muted);
+    opacity: 1;
+  }
+  .control:hover,
+  .control[data-state="hover"] {
+    border-color: var(--fg);
+  }
+  .control:focus-visible,
+  .control[data-state="focus"] {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+    border-color: var(--fg);
+  }
+  .control[aria-invalid="true"] {
+    border-color: var(--danger);
+    border-width: 2px;
+    padding: calc(var(--space-3) - 1px) calc(var(--space-4) - 1px);
+  }
+  .control:disabled {
+    background: var(--disabled-bg);
+    color: var(--disabled-fg);
+    border-color: transparent;
+    cursor: not-allowed;
+  }
+  textarea.control {
+    min-height: 7.5rem;
+    resize: vertical;
+  }
+  select.control {
+    appearance: none;
+    padding-right: var(--space-12);
+    background-image: var(--select-caret);
+    background-repeat: no-repeat;
+    background-position: right var(--space-4) center;
+    cursor: pointer;
+  }
+
+  /* ---------- Checkbox ---------- */
+  .check {
+    display: inline-flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    min-height: 2.75rem;
+    padding-block: var(--space-2);
+    cursor: pointer;
+  }
+  .check__box {
+    flex: none;
+    appearance: none;
+    position: relative;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin: 0;
+    background: var(--surface-raised);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-ui);
+    cursor: inherit;
+    transition:
+      background-color var(--dur-fast) var(--ease-out),
+      border-color var(--dur-fast) var(--ease-out);
+  }
+  .check__box:hover,
+  .check__box[data-state="hover"] {
+    border-color: var(--fg);
+  }
+  .check__box:checked {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+  .check__box:checked::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--on-accent);
+    clip-path: polygon(20% 52%, 30% 42%, 43% 55%, 72% 24%, 82% 34%, 43% 75%);
+  }
+  .check__box:focus-visible,
+  .check__box[data-state="focus"] {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
+  .check__box[aria-invalid="true"] {
+    border-color: var(--danger);
+    border-width: 2px;
+  }
+  .check__box:disabled {
+    background: var(--disabled-bg);
+    border-color: transparent;
+    cursor: not-allowed;
+  }
+  .check__box:disabled:checked::after {
+    background: var(--disabled-fg);
+  }
+  .check__box:disabled ~ .check__label {
+    color: var(--disabled-fg);
+  }
+  .check__label {
+    padding-top: 0.1rem;
+    line-height: 1.5;
+  }
+
+  /* ---------- Field ---------- */
+  .field {
+    display: grid;
+    align-content: start;
+    gap: var(--space-2);
+  }
+  .field__label {
+    font-size: var(--text-14);
+    font-weight: 600;
+    line-height: 1.4;
+  }
+  .field__req {
+    color: var(--accent-text);
+  }
+  .field__hint {
+    font-size: var(--text-14);
+    line-height: 1.45;
+    color: var(--fg-muted);
+  }
+  .field__error {
+    font-size: var(--text-14);
+    line-height: 1.45;
+    font-weight: 600;
+    color: var(--danger);
+  }
+
+  /* ---------- Badge ---------- */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    min-height: 1.75rem;
+    padding: 0 var(--space-2);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-ui);
+    font-family: var(--font-mono-stack);
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: var(--fg);
+  }
+  .badge--solid {
+    background: var(--fg);
+    color: var(--surface);
+    border-color: var(--fg);
+  }
+  .badge--accent {
+    background: var(--accent);
+    color: var(--on-accent);
+    border-color: var(--accent);
+  }
+
+  /* ---------- SpecTable (datasheet) ---------- */
+  .spec {
+    width: 100%;
+    border-collapse: collapse;
+    border-top: 2px solid var(--fg);
+    font-size: var(--text-16);
+  }
+  .spec__caption {
+    caption-side: top;
+    padding-bottom: var(--space-3);
+    text-align: left;
+  }
+  .spec th,
+  .spec td {
+    padding: var(--space-3) var(--space-4) var(--space-3) 0;
+    border-bottom: 1px solid var(--line);
+    text-align: left;
+    vertical-align: baseline;
+  }
+  .spec thead th {
+    font-family: var(--font-mono-stack);
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--fg-muted);
+    border-bottom-color: var(--fg);
+  }
+  .spec tbody th {
+    font-weight: 400;
+    color: var(--fg-muted);
+    width: 34%;
+  }
+  .spec td {
+    font-weight: 600;
+    font-variant-numeric: tabular-nums lining-nums;
+  }
+
+  /* ---------- Header / Footer shells ---------- */
+  .lang {
+    display: inline-flex;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-ui);
+  }
+  .lang__item {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    font-family: var(--font-mono-stack);
+    font-size: var(--text-14);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--fg-muted);
+    text-decoration: none;
+    transition: background-color var(--dur-fast) var(--ease-out);
+  }
+  .lang__item + .lang__item {
+    border-left: 1px solid var(--line-strong);
+  }
+  .lang__item:hover {
+    color: var(--fg);
+    background: color-mix(in srgb, var(--fg) 8%, transparent);
+  }
+  .lang__item[aria-current="true"] {
+    background: var(--fg);
+    color: var(--surface);
+  }
+}

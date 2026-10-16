@@ -1,0 +1,907 @@
+<!doctype html>
+<!--
+  krishki.uz — home page PROTOTYPE, design direction v2 (light, lid parade + floating 3D layer).
+  HOW TO RUN — do not double-click (ES modules + importmap need http):
+    npx -y serve prototypes/hero-scroll -l 4173   →  http://localhost:4173/
+  Query flags: ?fps show an fps meter (samples also in window.__parade.fps)
+  Scroll/render loop pattern after the awwwards-3d coin-scroll template (MIT, tsogjavklann/awwwards-3d).
+-->
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<title>ELIT KONSERVA — крышки для консервирования (прототип)</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='6.5' fill='%23C8962E'/%3E%3Ccircle cx='8' cy='8' r='4' fill='none' stroke='%23fff' stroke-width='.8'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Onest:wght@300;400;500;600&family=Tektur:wght@400;500;600&display=swap">
+<link rel="modulepreload" href="https://unpkg.com/three@0.170.0/build/three.module.js">
+<link rel="preload" href="lid-sko.glb" as="fetch" crossorigin>
+<link rel="preload" href="lid-twist.glb" as="fetch" crossorigin>
+
+<style>
+  :root {
+    /* design direction v2: light site, palette of the old krishki.uz */
+    --white: #FFFFFF;
+    --mist-50: #F5F8FB;
+    --sky-100: #EAF4FB;
+    --azure-500: #08A2E3;      /* logo.png outline, sampled */
+    --azure-700: #0E5E9C;      /* azure for text on light */
+    --band: #0B76B8;           /* the one deep section (azure band) */
+    --red-500: #D3262D;        /* logo.png lettering, sampled */
+    --red-600: #B91F26;
+    --gold-500: #C8962E;
+    --gold-300: #E6C27A;
+    --ink: #0F1B2A;
+    --ink-60: #4A5A6E;
+    --ink-40: #7C8A9B;
+    --line: #DCE5EE;
+    --pad: clamp(20px, 4.4vw, 64px);
+    --f-display: "Tektur", "Onest", sans-serif;
+    --f-text: "Onest", sans-serif;
+    --f-mono: "IBM Plex Mono", ui-monospace, monospace;
+    --ease: cubic-bezier(.16, 1, .3, 1);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { background: var(--white); color: var(--ink); scroll-behavior: auto; overscroll-behavior: none; }
+  body { font: 400 17px/1.55 var(--f-text); -webkit-font-smoothing: antialiased; }
+  /* film grain: one static noise tile, very light */
+  body::after { content: ""; position: fixed; inset: 0; z-index: 30; pointer-events: none; opacity: .05;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  html.lenis, html.lenis body { height: auto; }
+  .lenis.lenis-smooth { scroll-behavior: auto !important; }
+  a { color: inherit; text-decoration: none; }
+  img { display: block; max-width: 100%; }
+  ul { list-style: none; }
+
+  #webgl { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; opacity: 0; transition: opacity 1.2s ease; }
+  #webgl.ready { opacity: 1; }
+  html.nogl #webgl { display: none; }
+  main { position: relative; z-index: 1; }
+
+  /* ── header ───────────────────────────────────────────────────────── */
+  .hdr { position: fixed; top: 0; left: 0; right: 0; z-index: 20; height: 76px; background: rgba(255,255,255,.88); display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 0 var(--pad); transition: background .4s ease, box-shadow .4s ease; }
+  .hdr.solid { background: #fff; box-shadow: 0 1px 0 var(--line); }
+  .logo { display: flex; align-items: center; gap: 12px; font: 600 17px/1 var(--f-display); letter-spacing: .14em; white-space: nowrap; }
+  .logo i { width: 20px; height: 20px; border-radius: 50%; background: var(--gold-500); box-shadow: inset 0 0 0 4px var(--gold-500), inset 0 0 0 5.5px var(--white); }
+  .nav { display: flex; gap: 28px; font: 500 12px/1 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-60); white-space: nowrap; }
+  .nav a:hover { color: var(--azure-700); }
+  .hdr-right { display: flex; align-items: center; gap: 22px; }
+  .hdr-phone { font: 500 14px/1 var(--f-mono); letter-spacing: .02em; white-space: nowrap; }
+  .btn { display: inline-flex; align-items: center; gap: 14px; padding: 18px 26px; border-radius: 10px; background: var(--red-500); color: var(--white); font: 500 13px/1 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; white-space: nowrap; transition: background .3s ease, transform .3s var(--ease); box-shadow: 0 10px 24px -12px rgba(211,38,45,.7); }
+  .btn:hover { background: var(--red-600); transform: translateY(-1px); }
+  .btn svg { width: 14px; height: 14px; }
+  .btn--sm { padding: 13px 18px; font-size: 11px; border-radius: 8px; }
+  .btn--line { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1px rgba(15,27,42,.22); }
+  .btn--line:hover { background: var(--white); box-shadow: inset 0 0 0 1px var(--ink); }
+
+  .eyebrow { display: flex; align-items: center; gap: 14px; font: 500 12px/1.4 var(--f-mono); letter-spacing: .16em; text-transform: uppercase; color: var(--azure-700); }
+  .eyebrow::before { content: ""; width: 32px; height: 2px; background: var(--azure-500); }
+  h1, h2, h3 { font-family: var(--f-display); font-weight: 500; letter-spacing: -0.025em; }
+  /* kinetic split: words rise out of a mask */
+  .w { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .08em; margin-bottom: -.08em; }
+  .w > span { display: inline-block; will-change: transform; }
+
+  /* ── parade (sticky stage) ────────────────────────────────────────── */
+  .parade { position: relative; }
+  .stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
+
+  .intro { position: absolute; left: 50%; right: var(--pad); top: 50%; transform: translateY(-44%); display: flex; flex-direction: column; gap: 28px; }
+  .intro h1 { font-size: clamp(44px, 5.3vw, 98px); line-height: .9; }
+  .intro .lede { font: 400 clamp(18px, 1.4vw, 22px)/1.45 var(--f-text); color: var(--ink-60); max-width: 30ch; }
+  .intro-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+  .cap { position: absolute; inset: 0; pointer-events: none; }
+  .cap > * { opacity: 0; transform: translateY(22px); transition: opacity .55s var(--ease), transform .7s var(--ease); }
+  .cap.on > * { opacity: 1; transform: none; pointer-events: auto; }
+  .cap.on > :nth-child(3) { transition-delay: .08s; }
+  .cap-l { position: absolute; left: var(--pad); top: 50%; margin-top: -19vh; width: min(30vw, 440px); display: flex; flex-direction: column; gap: 18px; }
+  .cap-n { font: 500 13px/1 var(--f-mono); letter-spacing: .16em; color: var(--red-500); }
+  .cap-n em { font-style: normal; color: var(--ink-40); }
+  .cap-l h2 { font-size: clamp(32px, 3.3vw, 58px); line-height: .96; }
+  .cap-l h2 small { display: block; font: 500 clamp(15px, 1.1vw, 18px)/1.3 var(--f-text); letter-spacing: 0; color: var(--azure-700); margin-top: 12px; }
+  .cap-l p { font: 400 clamp(16px, 1.15vw, 19px)/1.5 var(--f-text); color: var(--ink-60); max-width: 32ch; }
+  .cap-r { position: absolute; right: calc(var(--pad) + 40px); top: 50%; margin-top: -6vh; width: min(22vw, 300px); }
+  .cap-r li { display: flex; flex-direction: column; gap: 4px; padding: 14px 0; border-top: 1px solid var(--line); }
+  .cap-r li:last-child { border-bottom: 1px solid var(--line); }
+  .cap-r .k { font: 500 11px/1 var(--f-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--ink-40); }
+  .cap-r .v { font: 500 19px/1.25 var(--f-display); }
+  .cap-logo { width: 140px; height: auto; }
+  .designs { font: 500 11px/1.6 var(--f-mono) !important; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-40) !important; }
+  .designs b { font-weight: 500; color: var(--ink); transition: color .3s; }
+  .designs b.on { color: var(--red-500); }
+
+  .conveyor { position: absolute; left: var(--pad); right: var(--pad); bottom: 28px; display: grid; grid-template-columns: repeat(8, 1fr); border-top: 1px solid var(--line); }
+  .conveyor::before { content: ""; position: absolute; left: 0; top: -1px; height: 2px; width: calc(var(--p, 0) * 100%); background: var(--azure-500); }
+  .conveyor a { padding-top: 14px; font: 500 10.5px/1.4 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-40); transition: color .3s; }
+  .conveyor a b { display: block; font-weight: 500; margin-bottom: 4px; }
+  .conveyor a.on, .conveyor a:hover { color: var(--ink); }
+  .conveyor a.on b { color: var(--red-500); }
+  .static-lid { display: none; }
+
+  /* ── sections ─────────────────────────────────────────────────────── */
+  .sec { position: relative; padding: 140px var(--pad); }
+  .sec--sky { background: rgba(234, 244, 251, .78); }       /* translucent: floating lids show through, softened */
+  .sec-head { display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: end; margin-bottom: 64px; }
+  .sec-head h2 { font-size: clamp(40px, 5vw, 88px); line-height: .92; margin-top: 22px; }
+  .sec-head > p { font: 400 19px/1.5 var(--f-text); color: var(--ink-60); max-width: 36ch; justify-self: end; }
+
+  /* why us — numbered list, not icon cards */
+  .why { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); }
+  .why li { padding: 30px 28px 34px 0; border-bottom: 1px solid var(--line); display: grid; grid-template-columns: 44px 1fr; gap: 6px 14px; }
+  .why li:not(:nth-child(3n)) { border-right: 1px solid var(--line); margin-right: 28px; }
+  .why .n { grid-row: span 2; font: 500 12px/1.9 var(--f-mono); color: var(--red-500); letter-spacing: .1em; }
+  .why b { font: 500 24px/1.15 var(--f-display); letter-spacing: -0.01em; }
+  .why span { font: 400 15.5px/1.5 var(--f-text); color: var(--ink-60); }
+
+  /* partners marquee */
+  .marquee { overflow: hidden; mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+  .marquee-track { display: flex; gap: 18px; width: max-content; animation: mq 38s linear infinite; }
+  .marquee:hover .marquee-track { animation-play-state: paused; }
+  @keyframes mq { to { transform: translateX(calc(-50% - 9px)); } }
+  .marquee li { width: 230px; height: 140px; display: grid; place-items: center; padding: 26px; background: var(--white); border-radius: 16px; box-shadow: 0 1px 0 var(--line), 0 18px 40px -28px rgba(14,94,156,.45); }
+  .marquee img { max-height: 76px; width: auto; object-fit: contain; }
+  .partners-foot { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-top: 40px; font: 500 12px/1.6 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--ink-40); }
+  .partners-foot a { color: var(--azure-700); }
+
+  /* azure band */
+  .band { background: var(--band); color: var(--white); }
+  .band .eyebrow { color: var(--white); } .band .eyebrow::before { background: var(--white); }
+  .band h2 { font-size: clamp(44px, 6.2vw, 112px); line-height: .9; margin: 24px 0 72px; max-width: 14ch; }
+  .facts { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid rgba(255,255,255,.35); }
+  .facts li { padding: 26px 24px 0 0; display: flex; flex-direction: column; gap: 10px; }
+  .facts b { font: 500 clamp(30px, 3.2vw, 56px)/1 var(--f-display); letter-spacing: -0.02em; }
+  .facts span { font: 500 12px/1.5 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.85); }
+
+  /* CTA */
+  .cta { padding-bottom: 0; }
+  .cta-in { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+  .cta h2 { font-size: clamp(52px, 6.8vw, 124px); line-height: .88; }
+  .cta-copy { display: flex; flex-direction: column; gap: 28px; }
+  .cta-copy > p:not(.eyebrow) { font: 400 19px/1.5 var(--f-text); color: var(--ink-60); max-width: 34ch; }
+  .phone { font: 500 clamp(30px, 3vw, 48px)/1 var(--f-display); border-bottom: 2px solid var(--red-500); padding-bottom: 10px; align-self: flex-start; }
+  .phone:hover { color: var(--red-500); }
+  .cta-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+  .media { position: relative; border-radius: 20px; overflow: hidden; aspect-ratio: 4 / 3.4; box-shadow: 0 40px 80px -40px rgba(15,27,42,.45); }
+  .media img { width: 100%; height: 100%; object-fit: cover; object-position: 30% 50%; }
+  .media figcaption { position: absolute; left: 18px; bottom: 16px; padding: 9px 12px; border-radius: 8px; background: rgba(255,255,255,.92); font: 500 11px/1 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; }
+  footer { margin-top: 120px; padding: 26px 0 30px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; font: 500 11px/1.7 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-40); }
+
+  #fps { position: fixed; left: 10px; bottom: 10px; z-index: 50; display: none; font: 500 11px/1 var(--f-mono); color: #fff; background: rgba(0,0,0,.6); padding: 6px 8px; }
+
+  @media (max-width: 1180px) { .nav { gap: 18px; font-size: 11px; } .hdr-phone { display: none; } }
+
+  /* ── mobile ───────────────────────────────────────────────────────── */
+  @media (max-width: 768px) {
+    body { font-size: 16px; }
+    .hdr { height: 64px; }
+    .nav { display: none; }
+    .intro { left: var(--pad); right: var(--pad); top: auto; bottom: 5vh; transform: none; gap: 16px; }
+    .intro h1 { font-size: 40px; }
+    .intro .lede { font-size: 16px; }
+    .intro .eyebrow { font-size: 10.5px; letter-spacing: .12em; }
+    .cap-l { top: auto; bottom: calc(5vh + 100px); margin: 0; width: auto; right: var(--pad); gap: 10px; }
+    .cap-l h2 { font-size: 30px; }
+    .cap-l p { font-size: 15px; }
+    .cap-logo { width: 92px; }
+    .cap-r { top: auto; bottom: 4vh; margin: 0; left: var(--pad); right: var(--pad); width: auto; }
+    .cap-r ul { display: grid; grid-template-columns: 1fr 1fr; column-gap: 16px; }
+    .cap-r li { padding: 9px 0; }
+    .cap-r li:last-child { border-bottom: 0; }
+    .cap-r li:nth-child(n+3) { display: none; }
+    .cap-r .v { font-size: 15px; }
+    .conveyor { display: none; }
+    .sec { padding: 90px var(--pad); }
+    .sec-head { grid-template-columns: 1fr; margin-bottom: 36px; gap: 20px; }
+    .sec-head > p { justify-self: start; font-size: 16px; }
+    .why { grid-template-columns: 1fr; }
+    .why li { margin-right: 0 !important; border-right: 0 !important; padding: 22px 0; }
+    .why b { font-size: 20px; }
+    .marquee li { width: 170px; height: 110px; padding: 18px; }
+    .marquee img { max-height: 56px; }
+    .band h2 { margin: 20px 0 46px; }
+    .facts { grid-template-columns: 1fr 1fr; row-gap: 28px; }
+    .cta-in { grid-template-columns: 1fr; gap: 40px; }
+    footer { margin-top: 80px; }
+  }
+
+  /* ── static parade: reduced motion or no WebGL — a vertical list of lids ── */
+  html.static .parade { height: auto !important; }
+  html.static .stage { position: relative; height: auto; overflow: visible; padding: 130px 0 40px; }
+  html.static .intro { position: relative; left: auto; right: auto; top: auto; bottom: auto; transform: none; padding: 0 var(--pad) 80px; max-width: 900px; }
+  html.static .conveyor { display: none; }
+  html.static .cap { position: relative; inset: auto; display: grid; grid-template-columns: minmax(200px, 26vw) 1fr 1fr; gap: 48px; align-items: center; padding: 56px var(--pad); border-top: 1px solid var(--line); }
+  html.static .cap > * { opacity: 1; transform: none; }
+  html.static .cap-l, html.static .cap-r { position: static; margin: 0; width: auto; }
+  html.static .cap-r li:nth-child(n+3) { display: flex; }
+  html.static .static-lid { display: block; grid-row: 1; grid-column: 1; width: 100%; aspect-ratio: 1; border-radius: 50%; overflow: hidden; position: relative; box-shadow: 0 30px 50px -24px rgba(15,27,42,.45), inset 0 0 0 6px rgba(200,150,46,.5); }
+  html.static .static-lid img { position: absolute; inset: -1.2%; width: 102.4%; height: 102.4%; max-width: none; object-fit: cover; }
+  html.static .static-lid.gold { background: radial-gradient(circle at 35% 30%, #F3D58C, #C8962E 55%, #8E6420); }
+  html.static .static-lid.ring { background: transparent; box-shadow: none; border: 14px solid #C9C3B8; }
+  @media (max-width: 768px) {
+    html.static .cap { grid-template-columns: 1fr; gap: 24px; }
+    html.static .static-lid { width: 70%; justify-self: center; }
+  }
+  @media (prefers-reduced-motion: reduce) { .cap > * { transition: none; } .marquee-track { animation: none; flex-wrap: wrap; width: auto; } .marquee { mask-image: none; } }
+</style>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.170.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.170.0/examples/jsm/",
+    "gsap": "https://esm.sh/gsap@3.12.5",
+    "gsap/ScrollTrigger": "https://esm.sh/gsap@3.12.5/ScrollTrigger",
+    "lenis": "https://unpkg.com/lenis@1.1.0/dist/lenis.mjs"
+  }
+}
+</script>
+<script>
+  // Decided before first paint. static = list instead of parade (reduced motion or no WebGL);
+  // nogl = no canvas at all. Reduced motion with WebGL keeps a still floating layer.
+  (function () {
+    var d = document.documentElement, gl = false;
+    try { var c = document.createElement('canvas'); gl = !!(c.getContext('webgl2') || c.getContext('webgl')); } catch (e) {}
+    var rm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (rm || !gl) d.classList.add('static');
+    if (rm) d.classList.add('rm');
+    if (!gl) d.classList.add('nogl');
+  })();
+</script>
+</head>
+<body>
+
+<canvas id="webgl" aria-hidden="true"></canvas>
+<div id="fps"></div>
+
+<header class="hdr">
+  <a class="logo" href="#top"><i></i>ELIT KONSERVA</a>
+  <!-- multi-page site: real routes are built in apps/web; placeholders here -->
+  <nav class="nav" aria-label="Разделы сайта">
+    <a href="#">Продукция</a>
+    <a href="#">Бренды</a>
+    <a href="#">Услуги</a>
+    <a href="#">Под вашу марку</a>
+    <a href="#">О заводе</a>
+    <a href="#">Контакты</a>
+  </nav>
+  <div class="hdr-right">
+    <a class="hdr-phone" href="tel:+998975908822">+998 97 590-88-22</a>
+    <a class="btn btn--sm" href="#contact">Запросить прайс</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="parade" id="lids">
+    <div class="stage">
+      <div class="intro">
+        <p class="eyebrow">ELIT KONSERVA · Коканд · с 1996 года</p>
+        <h1 data-split>Крышки, которым доверяют урожай</h1>
+        <p class="lede">СКО I‑82 и твист‑офф 82 от завода в Коканде. С 1996 года.</p>
+        <div class="intro-actions">
+          <a class="btn" href="#contact">Запросить прайс <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M1 7h11M8 3l4 4-4 4"/></svg></a>
+          <a class="btn btn--line" href="#lids" data-goto="0">Смотреть крышки</a>
+        </div>
+      </div>
+
+      <article class="cap" data-i="0">
+        <div class="static-lid gold"></div>
+        <div class="cap-l">
+          <span class="cap-n">01 <em>/ 08</em></span>
+          <h2>СКО I‑82 золотистая<small>Промышленная серия</small></h2>
+          <p>Двойной лак внутри и снаружи. Резинка из пищевого каучука. Ребро жёсткости.</p>
+        </div>
+        <div class="cap-r"><ul>
+          <li><span class="k">Жесть</span><span class="v">ЭЖК 0,17–0,20 мм</span></li>
+          <li><span class="k">Диаметр</span><span class="v">Ø 82 мм</span></li>
+          <li><span class="k">Банки</span><span class="v">Венчик СКО I‑82</span></li>
+        </ul></div>
+      </article>
+      <article class="cap" data-i="1">
+        <div class="static-lid"><img src="tex/mechta.webp" alt="Крышка СКО «Мечта хозяйки»" loading="lazy"></div>
+        <div class="cap-l">
+          <span class="cap-n">02 <em>/ 08</em></span>
+          <img class="cap-logo" src="img/logo-mechta.webp" alt="Мечта хозяйки" width="260" height="150">
+          <h2>СКО «Мечта хозяйки»<small>Beka orzusi</small></h2>
+          <p>Знакомая хозяйкам туба: 50 крышек, сверху — литография. «Качество, проверенное временем».</p>
+        </div>
+        <div class="cap-r"><ul>
+          <li><span class="k">Упаковка</span><span class="v">Туба 50 шт.</span></li>
+          <li><span class="k">Групповая</span><span class="v">10 туб — 500 шт.</span></li>
+          <li><span class="k">Тип</span><span class="v">СКО I‑82</span></li>
+        </ul></div>
+      </article>
+      <article class="cap" data-i="2">
+        <div class="static-lid"><img src="tex/elisey.webp" alt="Крышка СКО «Елисейские крышки»" loading="lazy"></div>
+        <div class="cap-l">
+          <span class="cap-n">03 <em>/ 08</em></span>
+          <h2>СКО «Елисейские крышки»<small>Новая линия с 2022 года</small></h2>
+          <p>Самая молодая линия завода — для банок с венчиком СКО I‑82.</p>
+        </div>
+        <div class="cap-r"><ul>
+          <li><span class="k">Линия</span><span class="v">с 2022 года</span></li>
+          <li><span class="k">Тип</span><span class="v">СКО I‑82</span></li>
+          <li><span class="k">Уплотнение</span><span class="v">Пищевой каучук</span></li>
+        </ul></div>
+      </article>
+      <article class="cap" data-i="3">
+        <div class="static-lid"><img src="tex/vegbasket.webp" alt="Крышка СКО с полноцветной литографией" loading="lazy"></div>
+        <div class="cap-l">
+          <span class="cap-n">04 <em>/ 08</em></span>
+          <h2>СКО полноцветная<small>Ягоды, фрукты, овощи</small></h2>
+          <p>Красим и печатаем жесть сами: лаки PPG, краски HUBER GROUP.</p>
+          <p class="designs" data-designs><b>Клубника</b> · <b>Малина</b> · <b>Овощная корзина</b></p>
+        </div>
+        <div class="cap-r"><ul>
+          <li><span class="k">Печать</span><span class="v">Литография жести</span></li>
+          <li><span class="k">Лаки</span><span class="v">PPG, выдерживают стерилизацию выше 100 °C</span></li>
+          <li><span class="k">Тип</span><span class="v">СКО I‑82</span></li>
+        </ul></div>
+      </article>
+      <article class="cap" data-i="4">
+        <div class="static-lid"><img src="tex/sardoba.webp" alt="Крышка СКО с торговой маркой заказчика" loading="lazy"></div>
+        <div class="cap-l">
+          <span class="cap-n">05 <em>/ 08</em></span>
+          <h2>Ваша марка на каждой банке<small>Крышки под торговую марку</small></h2>
+          <p>Печатаем ваш дизайн на СКО и твист‑офф — от 1 000 штук.</p>
+          <p class="designs" data-designs><b>Sardoba</b> · <b>Hilol</b> · <b>Ibrat</b></p>
+        </div>
+        <div class="cap-r"><ul>
+          <li><span class="k">Партия</span><span class="v">от 1 000 до 10 000 000 шт.</span></li>
+          <li><span class="k">Печать</span><span class="v">Литография жести</span></li>
+          <li><span class="k">Типы</span><span class="v">СКО I‑82 · Твист‑офф 82</span></li>
+        </ul></div>
+      </article>
+      <article class="cap" data-i="5">
+        <div class="static-lid" style="background:#2F8F3A"></div>
+        <div class="cap-l">
+          <span class="cap-n">06 <em>/ 08</em></span>
+          <h2>Твист‑офф 82 одноцветная<small>Зелёная · красная</small></h2>
+          <p>Закручивается рукой — закаточная машинка не нужна. Кнопка в центре щёлкает, если вакуум ушёл.</p>
+          <p class="designs" data-designs><b>Зелёная</b> · <b>Красная</b></p>
+        </div>
+        <div class="cap-r"><ul>
+          <li><span class="k">Уплотнение</span><span class="v">Пластизоль</span></li>
+          <li><span class="k">Обработка</span><span class="v">Стерилизация и пастеризация</span></li>
+          <li><span class="k">Производство</span><span class="v">с 2016 года</span></li>
+        </ul></div>
+      </article>
+      <article class="cap" data-i="6">
+        <div class="static-lid"><img src="tex/twist-tomato.webp" alt="Крышка твист‑офф с полноцветной литографией" loading="lazy"></div>
+        <div class="cap-l">
+          <span class="cap-n">07 <em>/ 08</em></span>
+          <h2>Твист‑офф 82 полноцветная<small>Белая внутри</small></h2>
+          <p>Яркая литография снаружи, белое покрытие внутри. Пластизоль под стерилизацию.</p>
+        </div>
+        <div class="cap-r"><ul>
+          <li><span class="k">Резьба</span><span class="v">82 мм</span></li>
+          <li><span class="k">Снаружи</span><span class="v">Литография + лак</span></li>
+          <li><span class="k">Контроль</span><span class="v">Кнопка вакуума</span></li>
+        </ul></div>
+      </article>
+      <article class="cap" data-i="7">
+        <div class="static-lid ring"></div>
+        <div class="cap-l">
+          <span class="cap-n">08 <em>/ 08</em></span>
+          <h2>Викельное кольцо<small>Своё производство с 2014 года</small></h2>
+          <p>Резинку для крышек СКО делаем сами — из пищевого каучука.</p>
+        </div>
+        <div class="cap-r"><ul>
+          <li><span class="k">Материал</span><span class="v">Пищевой каучук</span></li>
+          <li><span class="k">Для</span><span class="v">Крышек СКО I‑82</span></li>
+          <li><span class="k">Участок</span><span class="v">РТИ, с 2014 года</span></li>
+        </ul></div>
+      </article>
+
+      <nav class="conveyor" aria-label="Модели крышек">
+        <a href="#lids" data-goto="0"><b>01</b>Золотистая</a>
+        <a href="#lids" data-goto="1"><b>02</b>Мечта хозяйки</a>
+        <a href="#lids" data-goto="2"><b>03</b>Елисейские</a>
+        <a href="#lids" data-goto="3"><b>04</b>Полноцветная</a>
+        <a href="#lids" data-goto="4"><b>05</b>Ваша марка</a>
+        <a href="#lids" data-goto="5"><b>06</b>Твист‑офф</a>
+        <a href="#lids" data-goto="6"><b>07</b>Твист‑офф цвет</a>
+        <a href="#lids" data-goto="7"><b>08</b>Кольцо</a>
+      </nav>
+    </div>
+  </section>
+
+  <!-- WHY US: six real advantages from the old site -->
+  <section class="sec sec--sky" id="why">
+    <div class="sec-head">
+      <div><p class="eyebrow">Почему ELIT KONSERVA</p><h2 data-split>Завод, а не перекупщик</h2></div>
+      <p>Жесть лакируем, печатаем и штампуем в Коканде. Резинку для СКО тоже делаем сами.</p>
+    </div>
+    <ul class="why">
+      <li><span class="n">01</span><b>От 1 000 до 10 млн штук</b><span>Одна партия или целый сезон.</span></li>
+      <li><span class="n">02</span><b>Отправляем образцы</b><span>Проверьте крышку на своих банках до заказа.</span></li>
+      <li><span class="n">03</span><b>Под вашу марку</b><span>Литография вашего дизайна на СКО и твист‑офф.</span></li>
+      <li><span class="n">04</span><b>Своя литография</b><span>Лаки PPG и краски HUBER GROUP.</span></li>
+      <li><span class="n">05</span><b>Гибкие цены</b><span>Прайс под объём — пришлём по запросу.</span></li>
+      <li><span class="n">06</span><b>Узбекистан и Центральная Азия</b><span>Отгружаем по стране и в соседние страны.</span></li>
+    </ul>
+  </section>
+
+  <!-- PARTNERS -->
+  <section class="sec" id="partners">
+    <div class="sec-head">
+      <div><p class="eyebrow">Партнёры</p><h2 data-split>Наши крышки на их банках</h2></div>
+      <p>Производители консервации, которые закрывают продукцию крышками ELIT KONSERVA — в том числе со своим дизайном.</p>
+    </div>
+    <div class="marquee"><ul class="marquee-track">
+      <li><img src="img/partner-1.webp" alt="Modesto"></li>
+      <li><img src="img/partner-2.webp" alt="Оливьез"></li>
+      <li><img src="img/partner-3.webp" alt="Hilol"></li>
+      <li><img src="img/partner-4.webp" alt="Picolla"></li>
+      <li><img src="img/partner-5.webp" alt="Sardoba"></li>
+      <li><img src="img/partner-6.webp" alt="Ittifoq"></li>
+      <li><img src="img/partner-7.webp" alt="Ibrat"></li>
+      <li aria-hidden="true"><img src="img/partner-1.webp" alt=""></li>
+      <li aria-hidden="true"><img src="img/partner-2.webp" alt=""></li>
+      <li aria-hidden="true"><img src="img/partner-3.webp" alt=""></li>
+      <li aria-hidden="true"><img src="img/partner-4.webp" alt=""></li>
+      <li aria-hidden="true"><img src="img/partner-5.webp" alt=""></li>
+      <li aria-hidden="true"><img src="img/partner-6.webp" alt=""></li>
+      <li aria-hidden="true"><img src="img/partner-7.webp" alt=""></li>
+    </ul></div>
+    <div class="partners-foot"><span>7 марок · Узбекистан</span><a href="#">Крышки под вашу марку →</a></div>
+  </section>
+
+  <!-- AZURE BAND -->
+  <section class="sec band" id="geo">
+    <p class="eyebrow">География</p>
+    <h2 data-split>Работаем по Узбекистану и Центральной Азии</h2>
+    <ul class="facts">
+      <li><b>1 000</b><span>штук — минимальная партия</span></li>
+      <li><b>10 млн</b><span>штук — партия на сезон</span></li>
+      <li><b>1996</b><span>год основания завода</span></li>
+      <li><b>Коканд</b><span>Ферганская область</span></li>
+    </ul>
+  </section>
+
+  <!-- CTA -->
+  <section class="sec sec--sky cta" id="contact">
+    <div class="cta-in">
+      <div class="cta-copy">
+        <p class="eyebrow">Цены по запросу</p>
+        <h2 data-split>Запросить прайс</h2>
+        <p>Назовите тип крышки и объём партии — пришлём цены и предложим образцы.</p>
+        <a class="phone" href="tel:+998975908822">+998 97 590-88-22</a>
+        <div class="cta-actions">
+          <a class="btn" href="mailto:info@krishki.uz">Запросить прайс <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M1 7h11M8 3l4 4-4 4"/></svg></a>
+          <a class="btn btn--line" href="https://wa.me/998975908822">WhatsApp</a>
+          <a class="btn btn--line" href="https://t.me/krishki_uz">Telegram</a>
+        </div>
+      </div>
+      <figure class="media"><img src="img/cucumbers.webp" alt="Огурцы, банки и крышки СКО на деревянном столе" loading="lazy" width="1200" height="500"><figcaption>Крышки СКО</figcaption></figure>
+    </div>
+    <footer>
+      <span>ООО «Elit Konserva» · г. Коканд, ул. Кипчок Арик, 98А</span>
+      <span>+998 91 152-42-03 · +998 73 542-34-91</span>
+      <span>info@krishki.uz</span>
+    </footer>
+  </section>
+</main>
+
+<script type="module">
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
+import gsap from 'gsap';
+import ScrollTrigger from 'gsap/ScrollTrigger';
+import Lenis from 'lenis';
+
+gsap.registerPlugin(ScrollTrigger);
+
+const html = document.documentElement;
+const STATIC = html.classList.contains('static');   // parade → list
+const RM = html.classList.contains('rm');           // reduced motion: still 3D layer, no loop
+const NOGL = html.classList.contains('nogl');
+const params = new URLSearchParams(location.search);
+const isMobile = () => window.matchMedia('(max-width: 768px)').matches;
+
+// ── slide model ────────────────────────────────────────────────────────
+const SLIDES = [
+  { kind: 'sko',   designs: [null] },
+  { kind: 'sko',   designs: ['mechta'] },
+  { kind: 'sko',   designs: ['elisey'] },
+  { kind: 'sko',   designs: ['strawberry', 'raspberry', 'vegbasket'] },
+  { kind: 'sko',   designs: ['sardoba', 'hilol', 'ibrat'] },
+  { kind: 'twist', designs: ['#2F8F3A', '#C62A2A'] },
+  { kind: 'twist', designs: ['twist-tomato'] },
+  { kind: 'ring',  designs: [null] },
+];
+// floating background layer: [kind, design]
+const FLOATERS = [
+  ['sko', 'strawberry'], ['ring', null], ['sko', 'mechta'], ['twist', 'twist-tomato'], ['sko', null],
+  ['sko', 'hilol'], ['ring', null], ['twist', '#2F8F3A'], ['sko', 'raspberry'], ['sko', 'elisey'], ['sko', 'vegbasket'], ['sko', 'sardoba'],
+];
+const N = SLIDES.length;
+const C0 = 0.45, HOLD = 0.27, TRAVEL = 0.52, OFF = 1.75;
+
+const parade = document.querySelector('.parade');
+const caps = [...document.querySelectorAll('.cap')];
+const intro = document.querySelector('.intro');
+const conveyor = document.querySelector('.conveyor');
+const convLinks = [...conveyor.querySelectorAll('a')];
+const hdr = document.querySelector('.hdr');
+
+if (!STATIC) parade.style.height = `${(C0 + N - 1 + HOLD + TRAVEL + 0.15) * 100 + 100}vh`;
+ScrollTrigger.create({ start: 10, end: 'max', onToggle: (s) => hdr.classList.toggle('solid', s.isActive) });
+
+// ── kinetic headings: split into words, rise on enter ─────────────────
+document.querySelectorAll('[data-split]').forEach((el) => {
+  el.innerHTML = el.textContent.trim().split(/\s+/).map((w) => `<span class="w"><span>${w}</span></span>`).join(' ');
+  if (RM) return;
+  const words = el.querySelectorAll('.w > span');
+  const inHero = el.closest('.intro');
+  gsap.from(words, {
+    yPercent: 110, duration: 1.0, ease: 'power3.out', stagger: 0.06, delay: inHero ? 0.25 : 0,
+    scrollTrigger: inHero ? undefined : { trigger: el, start: 'top 85%', once: true },
+  });
+});
+
+let lenis = null;
+if (!RM) {
+  lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smoothWheel: true });
+  lenis.on('scroll', ScrollTrigger.update);
+  gsap.ticker.add((time) => lenis.raf(time * 1000));
+  gsap.ticker.lagSmoothing(0);
+}
+const paradeTop = () => parade.getBoundingClientRect().top + window.scrollY;
+const slideY = (i) => paradeTop() + (C0 + i) * window.innerHeight;
+const scrollTo = (y) => (lenis ? lenis.scrollTo(y, { duration: 1.6 }) : window.scrollTo(0, y));
+document.querySelectorAll('[data-goto]').forEach((a) => a.addEventListener('click', (e) => {
+  e.preventDefault(); if (!STATIC) scrollTo(slideY(+a.dataset.goto)); else document.querySelector('.cap').scrollIntoView();
+}));
+document.querySelectorAll('a[href^="#"]:not([data-goto])').forEach((a) => a.addEventListener('click', (e) => {
+  const id = a.getAttribute('href');
+  if (id === '#') { e.preventDefault(); return; }          // placeholder pages
+  const t = document.querySelector(id);
+  if (t) { e.preventDefault(); scrollTo(t.getBoundingClientRect().top + window.scrollY); }
+}));
+
+if (!NOGL) initWebGL();
+
+// ═══════════════════════════════════════════════════════════════════════
+function initWebGL() {
+  const canvas = document.getElementById('webgl');
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance', stencil: false });
+  const gl = renderer.getContext();
+  const dbg = gl.getExtension('WEBGL_debug_renderer_info');
+  const glInfo = dbg ? gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL) : '';
+  const dprCap = () => (isMobile() ? 1.5 : 2);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, dprCap()));
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setClearColor(0x000000, 0);                  // transparent: the page colours show through
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.05;
+
+  const scene = new THREE.Scene();
+  scene.fog = new THREE.Fog(new THREE.Color('#F2F7FC'), 10, 20);   // depth falloff: far floaters fade into the page
+  const camera = new THREE.PerspectiveCamera(26, window.innerWidth / window.innerHeight, 0.1, 60);
+  const CAM_Z = 9;
+  camera.position.set(0, 0, CAM_Z);
+
+  // ── light studio environment, procedural (no HDRI file → nothing to licence) ──
+  // White room + bright softboxes + two dark flags: metal needs dark reflections to read as gold on white.
+  const envScene = new THREE.Scene();
+  envScene.add(new THREE.Mesh(new THREE.BoxGeometry(30, 30, 30), new THREE.MeshBasicMaterial({ color: new THREE.Color('#c9d3dd'), side: THREE.BackSide })));
+  const panel = (w, h, pos, rot, hex, k) => {
+    const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({ color: new THREE.Color(hex).multiplyScalar(k), side: THREE.DoubleSide }));
+    m.position.set(...pos); m.rotation.set(...rot); envScene.add(m);
+  };
+  panel(16, 7, [0, 10, 2], [Math.PI / 2, 0, 0], '#fffaf0', 4.0);       // top softbox
+  panel(4, 12, [-11, 2, 5], [0, Math.PI / 2, 0], '#f4f9ff', 3.0);      // left softbox
+  panel(2, 12, [11, 1, 1], [0, -Math.PI / 2, 0], '#fff2dc', 3.6);      // right strip
+  panel(10, 14, [6, -1, 12], [0, Math.PI, 0], '#10161e', 1);           // dark flag, front-right
+  panel(30, 6, [0, -11, 0], [-Math.PI / 2, 0, 0], '#2a3542', 1);       // darker floor
+  panel(6, 10, [-9, 0, -8], [0, Math.PI / 4, 0], '#141b24', 1);        // dark flag, back-left
+  const pmrem = new THREE.PMREMGenerator(renderer);
+  const envRT = pmrem.fromScene(envScene, 0.04);
+  scene.environment = envRT.texture;
+  pmrem.dispose();
+  envScene.traverse((o) => { o.geometry?.dispose(); o.material?.dispose(); });
+  const key = new THREE.DirectionalLight(0xfff4e6, 1.4); key.position.set(-3, 5, 6);
+  scene.add(key, new THREE.HemisphereLight(0xffffff, 0xdbe8f3, 0.5));
+
+  // soft contact shadow under the parade lid (camera-facing ellipse)
+  const shCanvas = document.createElement('canvas'); shCanvas.width = shCanvas.height = 128;
+  const sctx = shCanvas.getContext('2d');
+  const grd = sctx.createRadialGradient(64, 64, 0, 64, 64, 64);
+  grd.addColorStop(0, 'rgba(15,27,42,0.55)'); grd.addColorStop(0.5, 'rgba(15,27,42,0.18)'); grd.addColorStop(1, 'rgba(15,27,42,0)');
+  sctx.fillStyle = grd; sctx.fillRect(0, 0, 128, 128);
+  const shadowTex = new THREE.CanvasTexture(shCanvas);
+  const shadowMat = new THREE.MeshBasicMaterial({ map: shadowTex, transparent: true, depthWrite: false, fog: false });
+
+  // ── loaders ─────────────────────────────────────────────────────────
+  const manager = new THREE.LoadingManager();
+  const draco = new DRACOLoader(manager);
+  draco.setDecoderPath('https://unpkg.com/three@0.170.0/examples/jsm/libs/draco/');
+  const gltfLoader = new GLTFLoader(manager); gltfLoader.setDRACOLoader(draco);
+  const texLoader = new THREE.TextureLoader(manager);
+  const maxAniso = renderer.capabilities.getMaxAnisotropy();
+  const textures = {};
+  const texNames = [...new Set([...SLIDES.flatMap((s) => s.designs), ...FLOATERS.map((f) => f[1])].filter((d) => d && !d.startsWith('#')))];
+  texNames.forEach((n) => {
+    const t = texLoader.load(`tex/${n}.webp`);
+    t.flipY = false; t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = Math.min(8, maxAniso);
+    textures[n] = t;
+  });
+  const models = {};
+  gltfLoader.load('lid-sko.glb', (g) => { models.sko = g.scene; });
+  gltfLoader.load('lid-twist.glb', (g) => { models.twist = g.scene; });
+
+  const LID_D = 0.082;
+  // builds one lid/ring object with its own materials; returns { root, apply(design) }
+  function makeLid(kind, firstDesign) {
+    let model;
+    if (kind === 'ring') { model = new THREE.Group(); model.add(models.sko.getObjectByName('SKO_WikelRing').clone()); }
+    else model = models[kind].clone(true);
+    const box = new THREE.Box3().setFromObject(model);
+    model.position.sub(box.getCenter(new THREE.Vector3()));
+    const outer = [];
+    model.traverse((o) => {
+      if (!o.isMesh) return;
+      o.material = o.material.clone();
+      const m = o.material;
+      if (/Gold/i.test(m.name)) { m.color.set('#E0A940'); m.metalness = 1; m.roughness = 0.2; m.clearcoat = 0.8; m.clearcoatRoughness = 0.06; outer.push(m); }
+      else if (/Twist_Outer/i.test(m.name)) { m.metalness = 0.3; m.roughness = 0.26; m.clearcoat = 1; m.clearcoatRoughness = 0.06; outer.push(m); }
+      else if (/Silver/i.test(m.name)) { m.color.set('#C9CED4'); m.metalness = 0.8; m.roughness = 0.3; }
+      else if (/Rubber/i.test(m.name)) { m.color.set('#BDB6AA'); m.roughness = 0.75; m.metalness = 0; m.clearcoat = 0; }   // light grey rubber, as on the old-site photos
+      else if (/Inner/i.test(m.name)) { m.color.set('#F4F2EC'); m.metalness = 0; m.roughness = 0.35; }                // Twist-Off white inside
+    });
+    const apply = (d) => outer.forEach((m) => {
+      if (d && d.startsWith('#')) { m.map = null; m.color.set(d); }
+      else if (d) { m.map = textures[d]; m.color.set('#ffffff'); m.metalness = 0.3; m.roughness = 0.34; m.clearcoat = 0.55; m.envMapIntensity = 0.8; }
+      m.needsUpdate = true;
+    });
+    apply(firstDesign);
+    return { model, apply };
+  }
+
+  const rigs = [], floaters = [];
+  let ready = false;
+  manager.onLoad = () => {
+    SLIDES.forEach((slide) => {
+      const rig = new THREE.Group(), tilt = new THREE.Group(), spin = new THREE.Group();
+      const { model, apply } = makeLid(slide.kind, slide.designs[0]);
+      rig.add(tilt); tilt.add(spin); spin.add(model); scene.add(rig);
+      const shadow = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), shadowMat);
+      shadow.renderOrder = -1; scene.add(shadow);
+      rigs.push({ rig, tilt, spin, slide, apply, shadow, design: 0, ring: slide.kind === 'ring', cur: null });
+    });
+    const count = isMobile() ? 5 : FLOATERS.length;
+    const rnd = mulberry(7);
+    for (let k = 0; k < count; k++) {
+      const [kind, design] = FLOATERS[k];
+      const { model } = makeLid(kind, design);
+      const mats = [];
+      model.traverse((o) => { if (o.isMesh) { o.material.transparent = true; mats.push(o.material); } });
+      const g = new THREE.Group(), sp = new THREE.Group(); sp.add(model); g.add(sp); scene.add(g);
+      const z = -3.5 - rnd() * 5.5;                           // depth: -3.5 … -9 (parade lid sits at 0), fogged
+      floaters.push({
+        g, sp, mats, op: 1, z, size: 0.5 + rnd() * 0.4,
+        bx: (k % 2 ? 1 : -1) * (0.35 + rnd() * 0.65),        // alternate sides, keep the centre calmer
+        by: rnd(), par: 0.25 + (-z / 8) * -0.12 + 0.12,      // nearer → more parallax
+        rx: rnd() * 6, ry: rnd() * 6, sx: (rnd() - 0.5) * 0.25, sy: (rnd() - 0.5) * 0.3, ph: rnd() * 6,
+      });
+    }
+    renderer.compile(scene, camera);
+    ready = true;
+    canvas.classList.add('ready');
+    if (RM) renderOnce();
+  };
+  function mulberry(a) { return () => { a |= 0; a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+
+  // ── choreography (parade) ───────────────────────────────────────────
+  const sstep = (t) => { t = Math.min(1, Math.max(0, t)); return t * t * (3 - 2 * t); };
+  function pose(slide, d, out) {
+    const ad = Math.abs(d), sg = Math.sign(d) || 1;
+    const travel = sstep((ad - HOLD) / TRAVEL);
+    out.x = sg * travel * OFF + d * 0.12;
+    out.y = 0;
+    const n = slide.designs.length, flips = Math.max(1, n - 1);
+    let flip = 0, design = 0;
+    for (let k = 0; k < flips; k++) {
+      const span = (2 * HOLD - 0.06) / flips;
+      const a = n > 1 ? -HOLD + 0.03 + k * span : -0.09;
+      const w = n > 1 ? span - 0.03 : 0.22;
+      flip += sstep((d - a) / w) * Math.PI * 2;
+      if (n > 1 && d > a + w / 2) design = k + 1;
+    }
+    out.design = Math.min(design, n - 1);
+    out.flip = flip;
+    out.yaw = -d * 0.9;
+    out.tilt = slide.kind === 'ring' ? 0.95 - travel * 0.2 : 1.18 - travel * 0.22;
+    out.spin = -out.x * 1.6;
+    out.vis = !STATIC && ad < HOLD + TRAVEL + 0.06;
+    return out;
+  }
+  const damp = (a, b, ease, dt) => a + (b - a) * (1 - Math.pow(1 - ease, dt * 60));
+  const KEYS = ['x', 'y', 'flip', 'yaw', 'tilt', 'spin'];
+  let sCur = 0, scrollCur = window.scrollY, vel = 0;
+  const mouse = { x: 0, y: 0, cx: 0, cy: 0 };
+  const onMouse = (e) => { mouse.x = (e.clientX / window.innerWidth) * 2 - 1; mouse.y = (e.clientY / window.innerHeight) * 2 - 1; };
+  if (!window.matchMedia('(pointer: coarse)').matches && !RM) window.addEventListener('mousemove', onMouse);
+
+  let activeCap = -2;
+  const designEls = caps.map((c) => [...c.querySelectorAll('[data-designs] b')]);
+  function updateHtml(s) {
+    if (STATIC) return;
+    const i = Math.round(s - C0), d = s - C0 - i;
+    const show = i >= 0 && i < N && Math.abs(d) < HOLD + 0.05 ? i : -1;
+    if (show !== activeCap) {
+      caps.forEach((c, k) => c.classList.toggle('on', k === show));
+      convLinks.forEach((a, k) => a.classList.toggle('on', k === Math.max(0, Math.min(N - 1, i))));
+      activeCap = show;
+    }
+    rigs.forEach((r, k) => designEls[k].forEach((b, j) => b.classList.toggle('on', j === r.design)));
+    intro.style.opacity = String(1 - sstep((s - 0.02) / 0.2));
+    intro.style.visibility = s > 0.23 ? 'hidden' : 'visible';
+    conveyor.style.setProperty('--p', Math.min(1, Math.max(0, (s - C0) / (N - 1))).toFixed(4));
+    conveyor.style.opacity = String(sstep((s - 0.15) / 0.25));
+  }
+
+  // ── frame ───────────────────────────────────────────────────────────
+  const tmp = {};
+  // text blocks the floating layer must not cover: read rects first (before any style writes this frame)
+  const TEXT_SEL = 'h1, h2, .lede, .cap-l p, .cap-n, .cap-logo, .cap-r li, .eyebrow, .why li, .sec-head > p, .marquee li, .phone, .btn, .conveyor a, .facts li, .partners-foot, footer, .logo, .nav';
+  let textEls = [];
+  const collectText = () => { textEls = [...document.querySelectorAll(TEXT_SEL)]; };
+  collectText();
+  function textRects() {
+    const vh = window.innerHeight, out = [];
+    for (const el of textEls) {
+      const cap = el.closest('.cap');
+      if (cap && !cap.classList.contains('on')) continue;
+      if (el.closest('.intro') && intro.style.visibility === 'hidden') continue;
+      const r = el.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > vh || r.width === 0) continue;
+      out.push(r);
+    }
+    return out;
+  }
+  const scr = new THREE.Vector3();
+  let instant = 0;
+  function frame(dt, t) {
+    const rects = floaters.length ? textRects() : [];
+    const sTarget = (window.scrollY - paradeTop()) / window.innerHeight;
+    sCur = RM ? sTarget : damp(sCur, sTarget, 0.09, dt);
+    const prev = scrollCur;
+    scrollCur = RM ? window.scrollY : damp(scrollCur, window.scrollY, 0.08, dt);
+    vel = damp(vel, (scrollCur - prev) / Math.max(dt, 1e-3) / window.innerHeight, 0.08, dt);
+    updateHtml(sTarget);
+    mouse.cx = damp(mouse.cx, mouse.x, 0.05, dt); mouse.cy = damp(mouse.cy, mouse.y, 0.05, dt);
+
+    const tanH = Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
+    const halfH = CAM_Z * tanH, halfW = halfH * camera.aspect;
+    const mob = isMobile();
+    const D = mob ? 0.74 * 2 * halfW : 0.5 * 2 * halfH;
+    const yBase = mob ? 0.3 : 0.02;
+
+    rigs.forEach((r, i) => {
+      pose(r.slide, sCur - (C0 + i), tmp);
+      r.rig.visible = r.shadow.visible = tmp.vis;
+      if (!tmp.vis) { r.cur = null; return; }
+      if (!r.cur) r.cur = { ...tmp };
+      for (const k of KEYS) r.cur[k] = damp(r.cur[k], tmp[k], 0.12, dt);
+      if (tmp.design !== r.design) { r.design = tmp.design; r.apply(r.slide.designs[r.design]); }
+      const y = (yBase + r.cur.y) * halfH + Math.sin(t * 0.8 + i) * 0.02;
+      const dd = r.ring ? D * 1.04 : D;
+      r.rig.position.set(r.cur.x * halfW, y, 0);
+      r.rig.scale.setScalar(dd / LID_D);
+      r.rig.rotation.y = r.cur.yaw + r.cur.flip + mouse.cx * 0.1;
+      r.tilt.rotation.x = r.cur.tilt + mouse.cy * 0.06 + Math.sin(t * 0.5 + i) * 0.02;
+      r.spin.rotation.y = r.cur.spin;
+      // shadow: follows the lid on an imaginary floor, softer when the lid flips edge-on
+      r.shadow.position.set(r.cur.x * halfW + dd * 0.04, y - dd * 0.56, -0.4);
+      r.shadow.scale.set(dd * 1.05, dd * 0.16, 1);
+    });
+
+    // floating layer: wraps vertically, parallax with scroll, slow tumble, mouse drift by depth
+    floaters.forEach((f) => {
+      const dist = CAM_Z - f.z, hh = dist * tanH, hw = hh * camera.aspect;
+      const span = hh * 2 + f.size * 2;
+      const scrollOff = (scrollCur / window.innerHeight) * hh * 2 * f.par;
+      let y = f.by * span + scrollOff + Math.sin(t * 0.25 + f.ph) * 0.15;
+      y = ((y % span) + span) % span - span / 2;
+      const x = f.bx * hw * (mob ? 0.8 : 0.92) + Math.sin(t * 0.18 + f.ph) * 0.25 - mouse.cx * (0.6 / dist) * 4;
+      f.g.position.set(x, y + mouse.cy * (0.4 / dist) * 4, f.z);
+      f.g.scale.setScalar(f.size / LID_D);
+      // mostly top-to-camera (shows the print), slow rock + spin around the lid axis
+      f.g.rotation.set(1.15 + 0.45 * Math.sin(t * 0.2 + f.ph) + vel * 0.5, 0.35 * Math.sin(t * 0.11 + f.rx), 0.4 * Math.sin(t * 0.13 + f.ry));
+      f.sp.rotation.y = f.ph + t * f.sy;
+      // fade to 0.3 while the floater's screen footprint overlaps any visible text block
+      scr.copy(f.g.position).project(camera);
+      const W = window.innerWidth, Hh = window.innerHeight;
+      const cx = (scr.x * 0.5 + 0.5) * W, cy = (1 - (scr.y * 0.5 + 0.5)) * Hh;
+      const rpx = (f.size / 2) / (dist * tanH) * (Hh / 2) * 1.1;
+      let hit = false;
+      for (const r of rects) { if (cx + rpx > r.left - 12 && cx - rpx < r.right + 12 && cy + rpx > r.top - 12 && cy - rpx < r.bottom + 12) { hit = true; break; } }
+      f.op = RM || instant > 0 ? (hit ? 0.3 : 1) : damp(f.op, hit ? 0.3 : 1, 0.12, dt);
+      for (const m of f.mats) m.opacity = f.op;
+    });
+
+    camera.position.x = mouse.cx * 0.1; camera.position.y = -mouse.cy * 0.06; camera.lookAt(0, 0, 0);
+    if (instant > 0) instant--;
+    renderer.render(scene, camera);
+  }
+
+  // ── resize ──────────────────────────────────────────────────────────
+  let rzPending = false;
+  function onResize() {
+    if (rzPending) return; rzPending = true;
+    requestAnimationFrame(() => {
+      rzPending = false;
+      const w = window.innerWidth, h = window.innerHeight;
+      camera.aspect = w / h; camera.updateProjectionMatrix();
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, dprCap()));
+      renderer.setSize(w, h);
+      if (RM) renderOnce();
+    });
+  }
+  window.addEventListener('resize', onResize);
+  function renderOnce() { if (ready) frame(0.016, 0); }
+  if (RM) window.addEventListener('scroll', () => requestAnimationFrame(renderOnce), { passive: true }); // still frames follow scroll, no animation
+
+  const fpsEl = document.getElementById('fps');
+  if (params.has('fps')) fpsEl.style.display = 'block';
+  const fps = { frames: 0, t0: performance.now(), value: 0, samples: [] };
+  const clock = new THREE.Clock();
+  let running = !RM, rafId = 0;
+  const onVis = () => {
+    if (RM) return;
+    if (document.hidden) { running = false; cancelAnimationFrame(rafId); }
+    else if (!running) { running = true; clock.getDelta(); rafId = requestAnimationFrame(tick); }
+  };
+  document.addEventListener('visibilitychange', onVis);
+
+  function tick() {
+    if (!running) return;
+    const dt = Math.min(clock.getDelta(), 0.1);
+    if (ready) frame(dt, clock.elapsedTime);
+    fps.frames++;
+    const now = performance.now();
+    if (now - fps.t0 >= 1000) {
+      fps.value = (fps.frames * 1000) / (now - fps.t0); fps.samples.push(+fps.value.toFixed(1));
+      if (fps.samples.length > 120) fps.samples.shift();
+      fps.frames = 0; fps.t0 = now;
+      if (params.has('fps')) fpsEl.textContent = `${fps.value.toFixed(0)} fps · ${glInfo.slice(0, 40)}`;
+    }
+    rafId = requestAnimationFrame(tick);
+  }
+  if (!RM) rafId = requestAnimationFrame(tick);
+
+  // ── QA hooks + teardown (dispose on unmount) ────────────────────────
+  window.__parade = {
+    fps, glInfo, slideY, paradeTop,
+    ready: () => ready,
+    goto(y) { if (lenis) lenis.scrollTo(y, { immediate: true, force: true }); else window.scrollTo(0, y); ScrollTrigger.update(); },
+    snap() { sCur = (window.scrollY - paradeTop()) / window.innerHeight; scrollCur = window.scrollY; vel = 0; rigs.forEach((r) => { r.cur = null; }); instant = 2; },
+    freeze() { running = false; cancelAnimationFrame(rafId); if (ready) frame(0.016, clock.elapsedTime); },
+    resume() { if (!running && !RM) { running = true; clock.getDelta(); rafId = requestAnimationFrame(tick); } },
+    destroy() {
+      running = false; cancelAnimationFrame(rafId);
+      window.removeEventListener('resize', onResize);
+      window.removeEventListener('mousemove', onMouse);
+      document.removeEventListener('visibilitychange', onVis);
+      ScrollTrigger.getAll().forEach((s) => s.kill());
+      lenis?.destroy();
+      scene.traverse((o) => {
+        o.geometry?.dispose();
+        const mats = o.material ? (Array.isArray(o.material) ? o.material : [o.material]) : [];
+        mats.forEach((m) => m.dispose());
+      });
+      Object.values(textures).forEach((tx) => tx.dispose());
+      shadowTex.dispose(); draco.dispose(); envRT.dispose();
+      renderer.dispose(); renderer.forceContextLoss();
+    },
+  };
+  window.addEventListener('pagehide', () => window.__parade?.destroy(), { once: true });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,320 @@
+@import "tailwindcss";
+@import "../components/ui/ui.css";
+@import "../components/ui/site.css";
+
+/*
+ * Design tokens v2 (light). See DESIGN.md at the repo root and docs/plans/design-direction-v2.md.
+ * Raw tokens live on :root; the @theme inline block mirrors them so Tailwind utilities
+ * (bg-sky, text-azure-700, rounded-media ...) resolve to the same variables.
+ * Surface variables (--surface, --fg, ...) are re-pointed by .surface-* classes.
+ */
+:root {
+  /* surfaces */
+  --paper: #ffffff;
+  --mist: #f5f8fb;
+  --sky: #eaf4fb;
+  --sky-line: #d2e3f0;
+
+  /* ink */
+  --ink-950: #0f1b2a;
+  --ink-700: #34475c;
+  --ink-500: #566b80;
+  --ink-300: #9db0c3;
+
+  /* brand azure: sampled from the old krishki.uz header */
+  --azure-300: #8fd0ec;
+  --azure-500: #1e98cc;
+  --azure-700: #0e5e9c;
+  --azure-900: #0a3f6b;
+
+  /* «Мечта хозяйки» red, sampled from logo.png: CTA only */
+  --red-600: #d61f29;
+  --red-700: #b3161f;
+
+  /* lacquer gold: lids and fine details */
+  --gold-700: #7a5a12;
+  --gold-500: #c8962e;
+  --gold-300: #e6c27a;
+
+  --danger: #b3261e;
+
+  /* spacing, px: 4 8 12 16 24 32 48 64 96 128 */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-24: 6rem;
+  --space-32: 8rem;
+  --section-y: 4.5rem;
+  --page-x: 1rem;
+  --container-max: 90rem;
+  --header-h: 4.25rem;
+
+  /* shape: controls 8, media 16, big media 20, lids are circles */
+  --radius-ui: 0.5rem;
+  --radius-media: 1rem;
+  --radius-card: 1.25rem;
+  --radius-lid: 9999px;
+
+  /* motion */
+  --ease-out: cubic-bezier(0.165, 0.84, 0.44, 1); /* GSAP power3.out */
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 150ms;
+  --dur-base: 300ms;
+  --dur-slow: 600ms;
+
+  /* depth */
+  --shadow-soft: 0 1px 2px rgb(15 27 42 / 0.06), 0 14px 32px -12px rgb(15 27 42 / 0.16);
+  --shadow-lift: 0 2px 4px rgb(15 27 42 / 0.06), 0 28px 56px -16px rgb(14 94 156 / 0.28);
+
+  /* type */
+  --font-display-stack: var(--font-tektur), "Arial Narrow", sans-serif;
+  --font-text-stack: var(--font-onest), "Segoe UI", sans-serif;
+  --font-mono-stack: var(--font-plex-mono), ui-monospace, monospace;
+
+  /* semantic surface: white is the default */
+  --surface: var(--paper);
+  --surface-raised: var(--paper);
+  --fg: var(--ink-950);
+  --fg-muted: var(--ink-500);
+  --line: var(--sky-line);
+  --line-strong: #6f8499;
+  --accent: var(--red-600);
+  --accent-hover: var(--red-700);
+  --on-accent: #ffffff;
+  --link: var(--azure-700);
+  --accent-text: var(--azure-700);
+  --focus: var(--azure-700);
+  --disabled-bg: var(--sky-line);
+  --disabled-fg: var(--ink-500);
+  --select-caret: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1.5 6 6.5l5-5' stroke='%230f1b2a' stroke-width='1.5'/%3E%3C/svg%3E");
+  color-scheme: light;
+}
+
+@media (min-width: 48rem) {
+  :root {
+    --section-y: 7.5rem;
+    --page-x: 2rem;
+    --header-h: 4.75rem;
+  }
+}
+@media (min-width: 80rem) {
+  :root {
+    --page-x: 3rem;
+  }
+}
+
+.surface-white,
+.surface-mist,
+.surface-sky {
+  --surface-raised: var(--paper);
+  --fg: var(--ink-950);
+  --fg-muted: var(--ink-500);
+  --line: var(--sky-line);
+  --line-strong: #6f8499;
+  --link: var(--azure-700);
+  --accent-text: var(--azure-700);
+  --focus: var(--azure-700);
+  --disabled-bg: var(--sky-line);
+  --disabled-fg: var(--ink-500);
+  --select-caret: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1.5 6 6.5l5-5' stroke='%230f1b2a' stroke-width='1.5'/%3E%3C/svg%3E");
+  color-scheme: light;
+}
+.surface-white {
+  --surface: var(--paper);
+}
+.surface-mist {
+  --surface: var(--mist);
+}
+.surface-sky {
+  --surface: var(--sky);
+  --line: #c4dbec;
+}
+
+/* the one deep section per page: the azure brand band */
+.surface-azure {
+  --surface: var(--azure-700);
+  --surface-raised: var(--azure-900);
+  --fg: #ffffff;
+  --fg-muted: #cfe6f5;
+  --line: rgb(255 255 255 / 0.28);
+  --line-strong: rgb(255 255 255 / 0.6);
+  --link: #ffffff;
+  --accent-text: var(--gold-300);
+  --focus: #ffffff;
+  --disabled-bg: var(--azure-900);
+  --disabled-fg: #a9cde6;
+  --select-caret: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1.5 6 6.5l5-5' stroke='%23ffffff' stroke-width='1.5'/%3E%3C/svg%3E");
+  color-scheme: dark;
+}
+
+.surface-white,
+.surface-mist,
+.surface-sky,
+.surface-azure {
+  background-color: var(--surface);
+  color: var(--fg);
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-mist: var(--mist);
+  --color-sky: var(--sky);
+  --color-sky-line: var(--sky-line);
+  --color-ink-950: var(--ink-950);
+  --color-ink-700: var(--ink-700);
+  --color-ink-500: var(--ink-500);
+  --color-ink-300: var(--ink-300);
+  --color-azure-300: var(--azure-300);
+  --color-azure-500: var(--azure-500);
+  --color-azure-700: var(--azure-700);
+  --color-azure-900: var(--azure-900);
+  --color-red-600: var(--red-600);
+  --color-red-700: var(--red-700);
+  --color-gold-700: var(--gold-700);
+  --color-gold-500: var(--gold-500);
+  --color-gold-300: var(--gold-300);
+
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-fg: var(--fg);
+  --color-fg-muted: var(--fg-muted);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-accent: var(--accent);
+  --color-accent-text: var(--accent-text);
+  --color-link: var(--link);
+  --color-danger: var(--danger);
+
+  --font-display: var(--font-display-stack);
+  --font-sans: var(--font-text-stack);
+  --font-mono: var(--font-mono-stack);
+
+  --ease-out: var(--ease-out);
+}
+
+@theme {
+  /* type scale 14 16 18 22 28 36 48 64 88 120; the large steps are fluid */
+  --text-14: 0.875rem;
+  --text-14--line-height: 1.5;
+  --text-16: 1rem;
+  --text-16--line-height: 1.6;
+  --text-18: 1.125rem;
+  --text-18--line-height: 1.55;
+  --text-22: 1.375rem;
+  --text-22--line-height: 1.4;
+  --text-28: 1.75rem;
+  --text-28--line-height: 1.25;
+  --text-36: clamp(1.625rem, 1.1rem + 2.2vw, 2.25rem);
+  --text-36--line-height: 1.15;
+  --text-48: clamp(1.875rem, 1rem + 3.4vw, 3rem);
+  --text-48--line-height: 1.06;
+  --text-64: clamp(2.25rem, 1rem + 5vw, 4rem);
+  --text-64--line-height: 1.02;
+  --text-88: clamp(2.5rem, 0.8rem + 6.6vw, 5.5rem);
+  --text-88--line-height: 0.98;
+  --text-120: clamp(2.75rem, 0.4rem + 8.6vw, 7.5rem);
+  --text-120--line-height: 0.94;
+
+  --radius-*: initial;
+  --radius-ui: 0.5rem;
+  --radius-media: 1rem;
+  --radius-card: 1.25rem;
+  --radius-lid: 9999px;
+
+  --shadow-*: initial;
+  --shadow-soft: 0 1px 2px rgb(15 27 42 / 0.06), 0 14px 32px -12px rgb(15 27 42 / 0.16);
+  --shadow-lift: 0 2px 4px rgb(15 27 42 / 0.06), 0 28px 56px -16px rgb(14 94 156 / 0.28);
+
+  --breakpoint-*: initial;
+  --breakpoint-sm: 40rem;
+  --breakpoint-md: 48rem;
+  --breakpoint-lg: 64rem;
+  --breakpoint-xl: 80rem;
+  --breakpoint-nav: 82.5rem;
+}
+
+@layer base {
+  html {
+    background: var(--paper);
+    color: var(--ink-950);
+    font-family: var(--font-text-stack);
+    font-size: 100%;
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    scroll-padding-top: calc(var(--header-h) + 1rem);
+    scrollbar-color: var(--ink-300) var(--mist);
+  }
+  body {
+    min-height: 100vh;
+    font-size: var(--text-16);
+    line-height: 1.6;
+    font-feature-settings: "kern", "liga";
+    overflow-x: clip;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display-stack);
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+  }
+  p,
+  li {
+    max-width: 62ch;
+    text-wrap: pretty;
+  }
+  ::selection {
+    background: var(--azure-300);
+    color: var(--ink-950);
+  }
+  input,
+  textarea,
+  select {
+    caret-color: var(--azure-700);
+  }
+  :focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
+  a {
+    text-underline-offset: 0.25em;
+  }
+}
+
+/* tabular figures for specs, prices, production numbers */
+.tnum {
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+/* technical caption: mono, small, uppercase, like a drawing annotation */
+.caption {
+  font-family: var(--font-mono-stack);
+  font-weight: 400;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+
+.skip-link {
+  position: absolute;
+  left: var(--page-x);
+  top: -4rem;
+  z-index: 80;
+  padding: var(--space-3) var(--space-4);
+  background: var(--azure-700);
+  color: #fff;
+  border-radius: var(--radius-ui);
+  font-weight: 600;
+}
+.skip-link:focus {
+  top: var(--space-2);
+}

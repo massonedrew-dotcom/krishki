@@ -1,0 +1,76 @@
+
+/** Primary navigation. Labels come from messages `common.nav.<key>`. */
+export const NAV = [
+  { key: "products", href: "/products" },
+  { key: "brands", href: "/brands" },
+  { key: "services", href: "/services" },
+  { key: "privateLabel", href: "/private-label" },
+  { key: "about", href: "/about" },
+  { key: "useful", href: "/useful" },
+  { key: "contacts", href: "/contacts" },
+] as const;
+
+export type NavKey = (typeof NAV)[number]["key"];
+
+export const PRODUCT_SLUGS = ["sko-i82", "twist-off", "wikel-ring"] as const;
+export type ProductSlug = (typeof PRODUCT_SLUGS)[number];
+
+/** Static pages that get unique metadata. path "" is the home page. */
+export const PAGE_PATHS = [
+  "",
+  "/products",
+  "/products/sko-i82",
+  "/products/twist-off",
+  "/products/wikel-ring",
+  "/brands",
+  "/services",
+  "/private-label",
+  "/about",
+  "/useful",
+  "/contacts",
+  "/privacy",
+] as const;
+
+export type Img = { src: string; width: number; height: number };
+
+/** Partner names are proper nouns, not translatable copy. */
+export const PARTNERS: { key: string; name: string; img: Img }[] = [
+  { key: "modesto", name: "Modesto", img: { src: "/images/partners/modesto.webp", width: 250, height: 150 } },
+  { key: "olivye", name: "Оливьез", img: { src: "/images/partners/olivye.webp", width: 250, height: 150 } },
+  { key: "hilol", name: "Hilol", img: { src: "/images/partners/hilol.webp", width: 250, height: 150 } },
+  { key: "picolla", name: "Picolla", img: { src: "/images/partners/picolla.webp", width: 250, height: 150 } },
+  { key: "sardoba", name: "Sardoba", img: { src: "/images/partners/sardoba.webp", width: 250, height: 150 } },
+  { key: "ittifoq", name: "Ittifoq", img: { src: "/images/partners/ittifoq.webp", width: 250, height: 150 } },
+  { key: "ibrat", name: "Ibrat", img: { src: "/images/partners/ibrat.webp", width: 250, height: 150 } },
+];
+
+export const PHOTO = {
+  skoGold: { src: "/images/photos/sko-gold-stack.webp", width: 950, height: 650 },
+  ringsBox: { src: "/images/photos/rings-box.webp", width: 950, height: 650 },
+  rings: { src: "/images/photos/rings.webp", width: 950, height: 650 },
+  tubesElisey: { src: "/images/photos/tubes-elisey.webp", width: 810, height: 457 },
+  tubesMechta: { src: "/images/photos/tubes-mechta.webp", width: 810, height: 457 },
+  tubesTwist: { src: "/images/photos/tubes-twist.webp", width: 816, height: 456 },
+  lithoMix: { src: "/images/photos/litho-mix.webp", width: 950, height: 650 },
+  privateSko: { src: "/images/photos/private-label-sko.webp", width: 950, height: 650 },
+  twistStack: { src: "/images/photos/twist-stack.webp", width: 950, height: 650 },
+  twistTomato: { src: "/images/photos/twist-tomato.webp", width: 950, height: 650 },
+  twistIttifoq: { src: "/images/photos/twist-ittifoq.webp", width: 950, height: 650 },
+  lidSko: { src: "/images/lid-sko-i82-cutout.webp", width: 900, height: 600 },
+  lidTwist: { src: "/images/lid-twist-off-red-cutout.webp", width: 900, height: 600 },
+  bannerSko: { src: "/images/banners/slide-02.webp", width: 1440, height: 600 },
+  bannerTwist: { src: "/images/banners/slide-03.webp", width: 1440, height: 600 },
+  bannerElisey: { src: "/images/banners/slide-04.webp", width: 1440, height: 600 },
+  bannerMechta: { src: "/images/banners/slide-01.webp", width: 1440, height: 600 },
+} satisfies Record<string, Img>;
+
+export const TUBE = {
+  skoMechta: { src: "/images/tubes/sko-mechta.webp", width: 240, height: 472 },
+  twistGreenRed: { src: "/images/tubes/twist-green-red.webp", width: 370, height: 395 },
+  moyaMechta: { src: "/images/tubes/moya-mechta.webp", width: 225, height: 470 },
+  rosa: { src: "/images/tubes/rosa.webp", width: 225, height: 438 },
+  gurman: { src: "/images/tubes/gurman.webp", width: 650, height: 1110 },
+} satisfies Record<string, Img>;
+
+export const LOGO: Img = { src: "/images/brand/mechta-khozyayki.webp", width: 260, height: 150 };
+
