@@ -16,3 +16,4 @@ __pycache__/
 .pytest_cache/
 qa/screens/
 prototypes/hero-scroll/tools/node_modules/
+apps/web/out/

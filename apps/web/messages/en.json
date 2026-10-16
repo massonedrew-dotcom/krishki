@@ -1,33 +1,33 @@
 {
   "meta": {
-    "title": "ELIT KONSERVA — крышки СКО I-82 и твист-офф, Коканд",
-    "description": "Завод в Коканде с 1996 года: крышки СКО I-82, твист-офф 82, викельные кольца, лакировка и литография жести. Партии от 1 000 штук."
+    "title": "ELIT KONSERVA — SKO I-82 and twist-off lids, Kokand",
+    "description": "A factory in Kokand since 1996: SKO I-82 lids, twist-off 82, sealing rings, tinplate lacquering and lithography. Batches from 1,000 pcs."
   },
   "common": {
     "brand": "ELIT KONSERVA",
-    "skip": "Перейти к содержимому",
+    "skip": "Skip to content",
     "cta": {
-      "requestPrice": "Запросить прайс",
-      "call": "Позвонить",
-      "more": "Подробнее",
-      "toForm": "Оставить заявку"
+      "requestPrice": "Request a price list",
+      "call": "Call",
+      "more": "Details",
+      "toForm": "Send a request"
     },
     "nav": {
-      "mainLabel": "Основное меню",
-      "menuOpen": "Открыть меню",
-      "menuClose": "Закрыть меню",
-      "products": "Продукция",
-      "brands": "Бренды",
-      "services": "Услуги",
-      "privateLabel": "Под вашу марку",
-      "about": "О заводе",
-      "useful": "Полезно знать",
-      "contacts": "Контакты"
+      "mainLabel": "Main menu",
+      "menuOpen": "Open menu",
+      "menuClose": "Close menu",
+      "products": "Products",
+      "brands": "Brands",
+      "services": "Services",
+      "privateLabel": "Private label",
+      "about": "About",
+      "useful": "Good to know",
+      "contacts": "Contacts"
     },
     "header": {
-      "homeLabel": "ELIT KONSERVA, на главную",
-      "phoneLabel": "Позвонить: {phone}",
-      "topTag": "Коканд, Узбекистан · с 1996 года"
+      "homeLabel": "ELIT KONSERVA, home",
+      "phoneLabel": "Call: {phone}",
+      "topTag": "Kokand, Uzbekistan · since 1996"
     },
     "contacts": {
       "whatsapp": "WhatsApp",
@@ -36,324 +36,324 @@
       "facebook": "Facebook"
     },
     "lang": {
-      "label": "Язык сайта",
+      "label": "Site language",
       "ru": { "short": "RU", "name": "Русский" },
       "uz": { "short": "UZ", "name": "Oʻzbekcha" },
       "en": { "short": "EN", "name": "English" }
     },
     "footer": {
-      "since": "Работаем с 1996 года. Коканд, Узбекистан.",
-      "brands": "Мечта хозяйки / Beka orzusi · Елисейские крышки",
-      "navTitle": "Разделы",
-      "contactsTitle": "Контакты",
-      "addressTitle": "Адрес",
-      "address": "Республика Узбекистан, Ферганская область, г. Коканд, ул. Кипчок Арик, 98А",
-      "map": "Открыть на карте",
-      "socialsTitle": "Мы в сетях",
-      "privacy": "Политика конфиденциальности",
-      "copyright": "© 2019–2026 ООО «Elit Konserva»"
+      "since": "Working since 1996. Kokand, Uzbekistan.",
+      "brands": "Mechta khozyayki / Beka orzusi · Eliseyskie krishki",
+      "navTitle": "Sections",
+      "contactsTitle": "Contacts",
+      "addressTitle": "Address",
+      "address": "Republic of Uzbekistan, Fergana region, Kokand, Kipchok Arik st., 98A",
+      "map": "Open on the map",
+      "socialsTitle": "Follow us",
+      "privacy": "Privacy policy",
+      "copyright": "© 2019–2026 Elit Konserva LLC"
     },
     "units": {
-      "pcs": "шт."
+      "pcs": "pcs"
     }
   },
   "form": {
-    "eyebrow": "Заявка",
-    "title": "Нужен прайс или образцы?",
-    "lead": "Расскажите, что и в каком объёме нужно. Ответим на все вопросы по крышкам, цене и срокам.",
-    "name": "Имя",
-    "phone": "Телефон",
-    "company": "Компания",
-    "country": "Страна",
-    "direction": "Направление",
-    "product": "Что интересует",
-    "message": "Сообщение",
-    "messageHint": "Тираж, тип крышки, сроки — что есть под рукой.",
-    "choose": "Выберите",
-    "required": "(обязательное поле)",
+    "eyebrow": "Request",
+    "title": "Need a price list or samples?",
+    "lead": "Tell us what you need and in what volume. We will answer all questions on lids, prices and lead times.",
+    "name": "Name",
+    "phone": "Phone",
+    "company": "Company",
+    "country": "Country",
+    "direction": "Direction",
+    "product": "Interested in",
+    "message": "Message",
+    "messageHint": "Volume, lid type, timing — whatever you have at hand.",
+    "choose": "Choose",
+    "required": "(required)",
     "directions": {
-      "wholesale": "Опт",
-      "export": "Экспорт",
-      "privateLabel": "Под вашу марку",
-      "retail": "Розница",
-      "lithography": "Лакировка и литография"
+      "wholesale": "Wholesale",
+      "export": "Export",
+      "privateLabel": "Private label",
+      "retail": "Retail",
+      "lithography": "Lacquering and lithography"
     },
     "products": {
-      "sko": "Крышки СКО I-82",
-      "twist": "Твист-офф 82",
-      "ring": "Викельное кольцо",
-      "services": "Лакировка и литография жести",
-      "unsure": "Пока не знаю, подскажите"
+      "sko": "SKO I-82 lids",
+      "twist": "Twist-off 82",
+      "ring": "Sealing ring",
+      "services": "Tinplate lacquering and lithography",
+      "unsure": "Not sure yet, please advise"
     },
-    "consent": "Согласен на обработку персональных данных:",
-    "consentLink": "политика конфиденциальности",
-    "submit": "Отправить заявку",
-    "note": "Партии от 1 000 штук. Образцы отправляем.",
-    "pending": "Отправка заявок скоро заработает. Пока позвоните или напишите в Telegram — ответим сразу."
+    "consent": "I agree to the processing of personal data:",
+    "consentLink": "privacy policy",
+    "submit": "Send request",
+    "note": "Batches from 1,000 pcs. We send samples.",
+    "pending": "Sending requests will work soon. For now please call or write on Telegram — we answer right away."
   },
   "home": {
     "meta": {
-      "title": "Крышки СКО I-82 и твист-офф от завода в Коканде",
-      "description": "ELIT KONSERVA: крышки СКО I-82 и твист-офф 82, викельные кольца, литография жести. С 1996 года, партии от 1 000 до 10 000 000 штук."
+      "title": "SKO I-82 and twist-off lids from a Kokand factory",
+      "description": "ELIT KONSERVA: SKO I-82 and twist-off 82 lids, sealing rings, tinplate lithography. Since 1996, batches from 1,000 to 10,000,000 pcs."
     },
     "hero": {
-      "eyebrow": "Коканд · Узбекистан · с 1996 года",
-      "title": "Крышки, которым доверяют урожай",
-      "lead": "СКО I-82 и твист-офф 82 от завода в Коканде. Для домашней консервации и для консервных заводов.",
-      "primary": "Запросить прайс",
-      "secondary": "Смотреть продукцию",
+      "eyebrow": "Kokand · Uzbekistan · since 1996",
+      "title": "Lids the harvest can trust",
+      "lead": "SKO I-82 and twist-off 82 from the factory in Kokand. For home canning and for canneries.",
+      "primary": "Request a price list",
+      "secondary": "See the products",
       "specs": {
-        "type": { "label": "Тип", "value": "СКО I-82 · Твист-офф 82" },
-        "batch": { "label": "Партия", "value": "от 1 000 до 10 000 000 шт." },
-        "metal": { "label": "Металл", "value": "Жесть ЭЖК" }
+        "type": { "label": "Type", "value": "SKO I-82 · Twist-off 82" },
+        "batch": { "label": "Batch", "value": "1,000 to 10,000,000 pcs" },
+        "metal": { "label": "Metal", "value": "Tinplate EZhK" }
       },
-      "railLabel": "Линейка крышек",
+      "railLabel": "Lid range",
       "rail": {
-        "gold": "Золотистая",
-        "mechta": "Мечта хозяйки",
-        "elisey": "Елисейские",
-        "litho": "Полноцветная",
-        "private": "Ваша марка",
-        "twist": "Твист-офф",
-        "twistColor": "Твист-офф цвет",
-        "ring": "Кольцо"
+        "gold": "Gold",
+        "mechta": "Mechta khozyayki",
+        "elisey": "Eliseyskie",
+        "litho": "Full colour",
+        "private": "Your brand",
+        "twist": "Twist-off",
+        "twistColor": "Twist-off colour",
+        "ring": "Ring"
       },
-      "slotAlt": "Золотистая крышка СКО I-82, вид сверху под углом",
-      "slotCaption": "Крышка СКО I-82, рендер"
+      "slotAlt": "Gold SKO I-82 lid, angled top view",
+      "slotCaption": "SKO I-82 lid, render"
     },
     "why": {
-      "eyebrow": "Почему мы",
-      "title": "Шесть причин заказать в Коканде",
+      "eyebrow": "Why us",
+      "title": "Six reasons to order from Kokand",
       "items": {
-        "quality": { "t": "Качество под контролем", "d": "Лаборатория проверяет каждую партию. Лаки и эмали пищевые, от европейских производителей." },
-        "region": { "t": "Работаем по Узбекистану и Центральной Азии", "d": "Поставляем партии по стране и в соседние страны региона." },
-        "samples": { "t": "Отправляем образцы", "d": "Сначала образец, потом партия. Проверьте крышки на своей линии." },
-        "prices": { "t": "Гибкие цены", "d": "Цена зависит от типа, покрытия и тиража. Прайс пришлём по заявке." },
-        "custom": { "t": "Работаем на заказ", "d": "Крышки под вашей торговой маркой: ваш дизайн, наша литография." },
-        "volume": { "t": "От 1 000 до 10 000 000 штук", "d": "Одна партия на пробу или целый сезон для консервного завода." }
+        "quality": { "t": "Quality under control", "d": "The lab checks every batch. Lacquers and enamels are food grade, from European producers." },
+        "region": { "t": "Uzbekistan and Central Asia", "d": "We supply batches across the country and neighbouring countries of the region." },
+        "samples": { "t": "We send samples", "d": "Sample first, batch later. Try the lids on your own line." },
+        "prices": { "t": "Flexible prices", "d": "The price depends on type, coating and volume. We send the price list on request." },
+        "custom": { "t": "Made to order", "d": "Lids under your own brand: your design, our lithography." },
+        "volume": { "t": "From 1,000 to 10,000,000 pcs", "d": "One trial batch or a whole season for a cannery." }
       }
     },
     "scale": {
-      "eyebrow": "Тираж",
-      "number": "1 000 – 10 000 000",
-      "unit": "штук в одном заказе",
-      "title": "Одна партия или целый сезон",
-      "text": "Минимальный заказ — 1 000 штук. Верхней планки у нас практически нет: до десяти миллионов за раз.",
-      "cta": "Рассчитать мой тираж"
+      "eyebrow": "Volume",
+      "number": "1,000 – 10,000,000",
+      "unit": "pieces in one order",
+      "title": "One batch or a whole season",
+      "text": "The minimum order is 1,000 pieces. There is practically no upper limit: up to ten million at a time.",
+      "cta": "Calculate my volume"
     },
     "products": {
-      "eyebrow": "Продукция",
-      "title": "Три изделия. Одна фабрика.",
-      "lead": "Крышки для банок с венчиком СКО I-82 и с резьбой 82, плюс уплотнительные кольца для них.",
+      "eyebrow": "Products",
+      "title": "Three products. One factory.",
+      "lead": "Lids for jars with the SKO I-82 finish and with an 82 thread, plus sealing rings for them.",
       "items": {
-        "sko": { "tag": "СКО I-82", "name": "Крышки СКО I-82", "desc": "Золотистые, литографированные и под вашу марку. Для стеклянных банок с венчиком СКО I-82.", "alt": "Стопка золотистых крышек СКО I-82" },
-        "twist": { "tag": "Твист-офф 82", "name": "Твист-офф 82", "desc": "Винтовые крышки с кнопкой вакуума. Закручиваются вручную, закаточная машинка не нужна.", "alt": "Зелёные и красные крышки твист-офф" },
-        "ring": { "tag": "С 2014 года", "name": "Викельное кольцо", "desc": "Пищевая резина по ГОСТ. Ложится под внутренний бортик крышки СКО.", "alt": "Резиновые викельные кольца" }
+        "sko": { "tag": "SKO I-82", "name": "SKO I-82 lids", "desc": "Gold, lithographed and private label. For glass jars with the SKO I-82 finish.", "alt": "A stack of gold SKO I-82 lids" },
+        "twist": { "tag": "Twist-off 82", "name": "Twist-off 82", "desc": "Screw lids with a vacuum button. Closed by hand, no seamer needed.", "alt": "Green and red twist-off lids" },
+        "ring": { "tag": "Since 2014", "name": "Sealing ring", "desc": "Food-grade rubber made to GOST. Sits under the inner rim of an SKO lid.", "alt": "Rubber sealing rings" }
       },
-      "all": "Вся продукция"
+      "all": "All products"
     },
     "brands": {
-      "eyebrow": "Бренды",
-      "title": "Тубы по 50 штук с литографией",
-      "lead": "Мечта хозяйки, Елисейские крышки, Моя мечта, Роса, Гурман. У каждой линейки свой дизайн и своя упаковка.",
-      "cta": "Все бренды",
-      "mechtaAlt": "Туба крышек «Мечта хозяйки» по 50 штук",
-      "moyaAlt": "Туба крышек «Моя мечта»",
-      "rosaAlt": "Туба крышек «Роса»",
-      "gurmanAlt": "Тубы крышек «Гурман»",
-      "twistAlt": "Тубы крышек твист-офф «Мечта хозяйки», зелёная и красная"
+      "eyebrow": "Brands",
+      "title": "Tubes of 50 with lithography",
+      "lead": "Mechta khozyayki, Eliseyskie krishki, Moya mechta, Rosa, Gurman. Each line has its own design and packaging.",
+      "cta": "All brands",
+      "mechtaAlt": "Tube of 50 Mechta khozyayki lids",
+      "moyaAlt": "Tube of Moya mechta lids",
+      "rosaAlt": "Tube of Rosa lids",
+      "gurmanAlt": "Tubes of Gurman lids",
+      "twistAlt": "Mechta khozyayki twist-off tubes, green and red"
     },
     "services": {
-      "eyebrow": "Услуги",
-      "title": "Красим и печатаем жесть сами",
+      "eyebrow": "Services",
+      "title": "We lacquer and print tinplate ourselves",
       "items": {
         "lacquer": {
-          "tag": "Лакировка и литография",
-          "title": "Лаки PPG, краски HUBER GROUP",
-          "text": "Офсетная печать на металле и пищевое покрытие. Лист жести от 710×510 до 1145×950 мм.",
-          "cta": "Об услугах",
-          "alt": "Крышки с цветной литографией: овощи и фрукты"
+          "tag": "Lacquering and lithography",
+          "title": "PPG lacquers, HUBER GROUP inks",
+          "text": "Offset printing on metal and food-grade coating. Tinplate sheets from 710×510 to 1145×950 mm.",
+          "cta": "About the services",
+          "alt": "Lids with colour lithography: vegetables and fruit"
         },
         "private": {
-          "tag": "Под вашу марку",
-          "title": "Ваша марка на каждой банке",
-          "text": "Ваш дизайн на крышках СКО и твист-офф. Тираж от 1 000 штук.",
-          "cta": "Как это работает",
-          "alt": "Крышки СКО с логотипом заказчика"
+          "tag": "Private label",
+          "title": "Your brand on every jar",
+          "text": "Your design on SKO and twist-off lids. Volume from 1,000 pcs.",
+          "cta": "How it works",
+          "alt": "SKO lids with customer logos"
         }
       }
     },
     "partners": {
-      "eyebrow": "Партнёры",
-      "title": "Нам доверяют",
-      "lead": "Марки, с которыми мы работаем.",
-      "label": "Логотипы партнёров"
+      "eyebrow": "Partners",
+      "title": "Trusted by",
+      "lead": "Brands we work with.",
+      "label": "Partner logos"
     },
     "geo": {
-      "eyebrow": "География",
-      "title": "Работаем по Узбекистану и Центральной Азии",
-      "text": "Завод в Коканде, Ферганская область. Отправляем образцы и собираем партии под ваш тираж.",
-      "cta": "Как нас найти"
+      "eyebrow": "Geography",
+      "title": "We work across Uzbekistan and Central Asia",
+      "text": "The factory is in Kokand, Fergana region. We send samples and build batches to your volume.",
+      "cta": "How to find us"
     }
   },
   "products": {
     "meta": {
-      "title": "Продукция: крышки СКО, твист-офф, кольца",
-      "description": "Каталог ELIT KONSERVA: золотистые и литографированные крышки СКО I-82, твист-офф 82, викельные кольца. Под вашу марку от 1 000 штук."
+      "title": "Products: SKO lids, twist-off, sealing rings",
+      "description": "ELIT KONSERVA catalogue: gold and lithographed SKO I-82 lids, twist-off 82, sealing rings. Private label from 1,000 pcs."
     },
     "hero": {
-      "eyebrow": "Продукция",
-      "title": "Крышки под банки СКО I-82 и твист-офф 82",
-      "lead": "От золотистых до полноцветных. И ваша марка — от 1 000 штук."
+      "eyebrow": "Products",
+      "title": "Lids for SKO I-82 and twist-off 82 jars",
+      "lead": "From gold to full colour. And your brand — from 1,000 pcs."
     },
     "filter": {
-      "label": "Тип продукции",
-      "all": "Все",
-      "sko": "СКО I-82",
-      "twist": "Твист-офф",
-      "ring": "Кольцо",
-      "count": "Показано: {count}"
+      "label": "Product type",
+      "all": "All",
+      "sko": "SKO I-82",
+      "twist": "Twist-off",
+      "ring": "Ring",
+      "count": "Showing: {count}"
     },
-    "packLabel": "Упаковка",
+    "packLabel": "Packaging",
     "items": {
-      "skoGold": { "type": "sko", "tag": "СКО I-82", "name": "СКО золотистая", "desc": "Золотистый лак снаружи, пищевая эмаль внутри. Классика для консервации.", "pack": "Туба 50 шт. · мешок 500 · коробка 1 000", "alt": "Золотистые крышки СКО I-82" },
-      "skoLitho": { "type": "sko", "tag": "СКО I-82", "name": "СКО полноцветная", "desc": "Литография с овощами и фруктами для домашней консервации.", "pack": "Туба 50 шт., мешок 500 шт.", "alt": "Крышки СКО с цветной литографией" },
-      "skoPrivate": { "type": "sko", "tag": "Под вашу марку", "name": "СКО под вашу марку", "desc": "Ваш дизайн и логотип. Усиленное покрытие — по запросу.", "pack": "От 1 000 шт.", "alt": "Крышки СКО с логотипами заказчиков" },
-      "twistMono": { "type": "twist", "tag": "Твист-офф 82", "name": "Твист-офф одноцветная", "desc": "Яркая однотонная литография: зелёная и красная.", "pack": "Туба 20 шт. · мешок 240 · коробка 850", "alt": "Стопка зелёных и бордовых крышек твист-офф" },
-      "twistFull": { "type": "twist", "tag": "Твист-офф 82", "name": "Твист-офф полноцветная", "desc": "Помидоры и овощное ассорти. Кнопка вакуума в центре.", "pack": "Туба 20 шт. · мешок 240 · коробка 850", "alt": "Крышки твист-офф с рисунком помидоров" },
-      "twistPrivate": { "type": "twist", "tag": "Под вашу марку", "name": "Твист-офф под вашу марку", "desc": "Ваш дизайн на винтовой крышке. Литография и лак на нашем заводе.", "pack": "От 1 000 шт.", "alt": "Крышки твист-офф с логотипами заказчиков" },
-      "ring": { "type": "ring", "tag": "Кольцо", "name": "Викельное кольцо", "desc": "Пищевая резина по ГОСТ. Производим с 2014 года.", "pack": "Мешок или коробка 30 кг", "alt": "Викельные кольца из пищевой резины" }
+      "skoGold": { "type": "sko", "tag": "SKO I-82", "name": "SKO gold", "desc": "Gold lacquer outside, food enamel inside. The canning classic.", "pack": "Tube 50 · bag 500 · box 1,000", "alt": "Gold SKO I-82 lids" },
+      "skoLitho": { "type": "sko", "tag": "SKO I-82", "name": "SKO full colour", "desc": "Lithography with vegetables and fruit for home canning.", "pack": "Tube 50, bag 500", "alt": "SKO lids with colour lithography" },
+      "skoPrivate": { "type": "sko", "tag": "Private label", "name": "SKO private label", "desc": "Your design and logo. Reinforced coating on request.", "pack": "From 1,000 pcs", "alt": "SKO lids with customer logos" },
+      "twistMono": { "type": "twist", "tag": "Twist-off 82", "name": "Twist-off single colour", "desc": "Bright single-colour lithography: green and red.", "pack": "Tube 20 · bag 240 · box 850", "alt": "A stack of green and maroon twist-off lids" },
+      "twistFull": { "type": "twist", "tag": "Twist-off 82", "name": "Twist-off full colour", "desc": "Tomatoes and mixed vegetables. Vacuum button in the centre.", "pack": "Tube 20 · bag 240 · box 850", "alt": "Twist-off lids with a tomato design" },
+      "twistPrivate": { "type": "twist", "tag": "Private label", "name": "Twist-off private label", "desc": "Your design on a screw lid. Lithography and lacquer at our factory.", "pack": "From 1,000 pcs", "alt": "Twist-off lids with customer logos" },
+      "ring": { "type": "ring", "tag": "Ring", "name": "Sealing ring", "desc": "Food-grade rubber made to GOST. Produced since 2014.", "pack": "30 kg bag or box", "alt": "Food-grade rubber sealing rings" }
     },
     "compare": {
-      "eyebrow": "Выбор",
-      "title": "СКО или твист-офф?",
-      "caption": "Сравнение двух типов крышек",
-      "columns": { "param": "Параметр", "sko": "СКО I-82", "twist": "Твист-офф 82" },
+      "eyebrow": "Choosing",
+      "title": "SKO or twist-off?",
+      "caption": "Comparison of the two lid types",
+      "columns": { "param": "Parameter", "sko": "SKO I-82", "twist": "Twist-off 82" },
       "rows": {
-        "jar": { "l": "Банка", "sko": "Венчик СКО I-82", "twist": "Горловина 82 с резьбой" },
-        "close": { "l": "Закрывание", "sko": "Закаточная машинка", "twist": "Вручную" },
-        "seal": { "l": "Уплотнение", "sko": "Кольцо из пищевого каучука", "twist": "Пластизоль под стерилизацию" },
-        "tube": { "l": "Туба", "sko": "50 шт.", "twist": "20 шт." },
-        "moq": { "l": "Минимальный заказ", "sko": "1 000 шт.", "twist": "1 000 шт." }
+        "jar": { "l": "Jar", "sko": "SKO I-82 finish", "twist": "82 neck with thread" },
+        "close": { "l": "Closing", "sko": "Seamer", "twist": "By hand" },
+        "seal": { "l": "Seal", "sko": "Food-grade rubber ring", "twist": "Plastisol for sterilisation" },
+        "tube": { "l": "Tube", "sko": "50 pcs", "twist": "20 pcs" },
+        "moq": { "l": "Minimum order", "sko": "1,000 pcs", "twist": "1,000 pcs" }
       }
     }
   },
   "product": {
     "common": {
-      "datasheetEyebrow": "Паспорт",
-      "datasheetTitle": "Характеристики",
-      "columns": { "param": "Параметр", "value": "Значение" },
-      "variantsEyebrow": "Варианты",
-      "variantsTitle": "Какие бывают",
-      "packEyebrow": "Упаковка",
-      "packTitle": "Как поставляем",
-      "featuresEyebrow": "Особенности",
-      "relatedEyebrow": "Смотрите также",
-      "price": "Цена",
-      "priceValue": "По запросу",
-      "moq": "Минимальный заказ",
-      "moqValue": "от 1 000 шт.",
-      "back": "Вся продукция",
-      "stepBack": "Продукция"
+      "datasheetEyebrow": "Datasheet",
+      "datasheetTitle": "Specifications",
+      "columns": { "param": "Parameter", "value": "Value" },
+      "variantsEyebrow": "Variants",
+      "variantsTitle": "What we make",
+      "packEyebrow": "Packaging",
+      "packTitle": "How we deliver",
+      "featuresEyebrow": "Features",
+      "relatedEyebrow": "See also",
+      "price": "Price",
+      "priceValue": "On request",
+      "moq": "Minimum order",
+      "moqValue": "from 1,000 pcs",
+      "back": "All products",
+      "stepBack": "Products"
     },
     "sko": {
       "meta": {
-        "title": "Крышка СКО I-82: золотистая, цветная, под марку",
-        "description": "Крышки СКО I-82 для стеклянных банок: жесть ЭЖК 0,17–0,20 мм, кольцо из пищевого каучука, ребро жёсткости. От 1 000 штук, образцы."
+        "title": "SKO I-82 lid: gold, colour, private label",
+        "description": "SKO I-82 lids for glass jars: EZhK tinplate 0.17–0.20 mm, food-grade rubber ring, stiffening rib. From 1,000 pcs, samples available."
       },
       "hero": {
-        "eyebrow": "Крышка СКО I-82",
-        "title": "Золото снаружи. Пищевая эмаль внутри.",
-        "lead": "Для стеклянных банок с венчиком СКО I-82. Двойное защитное покрытие, кольцо из пищевого каучука и дополнительное ребро жёсткости.",
-        "alt": "Золотистая крышка СКО I-82",
-        "bannerAlt": "Крышки СКО на фоне овощей"
+        "eyebrow": "SKO I-82 lid",
+        "title": "Gold outside. Food enamel inside.",
+        "lead": "For glass jars with the SKO I-82 finish. Double protective coating, a food-grade rubber ring and an extra stiffening rib.",
+        "alt": "Gold SKO I-82 lid",
+        "bannerAlt": "SKO lids among vegetables"
       },
       "specs": {
-        "type": { "l": "Тип", "v": "СКО I-82" },
-        "jar": { "l": "Для банок", "v": "Стекло, венчик СКО I-82" },
-        "metal": { "l": "Жесть", "v": "Консервная ЭЖК" },
-        "thickness": { "l": "Толщина металла", "v": "0,17–0,20 мм" },
-        "outside": { "l": "Снаружи", "v": "Золотистая одноцветная печать + лак" },
-        "inside": { "l": "Внутри", "v": "Пищевая эмаль + лак, серебристо-серый" },
-        "ring": { "l": "Уплотнение", "v": "Кольцо из пищевого каучука" },
-        "rib": { "l": "Жёсткость", "v": "Дополнительное ребро" }
+        "type": { "l": "Type", "v": "SKO I-82" },
+        "jar": { "l": "For jars", "v": "Glass, SKO I-82 finish" },
+        "metal": { "l": "Tinplate", "v": "Canning EZhK" },
+        "thickness": { "l": "Metal thickness", "v": "0.17–0.20 mm" },
+        "outside": { "l": "Outside", "v": "Single-colour gold print + lacquer" },
+        "inside": { "l": "Inside", "v": "Food enamel + lacquer, silver-grey" },
+        "ring": { "l": "Seal", "v": "Food-grade rubber ring" },
+        "rib": { "l": "Stiffness", "v": "Extra rib" }
       },
-      "featuresTitle": "Двойной лак. Резинка. Ребро.",
+      "featuresTitle": "Double lacquer. Rubber ring. Rib.",
       "features": {
-        "coat": { "t": "Двойное покрытие", "d": "Снаружи золотистый лак. Внутри пищевая эмаль и лак серебристо-серого оттенка." },
-        "ring": { "t": "Резинка из пищевого каучука", "d": "Высококачественное уплотнительное кольцо, эластичное и без трещин." },
-        "rib": { "t": "Ребро жёсткости", "d": "Дополнительное ребро повышает механическую прочность крышки." }
+        "coat": { "t": "Double coating", "d": "Gold lacquer outside. Food enamel and silver-grey lacquer inside." },
+        "ring": { "t": "Food-grade rubber ring", "d": "A high-quality sealing ring, elastic and free of cracks." },
+        "rib": { "t": "Stiffening rib", "d": "The extra rib increases the mechanical strength of the lid." }
       },
       "variants": {
-        "gold": { "t": "Золотистая", "d": "Промышленный вариант: одноцветная печать и лак.", "alt": "Стопка золотистых крышек СКО" },
-        "litho": { "t": "Полноцветная", "d": "Бытовой вариант: литография с овощами и фруктами.", "alt": "Крышки СКО с цветной литографией" },
-        "private": { "t": "Под вашу марку", "d": "Ваш знак на крышке. Цена по техническому заданию, усиленное покрытие по запросу.", "alt": "Крышки СКО с логотипами заказчиков" }
+        "gold": { "t": "Gold", "d": "Industrial version: single-colour print and lacquer.", "alt": "A stack of gold SKO lids" },
+        "litho": { "t": "Full colour", "d": "Household version: lithography with vegetables and fruit.", "alt": "SKO lids with colour lithography" },
+        "private": { "t": "Private label", "d": "Your mark on the lid. Priced per technical spec, reinforced coating on request.", "alt": "SKO lids with customer logos" }
       },
       "pack": {
         "mechta": {
-          "title": "«Мечта хозяйки»",
-          "tube": "50 шт.",
-          "tubeNote": "Туба в термоусадочной плёнке с полноцветной печатью: 49 золотистых крышек и одна литографированная.",
-          "group": "500 шт.",
-          "groupNote": "10 туб в полиэтиленовом мешке.",
-          "alt": "Тубы крышек «Мечта хозяйки»"
+          "title": "“Mechta khozyayki”",
+          "tube": "50 pcs",
+          "tubeNote": "A tube in shrink film with full-colour print: 49 gold lids and one lithographed.",
+          "group": "500 pcs",
+          "groupNote": "10 tubes in a polythene bag.",
+          "alt": "Mechta khozyayki lid tubes"
         },
         "elisey": {
-          "title": "«Елисейские крышки»",
-          "tube": "50 шт.",
-          "tubeNote": "Туба с синей этикеткой в термоусадочной плёнке: 49 золотистых крышек и одна литографированная.",
-          "group": "1 000 шт.",
-          "groupNote": "10 туб в картонной коробке.",
-          "alt": "Тубы крышек «Елисейские крышки»"
+          "title": "“Eliseyskie krishki”",
+          "tube": "50 pcs",
+          "tubeNote": "A tube with a blue label in shrink film: 49 gold lids and one lithographed.",
+          "group": "1,000 pcs",
+          "groupNote": "10 tubes in a cardboard box.",
+          "alt": "Eliseyskie krishki lid tubes"
         }
       }
     },
     "twist": {
       "meta": {
-        "title": "Твист-офф 82: винтовые крышки с кнопкой вакуума",
-        "description": "Крышки твист-офф 82 для банок с резьбой: кнопка вакуума, пластизоль под стерилизацию, закручиваются вручную. От 1 000 штук, образцы."
+        "title": "Twist-off 82: screw lids with a vacuum button",
+        "description": "Twist-off 82 lids for threaded jars: vacuum button, plastisol for sterilisation, closed by hand. From 1,000 pcs, samples available."
       },
       "hero": {
-        "eyebrow": "Твист-офф 82",
-        "title": "Закручивается рукой. Кнопка подтверждает вакуум.",
-        "lead": "Винтовые металлические крышки для банок с горловиной 82 и резьбой. Яркая литография снаружи, лак внутри.",
-        "alt": "Красная крышка твист-офф 82",
-        "bannerAlt": "Крышки твист-офф на фоне овощей"
+        "eyebrow": "Twist-off 82",
+        "title": "Closes by hand. The button confirms the vacuum.",
+        "lead": "Metal screw lids for jars with an 82 threaded neck. Bright lithography outside, lacquer inside.",
+        "alt": "Red twist-off 82 lid",
+        "bannerAlt": "Twist-off lids among vegetables"
       },
       "specs": {
-        "type": { "l": "Тип", "v": "Твист-офф 82, винтовая" },
-        "jar": { "l": "Для банок", "v": "Горловина 82 с резьбой" },
-        "metal": { "l": "Жесть", "v": "Консервная ЭЖК" },
-        "outside": { "l": "Снаружи", "v": "Яркая литография + лак" },
-        "inside": { "l": "Внутри", "v": "Лак" },
-        "button": { "l": "Кнопка", "v": "В центре, для визуального и звукового контроля вакуума" },
-        "gasket": { "l": "Прокладка", "v": "Пластизоль, под стерилизацию и пастеризацию" },
-        "close": { "l": "Закрывание", "v": "Вручную, без закаточной машинки" }
+        "type": { "l": "Type", "v": "Twist-off 82, screw" },
+        "jar": { "l": "For jars", "v": "82 neck with thread" },
+        "metal": { "l": "Tinplate", "v": "Canning EZhK" },
+        "outside": { "l": "Outside", "v": "Bright lithography + lacquer" },
+        "inside": { "l": "Inside", "v": "Lacquer" },
+        "button": { "l": "Button", "v": "In the centre, for visual and audible vacuum check" },
+        "gasket": { "l": "Gasket", "v": "Plastisol, for sterilisation and pasteurisation" },
+        "close": { "l": "Closing", "v": "By hand, no seamer" }
       },
-      "featuresTitle": "Кнопка, пластизоль, никакой машинки",
+      "featuresTitle": "Button, plastisol, no seamer",
       "features": {
-        "button": { "t": "Кнопка вакуума", "d": "Видно и слышно, что банка закрыта герметично." },
-        "gasket": { "t": "Пластизоль", "d": "Прокладка рассчитана на стерилизацию и пастеризацию." },
-        "hand": { "t": "Без машинки", "d": "Закручивается вручную: удобно дома и в небольшом цехе." }
+        "button": { "t": "Vacuum button", "d": "You can see and hear that the jar is sealed." },
+        "gasket": { "t": "Plastisol", "d": "The gasket is made for sterilisation and pasteurisation." },
+        "hand": { "t": "No machine", "d": "Closed by hand: handy at home and in a small workshop." }
       },
       "variants": {
-        "mono": { "t": "Одноцветная", "d": "Яркая однотонная литография. В каталоге зелёная и красная.", "alt": "Стопка зелёных и бордовых крышек твист-офф" },
-        "full": { "t": "Полноцветная", "d": "Бытовой вариант: помидоры, овощное ассорти.", "alt": "Крышки твист-офф с рисунком помидоров" },
-        "private": { "t": "Под вашу марку", "d": "Ваш дизайн на винтовой крышке.", "alt": "Крышки твист-офф с логотипами заказчиков" }
+        "mono": { "t": "Single colour", "d": "Bright single-colour lithography. The catalogue shows green and red.", "alt": "A stack of green and maroon twist-off lids" },
+        "full": { "t": "Full colour", "d": "Household version: tomatoes, mixed vegetables.", "alt": "Twist-off lids with a tomato design" },
+        "private": { "t": "Private label", "d": "Your design on a screw lid.", "alt": "Twist-off lids with customer logos" }
       },
       "pack": {
         "mechta": {
-          "title": "«Мечта хозяйки»",
-          "tube": "20 шт.",
-          "tubeNote": "Туба с голубой этикеткой «Мечта хозяйки».",
-          "group": "240 шт.",
-          "groupNote": "12 туб в мешке.",
-          "alt": "Тубы крышек твист-офф, зелёная и красная"
+          "title": "“Mechta khozyayki”",
+          "tube": "20 pcs",
+          "tubeNote": "A tube with a light-blue “Mechta khozyayki” label.",
+          "group": "240 pcs",
+          "groupNote": "12 tubes in a bag.",
+          "alt": "Twist-off lid tubes, green and red"
         },
         "bulk": {
-          "title": "Для консервных заводов",
-          "tube": "850 шт.",
-          "tubeNote": "Россыпью в коробке.",
+          "title": "For canneries",
+          "tube": "850 pcs",
+          "tubeNote": "Loose in a box.",
           "group": "",
           "groupNote": "",
           "alt": ""
@@ -362,39 +362,39 @@
     },
     "ring": {
       "meta": {
-        "title": "Викельное кольцо для крышек СКО из пищевой резины",
-        "description": "Викельные кольца ELIT KONSERVA: пищевая резина по ГОСТ для крышек СКО I-82. Производим с 2014 года, упаковка 30 кг, заказ от одной пачки."
+        "title": "Sealing ring for SKO lids, food-grade rubber",
+        "description": "ELIT KONSERVA sealing rings: food-grade rubber made to GOST for SKO I-82 lids. Produced since 2014, 30 kg packs, order from one pack."
       },
       "hero": {
-        "eyebrow": "Викельное кольцо",
-        "title": "Резинка, на которой держится герметичность",
-        "lead": "Уплотнительное кольцо из пищевой резины по ГОСТ. Ложится под внутренний бортик крышки СКО. Производим с 2014 года.",
-        "alt": "Викельные кольца",
+        "eyebrow": "Sealing ring",
+        "title": "The rubber that keeps the seal",
+        "lead": "A sealing ring of food-grade rubber made to GOST. It sits under the inner rim of an SKO lid. Produced since 2014.",
+        "alt": "Sealing rings",
         "bannerAlt": ""
       },
       "specs": {
-        "use": { "l": "Назначение", "v": "Уплотнение крышки СКО I-82" },
-        "material": { "l": "Материал", "v": "Пищевая резина" },
-        "standard": { "l": "Стандарт", "v": "ГОСТ" },
-        "dims": { "l": "Размеры", "v": "По запросу" },
-        "since": { "l": "Производим с", "v": "2014 года" },
-        "pack": { "l": "Упаковка", "v": "Мешок или гофрокоробка, 30 кг" }
+        "use": { "l": "Purpose", "v": "Seal for the SKO I-82 lid" },
+        "material": { "l": "Material", "v": "Food-grade rubber" },
+        "standard": { "l": "Standard", "v": "GOST" },
+        "dims": { "l": "Dimensions", "v": "On request" },
+        "since": { "l": "Produced since", "v": "2014" },
+        "pack": { "l": "Packaging", "v": "Bag or corrugated box, 30 kg" }
       },
-      "featuresTitle": "Пищевая резина по ГОСТ",
+      "featuresTitle": "Food-grade rubber to GOST",
       "features": {
-        "food": { "t": "Пищевая резина", "d": "Эластичная, без трещин, безопасная для контакта с продуктом." },
-        "gost": { "t": "По ГОСТ", "d": "Производство по государственному стандарту." },
-        "pack": { "t": "От одной пачки", "d": "Минимальный заказ — одна упаковка." }
+        "food": { "t": "Food-grade rubber", "d": "Elastic, free of cracks, safe for contact with food." },
+        "gost": { "t": "Made to GOST", "d": "Produced to the state standard." },
+        "pack": { "t": "From one pack", "d": "The minimum order is one pack." }
       },
       "variants": {
-        "rings": { "t": "Кольца", "d": "Готовые к установке в крышку.", "alt": "Викельные кольца" },
-        "box": { "t": "В коробке", "d": "Поставка в гофрокоробке по 30 кг.", "alt": "Коробка с викельными кольцами" }
+        "rings": { "t": "Rings", "d": "Ready to fit into a lid.", "alt": "Sealing rings" },
+        "box": { "t": "In a box", "d": "Delivered in 30 kg corrugated boxes.", "alt": "A box of sealing rings" }
       },
       "pack": {
         "bulk": {
-          "title": "Поставка",
-          "tube": "30 кг",
-          "tubeNote": "Мешок или гофрокоробка.",
+          "title": "Delivery",
+          "tube": "30 kg",
+          "tubeNote": "Bag or corrugated box.",
           "group": "",
           "groupNote": "",
           "alt": ""
@@ -404,361 +404,361 @@
   },
   "brands": {
     "meta": {
-      "title": "Бренды крышек: Мечта хозяйки, Елисейские, Роса",
-      "description": "Линейки ELIT KONSERVA: «Мечта хозяйки», «Елисейские крышки», «Моя мечта», «Роса», «Гурман». Тубы по 50 штук, характеристики и упаковка."
+      "title": "Lid brands: Mechta khozyayki, Eliseyskie, Rosa",
+      "description": "ELIT KONSERVA lines: Mechta khozyayki, Eliseyskie krishki, Moya mechta, Rosa, Gurman. Tubes of 50, specifications and packaging."
     },
     "hero": {
-      "eyebrow": "Бренды",
-      "title": "Пять линеек. Одна фабрика.",
-      "lead": "Тубы по 50 штук с литографией — для домашней консервации. У каждой своя упаковка и свой характер."
+      "eyebrow": "Brands",
+      "title": "Five lines. One factory.",
+      "lead": "Tubes of 50 with lithography for home canning. Each has its own packaging and character."
     },
-    "specsCaption": "Характеристики",
+    "specsCaption": "Specifications",
     "mechta": {
-      "name": "Мечта хозяйки",
+      "name": "Mechta khozyayki",
       "alt": "Beka orzusi",
-      "slogan": "Качество, проверенное временем",
-      "text": "Наш основной бренд. Крышки СКО и твист-офф для домашней консервации.",
+      "slogan": "Quality proven by time",
+      "text": "Our main brand. SKO and twist-off lids for home canning.",
       "specs": {
-        "types": { "l": "Типы", "v": "СКО I-82 · Твист-офф 82" },
-        "tube": { "l": "Туба", "v": "50 шт. (СКО) · 20 шт. (твист-офф)" },
-        "group": { "l": "Групповая упаковка", "v": "500 шт. (СКО) · 240 шт. (твист-офф), мешок" }
+        "types": { "l": "Types", "v": "SKO I-82 · Twist-off 82" },
+        "tube": { "l": "Tube", "v": "50 pcs (SKO) · 20 pcs (twist-off)" },
+        "group": { "l": "Group pack", "v": "500 pcs (SKO) · 240 pcs (twist-off), bag" }
       },
-      "imgAlt": "Тубы «Мечта хозяйки»: СКО и твист-офф"
+      "imgAlt": "Mechta khozyayki tubes: SKO and twist-off"
     },
     "elisey": {
-      "name": "Елисейские крышки",
-      "alt": "Новая линия СКО, 2022 год",
-      "slogan": "Удобство консервации",
-      "text": "Линия крышек СКО, запущенная в 2022 году. Синяя этикетка на тубе.",
+      "name": "Eliseyskie krishki",
+      "alt": "New SKO line, 2022",
+      "slogan": "Canning made easy",
+      "text": "An SKO lid line launched in 2022. Blue label on the tube.",
       "specs": {
-        "types": { "l": "Тип", "v": "СКО I-82" },
-        "tube": { "l": "Туба", "v": "50 шт., синяя этикетка" },
-        "group": { "l": "Групповая упаковка", "v": "1 000 шт., картонная коробка" }
+        "types": { "l": "Type", "v": "SKO I-82" },
+        "tube": { "l": "Tube", "v": "50 pcs, blue label" },
+        "group": { "l": "Group pack", "v": "1,000 pcs, cardboard box" }
       },
-      "imgAlt": "Тубы «Елисейские крышки»"
+      "imgAlt": "Eliseyskie krishki tubes"
     },
     "moya": {
-      "name": "Моя мечта",
-      "alt": "Туба по 50 штук",
-      "slogan": "Благополучие в семье, спокойствие в доме",
-      "text": "Крышки СКО с красной клетчатой этикеткой и овощами.",
+      "name": "Moya mechta",
+      "alt": "Tube of 50",
+      "slogan": "Prosperity in the family, peace in the home",
+      "text": "SKO lids with a red check label and vegetables.",
       "specs": {
-        "metal": { "l": "Жесть", "v": "ЭЖК 0,16 мм, покрытие оловом 2,8/2,8" },
-        "outer": { "l": "Наружный лак", "v": "ЭП 570/С (Россия)" },
-        "inner": { "l": "Внутренняя эмаль", "v": "ЭП 5147/С (Россия)" },
-        "top": { "l": "Покровный лак", "v": "PPG 2040 (Германия)" },
-        "inks": { "l": "Краски", "v": "HUBER GROUP (Германия)" },
-        "pack": { "l": "Упаковка", "v": "Туба 50 шт., белая коробка 1 000 шт." }
+        "metal": { "l": "Tinplate", "v": "EZhK 0.16 mm, tin coating 2.8/2.8" },
+        "outer": { "l": "Outer lacquer", "v": "EP 570/S (Russia)" },
+        "inner": { "l": "Inner enamel", "v": "EP 5147/S (Russia)" },
+        "top": { "l": "Top coat", "v": "PPG 2040 (Germany)" },
+        "inks": { "l": "Inks", "v": "HUBER GROUP (Germany)" },
+        "pack": { "l": "Packaging", "v": "Tube of 50, white box of 1,000" }
       },
-      "imgAlt": "Туба «Моя мечта»"
+      "imgAlt": "Moya mechta tube"
     },
     "rosa": {
-      "name": "Роса",
-      "alt": "Туба по 50 штук",
-      "slogan": "Благополучие в семье, спокойствие в доме",
-      "text": "Крышки СКО с летним садом на этикетке.",
+      "name": "Rosa",
+      "alt": "Tube of 50",
+      "slogan": "Prosperity in the family, peace in the home",
+      "text": "SKO lids with a summer garden on the label.",
       "specs": {
-        "metal": { "l": "Жесть", "v": "ЭЖК 0,16 мм, покрытие оловом 2,8/2,8" },
-        "outer": { "l": "Наружный лак", "v": "ЭП 570/С (Россия)" },
-        "inner": { "l": "Внутренняя эмаль", "v": "ЭП 5147/С (Россия)" },
-        "top": { "l": "Покровный лак", "v": "PPG 2040 (Германия)" },
-        "inks": { "l": "Краски", "v": "HUBER GROUP (Германия)" },
-        "pack": { "l": "Упаковка", "v": "Туба 50 шт., коробка с логотипом 1 000 шт." }
+        "metal": { "l": "Tinplate", "v": "EZhK 0.16 mm, tin coating 2.8/2.8" },
+        "outer": { "l": "Outer lacquer", "v": "EP 570/S (Russia)" },
+        "inner": { "l": "Inner enamel", "v": "EP 5147/S (Russia)" },
+        "top": { "l": "Top coat", "v": "PPG 2040 (Germany)" },
+        "inks": { "l": "Inks", "v": "HUBER GROUP (Germany)" },
+        "pack": { "l": "Packaging", "v": "Tube of 50, branded box of 1,000" }
       },
-      "imgAlt": "Туба «Роса»"
+      "imgAlt": "Rosa tube"
     },
     "gurman": {
-      "name": "Гурман",
-      "alt": "Два дизайна",
-      "slogan": "Для семьи",
-      "text": "Две этикетки: голубая «Гурман Г» с фруктами и синяя «Для семьи» с народным орнаментом.",
+      "name": "Gurman",
+      "alt": "Two designs",
+      "slogan": "For the family",
+      "text": "Two labels: light-blue “Gurman G” with fruit and blue “For the family” with a folk ornament.",
       "specs": {
-        "tube": { "l": "Туба", "v": "50 шт." },
-        "designs": { "l": "Дизайны", "v": "«Гурман Г» · «Для семьи»" },
-        "rest": { "l": "Остальное", "v": "Характеристики — по запросу" }
+        "tube": { "l": "Tube", "v": "50 pcs" },
+        "designs": { "l": "Designs", "v": "“Gurman G” · “For the family”" },
+        "rest": { "l": "The rest", "v": "Specifications on request" }
       },
-      "imgAlt": "Тубы «Гурман»"
+      "imgAlt": "Gurman tubes"
     },
     "cta": {
-      "title": "Подберём линейку под ваш рынок",
-      "text": "Скажите, где будете продавать, и мы предложим подходящий дизайн и упаковку."
+      "title": "We will match a line to your market",
+      "text": "Tell us where you will sell and we will suggest a suitable design and packaging."
     }
   },
   "services": {
     "meta": {
-      "title": "Лакировка и литография жести, печать на металле",
-      "description": "Лакировка и цветная литография жести и алюминия: лаки PPG, офсетная печать, контроль каждой партии по ГОСТ. Лист до 1145×950 мм."
+      "title": "Tinplate lacquering and lithography, print on metal",
+      "description": "Lacquering and colour lithography of tinplate and aluminium: PPG lacquers, offset printing, every batch checked to GOST. Sheets up to 1145×950 mm."
     },
     "hero": {
-      "eyebrow": "Лакировка и литография",
-      "title": "Красим и печатаем жесть сами",
-      "lead": "Лаки PPG, краски HUBER GROUP, офсетная печать на металле. Допечатная подготовка — на нашем производстве.",
-      "alt": "Лист и крышки с цветной литографией"
+      "eyebrow": "Lacquering and lithography",
+      "title": "We lacquer and print tinplate ourselves",
+      "lead": "PPG lacquers, HUBER GROUP inks, offset printing on metal. Pre-press is done in our own plant.",
+      "alt": "A sheet and lids with colour lithography"
     },
     "lines": {
-      "eyebrow": "Что делаем",
-      "title": "Четыре направления",
+      "eyebrow": "What we do",
+      "title": "Four lines of work",
       "items": {
-        "lids": { "t": "Крышки СКО и твист-офф", "d": "Лакировка и цветная литография." },
-        "combo": { "t": "Детали для комбинированных банок и туб", "d": "Лак и печать на металлических деталях." },
-        "cans": { "t": "Консервные банки", "d": "Покрытие и печать для консервной тары." },
-        "chem": { "t": "Тара для химии и аэрозолей", "d": "Жестяные банки для бытовой химии и аэрозолей." }
+        "lids": { "t": "SKO and twist-off lids", "d": "Lacquering and colour lithography." },
+        "combo": { "t": "Parts for combined cans and tubes", "d": "Lacquer and print on metal parts." },
+        "cans": { "t": "Canning cans", "d": "Coating and print for canning containers." },
+        "chem": { "t": "Cans for chemicals and aerosols", "d": "Tin cans for household chemicals and aerosols." }
       }
     },
     "process": {
-      "eyebrow": "Процесс",
-      "title": "Что входит в услугу",
+      "eyebrow": "Process",
+      "title": "What the service includes",
       "items": {
-        "prepress": { "t": "Допечатная подготовка", "d": "Готовим макет под ваше задание. Допечатная подготовка — часть нашего производственного комплекса." },
-        "print": { "t": "Офсетная печать на металле", "d": "UV-краски HUBER GROUP, автоматическое оборудование." },
-        "lacquer": { "t": "Лак PPG", "d": "Лаки PPG выдерживают стерилизацию выше 100 °C. Усиленное двухслойное покрытие — по запросу." },
-        "qc": { "t": "Контроль партии", "d": "Лаборатория проверяет массу покрытия, твёрдость и адгезию по ГОСТ." }
+        "prepress": { "t": "Pre-press", "d": "We prepare artwork to your brief. Pre-press is part of our production complex." },
+        "print": { "t": "Offset printing on metal", "d": "UV inks from HUBER GROUP, automatic equipment." },
+        "lacquer": { "t": "PPG lacquer", "d": "PPG lacquers withstand sterilisation above 100 °C. A reinforced two-layer coating is available on request." },
+        "qc": { "t": "Batch control", "d": "The lab checks coating mass, hardness and adhesion to GOST." }
       }
     },
     "specs": {
-      "eyebrow": "Паспорт услуги",
-      "title": "Что можем обработать",
-      "columns": { "param": "Параметр", "value": "Значение" },
+      "eyebrow": "Service datasheet",
+      "title": "What we can process",
+      "columns": { "param": "Parameter", "value": "Value" },
       "rows": {
-        "material": { "l": "Материал", "v": "Жесть и алюминий" },
-        "sheet": { "l": "Размер листа", "v": "от 710×510 до 1145×950 мм" },
-        "thickness": { "l": "Толщина", "v": "0,15–0,40 мм" },
-        "lacquer": { "l": "Лак", "v": "PPG (Германия)" },
-        "inks": { "l": "Краски", "v": "UV, HUBER GROUP (Германия)" },
-        "qc": { "l": "Контроль", "v": "Масса покрытия, твёрдость, адгезия по ГОСТ" },
-        "lead": { "l": "Сроки", "v": "Назовём по вашему тиражу" },
-        "price": { "l": "Цена", "v": "По запросу" }
+        "material": { "l": "Material", "v": "Tinplate and aluminium" },
+        "sheet": { "l": "Sheet size", "v": "from 710×510 to 1145×950 mm" },
+        "thickness": { "l": "Thickness", "v": "0.15–0.40 mm" },
+        "lacquer": { "l": "Lacquer", "v": "PPG (Germany)" },
+        "inks": { "l": "Inks", "v": "UV, HUBER GROUP (Germany)" },
+        "qc": { "l": "Control", "v": "Coating mass, hardness, adhesion to GOST" },
+        "lead": { "l": "Lead time", "v": "Quoted for your volume" },
+        "price": { "l": "Price", "v": "On request" }
       }
     },
     "benefits": {
-      "t1": "Дизайн по вашему заданию",
-      "t2": "Допечатная подготовка у нас",
-      "t3": "Короткие сроки: назовём по вашему тиражу"
+      "t1": "Design to your brief",
+      "t2": "Pre-press in house",
+      "t3": "Short lead times: quoted for your volume"
     },
-    "ctaTitle": "Пришлите задание — посчитаем"
+    "ctaTitle": "Send the brief and we will quote"
   },
   "privateLabel": {
     "meta": {
-      "title": "Крышки под вашу марку: СКО и твист-офф от 1 000 шт.",
-      "description": "Печатаем ваш дизайн на крышках СКО I-82 и твист-офф 82: литография и лак на нашем заводе в Коканде. Тираж от 1 000 штук, образцы."
+      "title": "Private label lids: SKO and twist-off from 1,000 pcs",
+      "description": "We print your design on SKO I-82 and twist-off 82 lids: lithography and lacquer at our Kokand factory. From 1,000 pcs, samples available."
     },
     "hero": {
-      "eyebrow": "Под вашу марку",
-      "title": "Ваша марка на каждой банке",
-      "lead": "Печатаем ваш дизайн на крышках СКО и твист-офф. Литография и лак — на нашем заводе. Тираж от 1 000 штук.",
-      "alt": "Крышки СКО и твист-офф с логотипами заказчиков"
+      "eyebrow": "Private label",
+      "title": "Your brand on every jar",
+      "lead": "We print your design on SKO and twist-off lids. Lithography and lacquer at our factory. Volume from 1,000 pcs.",
+      "alt": "SKO and twist-off lids with customer logos"
     },
     "steps": {
-      "eyebrow": "Как это работает",
-      "title": "От брифа до партии",
+      "eyebrow": "How it works",
+      "title": "From brief to batch",
       "items": {
-        "brief": { "t": "Бриф", "d": "Расскажите, какой тип крышки и какой тираж нужен. Пришлём образцы." },
-        "design": { "t": "Макет", "d": "Подготовим допечатную подготовку под ваш дизайн." },
-        "print": { "t": "Печать и лак", "d": "Литография жести и лак PPG на нашем производстве." },
-        "batch": { "t": "Партия", "d": "Крышки в нужном количестве: от 1 000 до 10 000 000 штук." }
+        "brief": { "t": "Brief", "d": "Tell us the lid type and the volume you need. We send samples." },
+        "design": { "t": "Artwork", "d": "We prepare pre-press for your design." },
+        "print": { "t": "Print and lacquer", "d": "Tinplate lithography and PPG lacquer at our plant." },
+        "batch": { "t": "Batch", "d": "Lids in the quantity you need: from 1,000 to 10,000,000 pcs." }
       }
     },
     "examples": {
-      "eyebrow": "Примеры",
-      "title": "Уже печатали",
-      "lead": "Sardoba, Hilol, Ibrat, Ittifoq, Modesto, Afrosiyob. Помидоры, овощи, фирменные цвета.",
-      "alt1": "Крышки СКО с логотипами Sardoba, Hilol и Ibrat",
-      "alt2": "Крышки твист-офф Ittifoq, Modesto и Afrosiyob",
-      "alt3": "Крышки с цветной литографией"
+      "eyebrow": "Examples",
+      "title": "Already printed",
+      "lead": "Sardoba, Hilol, Ibrat, Ittifoq, Modesto, Afrosiyob. Tomatoes, vegetables, brand colours.",
+      "alt1": "SKO lids with Sardoba, Hilol and Ibrat logos",
+      "alt2": "Ittifoq, Modesto and Afrosiyob twist-off lids",
+      "alt3": "Lids with colour lithography"
     },
     "specs": {
-      "eyebrow": "Условия",
-      "title": "Что нужно знать заранее",
-      "columns": { "param": "Параметр", "value": "Значение" },
+      "eyebrow": "Terms",
+      "title": "What to know in advance",
+      "columns": { "param": "Parameter", "value": "Value" },
       "rows": {
-        "types": { "l": "Типы крышек", "v": "СКО I-82 · Твист-офф 82" },
-        "moq": { "l": "Минимальная партия", "v": "1 000 шт." },
-        "max": { "l": "Максимум", "v": "10 000 000 шт." },
-        "coat": { "l": "Покрытие", "v": "Усиленное — по запросу" },
-        "price": { "l": "Цена", "v": "По техническому заданию" }
+        "types": { "l": "Lid types", "v": "SKO I-82 · Twist-off 82" },
+        "moq": { "l": "Minimum batch", "v": "1,000 pcs" },
+        "max": { "l": "Maximum", "v": "10,000,000 pcs" },
+        "coat": { "l": "Coating", "v": "Reinforced — on request" },
+        "price": { "l": "Price", "v": "Per technical specification" }
       }
     },
-    "ctaTitle": "Расскажите про вашу марку"
+    "ctaTitle": "Tell us about your brand"
   },
   "about": {
     "meta": {
-      "title": "О заводе ELIT KONSERVA: Коканд, с 1996 года",
-      "description": "Завод крышек для консервации в Коканде: с 1996 года, викельные кольца с 2014, твист-офф с 2016, «Елисейские крышки» с 2022. Лаборатория на каждую партию."
+      "title": "About ELIT KONSERVA: Kokand, since 1996",
+      "description": "A canning lid factory in Kokand: since 1996, sealing rings since 2014, twist-off since 2016, Eliseyskie krishki since 2022. A lab check for every batch."
     },
     "hero": {
-      "eyebrow": "О заводе",
-      "title": "Завод в Коканде. С 1996 года.",
-      "lead": "Делаем крышки для консервации и печатаем на жести. Каждая партия проходит проверку в нашей лаборатории.",
-      "alt": "Склад готовых тубусов с крышками"
+      "eyebrow": "About the factory",
+      "title": "A factory in Kokand. Since 1996.",
+      "lead": "We make canning lids and print on tinplate. Every batch is checked in our lab.",
+      "alt": "A warehouse of lid tubes"
     },
     "timeline": {
-      "eyebrow": "История",
-      "title": "Тридцать лет, четыре шага",
+      "eyebrow": "History",
+      "title": "Thirty years, four steps",
       "items": {
-        "y1996": { "y": "1996", "t": "Основание", "d": "ELIT KONSERVA начинает работать в Коканде." },
-        "y2014": { "y": "2014", "t": "Викельные кольца", "d": "Запускаем производство уплотнительных колец из пищевой резины." },
-        "y2016": { "y": "2016", "t": "Твист-офф", "d": "Новая линия в отдельном цехе и дополнительные склады." },
-        "y2022": { "y": "2022", "t": "Елисейские крышки", "d": "Новая линия крышек СКО." }
+        "y1996": { "y": "1996", "t": "Founded", "d": "ELIT KONSERVA starts work in Kokand." },
+        "y2014": { "y": "2014", "t": "Sealing rings", "d": "We launch production of food-grade rubber sealing rings." },
+        "y2016": { "y": "2016", "t": "Twist-off", "d": "A new line in a separate workshop and extra warehouses." },
+        "y2022": { "y": "2022", "t": "Eliseyskie krishki", "d": "A new line of SKO lids." }
       }
     },
     "quality": {
-      "eyebrow": "Качество",
-      "title": "Каждую партию проверяет лаборатория",
+      "eyebrow": "Quality",
+      "title": "The lab checks every batch",
       "items": {
-        "lab": { "t": "Лаборатория", "d": "Проверяет каждую партию." },
-        "food": { "t": "Пищевые материалы", "d": "Пищевые лаки и эмали от европейских производителей." },
-        "docs": { "t": "Документы", "d": "Сертификаты и протоколы испытаний — по запросу." }
+        "lab": { "t": "Laboratory", "d": "Checks every batch." },
+        "food": { "t": "Food-grade materials", "d": "Food-grade lacquers and enamels from European producers." },
+        "docs": { "t": "Documents", "d": "Certificates and test reports — on request." }
       }
     },
     "gallery": {
-      "eyebrow": "Продукция",
-      "title": "Что выходит с завода",
+      "eyebrow": "Products",
+      "title": "What leaves the factory",
       "alts": {
-        "gold": "Стопки золотистых крышек СКО",
-        "twist": "Цветные крышки твист-офф",
-        "tubes": "Тубы с крышками на складе",
-        "rings": "Коробка с викельными кольцами"
+        "gold": "Stacks of gold SKO lids",
+        "twist": "Coloured twist-off lids",
+        "tubes": "Tubes of lids in the warehouse",
+        "rings": "A box of sealing rings"
       }
     },
     "partners": {
-      "eyebrow": "Партнёры",
-      "title": "С кем работаем",
-      "label": "Логотипы партнёров"
+      "eyebrow": "Partners",
+      "title": "Who we work with",
+      "label": "Partner logos"
     },
     "geo": {
-      "eyebrow": "География",
-      "title": "Узбекистан и Центральная Азия",
-      "text": "Завод в Коканде, Ферганская область. Поставляем по Узбекистану и странам региона.",
-      "cta": "Открыть на карте"
+      "eyebrow": "Geography",
+      "title": "Uzbekistan and Central Asia",
+      "text": "The factory is in Kokand, Fergana region. We supply across Uzbekistan and the countries of the region.",
+      "cta": "Open on the map"
     }
   },
   "useful": {
     "meta": {
-      "title": "Как выбрать крышку СКО для консервации",
-      "description": "Пять признаков хорошей крышки СКО: ребра жёсткости, уплотнительное кольцо, вес, пищевой лак внутри и цвет эмали. Памятка покупателю."
+      "title": "How to choose an SKO lid for canning",
+      "description": "Five signs of a good SKO lid: stiffening ribs, sealing ring, weight, food-grade lacquer inside and enamel colour. A buyer's guide."
     },
     "hero": {
-      "eyebrow": "Полезно знать",
-      "title": "Как выбрать крышку СКО",
-      "lead": "Пять признаков, по которым хорошую крышку видно сразу. Проверьте их, прежде чем брать партию.",
-      "alt": "Золотистые крышки СКО I-82"
+      "eyebrow": "Good to know",
+      "title": "How to choose an SKO lid",
+      "lead": "Five signs that show a good lid at a glance. Check them before you take a batch.",
+      "alt": "Gold SKO I-82 lids"
     },
-    "tocLabel": "Содержание",
+    "tocLabel": "Contents",
     "items": {
-      "ribs": { "t": "Два ребра жёсткости", "d": "Ребра держат форму крышки при закатке и в хранении. Посмотрите на профиль: он должен быть ровным и чётким." },
-      "ring": { "t": "Уплотнительное кольцо", "d": "Резина должна быть пищевой, эластичной и без трещин. Кольцо лежит ровно и не болтается." },
-      "weight": { "t": "Вес крышки с кольцом", "d": "Взвесьте крышку вместе с кольцом. Точный ориентир по весу назовём по запросу." },
-      "lacquer": { "t": "Пищевой лак внутри", "d": "Внутреннее покрытие важнее наружного: оно контактирует с продуктом." },
-      "colour": { "t": "Цвет внутри", "d": "Серебристый или перламутровый цвет внутри означает пищевую эмаль." }
+      "ribs": { "t": "Two stiffening ribs", "d": "The ribs keep the lid's shape during seaming and storage. Look at the profile: it should be even and crisp." },
+      "ring": { "t": "The sealing ring", "d": "The rubber should be food grade, elastic and free of cracks. The ring sits evenly and does not rattle." },
+      "weight": { "t": "Weight of lid with ring", "d": "Weigh the lid together with its ring. We will give you the exact weight guide on request." },
+      "lacquer": { "t": "Food-grade lacquer inside", "d": "The inner coating matters more than the outer: it touches the food." },
+      "colour": { "t": "Colour inside", "d": "A silver or pearl colour inside means food enamel." }
     },
     "rule": {
-      "title": "Главное правило консервации",
-      "text": "Стерильность. Крышка хороша только вместе с чистой банкой и правильной обработкой."
+      "title": "The main rule of canning",
+      "text": "Sterility. A lid is only as good as the clean jar and correct processing it goes with."
     },
-    "ctaTitle": "Покажем на образцах"
+    "ctaTitle": "We will show you on samples"
   },
   "contacts": {
     "meta": {
-      "title": "Контакты ELIT KONSERVA: Коканд, телефоны, заявка",
-      "description": "Телефоны, WhatsApp, Telegram, email и адрес завода в Коканде. Оставьте заявку на прайс или образцы крышек СКО и твист-офф."
+      "title": "ELIT KONSERVA contacts: Kokand, phones, request",
+      "description": "Phones, WhatsApp, Telegram, email and the factory address in Kokand. Send a request for a price list or samples of SKO and twist-off lids."
     },
     "hero": {
-      "eyebrow": "Контакты",
-      "title": "Позвоните или напишите",
-      "lead": "Ответим на вопросы по крышкам, цене и срокам. Образцы отправляем."
+      "eyebrow": "Contacts",
+      "title": "Call or write",
+      "lead": "We answer questions on lids, prices and lead times. We send samples."
     },
-    "phones": "Телефоны",
-    "messengers": "Мессенджеры",
-    "email": "Почта",
-    "addressTitle": "Адрес",
-    "address": "Республика Узбекистан, Ферганская область, г. Коканд, ул. Кипчок Арик, 98А",
-    "map": "Открыть на карте",
-    "hours": "Часы работы",
-    "hoursValue": "Уточняются",
-    "social": "Соцсети"
+    "phones": "Phones",
+    "messengers": "Messengers",
+    "email": "Email",
+    "addressTitle": "Address",
+    "address": "Republic of Uzbekistan, Fergana region, Kokand, Kipchok Arik st., 98A",
+    "map": "Open on the map",
+    "hours": "Working hours",
+    "hoursValue": "To be confirmed",
+    "social": "Social media"
   },
   "privacy": {
     "meta": {
-      "title": "Политика конфиденциальности — ELIT KONSERVA",
-      "description": "Какие данные мы собираем через форму заявки на krishki.uz, зачем и как их хранить. Черновик политики."
+      "title": "Privacy policy — ELIT KONSERVA",
+      "description": "What data we collect through the request form on krishki.uz, why, and how it is stored. Draft policy."
     },
     "hero": {
-      "eyebrow": "Документ",
-      "title": "Политика конфиденциальности",
-      "lead": "Черновик. Окончательный текст будет согласован с юристом."
+      "eyebrow": "Document",
+      "title": "Privacy policy",
+      "lead": "Draft. The final text will be agreed with a lawyer."
     },
     "sections": {
-      "who": { "t": "Кто мы", "d": "ООО «Elit Konserva», Республика Узбекистан, Ферганская область, г. Коканд, ул. Кипчок Арик, 98А. Почта: info@krishki.uz." },
-      "data": { "t": "Какие данные мы собираем", "d": "Имя, телефон, название компании, страну, направление, интересующую продукцию и текст сообщения. Только то, что вы указали в форме." },
-      "why": { "t": "Зачем", "d": "Чтобы ответить на заявку, подготовить прайс и отправить образцы. Данные не используются для других целей." },
-      "store": { "t": "Как долго храним", "d": "Срок хранения и порядок удаления уточняются. Вы можете запросить удаление данных по почте." },
-      "cookies": { "t": "Cookie и аналитика", "d": "Сейчас сайт не использует рекламные cookie. Если подключим аналитику, покажем баннер согласия." }
+      "who": { "t": "Who we are", "d": "Elit Konserva LLC, Republic of Uzbekistan, Fergana region, Kokand, Kipchok Arik st., 98A. Email: info@krishki.uz." },
+      "data": { "t": "What data we collect", "d": "Name, phone, company name, country, direction, products of interest and the message text. Only what you enter in the form." },
+      "why": { "t": "Why", "d": "To answer your request, prepare a price list and send samples. The data is not used for other purposes." },
+      "store": { "t": "How long we keep it", "d": "The retention period and the deletion procedure are to be confirmed. You can ask us to delete your data by email." },
+      "cookies": { "t": "Cookies and analytics", "d": "The site does not currently use advertising cookies. If we add analytics, we will show a consent banner." }
     }
   },
   "styleguide": {
     "meta": {
-      "title": "Дизайн-система v2 — ELIT KONSERVA",
-      "description": "Внутренняя страница: токены и компоненты светлого сайта. Не индексируется."
+      "title": "Design system v2 — ELIT KONSERVA",
+      "description": "Internal page: tokens and components of the light site. Not indexed."
     },
     "hero": {
-      "eyebrow": "Внутренняя страница",
-      "title": "Дизайн-система v2",
-      "lead": "Светлый сайт: белые и голубые поверхности, лазурь завода, красный «Мечты хозяйки» для действий, золото лака на деталях."
+      "eyebrow": "Internal page",
+      "title": "Design system v2",
+      "lead": "A light site: white and pale-blue surfaces, factory azure, the Mechta khozyayki red for actions, lacquer gold for details."
     },
     "colour": {
-      "title": "Цвет",
-      "caption": "Палитра",
-      "columns": { "swatch": "Образец", "token": "Токен", "role": "Назначение" },
+      "title": "Colour",
+      "caption": "Palette",
+      "columns": { "swatch": "Swatch", "token": "Token", "role": "Role" },
       "roles": {
-        "paper": "Основная поверхность, карточки, поля формы",
-        "mist": "Подложка секций, подвал",
-        "sky": "Голубые секции и подложки под тубы",
-        "ink950": "Основной текст",
-        "ink500": "Второстепенный текст",
-        "azure500": "Полоса прогресса, подчёркивания, фирменная лазурь",
-        "azure700": "Ссылки, фокус, глубокая секция страницы",
-        "azure900": "Верхняя полоса сайта",
-        "red600": "Главная кнопка «Запросить прайс»",
-        "gold500": "Тонкие акценты и кольца крышек",
-        "gold700": "Золотой текст на светлом"
+        "paper": "Main surface, cards, form fields",
+        "mist": "Section backdrop, footer",
+        "sky": "Pale-blue sections and backdrops for tubes",
+        "ink950": "Main text",
+        "ink500": "Secondary text",
+        "azure500": "Progress bar, underlines, brand azure",
+        "azure700": "Links, focus, the page's deep section",
+        "azure900": "Top utility bar",
+        "red600": "Main button: request a price list",
+        "gold500": "Fine accents and lid rings",
+        "gold700": "Gold text on light"
       },
-      "pairsTitle": "Контраст пар",
-      "pairColumns": { "pair": "Пара", "ratio": "Контраст", "level": "Уровень" }
+      "pairsTitle": "Pair contrast",
+      "pairColumns": { "pair": "Pair", "ratio": "Contrast", "level": "Level" }
     },
     "type": {
-      "title": "Типографика",
-      "lead": "Tektur для крупных заголовков, Onest для текста, IBM Plex Mono для подписей и цифр.",
-      "display": "Крышки, которым доверяют урожай",
-      "heading": "Двойной лак внутри и снаружи",
-      "body": "Резинка из пищевого каучука, ребро жёсткости, жесть ЭЖК 0,17–0,20 мм. Партии от 1 000 до 10 000 000 штук.",
-      "caption": "СКО I-82 · Твист-офф 82 · Коканд",
+      "title": "Typography",
+      "lead": "Tektur for large headings, Onest for text, IBM Plex Mono for captions and figures.",
+      "display": "Lids the harvest can trust",
+      "heading": "Double lacquer inside and out",
+      "body": "Food-grade rubber ring, stiffening rib, EZhK tinplate 0.17–0.20 mm. Batches from 1,000 to 10,000,000 pcs.",
+      "caption": "SKO I-82 · Twist-off 82 · Kokand",
       "uzbek": "Oʻzbekiston, gʻalla, Qoʻqon"
     },
     "controls": {
-      "title": "Кнопки и поля",
-      "primary": "Запросить прайс",
-      "secondary": "Смотреть продукцию",
-      "ghost": "Подробнее",
-      "loading": "Отправляем",
-      "label": "Название поля",
-      "hint": "Подсказка под полем",
-      "error": "Укажите телефон: нам нужно перезвонить",
-      "check": "Согласен на обработку данных",
-      "radius": "Радиус: поля и кнопки 8 px, фото 16 px, крупные карточки 20 px."
+      "title": "Buttons and fields",
+      "primary": "Request a price list",
+      "secondary": "See the products",
+      "ghost": "Details",
+      "loading": "Sending",
+      "label": "Field label",
+      "hint": "Hint under the field",
+      "error": "Enter a phone number: we need to call you back",
+      "check": "I agree to data processing",
+      "radius": "Radius: fields and buttons 8 px, photos 16 px, large cards 20 px."
     },
     "table": {
-      "title": "Таблица характеристик",
-      "caption": "СКО I-82",
-      "columns": { "param": "Параметр", "value": "Значение" },
+      "title": "Datasheet table",
+      "caption": "SKO I-82",
+      "columns": { "param": "Parameter", "value": "Value" },
       "rows": {
-        "metal": { "l": "Жесть", "v": "ЭЖК" },
-        "thickness": { "l": "Толщина", "v": "0,17–0,20 мм" },
-        "moq": { "l": "Минимальный заказ", "v": "1 000 шт." }
+        "metal": { "l": "Tinplate", "v": "EZhK" },
+        "thickness": { "l": "Thickness", "v": "0.17–0.20 mm" },
+        "moq": { "l": "Minimum order", "v": "1,000 pcs" }
       }
     },
     "motion": {
-      "title": "Движение",
-      "text": "Заголовки выезжают по словам, блоки поднимаются при прокрутке, линия прогресса идёт под шапкой. GSAP и Lenis грузятся после отрисовки первого экрана. При «уменьшить движение» всё статично."
+      "title": "Motion",
+      "text": "Headings slide in word by word, blocks rise on scroll, a progress line runs under the header. GSAP and Lenis load after the first screen is painted. With reduced motion everything is static."
     }
   }
 }
