@@ -179,9 +179,19 @@ html:not(.m) .vrail__dot {
   position: sticky;
   top: 0;
   z-index: 60;
+  isolation: isolate;
+  border-bottom: 1px solid var(--sky-line);
+}
+/* The blur lives on a pseudo-element: backdrop-filter on the header itself would make it the
+   containing block for the position:fixed .menu-panel rendered inside it. */
+.site-header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
   background: rgb(255 255 255 / 0.9);
   backdrop-filter: saturate(1.4) blur(14px);
-  border-bottom: 1px solid var(--sky-line);
+  pointer-events: none;
 }
 .nav__link {
   position: relative;
