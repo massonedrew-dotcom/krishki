@@ -111,9 +111,9 @@ export default async function HomePage({ params }: Props) {
         <div className="mt-12 grid gap-6 lg:grid-cols-12">
           {(
             [
-              { key: "sko", href: "/products/sko-i82", img: PHOTO.skoGold, span: "lg:col-span-7 lg:row-span-2", ratio: "4 / 3" },
-              { key: "twist", href: "/products/twist-off", img: PHOTO.twistStack, span: "lg:col-span-5", ratio: "16 / 10" },
-              { key: "ring", href: "/products/wikel-ring", img: PHOTO.rings, span: "lg:col-span-5", ratio: "16 / 10" },
+              { key: "sko", href: "/products/sko-i82", img: PHOTO.skoGold, span: "lg:col-span-6", ratio: "4 / 3" },
+              { key: "twist", href: "/products/twist-off", img: PHOTO.twistStack, span: "lg:col-span-6", ratio: "4 / 3" },
+              { key: "ring", href: "/products/wikel-ring", img: PHOTO.rings, span: "lg:col-span-12", ratio: "21 / 7" },
             ] as const
           ).map((p) => (
             <article key={p.key} className={`lift relative flex flex-col overflow-hidden rounded-card border border-sky-line bg-paper ${p.span}`} data-reveal>
@@ -157,8 +157,8 @@ export default async function HomePage({ params }: Props) {
               ] as const
             ).map((b) => (
               <li key={b.alt} className="lift max-w-none rounded-card bg-paper p-3" data-reveal>
-                <div className="flex aspect-[3/5] items-center justify-center">
-                  <Image src={b.img.src} width={b.img.width} height={b.img.height} alt={b.alt} sizes="(min-width: 640px) 20vw, 44vw" className="max-h-full w-auto object-contain" />
+                <div className="relative h-56 sm:h-64 lg:h-72">
+                  <Image src={b.img.src} width={b.img.width} height={b.img.height} alt={b.alt} sizes="(min-width: 640px) 20vw, 44vw" className="h-full w-full object-contain" />
                 </div>
               </li>
             ))}
