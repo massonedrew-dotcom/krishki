@@ -727,7 +727,7 @@
     },
     "type": {
       "title": "Tipografika",
-      "lead": "Katta sarlavhalar uchun Tektur, matn uchun Onest, izohlar va raqamlar uchun IBM Plex Mono.",
+      "lead": "Katta sarlavhalar uchun Montserrat, matn va interfeys uchun Inter, izohlar va raqamlar uchun IBM Plex Mono.",
       "display": "Hosilga ishonch bildirilgan qopqoqlar",
       "heading": "Ichi va tashqarisi ikki qavat lak",
       "body": "Oziq-ovqat kauchugidan halqa, qattiqlik qirrasi, EZhK tunuka 0,17–0,20 mm. 1 000 dan 10 000 000 donagacha partiyalar.",

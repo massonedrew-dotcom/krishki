@@ -72,8 +72,8 @@
   --shadow-lift: 0 2px 4px rgb(15 27 42 / 0.06), 0 28px 56px -16px rgb(14 94 156 / 0.28);
 
   /* type */
-  --font-display-stack: var(--font-tektur), "Arial Narrow", sans-serif;
-  --font-text-stack: var(--font-onest), "Segoe UI", sans-serif;
+  --font-display-stack: var(--font-montserrat), Arial, sans-serif;
+  --font-text-stack: var(--font-inter), "Segoe UI", sans-serif;
   --font-mono-stack: var(--font-plex-mono), ui-monospace, monospace;
 
   /* semantic surface: white is the default */
@@ -211,7 +211,7 @@
   --text-28--line-height: 1.25;
   --text-36: clamp(1.625rem, 1.1rem + 2.2vw, 2.25rem);
   --text-36--line-height: 1.15;
-  --text-48: clamp(1.875rem, 1rem + 3.4vw, 3rem);
+  --text-48: clamp(1.625rem, 0.9rem + 3.4vw, 3rem); /* Montserrat is wider: ~28px at 390 keeps card titles in one row */
   --text-48--line-height: 1.06;
   --text-64: clamp(2.25rem, 1rem + 5vw, 4rem);
   --text-64--line-height: 1.02;
@@ -261,9 +261,23 @@
   h3,
   h4 {
     font-family: var(--font-display-stack);
-    font-weight: 600;
-    letter-spacing: -0.015em;
+    font-weight: 700;
+    letter-spacing: -0.02em;
     text-wrap: balance;
+    /* long Russian words (конфиденциальности, Характеристики) outgrow the column in Montserrat */
+    hyphens: auto;
+    hyphenate-limit-chars: 10 4 4;
+    overflow-wrap: break-word;
+  }
+  /* Inter is wider than Onest: let spec-table words hyphenate so tables keep 390 px. */
+  td,
+  th {
+    hyphens: auto;
+    hyphenate-limit-chars: 10 4 4;
+  }
+  /* Browsers ship no Uzbek hyphenation dictionary; break long words instead of scrolling the page. */
+  :lang(uz) :is(td, th) {
+    overflow-wrap: anywhere;
   }
   p,
   li {
