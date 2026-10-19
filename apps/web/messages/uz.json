@@ -1,33 +1,33 @@
 {
   "meta": {
-    "title": "ELIT KONSERVA — крышки СКО I-82 и твист-офф, Коканд",
-    "description": "Завод в Коканде с 1996 года: крышки СКО I-82, твист-офф 82, викельные кольца, лакировка и литография жести. Партии от 1 000 штук."
+    "title": "ELIT KONSERVA — SKO I-82 va twist-off qopqoqlari, Qoʻqon",
+    "description": "Qoʻqondagi zavod, 1996-yildan: SKO I-82 qopqoqlari, twist-off 82, zichlovchi halqalar, tunuka lak va litografiyasi. 1 000 donadan."
   },
   "common": {
     "brand": "ELIT KONSERVA",
-    "skip": "Перейти к содержимому",
+    "skip": "Asosiy qismga oʻtish",
     "cta": {
-      "requestPrice": "Запросить прайс",
-      "call": "Позвонить",
-      "more": "Подробнее",
-      "toForm": "Оставить заявку"
+      "requestPrice": "Narxnoma soʻrash",
+      "call": "Qoʻngʻiroq",
+      "more": "Batafsil",
+      "toForm": "Ariza qoldirish"
     },
     "nav": {
-      "mainLabel": "Основное меню",
-      "menuOpen": "Открыть меню",
-      "menuClose": "Закрыть меню",
-      "products": "Продукция",
-      "brands": "Бренды",
-      "services": "Услуги",
-      "privateLabel": "Под вашу марку",
-      "about": "О заводе",
-      "useful": "Полезно знать",
-      "contacts": "Контакты"
+      "mainLabel": "Asosiy menyu",
+      "menuOpen": "Menyuni ochish",
+      "menuClose": "Menyuni yopish",
+      "products": "Mahsulotlar",
+      "brands": "Brendlar",
+      "services": "Xizmatlar",
+      "privateLabel": "Oʻz brendingiz",
+      "about": "Zavod haqida",
+      "useful": "Foydali maslahat",
+      "contacts": "Aloqa"
     },
     "header": {
-      "homeLabel": "ELIT KONSERVA, на главную",
-      "phoneLabel": "Позвонить: {phone}",
-      "topTag": "Коканд, Узбекистан · с 1996 года"
+      "homeLabel": "ELIT KONSERVA, bosh sahifa",
+      "phoneLabel": "Qoʻngʻiroq qilish: {phone}",
+      "topTag": "Qoʻqon, Oʻzbekiston · 1996-yildan"
     },
     "contacts": {
       "whatsapp": "WhatsApp",
@@ -36,324 +36,324 @@
       "facebook": "Facebook"
     },
     "lang": {
-      "label": "Язык сайта",
+      "label": "Sayt tili",
       "ru": { "short": "RU", "name": "Русский" },
       "uz": { "short": "UZ", "name": "Oʻzbekcha" },
       "en": { "short": "EN", "name": "English" }
     },
     "footer": {
-      "since": "Работаем с 1996 года. Коканд, Узбекистан.",
-      "brands": "Мечта хозяйки / Beka orzusi · Елисейские крышки",
-      "navTitle": "Разделы",
-      "contactsTitle": "Контакты",
-      "addressTitle": "Адрес",
-      "address": "Республика Узбекистан, Ферганская область, г. Коканд, ул. Кипчок Арик, 98А",
-      "map": "Открыть на карте",
-      "socialsTitle": "Мы в сетях",
-      "privacy": "Политика конфиденциальности",
-      "copyright": "© 2019–2026 ООО «Elit Konserva»"
+      "since": "1996-yildan buyon ishlaymiz. Qoʻqon, Oʻzbekiston.",
+      "brands": "Mechta khozyayki / Beka orzusi · Eliseyskie krishki",
+      "navTitle": "Boʻlimlar",
+      "contactsTitle": "Aloqa",
+      "addressTitle": "Manzil",
+      "address": "Oʻzbekiston Respublikasi, Fargʻona viloyati, Qoʻqon sh., Qipchoq ariq koʻchasi, 98A",
+      "map": "Xaritada ochish",
+      "socialsTitle": "Ijtimoiy tarmoqlar",
+      "privacy": "Maxfiylik siyosati",
+      "copyright": "© 2019–2026 «Elit Konserva» MChJ"
     },
     "units": {
-      "pcs": "шт."
+      "pcs": "dona"
     }
   },
   "form": {
-    "eyebrow": "Заявка",
-    "title": "Нужен прайс или образцы?",
-    "lead": "Расскажите, что и в каком объёме нужно. Ответим на все вопросы по крышкам, цене и срокам.",
-    "name": "Имя",
-    "phone": "Телефон",
-    "company": "Компания",
-    "country": "Страна",
-    "direction": "Направление",
-    "product": "Что интересует",
-    "message": "Сообщение",
-    "messageHint": "Тираж, тип крышки, сроки — что есть под рукой.",
-    "choose": "Выберите",
-    "required": "(обязательное поле)",
+    "eyebrow": "Ariza",
+    "title": "Narxnoma yoki namunalar kerakmi?",
+    "lead": "Nima va qancha kerakligini yozing. Qopqoqlar, narx va muddatlar boʻyicha barcha savollarga javob beramiz.",
+    "name": "Ism",
+    "phone": "Telefon",
+    "company": "Kompaniya",
+    "country": "Davlat",
+    "direction": "Yoʻnalish",
+    "product": "Nima qiziqtiradi",
+    "message": "Xabar",
+    "messageHint": "Hajm, qopqoq turi, muddat — qoʻlingizdagi maʼlumot.",
+    "choose": "Tanlang",
+    "required": "(majburiy maydon)",
     "directions": {
-      "wholesale": "Опт",
-      "export": "Экспорт",
-      "privateLabel": "Под вашу марку",
-      "retail": "Розница",
-      "lithography": "Лакировка и литография"
+      "wholesale": "Ulgurji",
+      "export": "Eksport",
+      "privateLabel": "Oʻz brendingiz ostida",
+      "retail": "Chakana",
+      "lithography": "Lak va litografiya"
     },
     "products": {
-      "sko": "Крышки СКО I-82",
-      "twist": "Твист-офф 82",
-      "ring": "Викельное кольцо",
-      "services": "Лакировка и литография жести",
-      "unsure": "Пока не знаю, подскажите"
+      "sko": "SKO I-82 qopqoqlari",
+      "twist": "Twist-off 82",
+      "ring": "Zichlovchi halqa",
+      "services": "Tunuka lak va litografiyasi",
+      "unsure": "Hali bilmayman, maslahat bering"
     },
-    "consent": "Согласен на обработку персональных данных:",
-    "consentLink": "политика конфиденциальности",
-    "submit": "Отправить заявку",
-    "note": "Партии от 1 000 штук. Образцы отправляем.",
-    "pending": "Отправка заявок скоро заработает. Пока позвоните или напишите в Telegram — ответим сразу."
+    "consent": "Shaxsiy maʼlumotlarni qayta ishlashga roziman:",
+    "consentLink": "maxfiylik siyosati",
+    "submit": "Arizani yuborish",
+    "note": "1 000 donadan. Namunalarni yuboramiz.",
+    "pending": "Arizalarni yuborish tez orada ishga tushadi. Hozircha qoʻngʻiroq qiling yoki Telegramga yozing — darhol javob beramiz."
   },
   "home": {
     "meta": {
-      "title": "Крышки СКО I-82 и твист-офф от завода в Коканде",
-      "description": "ELIT KONSERVA: крышки СКО I-82 и твист-офф 82, викельные кольца, литография жести. С 1996 года, партии от 1 000 до 10 000 000 штук."
+      "title": "Qoʻqon zavodidan SKO I-82 va twist-off qopqoqlari",
+      "description": "ELIT KONSERVA: SKO I-82 va twist-off 82 qopqoqlari, zichlovchi halqalar, tunuka litografiyasi. 1996-yildan, 1 000 dan 10 000 000 donagacha."
     },
     "hero": {
-      "eyebrow": "Коканд · Узбекистан · с 1996 года",
-      "title": "Крышки, которым доверяют урожай",
-      "lead": "СКО I-82 и твист-офф 82 от завода в Коканде. Для домашней консервации и для консервных заводов.",
-      "primary": "Запросить прайс",
-      "secondary": "Смотреть продукцию",
+      "eyebrow": "Qoʻqon · Oʻzbekiston · 1996-yildan",
+      "title": "Hosilga ishonch bildirilgan qopqoqlar",
+      "lead": "Qoʻqon zavodidan SKO I-82 va twist-off 82. Uy konservasi va konserva zavodlari uchun.",
+      "primary": "Narxnoma soʻrash",
+      "secondary": "Mahsulotlarni koʻrish",
       "specs": {
-        "type": { "label": "Тип", "value": "СКО I-82 · Твист-офф 82" },
-        "batch": { "label": "Партия", "value": "от 1 000 до 10 000 000 шт." },
-        "metal": { "label": "Металл", "value": "Жесть ЭЖК" }
+        "type": { "label": "Turi", "value": "SKO I-82 · Twist-off 82" },
+        "batch": { "label": "Partiya", "value": "1 000 dan 10 000 000 donagacha" },
+        "metal": { "label": "Metall", "value": "EZhK tunukasi" }
       },
-      "railLabel": "Линейка крышек",
+      "railLabel": "Qopqoqlar qatori",
       "rail": {
-        "gold": "Золотистая",
-        "mechta": "Мечта хозяйки",
-        "elisey": "Елисейские",
-        "litho": "Полноцветная",
-        "private": "Ваша марка",
-        "twist": "Твист-офф",
-        "twistColor": "Твист-офф цвет",
-        "ring": "Кольцо"
+        "gold": "Oltin rang",
+        "mechta": "Mechta khozyayki",
+        "elisey": "Eliseyskie",
+        "litho": "Rangli",
+        "private": "Sizning brendingiz",
+        "twist": "Twist-off",
+        "twistColor": "Twist-off rangli",
+        "ring": "Halqa"
       },
-      "slotAlt": "Золотистая крышка СКО I-82, вид сверху под углом",
-      "slotCaption": "Крышка СКО I-82, рендер"
+      "slotAlt": "Oltin rangli SKO I-82 qopqogʻi, tepadan qiya koʻrinish",
+      "slotCaption": "SKO I-82 qopqogʻi, render"
     },
     "why": {
-      "eyebrow": "Почему мы",
-      "title": "Шесть причин заказать в Коканде",
+      "eyebrow": "Nega biz",
+      "title": "Qoʻqondan buyurtma berishning olti sababi",
       "items": {
-        "quality": { "t": "Качество под контролем", "d": "Лаборатория проверяет каждую партию. Лаки и эмали пищевые, от европейских производителей." },
-        "region": { "t": "Работаем по Узбекистану и Центральной Азии", "d": "Поставляем партии по стране и в соседние страны региона." },
-        "samples": { "t": "Отправляем образцы", "d": "Сначала образец, потом партия. Проверьте крышки на своей линии." },
-        "prices": { "t": "Гибкие цены", "d": "Цена зависит от типа, покрытия и тиража. Прайс пришлём по заявке." },
-        "custom": { "t": "Работаем на заказ", "d": "Крышки под вашей торговой маркой: ваш дизайн, наша литография." },
-        "volume": { "t": "От 1 000 до 10 000 000 штук", "d": "Одна партия на пробу или целый сезон для консервного завода." }
+        "quality": { "t": "Nazoratdagi sifat", "d": "Laboratoriya har bir partiyani tekshiradi. Laklar va emallar oziq-ovqat uchun, Yevropa ishlab chiqaruvchilaridan." },
+        "region": { "t": "Oʻzbekiston va Markaziy Osiyo", "d": "Partiyalarni mamlakat boʻylab va mintaqaning qoʻshni davlatlariga yetkazamiz." },
+        "samples": { "t": "Namunalarni yuboramiz", "d": "Avval namuna, keyin partiya. Qopqoqlarni oʻz liningizda sinab koʻring." },
+        "prices": { "t": "Moslashuvchan narxlar", "d": "Narx turi, qoplamasi va hajmiga bogʻliq. Narxnomani ariza boʻyicha yuboramiz." },
+        "custom": { "t": "Buyurtma asosida ishlaymiz", "d": "Oʻz savdo belgingiz ostidagi qopqoqlar: sizning dizayningiz, bizning litografiyamiz." },
+        "volume": { "t": "1 000 dan 10 000 000 donagacha", "d": "Sinov uchun bitta partiya yoki konserva zavodi uchun butun mavsum." }
       }
     },
     "scale": {
-      "eyebrow": "Тираж",
-      "number": "1 000 – 10 000 000",
-      "unit": "штук в одном заказе",
-      "title": "Одна партия или целый сезон",
-      "text": "Минимальный заказ — 1 000 штук. Верхней планки у нас практически нет: до десяти миллионов за раз.",
-      "cta": "Рассчитать мой тираж"
+      "eyebrow": "Hajm",
+      "number": "1 000 – 10 000 000",
+      "unit": "dona bir buyurtmada",
+      "title": "Bitta partiya yoki butun mavsum",
+      "text": "Minimal buyurtma — 1 000 dona. Yuqori chegara deyarli yoʻq: bir martada oʻn milliongacha.",
+      "cta": "Hajmimni hisoblash"
     },
     "products": {
-      "eyebrow": "Продукция",
-      "title": "Три изделия. Одна фабрика.",
-      "lead": "Крышки для банок с венчиком СКО I-82 и с резьбой 82, плюс уплотнительные кольца для них.",
+      "eyebrow": "Mahsulotlar",
+      "title": "Uch mahsulot. Bitta zavod.",
+      "lead": "SKO I-82 boʻyinli va 82 rezbali bankalar uchun qopqoqlar hamda ular uchun zichlovchi halqalar.",
       "items": {
-        "sko": { "tag": "СКО I-82", "name": "Крышки СКО I-82", "desc": "Золотистые, литографированные и под вашу марку. Для стеклянных банок с венчиком СКО I-82.", "alt": "Стопка золотистых крышек СКО I-82" },
-        "twist": { "tag": "Твист-офф 82", "name": "Твист-офф 82", "desc": "Винтовые крышки с кнопкой вакуума. Закручиваются вручную, закаточная машинка не нужна.", "alt": "Зелёные и красные крышки твист-офф" },
-        "ring": { "tag": "С 2014 года", "name": "Викельное кольцо", "desc": "Пищевая резина по ГОСТ. Ложится под внутренний бортик крышки СКО.", "alt": "Резиновые викельные кольца" }
+        "sko": { "tag": "SKO I-82", "name": "SKO I-82 qopqoqlari", "desc": "Oltin rangli, litografiyali va oʻz brendingiz ostida. SKO I-82 boʻyinli shisha bankalar uchun.", "alt": "Oltin rangli SKO I-82 qopqoqlari dastasi" },
+        "twist": { "tag": "Twist-off 82", "name": "Twist-off 82", "desc": "Vakuum tugmali burama qopqoqlar. Qoʻlda buraladi, zakatka mashinasi kerak emas.", "alt": "Yashil va qizil twist-off qopqoqlari" },
+        "ring": { "tag": "2014-yildan", "name": "Zichlovchi halqa", "desc": "GOST boʻyicha oziq-ovqat rezinasi. SKO qopqogʻining ichki yoqasi ostiga oʻrnashadi.", "alt": "Rezina zichlovchi halqalar" }
       },
-      "all": "Вся продукция"
+      "all": "Barcha mahsulotlar"
     },
     "brands": {
-      "eyebrow": "Бренды",
-      "title": "Тубы по 50 штук с литографией",
-      "lead": "Мечта хозяйки, Елисейские крышки, Моя мечта, Роса, Гурман. У каждой линейки свой дизайн и своя упаковка.",
-      "cta": "Все бренды",
-      "mechtaAlt": "Туба крышек «Мечта хозяйки» по 50 штук",
-      "moyaAlt": "Туба крышек «Моя мечта»",
-      "rosaAlt": "Туба крышек «Роса»",
-      "gurmanAlt": "Тубы крышек «Гурман»",
-      "twistAlt": "Тубы крышек твист-офф «Мечта хозяйки», зелёная и красная"
+      "eyebrow": "Brendlar",
+      "title": "Litografiyali 50 talik tubalar",
+      "lead": "Mechta khozyayki, Eliseyskie krishki, Moya mechta, Rosa, Gurman. Har bir qatorning oʻz dizayni va oʻramasi bor.",
+      "cta": "Barcha brendlar",
+      "mechtaAlt": "50 talik «Mechta khozyayki» qopqoqlari tubasi",
+      "moyaAlt": "«Moya mechta» qopqoqlari tubasi",
+      "rosaAlt": "«Rosa» qopqoqlari tubasi",
+      "gurmanAlt": "«Gurman» qopqoqlari tubalari",
+      "twistAlt": "«Mechta khozyayki» twist-off tubalari, yashil va qizil"
     },
     "services": {
-      "eyebrow": "Услуги",
-      "title": "Красим и печатаем жесть сами",
+      "eyebrow": "Xizmatlar",
+      "title": "Tunukani oʻzimiz boʻyaymiz va bosamiz",
       "items": {
         "lacquer": {
-          "tag": "Лакировка и литография",
-          "title": "Лаки PPG, краски HUBER GROUP",
-          "text": "Офсетная печать на металле и пищевое покрытие. Лист жести от 710×510 до 1145×950 мм.",
-          "cta": "Об услугах",
-          "alt": "Крышки с цветной литографией: овощи и фрукты"
+          "tag": "Lak va litografiya",
+          "title": "PPG laklari, HUBER GROUP boʻyoqlari",
+          "text": "Metallda ofset bosma va oziq-ovqat qoplamasi. Tunuka varagʻi 710×510 dan 1145×950 mm gacha.",
+          "cta": "Xizmatlar haqida",
+          "alt": "Rangli litografiyali qopqoqlar: sabzavot va mevalar"
         },
         "private": {
-          "tag": "Под вашу марку",
-          "title": "Ваша марка на каждой банке",
-          "text": "Ваш дизайн на крышках СКО и твист-офф. Тираж от 1 000 штук.",
-          "cta": "Как это работает",
-          "alt": "Крышки СКО с логотипом заказчика"
+          "tag": "Oʻz brendingiz ostida",
+          "title": "Har bir bankada sizning brendingiz",
+          "text": "SKO va twist-off qopqoqlarida sizning dizayningiz. Hajm 1 000 donadan.",
+          "cta": "Bu qanday ishlaydi",
+          "alt": "Buyurtmachi logotipli SKO qopqoqlari"
         }
       }
     },
     "partners": {
-      "eyebrow": "Партнёры",
-      "title": "Нам доверяют",
-      "lead": "Марки, с которыми мы работаем.",
-      "label": "Логотипы партнёров"
+      "eyebrow": "Hamkorlar",
+      "title": "Bizga ishonishadi",
+      "lead": "Biz ishlaydigan brendlar.",
+      "label": "Hamkorlar logotiplari"
     },
     "geo": {
-      "eyebrow": "География",
-      "title": "Работаем по Узбекистану и Центральной Азии",
-      "text": "Завод в Коканде, Ферганская область. Отправляем образцы и собираем партии под ваш тираж.",
-      "cta": "Как нас найти"
+      "eyebrow": "Geografiya",
+      "title": "Oʻzbekiston va Markaziy Osiyo boʻylab ishlaymiz",
+      "text": "Zavod Qoʻqonda, Fargʻona viloyatida. Namunalar yuboramiz va partiyani sizning hajmingizga moslab tayyorlaymiz.",
+      "cta": "Bizni qanday topish mumkin"
     }
   },
   "products": {
     "meta": {
-      "title": "Продукция: крышки СКО, твист-офф, кольца",
-      "description": "Каталог ELIT KONSERVA: золотистые и литографированные крышки СКО I-82, твист-офф 82, викельные кольца. Под вашу марку от 1 000 штук."
+      "title": "Mahsulotlar: SKO, twist-off qopqoqlari, halqalar",
+      "description": "ELIT KONSERVA katalogi: oltin va litografiyali SKO I-82 qopqoqlari, twist-off 82, zichlovchi halqalar. Oʻz brendingiz ostida 1 000 donadan."
     },
     "hero": {
-      "eyebrow": "Продукция",
-      "title": "Крышки под банки СКО I-82 и твист-офф 82",
-      "lead": "От золотистых до полноцветных. И ваша марка — от 1 000 штук."
+      "eyebrow": "Mahsulotlar",
+      "title": "SKO I-82 va twist-off 82 bankalari uchun qopqoqlar",
+      "lead": "Oltin rangdan to rangli litografiyagacha. Va sizning brendingiz — 1 000 donadan."
     },
     "filter": {
-      "label": "Тип продукции",
-      "all": "Все",
-      "sko": "СКО I-82",
-      "twist": "Твист-офф",
-      "ring": "Кольцо",
-      "count": "Показано: {count}"
+      "label": "Mahsulot turi",
+      "all": "Hammasi",
+      "sko": "SKO I-82",
+      "twist": "Twist-off",
+      "ring": "Halqa",
+      "count": "Koʻrsatilgan: {count}"
     },
-    "packLabel": "Упаковка",
+    "packLabel": "Oʻrama",
     "items": {
-      "skoGold": { "type": "sko", "tag": "СКО I-82", "name": "СКО золотистая", "desc": "Золотистый лак снаружи, пищевая эмаль внутри. Классика для консервации.", "pack": "Туба 50 шт. · мешок 500 · коробка 1 000", "alt": "Золотистые крышки СКО I-82" },
-      "skoLitho": { "type": "sko", "tag": "СКО I-82", "name": "СКО полноцветная", "desc": "Литография с овощами и фруктами для домашней консервации.", "pack": "Туба 50 шт., мешок 500 шт.", "alt": "Крышки СКО с цветной литографией" },
-      "skoPrivate": { "type": "sko", "tag": "Под вашу марку", "name": "СКО под вашу марку", "desc": "Ваш дизайн и логотип. Усиленное покрытие — по запросу.", "pack": "От 1 000 шт.", "alt": "Крышки СКО с логотипами заказчиков" },
-      "twistMono": { "type": "twist", "tag": "Твист-офф 82", "name": "Твист-офф одноцветная", "desc": "Яркая однотонная литография: зелёная и красная.", "pack": "Туба 20 шт. · мешок 240 · коробка 850", "alt": "Стопка зелёных и бордовых крышек твист-офф" },
-      "twistFull": { "type": "twist", "tag": "Твист-офф 82", "name": "Твист-офф полноцветная", "desc": "Помидоры и овощное ассорти. Кнопка вакуума в центре.", "pack": "Туба 20 шт. · мешок 240 · коробка 850", "alt": "Крышки твист-офф с рисунком помидоров" },
-      "twistPrivate": { "type": "twist", "tag": "Под вашу марку", "name": "Твист-офф под вашу марку", "desc": "Ваш дизайн на винтовой крышке. Литография и лак на нашем заводе.", "pack": "От 1 000 шт.", "alt": "Крышки твист-офф с логотипами заказчиков" },
-      "ring": { "type": "ring", "tag": "Кольцо", "name": "Викельное кольцо", "desc": "Пищевая резина по ГОСТ. Производим с 2014 года.", "pack": "Мешок или коробка 30 кг", "alt": "Викельные кольца из пищевой резины" }
+      "skoGold": { "type": "sko", "tag": "SKO I-82", "name": "SKO oltin rangli", "desc": "Tashqarisi oltin lak, ichi oziq-ovqat emali. Konservalash klassikasi.", "pack": "Tuba 50 dona · qop 500 · quti 1 000", "alt": "Oltin rangli SKO I-82 qopqoqlari" },
+      "skoLitho": { "type": "sko", "tag": "SKO I-82", "name": "SKO rangli", "desc": "Uy konservasi uchun sabzavot va mevali litografiya.", "pack": "Tuba 50 dona, qop 500 dona", "alt": "Rangli litografiyali SKO qopqoqlari" },
+      "skoPrivate": { "type": "sko", "tag": "Oʻz brendingiz ostida", "name": "SKO oʻz brendingiz ostida", "desc": "Sizning dizayningiz va logotipingiz. Mustahkamlangan qoplama — soʻrov boʻyicha.", "pack": "1 000 donadan", "alt": "Buyurtmachi logotipli SKO qopqoqlari" },
+      "twistMono": { "type": "twist", "tag": "Twist-off 82", "name": "Twist-off bir rangli", "desc": "Yorqin bir rangli litografiya: yashil va qizil.", "pack": "Tuba 20 dona · qop 240 · quti 850", "alt": "Yashil va qoramtir qizil twist-off qopqoqlari dastasi" },
+      "twistFull": { "type": "twist", "tag": "Twist-off 82", "name": "Twist-off rangli", "desc": "Pomidor va sabzavot assortisi. Markazda vakuum tugmasi.", "pack": "Tuba 20 dona · qop 240 · quti 850", "alt": "Pomidor rasmli twist-off qopqoqlari" },
+      "twistPrivate": { "type": "twist", "tag": "Oʻz brendingiz ostida", "name": "Twist-off oʻz brendingiz ostida", "desc": "Burama qopqoqda sizning dizayningiz. Litografiya va lak bizning zavodda.", "pack": "1 000 donadan", "alt": "Buyurtmachi logotipli twist-off qopqoqlari" },
+      "ring": { "type": "ring", "tag": "Halqa", "name": "Zichlovchi halqa", "desc": "GOST boʻyicha oziq-ovqat rezinasi. 2014-yildan ishlab chiqaramiz.", "pack": "30 kg qop yoki quti", "alt": "Oziq-ovqat rezinasidan zichlovchi halqalar" }
     },
     "compare": {
-      "eyebrow": "Выбор",
-      "title": "СКО или твист-офф?",
-      "caption": "Сравнение двух типов крышек",
-      "columns": { "param": "Параметр", "sko": "СКО I-82", "twist": "Твист-офф 82" },
+      "eyebrow": "Tanlov",
+      "title": "SKO yoki twist-off?",
+      "caption": "Ikki turdagi qopqoqlarni solishtirish",
+      "columns": { "param": "Koʻrsatkich", "sko": "SKO I-82", "twist": "Twist-off 82" },
       "rows": {
-        "jar": { "l": "Банка", "sko": "Венчик СКО I-82", "twist": "Горловина 82 с резьбой" },
-        "close": { "l": "Закрывание", "sko": "Закаточная машинка", "twist": "Вручную" },
-        "seal": { "l": "Уплотнение", "sko": "Кольцо из пищевого каучука", "twist": "Пластизоль под стерилизацию" },
-        "tube": { "l": "Туба", "sko": "50 шт.", "twist": "20 шт." },
-        "moq": { "l": "Минимальный заказ", "sko": "1 000 шт.", "twist": "1 000 шт." }
+        "jar": { "l": "Banka", "sko": "SKO I-82 boʻyni", "twist": "Rezbali 82 boʻyin" },
+        "close": { "l": "Yopish", "sko": "Zakatka mashinasi", "twist": "Qoʻlda" },
+        "seal": { "l": "Zichlash", "sko": "Oziq-ovqat kauchugidan halqa", "twist": "Sterilizatsiyaga chidamli plastizol" },
+        "tube": { "l": "Tuba", "sko": "50 dona", "twist": "20 dona" },
+        "moq": { "l": "Minimal buyurtma", "sko": "1 000 dona", "twist": "1 000 dona" }
       }
     }
   },
   "product": {
     "common": {
-      "datasheetEyebrow": "Паспорт",
-      "datasheetTitle": "Характеристики",
-      "columns": { "param": "Параметр", "value": "Значение" },
-      "variantsEyebrow": "Варианты",
-      "variantsTitle": "Какие бывают",
-      "packEyebrow": "Упаковка",
-      "packTitle": "Как поставляем",
-      "featuresEyebrow": "Особенности",
-      "relatedEyebrow": "Смотрите также",
-      "price": "Цена",
-      "priceValue": "По запросу",
-      "moq": "Минимальный заказ",
-      "moqValue": "от 1 000 шт.",
-      "back": "Вся продукция",
-      "stepBack": "Продукция"
+      "datasheetEyebrow": "Pasport",
+      "datasheetTitle": "Xususiyatlar",
+      "columns": { "param": "Koʻrsatkich", "value": "Qiymat" },
+      "variantsEyebrow": "Variantlar",
+      "variantsTitle": "Qanday turlari bor",
+      "packEyebrow": "Oʻrama",
+      "packTitle": "Qanday yetkazamiz",
+      "featuresEyebrow": "Xususiyatlari",
+      "relatedEyebrow": "Yana koʻring",
+      "price": "Narx",
+      "priceValue": "Soʻrov boʻyicha",
+      "moq": "Minimal buyurtma",
+      "moqValue": "1 000 donadan",
+      "back": "Barcha mahsulotlar",
+      "stepBack": "Mahsulotlar"
     },
     "sko": {
       "meta": {
-        "title": "Крышка СКО I-82: золотистая, цветная, под марку",
-        "description": "Крышки СКО I-82 для стеклянных банок: жесть ЭЖК 0,17–0,20 мм, кольцо из пищевого каучука, ребро жёсткости. От 1 000 штук, образцы."
+        "title": "SKO I-82 qopqogʻi: oltin, rangli, oʻz brendingiz",
+        "description": "Shisha bankalar uchun SKO I-82 qopqoqlari: EZhK tunuka 0,17–0,20 mm, oziq-ovqat kauchugidan halqa, qattiqlik qirrasi. 1 000 donadan, namunalar."
       },
       "hero": {
-        "eyebrow": "Крышка СКО I-82",
-        "title": "Золото снаружи. Пищевая эмаль внутри.",
-        "lead": "Для стеклянных банок с венчиком СКО I-82. Двойное защитное покрытие, кольцо из пищевого каучука и дополнительное ребро жёсткости.",
-        "alt": "Золотистая крышка СКО I-82",
-        "bannerAlt": "Крышки СКО на фоне овощей"
+        "eyebrow": "SKO I-82 qopqogʻi",
+        "title": "Tashqarisi oltin. Ichi oziq-ovqat emali.",
+        "lead": "SKO I-82 boʻyinli shisha bankalar uchun. Ikki qavatli himoya qoplamasi, oziq-ovqat kauchugidan halqa va qoʻshimcha qattiqlik qirrasi.",
+        "alt": "Oltin rangli SKO I-82 qopqogʻi",
+        "bannerAlt": "Sabzavotlar fonida SKO qopqoqlari"
       },
       "specs": {
-        "type": { "l": "Тип", "v": "СКО I-82" },
-        "jar": { "l": "Для банок", "v": "Стекло, венчик СКО I-82" },
-        "metal": { "l": "Жесть", "v": "Консервная ЭЖК" },
-        "thickness": { "l": "Толщина металла", "v": "0,17–0,20 мм" },
-        "outside": { "l": "Снаружи", "v": "Золотистая одноцветная печать + лак" },
-        "inside": { "l": "Внутри", "v": "Пищевая эмаль + лак, серебристо-серый" },
-        "ring": { "l": "Уплотнение", "v": "Кольцо из пищевого каучука" },
-        "rib": { "l": "Жёсткость", "v": "Дополнительное ребро" }
+        "type": { "l": "Turi", "v": "SKO I-82" },
+        "jar": { "l": "Bankalar uchun", "v": "Shisha, SKO I-82 boʻyni" },
+        "metal": { "l": "Tunuka", "v": "Konserva EZhK" },
+        "thickness": { "l": "Metall qalinligi", "v": "0,17–0,20 mm" },
+        "outside": { "l": "Tashqarisi", "v": "Bir rangli oltin bosma + lak" },
+        "inside": { "l": "Ichkarisi", "v": "Oziq-ovqat emali + lak, kumushrang-kulrang" },
+        "ring": { "l": "Zichlash", "v": "Oziq-ovqat kauchugidan halqa" },
+        "rib": { "l": "Qattiqlik", "v": "Qoʻshimcha qirra" }
       },
-      "featuresTitle": "Двойной лак. Резинка. Ребро.",
+      "featuresTitle": "Ikki qavat lak. Rezina halqa. Qirra.",
       "features": {
-        "coat": { "t": "Двойное покрытие", "d": "Снаружи золотистый лак. Внутри пищевая эмаль и лак серебристо-серого оттенка." },
-        "ring": { "t": "Резинка из пищевого каучука", "d": "Высококачественное уплотнительное кольцо, эластичное и без трещин." },
-        "rib": { "t": "Ребро жёсткости", "d": "Дополнительное ребро повышает механическую прочность крышки." }
+        "coat": { "t": "Ikki qavatli qoplama", "d": "Tashqarisi oltin lak. Ichkarisi oziq-ovqat emali va kumushrang-kulrang lak." },
+        "ring": { "t": "Oziq-ovqat kauchugidan halqa", "d": "Yuqori sifatli zichlovchi halqa, elastik va yoriqsiz." },
+        "rib": { "t": "Qattiqlik qirrasi", "d": "Qoʻshimcha qirra qopqoqning mexanik mustahkamligini oshiradi." }
       },
       "variants": {
-        "gold": { "t": "Золотистая", "d": "Промышленный вариант: одноцветная печать и лак.", "alt": "Стопка золотистых крышек СКО" },
-        "litho": { "t": "Полноцветная", "d": "Бытовой вариант: литография с овощами и фруктами.", "alt": "Крышки СКО с цветной литографией" },
-        "private": { "t": "Под вашу марку", "d": "Ваш знак на крышке. Цена по техническому заданию, усиленное покрытие по запросу.", "alt": "Крышки СКО с логотипами заказчиков" }
+        "gold": { "t": "Oltin rangli", "d": "Sanoat varianti: bir rangli bosma va lak.", "alt": "Oltin rangli SKO qopqoqlari dastasi" },
+        "litho": { "t": "Rangli", "d": "Maishiy variant: sabzavot va mevali litografiya.", "alt": "Rangli litografiyali SKO qopqoqlari" },
+        "private": { "t": "Oʻz brendingiz ostida", "d": "Qopqoqda sizning belgingiz. Narx texnik topshiriq boʻyicha, mustahkamlangan qoplama soʻrov boʻyicha.", "alt": "Buyurtmachi logotipli SKO qopqoqlari" }
       },
       "pack": {
         "mechta": {
-          "title": "«Мечта хозяйки»",
-          "tube": "50 шт.",
-          "tubeNote": "Туба в термоусадочной плёнке с полноцветной печатью: 49 золотистых крышек и одна литографированная.",
-          "group": "500 шт.",
-          "groupNote": "10 туб в полиэтиленовом мешке.",
-          "alt": "Тубы крышек «Мечта хозяйки»"
+          "title": "«Mechta khozyayki»",
+          "tube": "50 dona",
+          "tubeNote": "Termosiqiladigan plyonkadagi rangli bosmali tuba: 49 oltin va 1 litografiyali qopqoq.",
+          "group": "500 dona",
+          "groupNote": "10 ta tuba polietilen qopda.",
+          "alt": "«Mechta khozyayki» qopqoqlari tubalari"
         },
         "elisey": {
-          "title": "«Елисейские крышки»",
-          "tube": "50 шт.",
-          "tubeNote": "Туба с синей этикеткой в термоусадочной плёнке: 49 золотистых крышек и одна литографированная.",
-          "group": "1 000 шт.",
-          "groupNote": "10 туб в картонной коробке.",
-          "alt": "Тубы крышек «Елисейские крышки»"
+          "title": "«Eliseyskie krishki»",
+          "tube": "50 dona",
+          "tubeNote": "Termosiqiladigan plyonkadagi koʻk yorliqli tuba: 49 oltin va 1 litografiyali qopqoq.",
+          "group": "1 000 dona",
+          "groupNote": "10 ta tuba karton qutida.",
+          "alt": "«Eliseyskie krishki» qopqoqlari tubalari"
         }
       }
     },
     "twist": {
       "meta": {
-        "title": "Твист-офф 82: винтовые крышки с кнопкой вакуума",
-        "description": "Крышки твист-офф 82 для банок с резьбой: кнопка вакуума, пластизоль под стерилизацию, закручиваются вручную. От 1 000 штук, образцы."
+        "title": "Twist-off 82: vakuum tugmali burama qopqoqlar",
+        "description": "Rezbali bankalar uchun twist-off 82 qopqoqlari: vakuum tugmasi, sterilizatsiyaga chidamli plastizol, qoʻlda buraladi. 1 000 donadan, namunalar."
       },
       "hero": {
-        "eyebrow": "Твист-офф 82",
-        "title": "Закручивается рукой. Кнопка подтверждает вакуум.",
-        "lead": "Винтовые металлические крышки для банок с горловиной 82 и резьбой. Яркая литография снаружи, лак внутри.",
-        "alt": "Красная крышка твист-офф 82",
-        "bannerAlt": "Крышки твист-офф на фоне овощей"
+        "eyebrow": "Twist-off 82",
+        "title": "Qoʻlda buraladi. Tugma vakuumni tasdiqlaydi.",
+        "lead": "82 rezbali boʻyinli bankalar uchun metall burama qopqoqlar. Tashqarisi yorqin litografiya, ichi lak.",
+        "alt": "Qizil twist-off 82 qopqogʻi",
+        "bannerAlt": "Sabzavotlar fonida twist-off qopqoqlari"
       },
       "specs": {
-        "type": { "l": "Тип", "v": "Твист-офф 82, винтовая" },
-        "jar": { "l": "Для банок", "v": "Горловина 82 с резьбой" },
-        "metal": { "l": "Жесть", "v": "Консервная ЭЖК" },
-        "outside": { "l": "Снаружи", "v": "Яркая литография + лак" },
-        "inside": { "l": "Внутри", "v": "Лак" },
-        "button": { "l": "Кнопка", "v": "В центре, для визуального и звукового контроля вакуума" },
-        "gasket": { "l": "Прокладка", "v": "Пластизоль, под стерилизацию и пастеризацию" },
-        "close": { "l": "Закрывание", "v": "Вручную, без закаточной машинки" }
+        "type": { "l": "Turi", "v": "Twist-off 82, burama" },
+        "jar": { "l": "Bankalar uchun", "v": "Rezbali 82 boʻyin" },
+        "metal": { "l": "Tunuka", "v": "Konserva EZhK" },
+        "outside": { "l": "Tashqarisi", "v": "Yorqin litografiya + lak" },
+        "inside": { "l": "Ichkarisi", "v": "Lak" },
+        "button": { "l": "Tugma", "v": "Markazda, vakuumni koʻrib va eshitib tekshirish uchun" },
+        "gasket": { "l": "Qistirma", "v": "Plastizol, sterilizatsiya va pasterizatsiyaga chidamli" },
+        "close": { "l": "Yopish", "v": "Qoʻlda, zakatka mashinasisiz" }
       },
-      "featuresTitle": "Кнопка, пластизоль, никакой машинки",
+      "featuresTitle": "Tugma, plastizol, mashinasiz",
       "features": {
-        "button": { "t": "Кнопка вакуума", "d": "Видно и слышно, что банка закрыта герметично." },
-        "gasket": { "t": "Пластизоль", "d": "Прокладка рассчитана на стерилизацию и пастеризацию." },
-        "hand": { "t": "Без машинки", "d": "Закручивается вручную: удобно дома и в небольшом цехе." }
+        "button": { "t": "Vakuum tugmasi", "d": "Banka germetik yopilgani koʻrinadi va eshitiladi." },
+        "gasket": { "t": "Plastizol", "d": "Qistirma sterilizatsiya va pasterizatsiya uchun moʻljallangan." },
+        "hand": { "t": "Mashinasiz", "d": "Qoʻlda buraladi: uyda ham, kichik sexda ham qulay." }
       },
       "variants": {
-        "mono": { "t": "Одноцветная", "d": "Яркая однотонная литография. В каталоге зелёная и красная.", "alt": "Стопка зелёных и бордовых крышек твист-офф" },
-        "full": { "t": "Полноцветная", "d": "Бытовой вариант: помидоры, овощное ассорти.", "alt": "Крышки твист-офф с рисунком помидоров" },
-        "private": { "t": "Под вашу марку", "d": "Ваш дизайн на винтовой крышке.", "alt": "Крышки твист-офф с логотипами заказчиков" }
+        "mono": { "t": "Bir rangli", "d": "Yorqin bir rangli litografiya. Katalogda yashil va qizil.", "alt": "Yashil va qoramtir qizil twist-off qopqoqlari dastasi" },
+        "full": { "t": "Rangli", "d": "Maishiy variant: pomidor, sabzavot assortisi.", "alt": "Pomidor rasmli twist-off qopqoqlari" },
+        "private": { "t": "Oʻz brendingiz ostida", "d": "Burama qopqoqda sizning dizayningiz.", "alt": "Buyurtmachi logotipli twist-off qopqoqlari" }
       },
       "pack": {
         "mechta": {
-          "title": "«Мечта хозяйки»",
-          "tube": "20 шт.",
-          "tubeNote": "Туба с голубой этикеткой «Мечта хозяйки».",
-          "group": "240 шт.",
-          "groupNote": "12 туб в мешке.",
-          "alt": "Тубы крышек твист-офф, зелёная и красная"
+          "title": "«Mechta khozyayki»",
+          "tube": "20 dona",
+          "tubeNote": "Moviy «Mechta khozyayki» yorligʻli tuba.",
+          "group": "240 dona",
+          "groupNote": "12 ta tuba qopda.",
+          "alt": "Twist-off qopqoqlari tubalari, yashil va qizil"
         },
         "bulk": {
-          "title": "Для консервных заводов",
-          "tube": "850 шт.",
-          "tubeNote": "Россыпью в коробке.",
+          "title": "Konserva zavodlari uchun",
+          "tube": "850 dona",
+          "tubeNote": "Qutida sochma.",
           "group": "",
           "groupNote": "",
           "alt": ""
@@ -362,39 +362,39 @@
     },
     "ring": {
       "meta": {
-        "title": "Викельное кольцо для крышек СКО из пищевой резины",
-        "description": "Викельные кольца ELIT KONSERVA: пищевая резина по ГОСТ для крышек СКО I-82. Производим с 2014 года, упаковка 30 кг, заказ от одной пачки."
+        "title": "SKO qopqoqlari uchun oziq-ovqat rezinasidan halqa",
+        "description": "ELIT KONSERVA zichlovchi halqalari: SKO I-82 qopqoqlari uchun GOST boʻyicha oziq-ovqat rezinasi. 2014-yildan, 30 kg oʻrama, bir oʻramadan buyurtma."
       },
       "hero": {
-        "eyebrow": "Викельное кольцо",
-        "title": "Резинка, на которой держится герметичность",
-        "lead": "Уплотнительное кольцо из пищевой резины по ГОСТ. Ложится под внутренний бортик крышки СКО. Производим с 2014 года.",
-        "alt": "Викельные кольца",
+        "eyebrow": "Zichlovchi halqa",
+        "title": "Germetiklikni ushlab turuvchi rezina",
+        "lead": "GOST boʻyicha oziq-ovqat rezinasidan zichlovchi halqa. SKO qopqogʻining ichki yoqasi ostiga oʻrnashadi. 2014-yildan ishlab chiqaramiz.",
+        "alt": "Zichlovchi halqalar",
         "bannerAlt": ""
       },
       "specs": {
-        "use": { "l": "Назначение", "v": "Уплотнение крышки СКО I-82" },
-        "material": { "l": "Материал", "v": "Пищевая резина" },
-        "standard": { "l": "Стандарт", "v": "ГОСТ" },
-        "dims": { "l": "Размеры", "v": "По запросу" },
-        "since": { "l": "Производим с", "v": "2014 года" },
-        "pack": { "l": "Упаковка", "v": "Мешок или гофрокоробка, 30 кг" }
+        "use": { "l": "Vazifasi", "v": "SKO I-82 qopqogʻini zichlash" },
+        "material": { "l": "Material", "v": "Oziq-ovqat rezinasi" },
+        "standard": { "l": "Standart", "v": "GOST" },
+        "dims": { "l": "Oʻlchamlari", "v": "Soʻrov boʻyicha" },
+        "since": { "l": "Ishlab chiqarish", "v": "2014-yildan" },
+        "pack": { "l": "Oʻrama", "v": "Qop yoki gofrokarton quti, 30 kg" }
       },
-      "featuresTitle": "Пищевая резина по ГОСТ",
+      "featuresTitle": "GOST boʻyicha oziq-ovqat rezinasi",
       "features": {
-        "food": { "t": "Пищевая резина", "d": "Эластичная, без трещин, безопасная для контакта с продуктом." },
-        "gost": { "t": "По ГОСТ", "d": "Производство по государственному стандарту." },
-        "pack": { "t": "От одной пачки", "d": "Минимальный заказ — одна упаковка." }
+        "food": { "t": "Oziq-ovqat rezinasi", "d": "Elastik, yoriqsiz, mahsulot bilan aloqa uchun xavfsiz." },
+        "gost": { "t": "GOST boʻyicha", "d": "Davlat standarti boʻyicha ishlab chiqarilgan." },
+        "pack": { "t": "Bir oʻramadan", "d": "Minimal buyurtma — bitta oʻrama." }
       },
       "variants": {
-        "rings": { "t": "Кольца", "d": "Готовые к установке в крышку.", "alt": "Викельные кольца" },
-        "box": { "t": "В коробке", "d": "Поставка в гофрокоробке по 30 кг.", "alt": "Коробка с викельными кольцами" }
+        "rings": { "t": "Halqalar", "d": "Qopqoqqa oʻrnatishga tayyor.", "alt": "Zichlovchi halqalar" },
+        "box": { "t": "Qutida", "d": "30 kg li gofrokarton qutida yetkaziladi.", "alt": "Zichlovchi halqalar solingan quti" }
       },
       "pack": {
         "bulk": {
-          "title": "Поставка",
-          "tube": "30 кг",
-          "tubeNote": "Мешок или гофрокоробка.",
+          "title": "Yetkazib berish",
+          "tube": "30 kg",
+          "tubeNote": "Qop yoki gofrokarton quti.",
           "group": "",
           "groupNote": "",
           "alt": ""
@@ -404,361 +404,361 @@
   },
   "brands": {
     "meta": {
-      "title": "Бренды крышек: Мечта хозяйки, Елисейские, Роса",
-      "description": "Линейки ELIT KONSERVA: «Мечта хозяйки», «Елисейские крышки», «Моя мечта», «Роса», «Гурман». Тубы по 50 штук, характеристики и упаковка."
+      "title": "Qopqoq brendlari: Mechta khozyayki, Eliseyskie, Rosa",
+      "description": "ELIT KONSERVA qatorlari: «Mechta khozyayki», «Eliseyskie krishki», «Moya mechta», «Rosa», «Gurman». 50 talik tubalar, xususiyatlar va oʻrama."
     },
     "hero": {
-      "eyebrow": "Бренды",
-      "title": "Пять линеек. Одна фабрика.",
-      "lead": "Тубы по 50 штук с литографией — для домашней консервации. У каждой своя упаковка и свой характер."
+      "eyebrow": "Brendlar",
+      "title": "Beshta qator. Bitta zavod.",
+      "lead": "Uy konservasi uchun litografiyali 50 talik tubalar. Har birining oʻz oʻramasi va oʻz xarakteri bor."
     },
-    "specsCaption": "Характеристики",
+    "specsCaption": "Xususiyatlar",
     "mechta": {
-      "name": "Мечта хозяйки",
+      "name": "Mechta khozyayki",
       "alt": "Beka orzusi",
-      "slogan": "Качество, проверенное временем",
-      "text": "Наш основной бренд. Крышки СКО и твист-офф для домашней консервации.",
+      "slogan": "Vaqt sinovidan oʻtgan sifat",
+      "text": "Asosiy brendimiz. Uy konservasi uchun SKO va twist-off qopqoqlari.",
       "specs": {
-        "types": { "l": "Типы", "v": "СКО I-82 · Твист-офф 82" },
-        "tube": { "l": "Туба", "v": "50 шт. (СКО) · 20 шт. (твист-офф)" },
-        "group": { "l": "Групповая упаковка", "v": "500 шт. (СКО) · 240 шт. (твист-офф), мешок" }
+        "types": { "l": "Turlari", "v": "SKO I-82 · Twist-off 82" },
+        "tube": { "l": "Tuba", "v": "50 dona (SKO) · 20 dona (twist-off)" },
+        "group": { "l": "Guruh oʻrama", "v": "500 dona (SKO) · 240 dona (twist-off), qop" }
       },
-      "imgAlt": "Тубы «Мечта хозяйки»: СКО и твист-офф"
+      "imgAlt": "«Mechta khozyayki» tubalari: SKO va twist-off"
     },
     "elisey": {
-      "name": "Елисейские крышки",
-      "alt": "Новая линия СКО, 2022 год",
-      "slogan": "Удобство консервации",
-      "text": "Линия крышек СКО, запущенная в 2022 году. Синяя этикетка на тубе.",
+      "name": "Eliseyskie krishki",
+      "alt": "Yangi SKO qatori, 2022-yil",
+      "slogan": "Konservalash qulayligi",
+      "text": "2022-yilda ishga tushirilgan SKO qopqoqlari qatori. Tubada koʻk yorliq.",
       "specs": {
-        "types": { "l": "Тип", "v": "СКО I-82" },
-        "tube": { "l": "Туба", "v": "50 шт., синяя этикетка" },
-        "group": { "l": "Групповая упаковка", "v": "1 000 шт., картонная коробка" }
+        "types": { "l": "Turi", "v": "SKO I-82" },
+        "tube": { "l": "Tuba", "v": "50 dona, koʻk yorliq" },
+        "group": { "l": "Guruh oʻrama", "v": "1 000 dona, karton quti" }
       },
-      "imgAlt": "Тубы «Елисейские крышки»"
+      "imgAlt": "«Eliseyskie krishki» tubalari"
     },
     "moya": {
-      "name": "Моя мечта",
-      "alt": "Туба по 50 штук",
-      "slogan": "Благополучие в семье, спокойствие в доме",
-      "text": "Крышки СКО с красной клетчатой этикеткой и овощами.",
+      "name": "Moya mechta",
+      "alt": "50 talik tuba",
+      "slogan": "Oilada farovonlik, uyda xotirjamlik",
+      "text": "Qizil katakli yorliq va sabzavotli SKO qopqoqlari.",
       "specs": {
-        "metal": { "l": "Жесть", "v": "ЭЖК 0,16 мм, покрытие оловом 2,8/2,8" },
-        "outer": { "l": "Наружный лак", "v": "ЭП 570/С (Россия)" },
-        "inner": { "l": "Внутренняя эмаль", "v": "ЭП 5147/С (Россия)" },
-        "top": { "l": "Покровный лак", "v": "PPG 2040 (Германия)" },
-        "inks": { "l": "Краски", "v": "HUBER GROUP (Германия)" },
-        "pack": { "l": "Упаковка", "v": "Туба 50 шт., белая коробка 1 000 шт." }
+        "metal": { "l": "Tunuka", "v": "EZhK 0,16 mm, qalay qoplama 2,8/2,8" },
+        "outer": { "l": "Tashqi lak", "v": "EP 570/S (Rossiya)" },
+        "inner": { "l": "Ichki emal", "v": "EP 5147/S (Rossiya)" },
+        "top": { "l": "Qoplovchi lak", "v": "PPG 2040 (Germaniya)" },
+        "inks": { "l": "Boʻyoqlar", "v": "HUBER GROUP (Germaniya)" },
+        "pack": { "l": "Oʻrama", "v": "Tuba 50 dona, oq quti 1 000 dona" }
       },
-      "imgAlt": "Туба «Моя мечта»"
+      "imgAlt": "«Moya mechta» tubasi"
     },
     "rosa": {
-      "name": "Роса",
-      "alt": "Туба по 50 штук",
-      "slogan": "Благополучие в семье, спокойствие в доме",
-      "text": "Крышки СКО с летним садом на этикетке.",
+      "name": "Rosa",
+      "alt": "50 talik tuba",
+      "slogan": "Oilada farovonlik, uyda xotirjamlik",
+      "text": "Yorligʻida yozgi bogʻ tasvirlangan SKO qopqoqlari.",
       "specs": {
-        "metal": { "l": "Жесть", "v": "ЭЖК 0,16 мм, покрытие оловом 2,8/2,8" },
-        "outer": { "l": "Наружный лак", "v": "ЭП 570/С (Россия)" },
-        "inner": { "l": "Внутренняя эмаль", "v": "ЭП 5147/С (Россия)" },
-        "top": { "l": "Покровный лак", "v": "PPG 2040 (Германия)" },
-        "inks": { "l": "Краски", "v": "HUBER GROUP (Германия)" },
-        "pack": { "l": "Упаковка", "v": "Туба 50 шт., коробка с логотипом 1 000 шт." }
+        "metal": { "l": "Tunuka", "v": "EZhK 0,16 mm, qalay qoplama 2,8/2,8" },
+        "outer": { "l": "Tashqi lak", "v": "EP 570/S (Rossiya)" },
+        "inner": { "l": "Ichki emal", "v": "EP 5147/S (Rossiya)" },
+        "top": { "l": "Qoplovchi lak", "v": "PPG 2040 (Germaniya)" },
+        "inks": { "l": "Boʻyoqlar", "v": "HUBER GROUP (Germaniya)" },
+        "pack": { "l": "Oʻrama", "v": "Tuba 50 dona, logotipli quti 1 000 dona" }
       },
-      "imgAlt": "Туба «Роса»"
+      "imgAlt": "«Rosa» tubasi"
     },
     "gurman": {
-      "name": "Гурман",
-      "alt": "Два дизайна",
-      "slogan": "Для семьи",
-      "text": "Две этикетки: голубая «Гурман Г» с фруктами и синяя «Для семьи» с народным орнаментом.",
+      "name": "Gurman",
+      "alt": "Ikki dizayn",
+      "slogan": "Oila uchun",
+      "text": "Ikki yorliq: mevali moviy «Gurman G» va xalq naqshli koʻk «Oila uchun».",
       "specs": {
-        "tube": { "l": "Туба", "v": "50 шт." },
-        "designs": { "l": "Дизайны", "v": "«Гурман Г» · «Для семьи»" },
-        "rest": { "l": "Остальное", "v": "Характеристики — по запросу" }
+        "tube": { "l": "Tuba", "v": "50 dona" },
+        "designs": { "l": "Dizaynlar", "v": "«Gurman G» · «Oila uchun»" },
+        "rest": { "l": "Qolgani", "v": "Xususiyatlar — soʻrov boʻyicha" }
       },
-      "imgAlt": "Тубы «Гурман»"
+      "imgAlt": "«Gurman» tubalari"
     },
     "cta": {
-      "title": "Подберём линейку под ваш рынок",
-      "text": "Скажите, где будете продавать, и мы предложим подходящий дизайн и упаковку."
+      "title": "Bozoringizga mos qatorni tanlaymiz",
+      "text": "Qayerda sotishingizni ayting, mos dizayn va oʻramani taklif qilamiz."
     }
   },
   "services": {
     "meta": {
-      "title": "Лакировка и литография жести, печать на металле",
-      "description": "Лакировка и цветная литография жести и алюминия: лаки PPG, офсетная печать, контроль каждой партии по ГОСТ. Лист до 1145×950 мм."
+      "title": "Tunuka lak va litografiyasi, metallga bosma",
+      "description": "Tunuka va alyuminiyga lak va rangli litografiya: PPG laklari, ofset bosma, har bir partiya GOST boʻyicha nazoratda. Varaq 1145×950 mm gacha."
     },
     "hero": {
-      "eyebrow": "Лакировка и литография",
-      "title": "Красим и печатаем жесть сами",
-      "lead": "Лаки PPG, краски HUBER GROUP, офсетная печать на металле. Допечатная подготовка — на нашем производстве.",
-      "alt": "Лист и крышки с цветной литографией"
+      "eyebrow": "Lak va litografiya",
+      "title": "Tunukani oʻzimiz boʻyaymiz va bosamiz",
+      "lead": "PPG laklari, HUBER GROUP boʻyoqlari, metallga ofset bosma. Bosmadan oldingi tayyorgarlik — bizning ishlab chiqarishimizda.",
+      "alt": "Rangli litografiyali varaq va qopqoqlar"
     },
     "lines": {
-      "eyebrow": "Что делаем",
-      "title": "Четыре направления",
+      "eyebrow": "Nima qilamiz",
+      "title": "Toʻrt yoʻnalish",
       "items": {
-        "lids": { "t": "Крышки СКО и твист-офф", "d": "Лакировка и цветная литография." },
-        "combo": { "t": "Детали для комбинированных банок и туб", "d": "Лак и печать на металлических деталях." },
-        "cans": { "t": "Консервные банки", "d": "Покрытие и печать для консервной тары." },
-        "chem": { "t": "Тара для химии и аэрозолей", "d": "Жестяные банки для бытовой химии и аэрозолей." }
+        "lids": { "t": "SKO va twist-off qopqoqlari", "d": "Lak va rangli litografiya." },
+        "combo": { "t": "Kombinatsiyalangan banka va tubalar uchun detallar", "d": "Metall detallarga lak va bosma." },
+        "cans": { "t": "Konserva bankalari", "d": "Konserva idishlari uchun qoplama va bosma." },
+        "chem": { "t": "Kimyo va aerozollar uchun idish", "d": "Maishiy kimyo va aerozollar uchun tunuka bankalar." }
       }
     },
     "process": {
-      "eyebrow": "Процесс",
-      "title": "Что входит в услугу",
+      "eyebrow": "Jarayon",
+      "title": "Xizmatga nimalar kiradi",
       "items": {
-        "prepress": { "t": "Допечатная подготовка", "d": "Готовим макет под ваше задание. Допечатная подготовка — часть нашего производственного комплекса." },
-        "print": { "t": "Офсетная печать на металле", "d": "UV-краски HUBER GROUP, автоматическое оборудование." },
-        "lacquer": { "t": "Лак PPG", "d": "Лаки PPG выдерживают стерилизацию выше 100 °C. Усиленное двухслойное покрытие — по запросу." },
-        "qc": { "t": "Контроль партии", "d": "Лаборатория проверяет массу покрытия, твёрдость и адгезию по ГОСТ." }
+        "prepress": { "t": "Bosmadan oldingi tayyorgarlik", "d": "Maketni sizning topshirigʻingizga koʻra tayyorlaymiz. Bosmadan oldingi tayyorgarlik — ishlab chiqarish majmuamizning bir qismi." },
+        "print": { "t": "Metallga ofset bosma", "d": "HUBER GROUP UV-boʻyoqlari, avtomatik uskunalar." },
+        "lacquer": { "t": "PPG laki", "d": "PPG laklari 100 °C dan yuqori sterilizatsiyaga bardosh beradi. Mustahkamlangan ikki qavatli qoplama — soʻrov boʻyicha." },
+        "qc": { "t": "Partiya nazorati", "d": "Laboratoriya qoplama massasi, qattiqligi va adgeziyasini GOST boʻyicha tekshiradi." }
       }
     },
     "specs": {
-      "eyebrow": "Паспорт услуги",
-      "title": "Что можем обработать",
-      "columns": { "param": "Параметр", "value": "Значение" },
+      "eyebrow": "Xizmat pasporti",
+      "title": "Nimani ishlov bera olamiz",
+      "columns": { "param": "Koʻrsatkich", "value": "Qiymat" },
       "rows": {
-        "material": { "l": "Материал", "v": "Жесть и алюминий" },
-        "sheet": { "l": "Размер листа", "v": "от 710×510 до 1145×950 мм" },
-        "thickness": { "l": "Толщина", "v": "0,15–0,40 мм" },
-        "lacquer": { "l": "Лак", "v": "PPG (Германия)" },
-        "inks": { "l": "Краски", "v": "UV, HUBER GROUP (Германия)" },
-        "qc": { "l": "Контроль", "v": "Масса покрытия, твёрдость, адгезия по ГОСТ" },
-        "lead": { "l": "Сроки", "v": "Назовём по вашему тиражу" },
-        "price": { "l": "Цена", "v": "По запросу" }
+        "material": { "l": "Material", "v": "Tunuka va alyuminiy" },
+        "sheet": { "l": "Varaq oʻlchami", "v": "710×510 dan 1145×950 mm gacha" },
+        "thickness": { "l": "Qalinligi", "v": "0,15–0,40 mm" },
+        "lacquer": { "l": "Lak", "v": "PPG (Germaniya)" },
+        "inks": { "l": "Boʻyoqlar", "v": "UV, HUBER GROUP (Germaniya)" },
+        "qc": { "l": "Nazorat", "v": "Qoplama massasi, qattiqlik, adgeziya — GOST boʻyicha" },
+        "lead": { "l": "Muddat", "v": "Hajmingizga qarab aytamiz" },
+        "price": { "l": "Narx", "v": "Soʻrov boʻyicha" }
       }
     },
     "benefits": {
-      "t1": "Дизайн по вашему заданию",
-      "t2": "Допечатная подготовка у нас",
-      "t3": "Короткие сроки: назовём по вашему тиражу"
+      "t1": "Topshirigʻingizga mos dizayn",
+      "t2": "Bosmadan oldingi tayyorgarlik bizda",
+      "t3": "Qisqa muddatlar: hajmingizga qarab aytamiz"
     },
-    "ctaTitle": "Пришлите задание — посчитаем"
+    "ctaTitle": "Topshiriqni yuboring — hisoblab beramiz"
   },
   "privateLabel": {
     "meta": {
-      "title": "Крышки под вашу марку: СКО и твист-офф от 1 000 шт.",
-      "description": "Печатаем ваш дизайн на крышках СКО I-82 и твист-офф 82: литография и лак на нашем заводе в Коканде. Тираж от 1 000 штук, образцы."
+      "title": "Oʻz brendingiz ostida qopqoqlar: SKO va twist-off 1 000 dona",
+      "description": "SKO I-82 va twist-off 82 qopqoqlariga sizning dizayningizni bosamiz: Qoʻqon zavodimizda litografiya va lak. 1 000 donadan, namunalar."
     },
     "hero": {
-      "eyebrow": "Под вашу марку",
-      "title": "Ваша марка на каждой банке",
-      "lead": "Печатаем ваш дизайн на крышках СКО и твист-офф. Литография и лак — на нашем заводе. Тираж от 1 000 штук.",
-      "alt": "Крышки СКО и твист-офф с логотипами заказчиков"
+      "eyebrow": "Oʻz brendingiz ostida",
+      "title": "Har bir bankada sizning brendingiz",
+      "lead": "SKO va twist-off qopqoqlariga sizning dizayningizni bosamiz. Litografiya va lak — bizning zavodda. Hajm 1 000 donadan.",
+      "alt": "Buyurtmachi logotipli SKO va twist-off qopqoqlari"
     },
     "steps": {
-      "eyebrow": "Как это работает",
-      "title": "От брифа до партии",
+      "eyebrow": "Bu qanday ishlaydi",
+      "title": "Brifdan partiyagacha",
       "items": {
-        "brief": { "t": "Бриф", "d": "Расскажите, какой тип крышки и какой тираж нужен. Пришлём образцы." },
-        "design": { "t": "Макет", "d": "Подготовим допечатную подготовку под ваш дизайн." },
-        "print": { "t": "Печать и лак", "d": "Литография жести и лак PPG на нашем производстве." },
-        "batch": { "t": "Партия", "d": "Крышки в нужном количестве: от 1 000 до 10 000 000 штук." }
+        "brief": { "t": "Brif", "d": "Qopqoq turi va hajmini ayting. Namunalarni yuboramiz." },
+        "design": { "t": "Maket", "d": "Dizayningiz uchun bosmadan oldingi tayyorgarlikni bajaramiz." },
+        "print": { "t": "Bosma va lak", "d": "Tunuka litografiyasi va PPG laki bizning ishlab chiqarishda." },
+        "batch": { "t": "Partiya", "d": "Kerakli miqdordagi qopqoqlar: 1 000 dan 10 000 000 donagacha." }
       }
     },
     "examples": {
-      "eyebrow": "Примеры",
-      "title": "Уже печатали",
-      "lead": "Sardoba, Hilol, Ibrat, Ittifoq, Modesto, Afrosiyob. Помидоры, овощи, фирменные цвета.",
-      "alt1": "Крышки СКО с логотипами Sardoba, Hilol и Ibrat",
-      "alt2": "Крышки твист-офф Ittifoq, Modesto и Afrosiyob",
-      "alt3": "Крышки с цветной литографией"
+      "eyebrow": "Namunalar",
+      "title": "Allaqachon bosganmiz",
+      "lead": "Sardoba, Hilol, Ibrat, Ittifoq, Modesto, Afrosiyob. Pomidor, sabzavotlar, firma ranglari.",
+      "alt1": "Sardoba, Hilol va Ibrat logotipli SKO qopqoqlari",
+      "alt2": "Ittifoq, Modesto va Afrosiyob twist-off qopqoqlari",
+      "alt3": "Rangli litografiyali qopqoqlar"
     },
     "specs": {
-      "eyebrow": "Условия",
-      "title": "Что нужно знать заранее",
-      "columns": { "param": "Параметр", "value": "Значение" },
+      "eyebrow": "Shartlar",
+      "title": "Oldindan nimani bilish kerak",
+      "columns": { "param": "Koʻrsatkich", "value": "Qiymat" },
       "rows": {
-        "types": { "l": "Типы крышек", "v": "СКО I-82 · Твист-офф 82" },
-        "moq": { "l": "Минимальная партия", "v": "1 000 шт." },
-        "max": { "l": "Максимум", "v": "10 000 000 шт." },
-        "coat": { "l": "Покрытие", "v": "Усиленное — по запросу" },
-        "price": { "l": "Цена", "v": "По техническому заданию" }
+        "types": { "l": "Qopqoq turlari", "v": "SKO I-82 · Twist-off 82" },
+        "moq": { "l": "Minimal partiya", "v": "1 000 dona" },
+        "max": { "l": "Maksimum", "v": "10 000 000 dona" },
+        "coat": { "l": "Qoplama", "v": "Mustahkamlangan — soʻrov boʻyicha" },
+        "price": { "l": "Narx", "v": "Texnik topshiriq boʻyicha" }
       }
     },
-    "ctaTitle": "Расскажите про вашу марку"
+    "ctaTitle": "Brendingiz haqida gapirib bering"
   },
   "about": {
     "meta": {
-      "title": "О заводе ELIT KONSERVA: Коканд, с 1996 года",
-      "description": "Завод крышек для консервации в Коканде: с 1996 года, викельные кольца с 2014, твист-офф с 2016, «Елисейские крышки» с 2022. Лаборатория на каждую партию."
+      "title": "ELIT KONSERVA zavodi haqida: Qoʻqon, 1996-yildan",
+      "description": "Qoʻqondagi konserva qopqoqlari zavodi: 1996-yildan, halqalar 2014 dan, twist-off 2016 dan, «Eliseyskie krishki» 2022 dan. Har bir partiya laboratoriyada."
     },
     "hero": {
-      "eyebrow": "О заводе",
-      "title": "Завод в Коканде. С 1996 года.",
-      "lead": "Делаем крышки для консервации и печатаем на жести. Каждая партия проходит проверку в нашей лаборатории.",
-      "alt": "Склад готовых тубусов с крышками"
+      "eyebrow": "Zavod haqida",
+      "title": "Qoʻqondagi zavod. 1996-yildan.",
+      "lead": "Konservalash uchun qopqoqlar ishlab chiqaramiz va tunukaga bosma qilamiz. Har bir partiya laboratoriyamizda tekshiriladi.",
+      "alt": "Qopqoqli tubalar ombori"
     },
     "timeline": {
-      "eyebrow": "История",
-      "title": "Тридцать лет, четыре шага",
+      "eyebrow": "Tarix",
+      "title": "Oʻttiz yil, toʻrt qadam",
       "items": {
-        "y1996": { "y": "1996", "t": "Основание", "d": "ELIT KONSERVA начинает работать в Коканде." },
-        "y2014": { "y": "2014", "t": "Викельные кольца", "d": "Запускаем производство уплотнительных колец из пищевой резины." },
-        "y2016": { "y": "2016", "t": "Твист-офф", "d": "Новая линия в отдельном цехе и дополнительные склады." },
-        "y2022": { "y": "2022", "t": "Елисейские крышки", "d": "Новая линия крышек СКО." }
+        "y1996": { "y": "1996", "t": "Tashkil topgan", "d": "ELIT KONSERVA Qoʻqonda ishini boshlaydi." },
+        "y2014": { "y": "2014", "t": "Zichlovchi halqalar", "d": "Oziq-ovqat rezinasidan zichlovchi halqalar ishlab chiqarishni boshlaymiz." },
+        "y2016": { "y": "2016", "t": "Twist-off", "d": "Alohida sexda yangi liniya va qoʻshimcha omborlar." },
+        "y2022": { "y": "2022", "t": "Eliseyskie krishki", "d": "SKO qopqoqlarining yangi qatori." }
       }
     },
     "quality": {
-      "eyebrow": "Качество",
-      "title": "Каждую партию проверяет лаборатория",
+      "eyebrow": "Sifat",
+      "title": "Har bir partiyani laboratoriya tekshiradi",
       "items": {
-        "lab": { "t": "Лаборатория", "d": "Проверяет каждую партию." },
-        "food": { "t": "Пищевые материалы", "d": "Пищевые лаки и эмали от европейских производителей." },
-        "docs": { "t": "Документы", "d": "Сертификаты и протоколы испытаний — по запросу." }
+        "lab": { "t": "Laboratoriya", "d": "Har bir partiyani tekshiradi." },
+        "food": { "t": "Oziq-ovqat materiallari", "d": "Yevropa ishlab chiqaruvchilarining oziq-ovqat laklari va emallari." },
+        "docs": { "t": "Hujjatlar", "d": "Sertifikatlar va sinov bayonnomalari — soʻrov boʻyicha." }
       }
     },
     "gallery": {
-      "eyebrow": "Продукция",
-      "title": "Что выходит с завода",
+      "eyebrow": "Mahsulotlar",
+      "title": "Zavoddan nima chiqadi",
       "alts": {
-        "gold": "Стопки золотистых крышек СКО",
-        "twist": "Цветные крышки твист-офф",
-        "tubes": "Тубы с крышками на складе",
-        "rings": "Коробка с викельными кольцами"
+        "gold": "Oltin rangli SKO qopqoqlari dastalari",
+        "twist": "Rangli twist-off qopqoqlari",
+        "tubes": "Omborda qopqoqli tubalar",
+        "rings": "Zichlovchi halqalar solingan quti"
       }
     },
     "partners": {
-      "eyebrow": "Партнёры",
-      "title": "С кем работаем",
-      "label": "Логотипы партнёров"
+      "eyebrow": "Hamkorlar",
+      "title": "Kimlar bilan ishlaymiz",
+      "label": "Hamkorlar logotiplari"
     },
     "geo": {
-      "eyebrow": "География",
-      "title": "Узбекистан и Центральная Азия",
-      "text": "Завод в Коканде, Ферганская область. Поставляем по Узбекистану и странам региона.",
-      "cta": "Открыть на карте"
+      "eyebrow": "Geografiya",
+      "title": "Oʻzbekiston va Markaziy Osiyo",
+      "text": "Zavod Qoʻqonda, Fargʻona viloyatida. Oʻzbekiston va mintaqa davlatlariga yetkazamiz.",
+      "cta": "Xaritada ochish"
     }
   },
   "useful": {
     "meta": {
-      "title": "Как выбрать крышку СКО для консервации",
-      "description": "Пять признаков хорошей крышки СКО: ребра жёсткости, уплотнительное кольцо, вес, пищевой лак внутри и цвет эмали. Памятка покупателю."
+      "title": "Konservalash uchun SKO qopqogʻini qanday tanlash kerak",
+      "description": "Yaxshi SKO qopqogʻining beshta belgisi: qattiqlik qirralari, zichlovchi halqa, vazn, ichidagi oziq-ovqat laki va emal rangi. Xaridor uchun eslatma."
     },
     "hero": {
-      "eyebrow": "Полезно знать",
-      "title": "Как выбрать крышку СКО",
-      "lead": "Пять признаков, по которым хорошую крышку видно сразу. Проверьте их, прежде чем брать партию.",
-      "alt": "Золотистые крышки СКО I-82"
+      "eyebrow": "Foydali maslahat",
+      "title": "SKO qopqogʻini qanday tanlash kerak",
+      "lead": "Yaxshi qopqoqni birdan koʻrsatadigan beshta belgi. Partiya olishdan oldin ularni tekshiring.",
+      "alt": "Oltin rangli SKO I-82 qopqoqlari"
     },
-    "tocLabel": "Содержание",
+    "tocLabel": "Mundarija",
     "items": {
-      "ribs": { "t": "Два ребра жёсткости", "d": "Ребра держат форму крышки при закатке и в хранении. Посмотрите на профиль: он должен быть ровным и чётким." },
-      "ring": { "t": "Уплотнительное кольцо", "d": "Резина должна быть пищевой, эластичной и без трещин. Кольцо лежит ровно и не болтается." },
-      "weight": { "t": "Вес крышки с кольцом", "d": "Взвесьте крышку вместе с кольцом. Точный ориентир по весу назовём по запросу." },
-      "lacquer": { "t": "Пищевой лак внутри", "d": "Внутреннее покрытие важнее наружного: оно контактирует с продуктом." },
-      "colour": { "t": "Цвет внутри", "d": "Серебристый или перламутровый цвет внутри означает пищевую эмаль." }
+      "ribs": { "t": "Ikkita qattiqlik qirrasi", "d": "Qirralar qopqoqning shaklini zakatka paytida va saqlashda ushlab turadi. Profilga qarang: u tekis va aniq boʻlishi kerak." },
+      "ring": { "t": "Zichlovchi halqa", "d": "Rezina oziq-ovqat uchun, elastik va yoriqsiz boʻlishi kerak. Halqa tekis yotadi va qimirlamaydi." },
+      "weight": { "t": "Halqali qopqoq vazni", "d": "Qopqoqni halqasi bilan birga tortib koʻring. Vazn boʻyicha aniq mezonni soʻrov boʻyicha aytamiz." },
+      "lacquer": { "t": "Ichidagi oziq-ovqat laki", "d": "Ichki qoplama tashqisidan muhimroq: u mahsulot bilan tegib turadi." },
+      "colour": { "t": "Ichidagi rang", "d": "Ichkarisi kumushrang yoki sadafrang boʻlsa, bu oziq-ovqat emali degani." }
     },
     "rule": {
-      "title": "Главное правило консервации",
-      "text": "Стерильность. Крышка хороша только вместе с чистой банкой и правильной обработкой."
+      "title": "Konservalashning asosiy qoidasi",
+      "text": "Sterillik. Qopqoq toza banka va toʻgʻri ishlov bilan birgalikdagina yaxshi."
     },
-    "ctaTitle": "Покажем на образцах"
+    "ctaTitle": "Namunalarda koʻrsatamiz"
   },
   "contacts": {
     "meta": {
-      "title": "Контакты ELIT KONSERVA: Коканд, телефоны, заявка",
-      "description": "Телефоны, WhatsApp, Telegram, email и адрес завода в Коканде. Оставьте заявку на прайс или образцы крышек СКО и твист-офф."
+      "title": "ELIT KONSERVA aloqa: Qoʻqon, telefonlar, ariza",
+      "description": "Telefonlar, WhatsApp, Telegram, email va Qoʻqondagi zavod manzili. SKO va twist-off qopqoqlari narxnomasi yoki namunalari uchun ariza qoldiring."
     },
     "hero": {
-      "eyebrow": "Контакты",
-      "title": "Позвоните или напишите",
-      "lead": "Ответим на вопросы по крышкам, цене и срокам. Образцы отправляем."
+      "eyebrow": "Aloqa",
+      "title": "Qoʻngʻiroq qiling yoki yozing",
+      "lead": "Qopqoqlar, narx va muddatlar boʻyicha savollarga javob beramiz. Namunalarni yuboramiz."
     },
-    "phones": "Телефоны",
-    "messengers": "Мессенджеры",
-    "email": "Почта",
-    "addressTitle": "Адрес",
-    "address": "Республика Узбекистан, Ферганская область, г. Коканд, ул. Кипчок Арик, 98А",
-    "map": "Открыть на карте",
-    "hours": "Часы работы",
-    "hoursValue": "Уточняются",
-    "social": "Соцсети"
+    "phones": "Telefonlar",
+    "messengers": "Messenjerlar",
+    "email": "Pochta",
+    "addressTitle": "Manzil",
+    "address": "Oʻzbekiston Respublikasi, Fargʻona viloyati, Qoʻqon sh., Qipchoq ariq koʻchasi, 98A",
+    "map": "Xaritada ochish",
+    "hours": "Ish vaqti",
+    "hoursValue": "Aniqlanmoqda",
+    "social": "Ijtimoiy tarmoqlar"
   },
   "privacy": {
     "meta": {
-      "title": "Политика конфиденциальности — ELIT KONSERVA",
-      "description": "Какие данные мы собираем через форму заявки на krishki.uz, зачем и как их хранить. Черновик политики."
+      "title": "Maxfiylik siyosati — ELIT KONSERVA",
+      "description": "krishki.uz dagi ariza shakli orqali qanday maʼlumotlarni yigʻamiz, nima uchun va qanday saqlaymiz. Siyosat loyihasi."
     },
     "hero": {
-      "eyebrow": "Документ",
-      "title": "Политика конфиденциальности",
-      "lead": "Черновик. Окончательный текст будет согласован с юристом."
+      "eyebrow": "Hujjat",
+      "title": "Maxfiylik siyosati",
+      "lead": "Loyiha. Yakuniy matn yurist bilan kelishiladi."
     },
     "sections": {
-      "who": { "t": "Кто мы", "d": "ООО «Elit Konserva», Республика Узбекистан, Ферганская область, г. Коканд, ул. Кипчок Арик, 98А. Почта: info@krishki.uz." },
-      "data": { "t": "Какие данные мы собираем", "d": "Имя, телефон, название компании, страну, направление, интересующую продукцию и текст сообщения. Только то, что вы указали в форме." },
-      "why": { "t": "Зачем", "d": "Чтобы ответить на заявку, подготовить прайс и отправить образцы. Данные не используются для других целей." },
-      "store": { "t": "Как долго храним", "d": "Срок хранения и порядок удаления уточняются. Вы можете запросить удаление данных по почте." },
-      "cookies": { "t": "Cookie и аналитика", "d": "Сейчас сайт не использует рекламные cookie. Если подключим аналитику, покажем баннер согласия." }
+      "who": { "t": "Biz kimmiz", "d": "«Elit Konserva» MChJ, Oʻzbekiston Respublikasi, Fargʻona viloyati, Qoʻqon sh., Qipchoq ariq koʻchasi, 98A. Pochta: info@krishki.uz." },
+      "data": { "t": "Qanday maʼlumotlarni yigʻamiz", "d": "Ism, telefon, kompaniya nomi, davlat, yoʻnalish, qiziqtirgan mahsulot va xabar matni. Faqat siz shaklda koʻrsatganingiz." },
+      "why": { "t": "Nima uchun", "d": "Arizaga javob berish, narxnoma tayyorlash va namunalarni yuborish uchun. Maʼlumotlar boshqa maqsadlarda ishlatilmaydi." },
+      "store": { "t": "Qancha saqlaymiz", "d": "Saqlash muddati va oʻchirish tartibi aniqlanmoqda. Maʼlumotlarni oʻchirishni pochta orqali soʻrashingiz mumkin." },
+      "cookies": { "t": "Cookie va analitika", "d": "Hozir sayt reklama cookie-laridan foydalanmaydi. Analitika ulasak, rozilik bannerini koʻrsatamiz." }
     }
   },
   "styleguide": {
     "meta": {
-      "title": "Дизайн-система v2 — ELIT KONSERVA",
-      "description": "Внутренняя страница: токены и компоненты светлого сайта. Не индексируется."
+      "title": "Dizayn tizimi v2 — ELIT KONSERVA",
+      "description": "Ichki sahifa: yorugʻ saytning tokenlari va komponentlari. Indekslanmaydi."
     },
     "hero": {
-      "eyebrow": "Внутренняя страница",
-      "title": "Дизайн-система v2",
-      "lead": "Светлый сайт: белые и голубые поверхности, лазурь завода, красный «Мечты хозяйки» для действий, золото лака на деталях."
+      "eyebrow": "Ichki sahifa",
+      "title": "Dizayn tizimi v2",
+      "lead": "Yorugʻ sayt: oq va moviy sirtlar, zavodning zangori rangi, harakatlar uchun «Mechta khozyayki» qizili, detallar uchun lak oltini."
     },
     "colour": {
-      "title": "Цвет",
-      "caption": "Палитра",
-      "columns": { "swatch": "Образец", "token": "Токен", "role": "Назначение" },
+      "title": "Rang",
+      "caption": "Palitra",
+      "columns": { "swatch": "Namuna", "token": "Token", "role": "Vazifasi" },
       "roles": {
-        "paper": "Основная поверхность, карточки, поля формы",
-        "mist": "Подложка секций, подвал",
-        "sky": "Голубые секции и подложки под тубы",
-        "ink950": "Основной текст",
-        "ink500": "Второстепенный текст",
-        "azure500": "Полоса прогресса, подчёркивания, фирменная лазурь",
-        "azure700": "Ссылки, фокус, глубокая секция страницы",
-        "azure900": "Верхняя полоса сайта",
-        "red600": "Главная кнопка «Запросить прайс»",
-        "gold500": "Тонкие акценты и кольца крышек",
-        "gold700": "Золотой текст на светлом"
+        "paper": "Asosiy sirt, kartochkalar, shakl maydonlari",
+        "mist": "Boʻlimlar foni, pastki qism",
+        "sky": "Moviy boʻlimlar va tubalar ostidagi fon",
+        "ink950": "Asosiy matn",
+        "ink500": "Ikkinchi darajali matn",
+        "azure500": "Progress chizigʻi, tagchiziqlar, brend zangorisi",
+        "azure700": "Havolalar, fokus, sahifaning chuqur boʻlimi",
+        "azure900": "Saytning yuqori chizigʻi",
+        "red600": "Asosiy tugma: narxnoma soʻrash",
+        "gold500": "Nozik urgʻular va qopqoq halqalari",
+        "gold700": "Yorugʻ fonda oltin matn"
       },
-      "pairsTitle": "Контраст пар",
-      "pairColumns": { "pair": "Пара", "ratio": "Контраст", "level": "Уровень" }
+      "pairsTitle": "Juftliklar kontrasti",
+      "pairColumns": { "pair": "Juftlik", "ratio": "Kontrast", "level": "Daraja" }
     },
     "type": {
-      "title": "Типографика",
-      "lead": "Tektur для крупных заголовков, Onest для текста, IBM Plex Mono для подписей и цифр.",
-      "display": "Крышки, которым доверяют урожай",
-      "heading": "Двойной лак внутри и снаружи",
-      "body": "Резинка из пищевого каучука, ребро жёсткости, жесть ЭЖК 0,17–0,20 мм. Партии от 1 000 до 10 000 000 штук.",
-      "caption": "СКО I-82 · Твист-офф 82 · Коканд",
+      "title": "Tipografika",
+      "lead": "Katta sarlavhalar uchun Tektur, matn uchun Onest, izohlar va raqamlar uchun IBM Plex Mono.",
+      "display": "Hosilga ishonch bildirilgan qopqoqlar",
+      "heading": "Ichi va tashqarisi ikki qavat lak",
+      "body": "Oziq-ovqat kauchugidan halqa, qattiqlik qirrasi, EZhK tunuka 0,17–0,20 mm. 1 000 dan 10 000 000 donagacha partiyalar.",
+      "caption": "SKO I-82 · Twist-off 82 · Qoʻqon",
       "uzbek": "Oʻzbekiston, gʻalla, Qoʻqon"
     },
     "controls": {
-      "title": "Кнопки и поля",
-      "primary": "Запросить прайс",
-      "secondary": "Смотреть продукцию",
-      "ghost": "Подробнее",
-      "loading": "Отправляем",
-      "label": "Название поля",
-      "hint": "Подсказка под полем",
-      "error": "Укажите телефон: нам нужно перезвонить",
-      "check": "Согласен на обработку данных",
-      "radius": "Радиус: поля и кнопки 8 px, фото 16 px, крупные карточки 20 px."
+      "title": "Tugmalar va maydonlar",
+      "primary": "Narxnoma soʻrash",
+      "secondary": "Mahsulotlarni koʻrish",
+      "ghost": "Batafsil",
+      "loading": "Yuborilmoqda",
+      "label": "Maydon nomi",
+      "hint": "Maydon ostidagi maslahat",
+      "error": "Telefonni kiriting: sizga qayta qoʻngʻiroq qilishimiz kerak",
+      "check": "Maʼlumotlarni qayta ishlashga roziman",
+      "radius": "Radius: maydon va tugmalar 8 px, rasmlar 16 px, katta kartochkalar 20 px."
     },
     "table": {
-      "title": "Таблица характеристик",
-      "caption": "СКО I-82",
-      "columns": { "param": "Параметр", "value": "Значение" },
+      "title": "Xususiyatlar jadvali",
+      "caption": "SKO I-82",
+      "columns": { "param": "Koʻrsatkich", "value": "Qiymat" },
       "rows": {
-        "metal": { "l": "Жесть", "v": "ЭЖК" },
-        "thickness": { "l": "Толщина", "v": "0,17–0,20 мм" },
-        "moq": { "l": "Минимальный заказ", "v": "1 000 шт." }
+        "metal": { "l": "Tunuka", "v": "EZhK" },
+        "thickness": { "l": "Qalinligi", "v": "0,17–0,20 mm" },
+        "moq": { "l": "Minimal buyurtma", "v": "1 000 dona" }
       }
     },
     "motion": {
-      "title": "Движение",
-      "text": "Заголовки выезжают по словам, блоки поднимаются при прокрутке, линия прогресса идёт под шапкой. GSAP и Lenis грузятся после отрисовки первого экрана. При «уменьшить движение» всё статично."
+      "title": "Harakat",
+      "text": "Sarlavhalar soʻzma-soʻz chiqadi, bloklar aylantirganda koʻtariladi, sarlavha ostida progress chizigʻi yuradi. GSAP va Lenis birinchi ekran chizilgandan keyin yuklanadi. «Harakatni kamaytirish» yoqilganda hammasi statik."
     }
   }
 }
