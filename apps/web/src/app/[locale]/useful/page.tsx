@@ -48,7 +48,7 @@ export default async function UsefulPage({ params }: Props) {
           </nav>
           <div className="grid gap-16 lg:col-span-8">
             {ITEMS.map((k, i) => (
-              <article key={k} id={k} className="grid gap-4 md:grid-cols-[5rem_1fr]">
+              <article key={k} id={k} className="grid gap-4 md:grid-cols-[6rem_1fr]">
                 <span className="tnum font-display text-64 font-semibold leading-none text-azure-500" aria-hidden="true">
                   {String(i + 1).padStart(2, "0")}
                 </span>
