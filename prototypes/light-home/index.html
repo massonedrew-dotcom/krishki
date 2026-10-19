@@ -1,0 +1,1560 @@
+<!doctype html>
+<!--
+  krishki.uz — light cinematic home, PROTOTYPE (ticket 20, spec: prompts/10-light-cinematic-home.md).
+  Run over http (ES modules + GLB fetch):  node prototypes/light-home/tools/serve.mjs 4180  →  http://localhost:4180/
+  From file:// the page still opens: the GLB fetch fails, a banner names the URL and the stage falls back to photos.
+  Query flags: ?fps (meter), ?tier=desktop|tablet|mobile (force a performance tier).
+  Every shader, spring and module below is written for krishki; no third-party code besides three, GSAP, Lenis.
+-->
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<title>ELIT KONSERVA — крышки СКО I‑82 и твист‑офф 82 (прототип)</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='6.5' fill='%23C8962E'/%3E%3Ccircle cx='8' cy='8' r='4' fill='none' stroke='%23fff' stroke-width='.8'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@700;800&display=swap">
+<link rel="modulepreload" href="https://unpkg.com/three@0.170.0/build/three.module.js">
+
+<style>
+  /* ═══ TOKENS — direction A (default). Directions B/C replace only this block. Light only. ═══ */
+  :root {
+    --paper: #FFFFFF; --mist: #F5F8FB; --sky: #EAF4FB; --sky-line: #D6E8F4;
+    --ink: #0F1B2A; --ink-muted: #566B80; --azure: #1E98CC; --azure-deep: #0E5E9C;
+    --red: #D61F29;            /* «Запросить прайс» only */
+    --gold: #C8962E; --gold-soft: #E6C27A;   /* lids only */
+    --cream: #FBF3E2;          /* warm end of the stage field (paper → gold-soft) */
+    --font-display: "Montserrat", "Segoe UI", sans-serif;  /* 700 / 800: headings, big figures */
+    --font-text: "Inter", "Segoe UI", sans-serif;          /* 400 / 500 / 600: text and UI */
+    --pad: clamp(20px, 4.4vw, 64px);
+    --hdr: 76px;
+    --ease-out: cubic-bezier(.16, 1, .3, 1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { background: var(--paper); color: var(--ink); }
+  body { font: 400 17px/1.55 var(--font-text); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  html.lenis, html.lenis body { height: auto; }
+  .lenis.lenis-smooth { scroll-behavior: auto !important; }
+  a { color: inherit; text-decoration: none; }
+  img { display: block; max-width: 100%; }
+  ol, ul { list-style: none; }
+  button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+  :focus-visible { outline: 2px solid var(--azure-deep); outline-offset: 3px; }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .wd { display: inline-block; white-space: nowrap; }
+  .ch { display: inline-block; }
+  .num { font-variant-numeric: tabular-nums; }
+
+  /* ── loader veil ─────────────────────────────────────────────── */
+  #veil { position: fixed; inset: 0; z-index: 100; background: var(--paper); display: grid; place-items: center; transition: opacity .7s var(--ease-out); }
+  #veil.out { opacity: 0; pointer-events: none; }
+  .veil-lid { width: 72px; height: 72px; border-radius: 50%; box-shadow: inset 0 0 0 1.5px var(--gold); overflow: hidden; position: relative; }
+  .veil-lid i { position: absolute; inset: 0; background: linear-gradient(var(--gold-soft), var(--gold)); transform-origin: 50% 0; transform: scaleY(0); }
+  .veil-meter { position: absolute; left: 0; right: 0; bottom: 0; height: 4px; background: var(--sky); }
+  .veil-meter i { position: absolute; inset: 0; background: var(--azure); transform-origin: 0 50%; transform: scaleX(0); }
+  html.nogl #veil { display: none; }
+  .banner { position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 110; padding: 14px 18px; background: var(--ink); color: var(--paper); font: 500 14px/1.45 var(--font-text); border-left: 0; border-radius: 2px; word-break: break-all; }
+  .banner[hidden] { display: none; }
+
+  /* ── header ──────────────────────────────────────────────────── */
+  .hdr { position: fixed; top: 0; left: 0; right: 0; z-index: 50; height: var(--hdr); display: flex; align-items: center; gap: 28px; padding: 0 var(--pad); background: rgba(255,255,255,.9); transition: box-shadow .3s ease-out; }
+  .hdr.solid { box-shadow: 0 1px 0 var(--sky-line); }
+  .logo { display: flex; align-items: center; gap: 12px; flex: none; }
+  .logo img { width: 62px; height: auto; }
+  .logo b { font: 700 13px/1.1 var(--font-display); letter-spacing: .14em; white-space: nowrap; }
+  .nav { display: flex; gap: 30px; margin-left: auto; font: 500 15px/1 var(--font-text); white-space: nowrap; }
+  .nav a { padding: 8px 0; color: var(--ink); transition: color .2s ease-out; }
+  .nav a:hover { color: var(--azure-deep); }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 12px; min-height: 48px; padding: 0 24px; border-radius: 2px; font: 600 14px/1 var(--font-text); letter-spacing: .02em; white-space: nowrap; transition: background-color .2s ease-out, color .2s ease-out, box-shadow .2s ease-out; }
+  .btn--red { background: var(--red); color: var(--paper); }
+  .btn--red:hover { background: #B8161F; }
+  .btn--line { box-shadow: inset 0 0 0 1.5px var(--ink); color: var(--ink); background: rgba(255,255,255,.6); }
+  .btn--line:hover { background: var(--ink); color: var(--paper); }
+  .btn svg { width: 14px; height: 14px; flex: none; }
+  .hdr .btn { min-height: 44px; padding: 0 18px; font-size: 13px; }
+  .burger { display: none; width: 44px; height: 44px; margin-left: 4px; position: relative; flex: none; }
+  .burger::before, .burger::after { content: ""; position: absolute; left: 11px; right: 11px; height: 2px; background: var(--ink); }
+  .burger::before { top: 17px; } .burger::after { top: 25px; }
+
+  .menu { position: fixed; inset: 0; z-index: 90; background: var(--paper); display: flex; flex-direction: column; padding: 0 var(--pad) 32px; overflow-y: auto; opacity: 0; transform: translateY(-12px); transition: opacity .3s var(--ease-out), transform .4s var(--ease-out); }
+  .menu.open { opacity: 1; transform: none; }
+  .menu[hidden] { display: none; }
+  .menu-top { height: 64px; display: flex; align-items: center; justify-content: space-between; flex: none; }
+  .menu-close { width: 44px; height: 44px; position: relative; }
+  .menu-close::before, .menu-close::after { content: ""; position: absolute; left: 11px; right: 11px; top: 21px; height: 2px; background: var(--ink); transform: rotate(45deg); }
+  .menu-close::after { transform: rotate(-45deg); }
+  .menu nav { display: flex; flex-direction: column; margin: 28px 0 32px; }
+  .menu nav a { font: 700 clamp(28px, 7vw, 44px)/1.2 var(--font-display); padding: 10px 0; border-bottom: 1px solid var(--sky-line); }
+  .menu .btn { align-self: flex-start; }
+  .menu-contacts { margin-top: auto; padding-top: 32px; display: flex; flex-direction: column; gap: 6px; font: 500 15px/1.5 var(--font-text); color: var(--ink-muted); }
+
+  @media (max-width: 1279.98px) { .nav { display: none; } .burger { display: block; } .hdr .btn { margin-left: auto; } }
+  @media (max-width: 768px) { :root { --hdr: 64px; } .logo img { width: 52px; } .logo b { font-size: 11.5px; } }
+  @media (max-width: 559.98px) { .hdr .btn { display: none; } .burger { margin-left: auto; } }
+  @media (max-width: 359.98px) { .logo b { display: none; } }
+
+  /* ── shared type ─────────────────────────────────────────────── */
+  .eyebrow { display: flex; align-items: center; gap: 12px; font: 600 12px/1.4 var(--font-text); letter-spacing: .16em; text-transform: uppercase; color: var(--azure-deep); }
+  .eyebrow::before { content: ""; width: 28px; height: 2px; background: var(--azure); flex: none; }
+  .h1 { font: 800 clamp(40px, 5.2vw, 88px)/1 var(--font-display); letter-spacing: -.025em; }
+  .h2 { font: 700 clamp(36px, 4.6vw, 76px)/1.02 var(--font-display); letter-spacing: -.02em; }
+  .lede { font: 400 clamp(17px, 1.35vw, 21px)/1.5 var(--font-text); color: var(--ink-muted); max-width: 34ch; }
+  .wrap { padding: 0 var(--pad); }
+
+  /* ═══ SECTION 1 — product stage ═════════════════════════════════ */
+  .stage { position: relative; height: 500vh; }
+  .stage-pin { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; background: var(--paper); }
+  .stage-gl { position: absolute; inset: 0; }
+  #gl { display: block; width: 100%; height: 100%; }
+  .stage-photos { display: none; }
+  .slide { position: absolute; inset: 0; pointer-events: none; visibility: hidden; }
+  .slide.on { visibility: visible; }
+  .slide.on a, .slide.on button { pointer-events: auto; }
+
+  .intro { position: absolute; left: var(--pad); top: calc(var(--hdr) + (100% - var(--hdr)) / 2); transform: translateY(-50%); width: min(40vw, 600px); display: flex; flex-direction: column; gap: 26px; }
+  .intro-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+
+  .p-head { position: absolute; left: var(--pad); top: calc(var(--hdr) + (100% - var(--hdr)) / 2); transform: translateY(-50%); width: min(27vw, 400px); display: flex; flex-direction: column; gap: 16px; }
+  .p-idx { font: 600 13px/1 var(--font-text); letter-spacing: .14em; color: var(--azure-deep); }
+  .p-idx span { color: var(--ink-muted); font-weight: 500; }
+  .p-name { font: 800 clamp(40px, 4.4vw, 76px)/1 var(--font-display); letter-spacing: -.025em; }
+  .p-sub { font: 400 17px/1.5 var(--font-text); color: var(--ink-muted); max-width: 30ch; }
+  .p-price { align-self: flex-start; font: 600 14px/1 var(--font-text); color: var(--red); padding: 10px 0; border-bottom: 1.5px solid currentColor; }
+
+  /* spec panel: four 10 px L-strokes as bracket corners, drawn with 8 background layers */
+  .panel { --c: var(--azure-deep); --l: 10px; --t: 1.5px;
+    position: absolute; right: calc(var(--pad) + 44px); top: calc(var(--hdr) + (100% - var(--hdr)) / 2); transform: translateY(-50%); width: min(25vw, 370px); padding: 24px 26px;
+    background:
+      linear-gradient(var(--c), var(--c)) 0 0 / var(--l) var(--t) no-repeat, linear-gradient(var(--c), var(--c)) 0 0 / var(--t) var(--l) no-repeat,
+      linear-gradient(var(--c), var(--c)) 100% 0 / var(--l) var(--t) no-repeat, linear-gradient(var(--c), var(--c)) 100% 0 / var(--t) var(--l) no-repeat,
+      linear-gradient(var(--c), var(--c)) 0 100% / var(--l) var(--t) no-repeat, linear-gradient(var(--c), var(--c)) 0 100% / var(--t) var(--l) no-repeat,
+      linear-gradient(var(--c), var(--c)) 100% 100% / var(--l) var(--t) no-repeat, linear-gradient(var(--c), var(--c)) 100% 100% / var(--t) var(--l) no-repeat,
+      rgba(255, 255, 255, .78); }
+  .panel h3 { font: 600 12px/1.4 var(--font-text); letter-spacing: .16em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 8px; }
+  .panel dl > div { display: grid; grid-template-columns: 112px 1fr; gap: 12px; padding: 10px 0; border-top: 1px solid var(--sky-line); }
+  .panel dt { font: 500 13px/1.45 var(--font-text); color: var(--ink-muted); }
+  .panel dd { font: 500 15px/1.4 var(--font-text); }
+
+  .stories { position: absolute; right: calc(var(--pad) / 2); top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 6px; z-index: 2; }
+  .stories button { position: relative; width: 24px; height: 48px; }
+  .stories button::before { content: ""; position: absolute; left: 11px; top: 4px; bottom: 4px; width: 2px; background: var(--sky-line); }
+  .stories i { position: absolute; left: 11px; top: 4px; bottom: 4px; width: 2px; background: var(--azure-deep); transform-origin: 50% 0; transform: scaleY(0); }
+
+  /* stacked stage: phones, portrait tablets */
+  @media (max-width: 900px), (orientation: portrait) and (max-width: 1180px) {
+    .intro { top: auto; bottom: 28px; transform: none; left: var(--pad); right: var(--pad); width: auto; gap: 16px; }
+    .intro .h1 { font-size: clamp(34px, 9vw, 64px); }
+    .slide--product { display: flex; flex-direction: column; justify-content: flex-end; gap: 12px; padding: 0 var(--pad) 22px; }
+    .p-head, .panel { position: static; transform: none; width: auto; }
+    .p-head { gap: 8px; }
+    .p-name { font-size: clamp(32px, 8.4vw, 56px); }
+    .p-sub { display: none; }
+    .p-price { position: absolute; right: var(--pad); bottom: auto; margin-top: -2px; }
+    .p-head { position: relative; left: auto; top: auto; }   /* relative keeps the desktop offsets otherwise */
+    .p-price { top: 0; right: 0; padding: 4px 0; font-size: 13px; }
+    .panel { padding: 12px 16px; }
+    .panel h3 { display: none; }
+    .panel dl > div { grid-template-columns: 96px 1fr; padding: 6px 0; gap: 10px; }
+    .panel dl > div:first-child { border-top: 0; }
+    .panel dt { font-size: 12px; } .panel dd { font-size: 13.5px; }
+    .stories { top: calc(var(--hdr) + 12px); transform: none; right: 6px; }
+    .stories button { height: 30px; }
+  }
+
+  /* ═══ SECTIONS 2–6 — sticky stack of light sheets ═══════════════ */
+  .stack { position: relative; background: var(--mist); }
+  .sheet { position: sticky; top: 0; min-height: 100vh; min-height: 100svh; }
+  .sheet--last { position: relative; }
+  .sheet-in { position: relative; min-height: inherit; background: var(--paper); transform-origin: 50% calc(100% - 50vh); }
+  .sheet-in.bg-mist { background: var(--mist); }
+  .sheet-in.bg-sky { background: var(--sky); }
+  .shade { position: absolute; inset: 0; background: var(--ink); opacity: 0; pointer-events: none; z-index: 5; }
+  .sec-pad { padding-top: calc(var(--hdr) + 72px); padding-bottom: 96px; }
+  .sec-head { display: flex; flex-direction: column; gap: 18px; margin-bottom: 56px; max-width: 900px; }
+
+  /* 2 — numbers + lid-dissolve seam */
+  .seam { display: block; width: 100%; height: clamp(120px, 24vh, 240px); }
+  .num-sheet .sec-pad { padding-top: 40px; }
+  .figs { display: grid; grid-template-columns: repeat(2, 1fr); border-top: 1px solid var(--sky-line); }
+  .figs > div { display: flex; flex-direction: column-reverse; justify-content: flex-end; gap: 12px; padding: 30px 32px 34px 0; border-bottom: 1px solid var(--sky-line); }
+  .figs > div:nth-child(odd) { border-right: 1px solid var(--sky-line); margin-right: 32px; }
+  .figs dd { font: 800 clamp(40px, 5.4vw, 92px)/1 var(--font-display); letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
+  .figs dd.sm { font-size: clamp(30px, 3.6vw, 60px); }
+  .figs dt { font: 500 16px/1.45 var(--font-text); color: var(--ink-muted); max-width: 34ch; }
+
+  /* 3 — production line trace */
+  .line-sheet { height: 260vh; }
+  .line-sheet > .sheet-in { height: 100%; }   /* min-height: inherit gives only 100vh; the pinned line needs the whole track */
+  .line-pin { position: sticky; top: 0; height: 100vh; height: 100svh; display: flex; flex-direction: column; padding-top: calc(var(--hdr) + 48px); padding-bottom: 40px; }
+  .line-track { position: relative; flex: 1; margin: 0 var(--pad); min-height: 0; }
+  .line-cv { position: absolute; top: 0; bottom: 0; left: calc(var(--pad) * -1); right: calc(var(--pad) * -1); width: calc(100% + 2 * var(--pad)); height: 100%; pointer-events: none; }   /* bleeds into the page margins so the first and last loops are not clipped */
+  .stations { position: relative; display: grid; grid-template-columns: repeat(5, 1fr); gap: 28px; padding-top: 18vh; }
+  .st { display: flex; flex-direction: column; gap: 10px; opacity: .42; transition: opacity .5s var(--ease-out); }
+  .st.lit { opacity: 1; }
+  .st-dot { width: 18px; height: 18px; border-radius: 50%; background: var(--paper); box-shadow: inset 0 0 0 2px var(--sky-line); margin-bottom: 26px; position: relative; }
+  .st-dot::after { content: ""; position: absolute; inset: 4px; border-radius: 50%; background: var(--azure-deep); transform: scale(0); transition: transform .45s var(--ease-out); }
+  .st.lit .st-dot { box-shadow: inset 0 0 0 2px var(--azure-deep); }
+  .st.lit .st-dot::after { transform: scale(1); }
+  .st-n { font: 600 12px/1 var(--font-text); letter-spacing: .14em; color: var(--azure-deep); }
+  .st h3 { font: 700 clamp(22px, 1.9vw, 30px)/1.1 var(--font-display); }
+  .st p { font: 400 15px/1.5 var(--font-text); color: var(--ink-muted); max-width: 30ch; }
+
+  /* 4 — history timeline */
+  .tl { position: relative; display: grid; grid-template-columns: 40px 1fr; gap: 0 28px; }
+  .rail { position: relative; }
+  .rail::before { content: ""; position: absolute; left: 19px; top: 0; bottom: 0; width: 1px; background: var(--sky-line); }
+  .rail-thread { position: absolute; left: 19px; top: 0; width: 1px; height: 100%; background: var(--azure-deep); transform-origin: 50% 0; transform: scaleY(0); }
+  .rail-mark { position: absolute; left: 13px; top: -6px; width: 13px; height: 13px; border: 2px solid var(--azure-deep); background: var(--paper); }
+  .tl-rows > li { display: grid; grid-template-columns: 1fr 1.25fr 1fr; gap: 40px; align-items: center; padding: 36px 0; border-top: 1px solid var(--sky-line); transition: opacity .35s ease-out; }
+  .tl-year { font: 800 clamp(56px, 7vw, 120px)/1 var(--font-display); letter-spacing: -.04em; font-variant-numeric: tabular-nums; }
+  .plate { --cut: 28px; aspect-ratio: 820 / 560; overflow: hidden; clip-path: polygon(0 0, calc(100% - var(--cut)) 0, 100% var(--cut), 100% 100%, 0 100%); background: var(--mist); }
+  .plate img { width: 100%; height: 100%; object-fit: cover; }
+  .tl-text { font: 500 clamp(17px, 1.4vw, 22px)/1.45 var(--font-text); max-width: 26ch; }
+  .tl-text small { display: block; font: 400 15px/1.5 var(--font-text); color: var(--ink-muted); margin-top: 8px; }
+  @media (hover: hover) { .tl-rows:hover > li:not(:hover) { opacity: .35; } }
+
+  /* 5 — brands in tubes */
+  .packs { display: flex; gap: 56px; margin: -24px 0 44px; }
+  .packs b { display: block; font: 800 clamp(44px, 5vw, 84px)/1 var(--font-display); letter-spacing: -.03em; }
+  .packs p > span { font: 500 15px/1.4 var(--font-text); color: var(--ink-muted); }
+  .tubes { display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; align-items: start; }
+  .tubes figure { display: flex; flex-direction: column; gap: 16px; }
+  .tubes .ph { height: clamp(280px, 32vw, 470px); background: var(--paper); padding: 18px; }
+  .tubes img { width: 100%; height: 100%; object-fit: contain; object-position: 50% 100%; }
+  .tubes figcaption b { display: block; font: 700 18px/1.25 var(--font-display); }
+  .tubes figcaption span { font: 400 14.5px/1.45 var(--font-text); color: var(--ink-muted); }
+
+  /* 6 — geography, CTA, footer */
+  .geo { display: grid; grid-template-columns: minmax(280px, .8fr) 1.6fr; gap: 56px; align-items: center; }
+  .geo-copy { display: flex; flex-direction: column; gap: 22px; }
+  .geo-copy .h2 { font-size: clamp(34px, 3.6vw, 60px); text-wrap: balance; }
+  .map { position: relative; aspect-ratio: 97 / 48; }
+  .map canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .ping { position: absolute; width: 0; height: 0; }
+  .ping i { position: absolute; left: -7px; top: -7px; width: 14px; height: 14px; border-radius: 50%; background: var(--ink); box-shadow: 0 0 0 3px var(--paper); }
+  .ping::before, .ping::after { content: ""; position: absolute; left: -24px; top: -24px; width: 48px; height: 48px; border-radius: 50%; border: 2px solid var(--azure-deep); opacity: 0; animation: ping 2.4s cubic-bezier(.16, 1, .3, 1) infinite paused; }
+  .ping::after { animation-delay: 1.2s; }
+  .map.live .ping::before, .map.live .ping::after { animation-play-state: running; }
+  @keyframes ping { 0% { transform: scale(.3); opacity: .8; } 100% { transform: scale(2.4); opacity: 0; } }
+  .ping b { position: absolute; left: 16px; top: -30px; font: 600 14px/1 var(--font-text); white-space: nowrap; background: var(--paper); padding: 6px 8px; box-shadow: 0 0 0 1px var(--sky-line); }
+  .map-note { font: 500 12px/1.4 var(--font-text); color: var(--ink-muted); margin-top: 8px; }
+
+  .cta { margin: 96px var(--pad) 0; padding: 64px clamp(24px, 5vw, 72px); background: var(--mist); display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: end; }
+  .cta .h2 { font-size: clamp(40px, 5.4vw, 92px); }
+  .cta-side { display: flex; flex-direction: column; gap: 20px; }
+  .cta-side p { color: var(--ink-muted); max-width: 40ch; }
+  .cta-phone { font: 700 clamp(26px, 2.6vw, 40px)/1 var(--font-display); }
+  .cta-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+
+  .foot { margin-top: 96px; background: var(--azure); padding: 16px; }
+  .foot-panel { background-color: var(--ink); color: var(--paper); padding: 56px clamp(24px, 4vw, 56px) 28px;
+    background-image: repeating-radial-gradient(ellipse 120% 90% at 85% 115%, rgba(255,255,255,.1) 0 1px, transparent 1.5px 34px); }
+  .foot-grid { display: grid; grid-template-columns: 1.2fr 1fr 1.2fr; gap: 40px; }
+  .foot-grid h4 { font: 600 12px/1.4 var(--font-text); letter-spacing: .16em; text-transform: uppercase; color: rgba(255,255,255,.72); margin-bottom: 14px; }
+  .foot-grid li { padding: 4px 0; }
+  .foot-grid a:hover { color: var(--sky); text-decoration: underline; }
+  .foot-brand b { display: block; font: 800 22px/1.2 var(--font-display); letter-spacing: .08em; margin: 14px 0 8px; }
+  .foot-brand p { color: rgba(255,255,255,.78); max-width: 32ch; font-size: 15px; }
+  .foot-brand img { width: 96px; height: auto; background: var(--paper); padding: 6px; }
+  .legal { margin-top: 48px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.16); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 13px; color: rgba(255,255,255,.72); }
+
+  @media (max-width: 1024px) {
+    .stations { grid-template-columns: 1fr; gap: 0; padding: 0 0 0 44px; }
+    .st { display: grid; grid-template-columns: auto 1fr; align-items: baseline; gap: 4px 12px; padding: 10px 0; }
+    .st-dot { position: absolute; left: 0; margin: 0; }
+    .st p { grid-column: 1 / -1; max-width: 52ch; font-size: 14px; }
+    .stations { height: 100%; align-content: space-evenly; }
+    .st h3 { font-size: 20px; }
+    .tl-rows > li { grid-template-columns: 1fr 1fr; gap: 16px 24px; }
+    .tl-year { grid-column: 1 / -1; }
+    .geo { grid-template-columns: 1fr; gap: 32px; }
+    .cta { grid-template-columns: 1fr; }
+    .foot-grid { grid-template-columns: 1fr 1fr; }
+    .tubes { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 14px; margin: 0 calc(var(--pad) * -1); padding: 0 var(--pad) 12px; scroll-padding: 0 var(--pad); }
+    .tubes li { flex: 0 0 min(64vw, 300px); scroll-snap-align: start; }
+    .tubes .ph { height: min(92vw, 440px); }
+  }
+  @media (max-width: 640px) {
+    body { font-size: 16px; }
+    .sec-pad { padding-top: calc(var(--hdr) + 44px); padding-bottom: 64px; }
+    .sec-head { margin-bottom: 36px; gap: 14px; }
+    .figs { grid-template-columns: 1fr; }
+    .figs > div:nth-child(odd) { border-right: 0; margin-right: 0; }
+    .figs > div { padding: 22px 0; }
+    .line-pin { padding-top: calc(var(--hdr) + 24px); padding-bottom: 16px; }
+    .line-head .h2 { font-size: 30px; }
+    .line-head .eyebrow { display: none; }
+    .st { padding: 7px 0; }
+    .st p { font-size: 13px; line-height: 1.42; }
+    .st h3 { font-size: 18px; }
+    .tl { grid-template-columns: 24px 1fr; gap: 0 14px; }
+    .rail::before, .rail-thread { left: 11px; } .rail-mark { left: 5px; }
+    .tl-rows > li { grid-template-columns: 1fr; padding: 28px 0; }
+    .packs { gap: 28px; margin-top: -12px; }
+    .cta { margin-top: 64px; padding: 40px 22px; }
+    .foot { margin-top: 64px; padding: 10px; }
+    .foot-grid { grid-template-columns: 1fr; gap: 28px; }
+    .ping b { font-size: 12px; top: -26px; }
+  }
+
+  /* ═══ static stage: reduced motion or no WebGL — products side by side ═══ */
+  html.static .stage { height: auto; }
+  html.static .stage-pin { position: relative; height: auto; overflow: visible; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 32px; padding: calc(var(--hdr) + 64px) var(--pad) 72px; }
+  html.static .slide { position: relative; inset: auto; visibility: visible; pointer-events: auto; }
+  html.static .slide--intro { grid-column: 1 / -1; }
+  html.static .intro { position: relative; top: auto; bottom: auto; left: auto; right: auto; transform: none; width: auto; max-width: 760px; }
+  html.static .stage-gl { position: relative; inset: auto; grid-column: 1 / -1; grid-row: 2; height: clamp(240px, 38vh, 400px); margin: 40px 0 8px; }
+  html.static .slide--product { grid-row: 3; display: flex; flex-direction: column; gap: 16px; padding: 0; }
+  html.static .p-head, html.static .panel { position: relative; top: auto; left: auto; right: auto; transform: none; width: auto; }
+  html.static .p-price { position: static; }
+  html.static .p-sub { display: block; }
+  html.static .panel h3 { display: block; }
+  html.static .stories { display: none; }
+  html.nogl #gl { display: none; }
+  html.nogl .stage-photos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: minmax(0, 1fr); gap: 32px; height: 100%; align-items: center; justify-items: center; }
+  .stage-photos img { width: 100%; height: 100%; object-fit: contain; }   /* grid items: a percentage max-height never resolves */
+  .stage-photos .ring { width: min(80%, 260px); max-height: 100%; aspect-ratio: 1; border-radius: 50%; box-shadow: inset 0 0 0 12px #D8CCB4, 0 18px 30px -22px rgba(15,27,42,.5); transform: scaleY(.55); }
+  @media (max-width: 900px) {
+    html.static .stage-pin { grid-template-columns: 1fr; }
+    html.static .slide--product { grid-row: auto; padding-top: 28px; border-top: 1px solid var(--sky-line); margin-top: 20px; }
+    html.static .stage-gl { height: clamp(180px, 30vh, 300px); }
+    html.nogl .stage-photos { gap: 8px; }
+  }
+  html.rm .sheet { position: relative; }
+  html.rm .line-sheet { height: auto; }
+  html.rm .line-pin { position: relative; height: auto; min-height: 100vh; }
+  @media (prefers-reduced-motion: reduce) { .menu, #veil, .st, .st-dot::after { transition: none; } .ping::before, .ping::after { animation: none; } }
+
+  #fps { position: fixed; left: 8px; bottom: 8px; z-index: 120; display: none; padding: 6px 8px; background: rgba(15,27,42,.8); color: #fff; font: 500 11px/1 var(--font-text); }
+</style>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.170.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.170.0/examples/jsm/",
+    "gsap": "https://esm.sh/gsap@3.12.5",
+    "gsap/ScrollTrigger": "https://esm.sh/gsap@3.12.5/ScrollTrigger",
+    "lenis": "https://unpkg.com/lenis@1.1.0/dist/lenis.mjs"
+  }
+}
+</script>
+<script>
+  // Decided before first paint. three r170 needs WebGL2.
+  //   static = products side by side (reduced motion or no WebGL), rm = reduced motion, nogl = photos instead of canvas.
+  (function () {
+    var d = document.documentElement, gl = false;
+    try { gl = !!document.createElement('canvas').getContext('webgl2'); } catch (e) {}
+    if (/[?&]nogl\b/.test(location.search)) gl = false;
+    var rm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (rm || !gl) d.classList.add('static');
+    if (rm) d.classList.add('rm');
+    if (!gl) d.classList.add('nogl');
+    history.scrollRestoration = 'manual';
+    // Backstop: if the module never boots (CDN down), lift the veil and say why.
+    setTimeout(function () {
+      if (window.__lhBoot) return;
+      var v = document.getElementById('veil'); if (v) v.remove();
+      var b = document.getElementById('banner');
+      if (b) { b.textContent = 'Не удалось загрузить скрипты страницы (three / GSAP / Lenis с CDN). Показана статичная версия.'; b.hidden = false; }
+      d.classList.add('static', 'nogl');
+    }, 9000);
+  })();
+</script>
+<noscript><style>#veil { display: none; } html .stage { height: auto; }</style></noscript>
+</head>
+<body>
+
+<div id="veil" aria-hidden="true"><div class="veil-lid"><i></i></div><div class="veil-meter"><i></i></div></div>
+<p class="banner" id="banner" role="alert" hidden></p>
+<div id="fps"></div>
+
+<header class="hdr" id="hdr">
+  <a class="logo" href="#top" aria-label="ELIT KONSERVA, на главную"><img src="img/logo-mechta.webp" alt="Мечта хозяйки" width="260" height="150"><b>ELIT KONSERVA</b></a>
+  <nav class="nav" aria-label="Разделы">
+    <a href="#stage" data-goto="1">Продукция</a>
+    <a href="#brands">Бренды</a>
+    <a href="#line">Услуги</a>
+    <a href="#history">О заводе</a>
+    <a href="#contacts">Контакты</a>
+  </nav>
+  <a class="btn btn--red" href="#cta">Запросить прайс</a>
+  <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="menu"></button>
+</header>
+
+<main id="top">
+  <!-- ═══ 1 — product stage ═══ -->
+  <section class="stage" id="stage" aria-label="Продукция">
+    <div class="stage-pin">
+      <div class="stage-gl">
+        <canvas id="gl" aria-hidden="true"></canvas>
+        <div class="stage-photos" aria-hidden="true">
+          <img src="img/lid-sko.webp" alt="" width="900" height="600" loading="lazy">
+          <img src="img/lid-twist.webp" alt="" width="900" height="600" loading="lazy">
+          <i class="ring"></i>
+        </div>
+      </div>
+
+      <div class="slide slide--intro" data-slide="0">
+        <div class="intro">
+          <p class="eyebrow">ELIT KONSERVA · Коканд</p>
+          <h1 class="h1" data-split="words">Крышки, которым доверяют урожай</h1>
+          <p class="lede" data-desc>СКО I‑82 и твист‑офф 82 от завода в Коканде. С 1996 года.</p>
+          <div class="intro-actions" data-desc>
+            <a class="btn btn--red" href="#cta">Запросить прайс <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M1 7h11M8 3l4 4-4 4"/></svg></a>
+            <a class="btn btn--line" href="#stage" data-goto="1">Смотреть продукцию</a>
+          </div>
+        </div>
+      </div>
+
+      <article class="slide slide--product" data-slide="1" id="p-sko" aria-labelledby="p-sko-name">
+        <div class="p-head">
+          <p class="p-idx">01 <span>/ 03</span></p>
+          <h2 class="p-name" id="p-sko-name" data-split="chars">СКО I‑82</h2>
+          <p class="p-sub" data-desc>Крышки «Мечта хозяйки» и «Елисейские крышки».</p>
+          <a class="p-price" href="#cta" data-desc>Запросить прайс</a>
+        </div>
+        <div class="panel">
+          <h3 data-desc>Характеристики</h3>
+          <dl>
+            <div data-desc><dt>Банки</dt><dd>с венчиком СКО I‑82</dd></div>
+            <div data-desc><dt>Жесть</dt><dd class="num">ЭЖК 0,16–0,20 мм</dd></div>
+            <div data-desc><dt>Снаружи</dt><dd>золотистый лак или литография</dd></div>
+            <div data-desc><dt>Внутри</dt><dd>пищевая эмаль</dd></div>
+            <div data-desc><dt>Уплотнение</dt><dd>резинка из пищевого каучука</dd></div>
+            <div data-desc><dt>Конструкция</dt><dd>ребро жёсткости</dd></div>
+            <div data-desc><dt>Упаковка</dt><dd class="num">туба 50&nbsp;шт</dd></div>
+          </dl>
+        </div>
+      </article>
+
+      <article class="slide slide--product" data-slide="2" id="p-twist" aria-labelledby="p-twist-name">
+        <div class="p-head">
+          <p class="p-idx">02 <span>/ 03</span></p>
+          <h2 class="p-name" id="p-twist-name" data-split="chars">Твист‑офф 82</h2>
+          <p class="p-sub" data-desc>Винтовая крышка «Мечта хозяйки». Своя линия с 2016 года.</p>
+          <a class="p-price" href="#cta" data-desc>Запросить прайс</a>
+        </div>
+        <div class="panel">
+          <h3 data-desc>Характеристики</h3>
+          <dl>
+            <div data-desc><dt>Тип</dt><dd>винтовая, горловина 82</dd></div>
+            <div data-desc><dt>Контроль</dt><dd>кнопка контроля вакуума</dd></div>
+            <div data-desc><dt>Уплотнение</dt><dd>пластизоль под стерилизацию и пастеризацию</dd></div>
+            <div data-desc><dt>Закрывание</dt><dd>закручивается рукой</dd></div>
+            <div data-desc><dt>Упаковка</dt><dd class="num">туба 20&nbsp;шт</dd></div>
+            <div data-desc><dt>Опт</dt><dd class="num">240&nbsp;в&nbsp;пакете / 850&nbsp;в&nbsp;коробке</dd></div>
+          </dl>
+        </div>
+      </article>
+
+      <article class="slide slide--product" data-slide="3" id="p-ring" aria-labelledby="p-ring-name">
+        <div class="p-head">
+          <p class="p-idx">03 <span>/ 03</span></p>
+          <h2 class="p-name" id="p-ring-name" data-split="chars">Викельное кольцо</h2>
+          <p class="p-sub" data-desc>Уплотнительное кольцо для крышек СКО I‑82.</p>
+          <a class="p-price" href="#cta" data-desc>Запросить прайс</a>
+        </div>
+        <div class="panel">
+          <h3 data-desc>Характеристики</h3>
+          <dl>
+            <div data-desc><dt>Материал</dt><dd>пищевая резина</dd></div>
+            <div data-desc><dt>Для</dt><dd>крышек СКО</dd></div>
+            <div data-desc><dt>Производство</dt><dd class="num">с 2014 года</dd></div>
+            <div data-desc><dt>Упаковка</dt><dd class="num">мешок или коробка 30&nbsp;кг</dd></div>
+          </dl>
+        </div>
+      </article>
+
+      <nav class="stories" aria-label="Слайды продукции">
+        <button type="button" data-goto="0" aria-label="Слайд 1: о заводе"><i></i></button>
+        <button type="button" data-goto="1" aria-label="Слайд 2: СКО I‑82"><i></i></button>
+        <button type="button" data-goto="2" aria-label="Слайд 3: твист‑офф 82"><i></i></button>
+        <button type="button" data-goto="3" aria-label="Слайд 4: викельное кольцо"><i></i></button>
+      </nav>
+    </div>
+  </section>
+
+  <div class="stack" id="stack">
+    <!-- ═══ 2 — the factory in figures ═══ -->
+    <section class="sheet num-sheet" id="numbers" aria-labelledby="numbers-h">
+      <div class="sheet-in">
+        <canvas class="seam" aria-hidden="true"></canvas>
+        <div class="wrap sec-pad">
+          <div class="sec-head">
+            <p class="eyebrow" data-fade>О заводе</p>
+            <h2 class="h2" id="numbers-h" data-split="words">Завод в цифрах</h2>
+          </div>
+          <dl class="figs">
+            <div><dt data-fade>год основания завода в Коканде</dt><dd data-split="chars">1996</dd></div>
+            <div><dt data-fade>штук — размер одного заказа</dt><dd class="sm" data-split="chars">1 000 – 10 000 000</dd></div>
+            <div><dt data-fade>толщина жести для крышек СКО</dt><dd class="sm" data-split="chars">ЭЖК 0,16–0,20 мм</dd></div>
+            <div><dt data-fade>лаки и краски из Германии</dt><dd class="sm" data-split="chars">PPG · HUBER GROUP</dd></div>
+          </dl>
+        </div>
+        <div class="shade"></div>
+      </div>
+    </section>
+
+    <!-- ═══ 3 — how we make a lid ═══ -->
+    <section class="sheet line-sheet" id="line" aria-labelledby="line-h">
+      <div class="sheet-in bg-mist">
+        <div class="line-pin">
+          <div class="wrap sec-head line-head">
+            <p class="eyebrow" data-fade>Услуги: лакировка и литография жести</p>
+            <h2 class="h2" id="line-h" data-split="words">Как мы делаем крышку</h2>
+          </div>
+          <div class="line-track">
+            <canvas class="line-cv" aria-hidden="true"></canvas>
+            <ol class="stations">
+              <li class="st"><span class="st-dot"></span><span class="st-n">01</span><h3>Жесть</h3><p>Листы от 710×510 до 1145×950 мм, толщина 0,15–0,40 мм.</p></li>
+              <li class="st"><span class="st-dot"></span><span class="st-n">02</span><h3>Лакировка</h3><p>Лаки PPG выдерживают стерилизацию выше 100&nbsp;°C. Двухслойное покрытие — по запросу.</p></li>
+              <li class="st"><span class="st-dot"></span><span class="st-n">03</span><h3>Литография</h3><p>Офсетная печать на металле, краски HUBER GROUP. Дизайн — по вашему заданию.</p></li>
+              <li class="st"><span class="st-dot"></span><span class="st-n">04</span><h3>Штамповка</h3><p>Крышки СКО и твист‑офф, детали комбинированных банок и туб.</p></li>
+              <li class="st"><span class="st-dot"></span><span class="st-n">05</span><h3>Контроль</h3><p>Каждую партию проверяем: масса покрытия, твёрдость, адгезия.</p></li>
+            </ol>
+          </div>
+        </div>
+        <div class="shade"></div>
+      </div>
+    </section>
+
+    <!-- ═══ 4 — history ═══ -->
+    <section class="sheet hist-sheet" id="history" aria-labelledby="history-h">
+      <div class="sheet-in">
+        <div class="wrap sec-pad">
+          <div class="sec-head">
+            <p class="eyebrow" data-fade>О заводе</p>
+            <h2 class="h2" id="history-h" data-split="words">История</h2>
+          </div>
+          <div class="tl">
+            <div class="rail" aria-hidden="true"><span class="rail-thread"></span><span class="rail-mark"></span></div>
+            <ol class="tl-rows">
+              <li><p class="tl-year" data-split="chars" data-scatter>1996</p><figure class="plate"><img src="img/plate-1996.webp" alt="Золотистые крышки СКО" width="820" height="560" loading="lazy"></figure><p class="tl-text">Завод основан в Коканде.</p></li>
+              <li><p class="tl-year" data-split="chars" data-scatter>2014</p><figure class="plate"><img src="img/plate-2014.webp" alt="Викельные кольца" width="820" height="560" loading="lazy"></figure><p class="tl-text">Своё производство викельных колец.</p></li>
+              <li><p class="tl-year" data-split="chars" data-scatter>2016</p><figure class="plate"><img src="img/plate-2016.webp" alt="Одноцветные крышки твист‑офф" width="820" height="560" loading="lazy"></figure><p class="tl-text">Линия твист‑офф.<small>Отдельный цех и новые склады.</small></p></li>
+              <li><p class="tl-year" data-split="chars" data-scatter>2022</p><figure class="plate"><img src="img/plate-2022.webp" alt="Тубы «Елисейские крышки»" width="820" height="560" loading="lazy"></figure><p class="tl-text">Новая линия СКО «Елисейские крышки».</p></li>
+            </ol>
+          </div>
+        </div>
+        <div class="shade"></div>
+      </div>
+    </section>
+
+    <!-- ═══ 5 — brands in tubes ═══ -->
+    <section class="sheet" id="brands" aria-labelledby="brands-h">
+      <div class="sheet-in bg-sky">
+        <div class="wrap sec-pad">
+          <div class="sec-head">
+            <p class="eyebrow" data-fade>Бренды</p>
+            <h2 class="h2" id="brands-h" data-split="words">Бренды в тубах</h2>
+          </div>
+          <div class="packs">
+            <p><b class="num" data-split="chars">50 шт</b><span>крышек СКО в тубе</span></p>
+            <p><b class="num" data-split="chars">20 шт</b><span>крышек твист‑офф в тубе</span></p>
+          </div>
+          <ul class="tubes">
+            <li><figure><div class="ph"><img src="img/tube-sko-mechta.webp" alt="Туба крышек СКО «Мечта хозяйки»" width="240" height="472" loading="lazy"></div><figcaption><b>«Мечта хозяйки» · СКО</b><span>туба 50 шт · 10 туб — 500 шт в пакете</span></figcaption></figure></li>
+            <li><figure><div class="ph"><img src="img/tube-twist-green-red.webp" alt="Тубы крышек твист‑офф «Мечта хозяйки», зелёная и красная" width="370" height="395" loading="lazy"></div><figcaption><b>«Мечта хозяйки» · твист‑офф</b><span>туба 20 шт · 12 туб — 240 шт в пакете</span></figcaption></figure></li>
+            <li><figure><div class="ph"><img src="img/tube-moya-mechta.webp" alt="Туба крышек «Моя мечта»" width="225" height="470" loading="lazy"></div><figcaption><b>«Моя мечта»</b><span>туба 50 шт · 1 000 шт в белой коробке</span></figcaption></figure></li>
+            <li><figure><div class="ph"><img src="img/tube-rosa.webp" alt="Туба крышек «Роса»" width="225" height="438" loading="lazy"></div><figcaption><b>«Роса»</b><span>туба 50 шт · 1 000 шт в коробке с логотипом</span></figcaption></figure></li>
+            <li><figure><div class="ph"><img src="img/tube-gurman.webp" alt="Тубы крышек «Гурман»" width="650" height="1110" loading="lazy"></div><figcaption><b>«Гурман»</b><span>туба 50&nbsp;шт</span></figcaption></figure></li>
+          </ul>
+        </div>
+        <div class="shade"></div>
+      </div>
+    </section>
+
+    <!-- ═══ 6 — geography, CTA, footer ═══ -->
+    <section class="sheet sheet--last" id="contacts" aria-labelledby="geo-h">
+      <div class="sheet-in">
+        <div class="wrap sec-pad geo">
+          <div class="geo-copy">
+            <p class="eyebrow" data-fade>География</p>
+            <h2 class="h2" id="geo-h" data-split="words">Узбекистан и Центральная Азия</h2>
+            <p class="lede" data-fade>Завод — в Коканде, Ферганская область. Отправляем образцы.</p>
+          </div>
+          <figure class="map" id="map">
+            <canvas aria-hidden="true"></canvas>
+            <span class="ping"><i></i><b>Коканд</b></span>
+            <figcaption class="sr">Точечная карта Узбекистана и Центральной Азии, отмечен Коканд.</figcaption>
+          </figure>
+        </div>
+
+        <div class="cta" id="cta">
+          <div>
+            <p class="eyebrow" data-fade>Цена по запросу</p>
+            <h2 class="h2" data-split="words">Запросить прайс</h2>
+          </div>
+          <div class="cta-side">
+            <p data-fade>Назовите тип крышки и объём партии — от 1 000 до 10 000 000 штук.</p>
+            <a class="cta-phone num" href="tel:+998975908822">+998 97 590‑88‑22</a>
+            <div class="cta-actions">
+              <a class="btn btn--red" href="mailto:info@krishki.uz?subject=%D0%97%D0%B0%D0%BF%D1%80%D0%BE%D1%81%20%D0%BF%D1%80%D0%B0%D0%B9%D1%81%D0%B0">Запросить прайс <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M1 7h11M8 3l4 4-4 4"/></svg></a>
+              <a class="btn btn--line" href="https://wa.me/998975908822">WhatsApp</a>
+              <a class="btn btn--line" href="https://t.me/krishki_uz">Telegram</a>
+            </div>
+          </div>
+        </div>
+
+        <footer class="foot">
+          <div class="foot-panel">
+            <div class="foot-grid">
+              <div class="foot-brand">
+                <img src="img/logo-mechta.webp" alt="Мечта хозяйки" width="260" height="150" loading="lazy">
+                <b>ELIT KONSERVA</b>
+                <p>Республика Узбекистан, Ферганская область, г. Коканд, ул. Кипчок Арик, 98&nbsp;А</p>
+              </div>
+              <nav aria-label="Разделы, подвал">
+                <h4>Разделы</h4>
+                <ul>
+                  <li><a href="#stage" data-goto="1">Продукция</a></li>
+                  <li><a href="#brands">Бренды</a></li>
+                  <li><a href="#line">Услуги</a></li>
+                  <li><a href="#history">О заводе</a></li>
+                  <li><a href="#cta">Запросить прайс</a></li>
+                </ul>
+              </nav>
+              <div>
+                <h4>Контакты</h4>
+                <ul class="num">
+                  <li><a href="tel:+998975908822">+998 97 590‑88‑22</a></li>
+                  <li><a href="tel:+998911524203">+998 91 152‑42‑03</a></li>
+                  <li><a href="tel:+998735423491">+998 73 542‑34‑91</a></li>
+                  <li><a href="mailto:info@krishki.uz">info@krishki.uz</a></li>
+                  <li><a href="https://t.me/krishki_uz">Telegram</a> · <a href="https://wa.me/998975908822">WhatsApp</a> · <a href="https://www.instagram.com/krishki.uz/">Instagram</a> · <a href="https://www.facebook.com/krishkiuz/">Facebook</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="legal"><span>2019 – 2026 © ООО «Elit Konserva»</span><span>Карта: Natural Earth</span></div>
+          </div>
+        </footer>
+        <div class="shade"></div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<!-- full-screen menu sheet: a direct child of <body>, never inside the header -->
+<div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Меню" hidden>
+  <div class="menu-top">
+    <a class="logo" href="#top"><img src="img/logo-mechta.webp" alt="Мечта хозяйки" width="260" height="150"><b>ELIT KONSERVA</b></a>
+    <button class="menu-close" type="button" aria-label="Закрыть меню"></button>
+  </div>
+  <nav aria-label="Разделы, меню">
+    <a href="#stage" data-goto="1">Продукция</a>
+    <a href="#brands">Бренды</a>
+    <a href="#line">Услуги</a>
+    <a href="#history">О заводе</a>
+    <a href="#contacts">Контакты</a>
+  </nav>
+  <a class="btn btn--red" href="#cta">Запросить прайс</a>
+  <div class="menu-contacts num"><a href="tel:+998975908822">+998 97 590‑88‑22</a><a href="mailto:info@krishki.uz">info@krishki.uz</a></div>
+</div>
+
+<script type="module">
+window.__lhBoot = true;
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+import gsap from 'gsap';
+import ScrollTrigger from 'gsap/ScrollTrigger';
+import Lenis from 'lenis';
+
+gsap.registerPlugin(ScrollTrigger);
+window.__lhBoot = true;
+
+/* ════════════════════════════════════════════════════════════════════
+   0. environment, tiers
+   ════════════════════════════════════════════════════════════════════ */
+const html = document.documentElement;
+const Q = new URLSearchParams(location.search);
+const RM = html.classList.contains('rm');
+let STATIC = html.classList.contains('static');
+let NOGL = html.classList.contains('nogl');
+const COARSE = matchMedia('(pointer: coarse)').matches;
+const TIER_NAME = Q.get('tier') || (innerWidth <= 768 ? 'mobile' : (innerWidth <= 1180 || COARSE) ? 'tablet' : 'desktop');
+const TIER = { desktop: { dpr: 1.5, motes: 200, bgScale: 1 }, tablet: { dpr: 1.25, motes: 120, bgScale: 1 }, mobile: { dpr: 1, motes: 60, bgScale: 0.5 } }[TIER_NAME];
+const stackedMQ = matchMedia('(max-width: 900px), (orientation: portrait) and (max-width: 1180px)');
+const phoneMQ = matchMedia('(max-width: 640px)');
+
+const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+const lerp = (a, b, t) => a + (b - a) * t;
+const sstep = (t) => { t = clamp(t); return t * t * (3 - 2 * t); };
+const damp = (a, b, k, dt) => a + (b - a) * (1 - Math.pow(1 - k, dt * 60));   // frame-rate independent lerp
+const hash = (x, y = 0) => { let h = Math.imul(x | 0, 374761393) ^ Math.imul(y | 0, 668265263); h = Math.imul(h ^ (h >>> 13), 1274126177); return ((h ^ (h >>> 16)) >>> 0) / 4294967296; };
+const css = (name) => getComputedStyle(html).getPropertyValue(name).trim();
+const hex3 = (hex) => { const c = new THREE.Color(); c.setStyle(hex, THREE.LinearSRGBColorSpace); return [c.r, c.g, c.b]; };  // raw sRGB triplet for shaders that write straight to the screen
+
+/* Damped spring, mass 1: a = -tension·(x − target) − friction·v. Fixed 1/120 s substeps. */
+class Spring {
+  constructor(x, tension = 70, friction = 15) { this.x = x; this.v = 0; this.target = x; this.k = tension; this.c = friction; }
+  step(dt) {
+    let n = Math.max(1, Math.ceil(dt * 120)); const h = dt / n;
+    while (n--) { const a = -this.k * (this.x - this.target) - this.c * this.v; this.v += a * h; this.x += this.v * h; }
+    return this.x;
+  }
+  snap(x) { this.x = this.target = x; this.v = 0; }
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   1. shell: Lenis, one ticker, header, menu, anchors
+   ════════════════════════════════════════════════════════════════════ */
+scrollTo(0, 0);
+let lenis = null;
+if (!RM) {
+  lenis = new Lenis({ duration: 1.15, easing: (t) => 1 - Math.pow(1 - t, 4), smoothWheel: true });
+  lenis.on('scroll', ScrollTrigger.update);
+}
+// One rAF ticker (GSAP's). Lenis is added with priority so it runs first, then GSAP, then our frame.
+const ticker = gsap.ticker;
+ticker.lagSmoothing(0);
+if (COARSE) ticker.fps(60);
+const lenisRaf = (time) => lenis && lenis.raf(time * 1000);
+if (lenis) ticker.add(lenisRaf, false, true);
+
+const hdr = document.getElementById('hdr');
+const burger = hdr.querySelector('.burger');
+const menu = document.getElementById('menu');
+let menuOpen = false;
+function setMenu(open) {
+  if (open === menuOpen) return;
+  menuOpen = open;
+  burger.setAttribute('aria-expanded', String(open));
+  if (open) {
+    menu.hidden = false; lenis?.stop(); document.body.style.overflow = 'hidden';
+    requestAnimationFrame(() => { menu.classList.add('open'); menu.querySelector('nav a').focus(); });
+  } else {
+    menu.classList.remove('open'); lenis?.start(); document.body.style.overflow = '';
+    setTimeout(() => { if (!menuOpen) menu.hidden = true; }, RM ? 0 : 400);
+    burger.focus({ preventScroll: true });
+  }
+}
+burger.addEventListener('click', () => setMenu(true));
+menu.querySelector('.menu-close').addEventListener('click', () => setMenu(false));
+const onKey = (e) => {
+  if (!menuOpen) return;
+  if (e.key === 'Escape') setMenu(false);
+  if (e.key === 'Tab') {   // keep focus inside the sheet
+    const f = [...menu.querySelectorAll('a, button')]; const first = f[0], last = f[f.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  }
+};
+document.addEventListener('keydown', onKey);
+const mqMenu = matchMedia('(min-width: 1280px)');
+const onMqMenu = () => { if (mqMenu.matches) setMenu(false); };
+mqMenu.addEventListener('change', onMqMenu);
+
+/* ════════════════════════════════════════════════════════════════════
+   2. geometry cache (sticky sheets: natural tops are summed, never read from a stuck element)
+   ════════════════════════════════════════════════════════════════════ */
+const stage = document.getElementById('stage');
+const stack = document.getElementById('stack');
+const sheets = [...stack.querySelectorAll('.sheet')].map((el) => ({ el, inner: el.querySelector('.sheet-in'), shade: el.querySelector('.shade'), top: 0, h: 0, stick: 0, c: -1 }));
+const byId = Object.fromEntries(sheets.map((s) => [s.el.id, s]));
+const G = { vh: innerHeight, vw: innerWidth, stageTop: 0, stageH: 0 };
+const docTop = (el) => el.getBoundingClientRect().top + scrollY;
+function measure() {
+  G.vh = innerHeight; G.vw = innerWidth;
+  G.stageTop = docTop(stage); G.stageH = stage.offsetHeight;
+  let y = docTop(stack);
+  sheets.forEach((s, i) => {
+    s.top = y; s.h = s.el.offsetHeight; y += s.h;
+    s.stick = Math.min(0, G.vh - s.h);
+    if (i < sheets.length - 1 && !RM) s.el.style.top = `${s.stick}px`;
+    s.c = -1;
+  });
+  measureLine(); measureHistory(); sizeSeam(); sizeMap();
+}
+const slideY = (i) => G.stageTop + ((i + 0.2) / 3.6) * Math.max(1, G.stageH - G.vh);
+function scrollToY(y) { if (lenis) lenis.scrollTo(y, { duration: 1.4 }); else scrollTo({ top: y, behavior: 'auto' }); }
+document.addEventListener('click', (e) => {
+  const a = e.target.closest('a[href^="#"], button[data-goto]');
+  if (!a) return;
+  const goto = a.dataset.goto;
+  const id = a.getAttribute('href');
+  e.preventDefault();
+  if (menuOpen) setMenu(false);
+  if (goto != null) {
+    if (STATIC) { const t = goto === '0' ? stage : document.querySelectorAll('.slide')[+goto]; scrollToY(docTop(t) - G.vh * 0.12); }
+    else scrollToY(slideY(+goto));
+    return;
+  }
+  if (id === '#top') return scrollToY(0);
+  const s = byId[id.slice(1)];
+  if (s) return scrollToY(s.top);
+  const t = document.querySelector(id);
+  if (t) scrollToY(docTop(t) - parseFloat(css('--hdr')) - 16);
+});
+
+/* ════════════════════════════════════════════════════════════════════
+   3. text: split + reveals (blur-up 8 px → 0, 35 ms stagger; descriptions after 0.3 s)
+   ════════════════════════════════════════════════════════════════════ */
+function split(el) {
+  const mode = el.dataset.split;
+  const text = el.textContent.replace(/\s+/g, ' ').trim();
+  el.textContent = '';
+  const sr = document.createElement('span'); sr.className = 'sr'; sr.textContent = text;
+  const vis = document.createElement('span'); vis.setAttribute('aria-hidden', 'true');
+  const parts = [];
+  text.split(' ').forEach((w, i, arr) => {
+    const wd = document.createElement('span'); wd.className = 'wd';
+    const pieces = mode === 'words' ? [w] : [...w];
+    for (const p of pieces) { const s = document.createElement('span'); s.className = 'ch'; s.textContent = p; wd.append(s); parts.push(s); }
+    vis.append(wd); if (i < arr.length - 1) vis.append(' ');
+  });
+  el.append(sr, vis);
+  el._parts = parts;
+  return parts;
+}
+document.querySelectorAll('[data-split]').forEach(split);
+
+function hideParts(parts) { gsap.set(parts, { opacity: 0 }); }
+function revealParts(parts, { delay = 0, stagger = 0.035, scatter = false } = {}) {
+  gsap.killTweensOf(parts);
+  if (RM) return gsap.fromTo(parts, { opacity: 0 }, { opacity: 1, duration: 0.45, ease: 'power1.out', delay });
+  return gsap.fromTo(parts,
+    { opacity: 0, yPercent: (i) => (scatter ? (hash(i, 7) - 0.5) * 220 : 70), filter: 'blur(8px)' },
+    { opacity: 1, yPercent: 0, filter: 'blur(0px)', duration: 0.9, ease: 'expo.out', stagger, delay, clearProps: 'filter' });
+}
+function revealDesc(els, delay = 0.3) {
+  gsap.killTweensOf(els);
+  if (RM) return gsap.fromTo(els, { opacity: 0 }, { opacity: 1, duration: 0.45, ease: 'power1.out', delay });
+  return gsap.fromTo(els, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out', stagger: 0.045, delay });
+}
+
+// section reveals: IntersectionObserver (robust inside sticky sheets), once
+const revealIO = new IntersectionObserver((entries) => {
+  for (const en of entries) {
+    if (!en.isIntersecting) continue;
+    const el = en.target; revealIO.unobserve(el);
+    if (el._parts) revealParts(el._parts, { scatter: el.hasAttribute('data-scatter'), stagger: el.hasAttribute('data-scatter') ? 0.08 : 0.035 });
+    else revealDesc([el], 0.15);
+  }
+}, { threshold: 0.25 });
+document.querySelectorAll('.stack [data-split], .stack [data-fade]').forEach((el) => {
+  if (el._parts) hideParts(el._parts); else gsap.set(el, { opacity: 0 });
+  revealIO.observe(el);
+});
+
+/* stage slides: show / hide by index */
+const slides = [...document.querySelectorAll('.slide')];
+let activeSlide = -2;
+function showSlide(i) {
+  if (i === activeSlide) return;
+  const prev = slides[activeSlide];
+  if (prev && !STATIC) {
+    gsap.killTweensOf(prev);
+    gsap.to(prev, { opacity: 0, duration: 0.25, ease: 'power2.out', onComplete: () => prev.classList.remove('on') });
+  }
+  activeSlide = i;
+  const s = slides[i];
+  if (!s) return;
+  gsap.killTweensOf(s); gsap.set(s, { opacity: 1 }); s.classList.add('on');
+  const head = s.querySelector('[data-split]');
+  revealParts(head._parts, { stagger: head.dataset.split === 'words' ? 0.04 : 0.035 });
+  revealDesc([...s.querySelectorAll('[data-desc]')], 0.3);
+}
+if (STATIC) slides.forEach((s) => s.classList.add('on'));
+
+/* ════════════════════════════════════════════════════════════════════
+   4. loader veil
+   ════════════════════════════════════════════════════════════════════ */
+const veil = document.getElementById('veil');
+const veilFill = veil?.querySelector('.veil-lid i');
+const veilMeter = veil?.querySelector('.veil-meter i');
+const V = { shown: 0, real: 0, done: false, fadeAt: 0, gone: !veil || NOGL };
+const banner = document.getElementById('banner');
+function showBanner(msg) { banner.textContent = msg; banner.hidden = false; }
+function veilTick(dt) {
+  if (V.gone) return;
+  if (!V.done) V.shown = Math.max(damp(V.shown, 0.7, 0.025, dt), Math.min(0.95, V.real * 0.95));   // creeps to 0.7 on its own
+  else V.shown = damp(V.shown, 1, 0.2, dt);
+  veilFill.style.transform = `scaleY(${V.shown.toFixed(4)})`;
+  veilMeter.style.transform = `scaleX(${V.shown.toFixed(4)})`;
+  if (V.done && !V.fadeAt && V.shown > 0.995) { V.fadeAt = performance.now(); veil.classList.add('out'); }
+  if (V.fadeAt) {
+    const op = parseFloat(getComputedStyle(veil).opacity);
+    if (op <= 0.004 || performance.now() - V.fadeAt > 3000) { veil.remove(); V.gone = true; onVeilGone(); }
+  }
+}
+function finishVeil() { V.done = true; if (RM && veil) { veil.style.transition = 'none'; } }
+const veilBackstop = setTimeout(() => { if (!V.done) { showBanner('3D-сцена грузится дольше обычного. Страница доступна, модели появятся после загрузки.'); finishVeil(); } }, 15000);
+if (V.gone) veil?.remove();
+
+let entered = false;
+function onVeilGone() {
+  if (entered) return; entered = true;
+  if (!STATIC) showSlide(0);
+  else slides.forEach((s) => { const h = s.querySelector('[data-split]'); revealParts(h._parts); revealDesc([...s.querySelectorAll('[data-desc]')], 0.3); });
+  if (scene3d) scene3d.enter();
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   5. 3D stage
+   ════════════════════════════════════════════════════════════════════ */
+let scene3d = null;
+const KEY_ANG = [24, 0, -120, -240].map((d) => THREE.MathUtils.degToRad(d));   // carousel angle per slide (intro shows a three-quarter view)
+const R = 1.25;                    // carousel radius, lid diameter = 1
+const RX = 0.62;                   // x squash: an elliptical turntable keeps side products clear of the copy
+const STEP = (Math.PI * 2) / 3;    // 120°
+
+function initStage() {
+  const canvas = document.getElementById('gl');
+  let renderer;
+  try {
+    renderer = new THREE.WebGLRenderer({ canvas, antialias: TIER_NAME !== 'mobile', alpha: false, powerPreference: 'high-performance', stencil: false });
+  } catch (err) { fallbackStatic(`WebGL: ${err.message}`); return null; }
+  const gl = renderer.getContext();
+  const dbg = gl.getExtension('WEBGL_debug_renderer_info');
+  const glInfo = dbg ? gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL) : 'unknown';
+  renderer.setPixelRatio(Math.min(devicePixelRatio, TIER.dpr));
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.0;
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(30, 1, 0.1, 60);
+
+  /* — background: "liquid tin" field, own shader. Writes sRGB directly (no tone mapping). — */
+  const bgUniforms = {
+    uRes: { value: new THREE.Vector2(1, 1) }, uTime: { value: 0 }, uWarm: { value: 0 },
+    uPaper: { value: new THREE.Vector3(...hex3(css('--paper'))) }, uSky: { value: new THREE.Vector3(...hex3(css('--sky'))) },
+    uLine: { value: new THREE.Vector3(...hex3(css('--sky-line'))) }, uCream: { value: new THREE.Vector3(...hex3(css('--cream'))) },
+    uGold: { value: new THREE.Vector3(...hex3(css('--gold-soft'))) },
+  };
+  const quadVS = /* glsl */`varying vec2 vUv; void main() { vUv = uv; gl_Position = vec4(position.xy, 0.0, 1.0); }`;
+  const bgMat = new THREE.ShaderMaterial({
+    uniforms: bgUniforms, vertexShader: quadVS, depthTest: false, depthWrite: false,
+    fragmentShader: /* glsl */`
+      precision highp float;
+      uniform vec2 uRes; uniform float uTime, uWarm;
+      uniform vec3 uPaper, uSky, uLine, uCream, uGold;
+      // sum of four sines over a plane that is itself pushed by crossed sines, so the field rolls
+      float field(vec2 p, float t) {
+        p += 0.42 * vec2(sin(p.y * 1.25 + t * 1.7), sin(p.x * 1.05 - t * 1.3));
+        p += 0.20 * vec2(sin(p.y * 2.10 - t * 1.1), sin(p.x * 1.90 + t * 0.9));
+        return sin(p.x * 1.15 + t) + sin(p.y * 1.45 - t * 0.8)
+             + 0.8 * sin((p.x + p.y) * 0.9 + t * 0.6) + 0.6 * sin((p.x - p.y) * 1.7 - t * 1.2);
+      }
+      void main() {
+        vec2 p = (gl_FragCoord.xy - 0.5 * uRes) / uRes.y * 2.6;
+        float t = uTime * 0.08;
+        float f = field(p, t);
+        float band = smoothstep(-2.4, 2.4, f);
+        vec3 cool = mix(uPaper, uSky, band * 0.9);
+        vec3 warm = mix(mix(uPaper, uCream, 0.55), mix(uCream, uGold, 0.22), band);
+        vec3 col = mix(cool, warm, uWarm);
+        // pearl sheen along the crests
+        col = mix(col, uPaper, 0.35 * smoothstep(0.75, 1.0, sin(f * 1.3 + 0.6)));
+        // thin contour lines: iso-lines of the same field
+        float k = f * 2.0;
+        float d = abs(fract(k) - 0.5);
+        float line = 1.0 - smoothstep(0.0, fwidth(k) * 1.2, d);
+        vec3 lineCol = mix(uLine, mix(uCream, uGold, 0.55), uWarm);
+        col = mix(col, lineCol, line * 0.8);
+        gl_FragColor = vec4(col, 1.0);
+      }`,
+  });
+  const quadGeo = new THREE.PlaneGeometry(2, 2);
+  const bgQuad = new THREE.Mesh(quadGeo, bgMat);
+  bgQuad.frustumCulled = false; bgQuad.renderOrder = -100;
+  // mobile tier: the field renders into a half-resolution target, then a copy quad stretches it
+  let bgRT = null, bgScene = null, copyMat = null;
+  const orthoCam = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+  if (TIER.bgScale < 1) {
+    bgRT = new THREE.WebGLRenderTarget(2, 2, { depthBuffer: false, generateMipmaps: false });
+    bgScene = new THREE.Scene(); const q = new THREE.Mesh(quadGeo, bgMat); q.frustumCulled = false; bgScene.add(q);
+    copyMat = new THREE.ShaderMaterial({ uniforms: { tMap: { value: bgRT.texture } }, vertexShader: quadVS, depthTest: false, depthWrite: false,
+      fragmentShader: /* glsl */`uniform sampler2D tMap; varying vec2 vUv; void main() { gl_FragColor = texture2D(tMap, vUv); }` });
+    bgQuad.material = copyMat;
+  }
+  scene.add(bgQuad);
+
+  /* — light rig — */
+  const pmrem = new THREE.PMREMGenerator(renderer);
+  const room = new RoomEnvironment();
+  const envRT = pmrem.fromScene(room, 0.04);
+  scene.environment = envRT.texture;
+  room.dispose(); pmrem.dispose();
+  const key = new THREE.DirectionalLight(0xfff0d8, 1.7); key.position.set(4, 5, 4);      // soft key, upper right
+  const rim = new THREE.DirectionalLight(0xd2e8ff, 2.2); rim.position.set(-2, 3, -5);    // cool rim from behind
+  scene.add(key, rim);
+
+  /* — contact shadow: blurred radial texture on a plane, no shadow map — */
+  const shCv = document.createElement('canvas'); shCv.width = shCv.height = 128;
+  const sx = shCv.getContext('2d'); const grd = sx.createRadialGradient(64, 64, 0, 64, 64, 64);
+  grd.addColorStop(0, 'rgba(15,27,42,.5)'); grd.addColorStop(0.45, 'rgba(15,27,42,.2)'); grd.addColorStop(1, 'rgba(15,27,42,0)');
+  sx.fillStyle = grd; sx.fillRect(0, 0, 128, 128);
+  const shTex = new THREE.CanvasTexture(shCv); shTex.colorSpace = THREE.SRGBColorSpace;
+  const shadow = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), new THREE.MeshBasicMaterial({ map: shTex, transparent: true, depthWrite: false, toneMapped: false }));
+  shadow.rotation.x = -Math.PI / 2; shadow.renderOrder = -1;
+  scene.add(shadow);
+
+  /* — motes: normal blending (additive vanishes on white), opacity 0.35, rising; turbulence follows scroll speed — */
+  const M = TIER.motes, BOX = { x: 6.4, y: 4.2, z: 4 };
+  const mPos = new Float32Array(M * 3), mSeed = new Float32Array(M * 3), mCol = new Float32Array(M * 3);
+  const gold = hex3(css('--gold')), azure = hex3(css('--azure'));
+  for (let i = 0; i < M; i++) {
+    mPos.set([(hash(i, 1) - 0.5) * BOX.x, (hash(i, 2) - 0.5) * BOX.y, (hash(i, 3) - 0.5) * BOX.z - 0.4], i * 3);
+    mSeed.set([0.05 + hash(i, 4) * 0.12, hash(i, 5) * 6.283, 0.022 + hash(i, 6) * 0.03], i * 3);
+    mCol.set(hash(i, 8) < 0.55 ? gold : azure, i * 3);
+  }
+  const mGeo = new THREE.BufferGeometry();
+  mGeo.setAttribute('position', new THREE.BufferAttribute(mPos, 3));
+  mGeo.setAttribute('aSeed', new THREE.BufferAttribute(mSeed, 3));
+  mGeo.setAttribute('aColor', new THREE.BufferAttribute(mCol, 3));
+  const mUniforms = { uTime: { value: 0 }, uTurb: { value: 0 }, uPx: { value: 800 }, uH: { value: BOX.y }, uOpacity: { value: 0.35 } };
+  const motes = new THREE.Points(mGeo, new THREE.ShaderMaterial({
+    uniforms: mUniforms, transparent: true, depthWrite: false, blending: THREE.NormalBlending,
+    vertexShader: /* glsl */`
+      attribute vec3 aSeed; attribute vec3 aColor;
+      uniform float uTime, uTurb, uPx, uH;
+      varying vec3 vColor; varying float vFade;
+      void main() {
+        vec3 p = position;
+        float y = mod(p.y + uTime * aSeed.x + 0.5 * uH, uH) - 0.5 * uH;          // rise and wrap
+        float amp = 0.06 + uTurb;
+        p.x += sin(uTime * 0.35 + aSeed.y + y * 0.9) * amp;
+        p.z += cos(uTime * 0.28 + aSeed.y * 1.7 + y * 0.7) * amp;
+        p.y = y;
+        vec4 mv = modelViewMatrix * vec4(p, 1.0);
+        gl_Position = projectionMatrix * mv;
+        gl_PointSize = aSeed.z * uPx / -mv.z;
+        vFade = 1.0 - smoothstep(0.32 * uH, 0.5 * uH, abs(y));                   // invisible at the wrap
+        vColor = aColor;
+      }`,
+    fragmentShader: /* glsl */`
+      uniform float uOpacity; varying vec3 vColor; varying float vFade;
+      void main() {
+        float d = length(gl_PointCoord - 0.5);
+        float a = 1.0 - smoothstep(0.3, 0.5, d);
+        if (a <= 0.0) discard;
+        gl_FragColor = vec4(vColor, a * uOpacity * vFade);
+      }`,
+  }));
+  motes.frustumCulled = false;
+  if (!RM) scene.add(motes);
+
+  /* — products — */
+  const carousel = new THREE.Group(); scene.add(carousel);
+  const manager = new THREE.LoadingManager();
+  manager.onProgress = (url, loaded, total) => { V.real = loaded / Math.max(total, 1); };
+  let failed = false;
+  manager.onError = (url) => fail(url);
+  function fail(url) {
+    if (failed) return; failed = true;
+    showBanner(`Не удалось загрузить: ${new URL(url, location.href).href}. Показаны фотографии крышек.`);
+    destroy3d(); fallbackStatic();
+    finishVeil();
+  }
+  const draco = new DRACOLoader(manager); draco.setDecoderPath('https://unpkg.com/three@0.170.0/examples/jsm/libs/draco/');
+  const gltf = new GLTFLoader(manager); gltf.setDRACOLoader(draco);
+  const maxAniso = renderer.capabilities.getMaxAnisotropy();
+  const tomato = new THREE.TextureLoader(manager).load('tex/twist-tomato.webp', undefined, undefined, () => fail('tex/twist-tomato.webp'));
+  tomato.flipY = false; tomato.colorSpace = THREE.SRGBColorSpace; tomato.anisotropy = Math.min(8, maxAniso);
+  const models = {};
+  gltf.load('lid-sko.glb', (g) => { models.sko = g.scene; }, undefined, () => fail('lid-sko.glb'));
+  gltf.load('lid-twist.glb', (g) => { models.twist = g.scene; }, undefined, () => fail('lid-twist.glb'));
+
+  const LID_D = 0.082;
+  function centre(obj) {
+    const box = new THREE.Box3().setFromObject(obj);
+    obj.position.sub(box.getCenter(new THREE.Vector3()));
+    const g = new THREE.Group(); g.add(obj); g.scale.setScalar(1 / LID_D); return g;
+  }
+  function tuneMaterials(root) {
+    const mats = [];
+    root.traverse((o) => {
+      if (!o.isMesh) return;
+      const m = (o.material = o.material.clone());
+      if (/Gold/i.test(m.name)) { m.color.set('#E2AE4C'); m.metalness = 1; m.roughness = 0.24; if ('clearcoat' in m) { m.clearcoat = 0.7; m.clearcoatRoughness = 0.08; } }
+      else if (/Twist_Outer/i.test(m.name)) { m.map = tomato; m.color.set('#ffffff'); m.metalness = 0; m.roughness = 0.3; m.envMapIntensity = 0.55; if ('specularIntensity' in m) m.specularIntensity = 0.3; if ('clearcoat' in m) { m.clearcoat = 0.25; m.clearcoatRoughness = 0.08; } }   // litho print under lacquer: keep the red saturated in a white room
+      else if (/Silver/i.test(m.name)) { m.color.set('#C9CED4'); m.metalness = 0.85; m.roughness = 0.3; }
+      else if (/Rubber/i.test(m.name)) { m.color.set('#CDBA96'); m.roughness = 0.8; m.metalness = 0; }
+      else if (/Inner/i.test(m.name)) { m.color.set('#F4F2EC'); m.metalness = 0; m.roughness = 0.35; }
+      m.transparent = true; m.depthWrite = true;
+      mats.push(m);
+    });
+    return mats;
+  }
+  function makeRing() {
+    // wikel ring in code: torus with a flattened (rounded) section, matte food-rubber beige
+    const geo = new THREE.TorusGeometry(0.0392, 0.0034, 28, 180);
+    const mat = new THREE.MeshStandardMaterial({ color: '#CDBA96', roughness: 0.8, metalness: 0, transparent: true });
+    const mesh = new THREE.Mesh(geo, mat);
+    mesh.scale.set(1, 1, 0.72); mesh.rotation.x = Math.PI / 2;   // ring axis = lid axis (Y)
+    const g = new THREE.Group(); g.add(mesh); g.scale.setScalar(1 / LID_D);
+    return { root: g, mats: [mat] };
+  }
+
+  const products = [];
+  const depthMat = new THREE.MeshBasicMaterial({ colorWrite: false });
+  let ready = false;
+  manager.onLoad = () => {
+    if (failed) return;
+    try {
+      const list = [
+        { root: centre(models.sko), mats: null },
+        { root: centre(models.twist), mats: null },
+        makeRing(),
+      ];
+      list.forEach((p, i) => {
+        if (!p.mats) p.mats = tuneMaterials(p.root);
+        const slot = new THREE.Group(), face = new THREE.Group(), tilt = new THREE.Group(), spin = new THREE.Group();
+        slot.add(face); face.add(tilt); tilt.add(spin); spin.add(p.root); carousel.add(slot);
+        const depthMeshes = [];
+        p.root.traverse((o) => { if (o.isMesh) depthMeshes.push(o); });
+        depthMeshes.forEach((o) => { const d = new THREE.Mesh(o.geometry, depthMat); o.add(d); });   // child: same transform, opaque list → drawn first
+        products.push({ ...p, slot, face, tilt, spin, i, op: -1 });
+      });
+      renderer.initTexture(tomato);
+      layout(true);
+      renderer.compile(scene, camera);
+      ready = true;
+      render(0.016, 0);                  // one frame rendered → the veil may complete
+      finishVeil();
+    } catch (err) { console.error(err); fail('scene setup'); }
+  };
+
+  /* — state, springs — */
+  const rotSpring = new Spring(KEY_ANG[0] + 1.6, 60, 14.5);   // starts turned away; settles after the veil
+  const cam = { az: 0, el: 0.08 };
+  const mouse = { x: 0, y: 0, cx: 0, cy: 0 };
+  const onMouse = (e) => { mouse.x = (e.clientX / innerWidth) * 2 - 1; mouse.y = (e.clientY / innerHeight) * 2 - 1; };
+  if (!COARSE && !RM) addEventListener('mousemove', onMouse, { passive: true });
+  let enter = RM ? 1 : 0, s = 0, pSmooth = 0, lastY = scrollY, vel = 0, turb = 0;
+  const center = new THREE.Vector3(0, 0, 0);
+  const view = { cx: 0.5, cy: 0.5, px: 300, rx: RX };
+
+  function targetAngle(sv) {
+    const i = Math.min(2, Math.floor(sv)), f = sv - i;
+    return lerp(KEY_ANG[i], KEY_ANG[i + 1], sstep((f - 0.18) / 0.64));
+  }
+
+  function size() {
+    const w = canvas.clientWidth, h = canvas.clientHeight;
+    if (!w || !h) return;
+    renderer.setPixelRatio(Math.min(devicePixelRatio, TIER.dpr));
+    renderer.setSize(w, h, false);
+    camera.aspect = w / h; camera.updateProjectionMatrix();
+    const db = renderer.getDrawingBufferSize(new THREE.Vector2());
+    if (bgRT) { bgRT.setSize(Math.max(2, Math.round(db.x * TIER.bgScale)), Math.max(2, Math.round(db.y * TIER.bgScale))); bgUniforms.uRes.value.set(bgRT.width, bgRT.height); }
+    else bgUniforms.uRes.value.copy(db);
+    mUniforms.uPx.value = db.y * 1.2;
+  }
+
+  // frame layout: where the carousel centre sits on screen and how big the front product is
+  function layout(force) {
+    const w = canvas.clientWidth, h = canvas.clientHeight;
+    if (STATIC) { view.cx = 0.5; view.cy = 0.5; view.px = Math.min(h * 0.62, w * 0.24); return; }
+    const e = sstep(s);    // intro → first product
+    if (stackedMQ.matches) {
+      const avail = h * 0.5 - parseFloat(css('--hdr'));
+      view.cx = 0.5; view.cy = lerp(0.33, 0.29, e);
+      view.px = Math.min(w * lerp(0.52, 0.6, e), avail * lerp(0.85, 1.0, e) + 40);
+    } else {
+      view.cx = lerp(0.69, 0.5, e); view.cy = 0.53;
+      view.px = h * lerp(0.34, 0.38, e);
+    }
+    // turntable width: wide for the intro and while turning, closed up at rest on a product,
+    // so the products behind tuck in beside the front one and stay clear of the headline and the spec panel
+    const f = s - Math.floor(s), d = Math.min(f, 1 - f);
+    const open = s >= 1 ? sstep((d - 0.3) / 0.15) : 1;
+    view.rx = lerp(RX, lerp(stackedMQ.matches ? 0.5 : 0.24, RX, open), e);
+  }
+
+  function render(dt, t) {
+    const w = canvas.clientWidth, h = canvas.clientHeight;
+    layout();
+    // camera: distance so the front product is view.px tall; gentle orbit ±20° and a small rise; lerp 0.03
+    const azT = STATIC ? 0 : THREE.MathUtils.degToRad(lerp(-20, 20, pSmooth));
+    const elT = STATIC ? 0.1 : lerp(0.06, 0.2, pSmooth);
+    cam.az = RM || !dt ? azT : damp(cam.az, azT, 0.03, dt);
+    cam.el = RM || !dt ? elT : damp(cam.el, elT, 0.03, dt);
+    const tanH = Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
+    const dFront = h / (2 * tanH * view.px);
+    const dist = STATIC ? (3.9 / 2) / (tanH * camera.aspect) + 0.6 : dFront + R;
+    camera.position.set(center.x + Math.sin(cam.az) * Math.cos(cam.el) * dist, center.y + Math.sin(cam.el) * dist, center.z + Math.cos(cam.az) * Math.cos(cam.el) * dist);
+    camera.lookAt(center);
+    camera.setViewOffset(w, h, -(view.cx - 0.5) * w, -(view.cy - 0.5) * h, w, h);
+
+    mouse.cx = damp(mouse.cx, mouse.x, 0.05, dt || 1); mouse.cy = damp(mouse.cy, mouse.y, 0.05, dt || 1);
+    const tiltMax = THREE.MathUtils.degToRad(6);
+    const rot = STATIC ? 0 : rotSpring.x;
+    // the group only follows the camera orbit; the turn itself is in each slot's angle,
+    // so the elliptical squash (view.rx) stays in view space whatever the carousel angle
+    carousel.rotation.y = STATIC ? 0 : cam.az;
+    let maxK = 0;
+    for (const p of products) {
+      let k, x = 0, z = 0;
+      const th = p.i * STEP + rot;                          // angle on the turntable, 0 = front
+      if (STATIC) { k = 1; x = (p.i - 1) * 1.3; }
+      else {
+        x = Math.sin(th) * R * view.rx; z = Math.cos(th) * R;
+        k = sstep((Math.cos(th) - 0.5) / 0.5);              // 1 at the front, 0 from ±60° away
+      }
+      maxK = Math.max(maxK, k);
+      const bob = RM ? 0 : Math.sin(t * 0.8 + p.i * 2.1) * 0.03;
+      p.slot.position.set(x, bob, z);
+      p.slot.rotation.y = STATIC ? 0 : th;
+      p.face.rotation.y = STATIC ? 0 : -th * 0.82;           // mostly faces the camera; a little of the turn shows
+      p.tilt.rotation.x = 1.08 + (RM ? 0 : mouse.cy * tiltMax);
+      p.tilt.rotation.z = RM ? 0 : -mouse.cx * tiltMax;
+      p.spin.rotation.y = RM ? p.i * 0.8 : t * 0.22 + p.i * 2.0;          // slow spin on its own axis
+      const sc = (0.7 + 0.3 * k) * (0.86 + 0.14 * enter);
+      p.root.parent.scale.setScalar(sc);
+      const op = (0.6 + 0.4 * k) * enter;
+      if (Math.abs(op - p.op) > 0.002) { p.op = op; for (const m of p.mats) m.opacity = op; }
+    }
+    // contact shadow under the front slot
+    const fx = Math.sin(cam.az) * R, fz = Math.cos(cam.az) * R;
+    if (STATIC) { shadow.visible = false; } else {
+      shadow.position.set(fx, -0.62, fz);
+      shadow.scale.setScalar(1.25);
+      shadow.material.opacity = 0.9 * maxK * enter;
+    }
+    // particles follow the carousel centre
+    motes.position.copy(center);
+    mUniforms.uTime.value = t; mUniforms.uTurb.value = turb;
+    bgUniforms.uTime.value = RM ? 12 : t;
+    bgUniforms.uWarm.value = sstep(pSmooth * 1.15 - 0.1);
+
+    if (bgRT) { renderer.setRenderTarget(bgRT); renderer.render(bgScene, orthoCam); renderer.setRenderTarget(null); }
+    renderer.render(scene, camera);
+  }
+
+  // frame driven by the shared ticker
+  let tailFrames = 0, live = true;
+  const io = new IntersectionObserver(([en]) => { live = en.isIntersecting; if (live) tailFrames = 10; }, { rootMargin: '0px' });
+  io.observe(stage);
+  function update(dt, t) {
+    if (!ready) return false;
+    // stage progress from the sticky section (not sticky itself → offsets are reliable)
+    const p = clamp((scrollY - G.stageTop) / Math.max(1, G.stageH - G.vh));
+    s = clamp(p * 3.6 - 0.2, 0, 3);
+    pSmooth = RM ? p : damp(pSmooth, p, 0.08, dt);
+    const dy = Math.abs(scrollY - lastY); lastY = scrollY;
+    vel = damp(vel, dy / Math.max(dt, 1e-3) / G.vh, 0.1, dt);
+    turb = damp(turb, Math.min(0.9, vel * 0.35), 0.06, dt);
+    rotSpring.target = targetAngle(s);
+    if (!live && tailFrames <= 0) return false;      // off screen: stop after 10 more frames
+    if (!live) tailFrames--;
+    rotSpring.step(dt);
+    render(dt, t);
+    return true;
+  }
+  function settleNow() {
+    const p = clamp((scrollY - G.stageTop) / Math.max(1, G.stageH - G.vh));
+    s = clamp(p * 3.6 - 0.2, 0, 3); pSmooth = p;
+    rotSpring.snap(targetAngle(s));
+    cam.az = THREE.MathUtils.degToRad(lerp(-20, 20, p)); cam.el = lerp(0.06, 0.2, p);
+  }
+  function enterAnim() {
+    if (RM) { rotSpring.snap(targetAngle(s)); enter = 1; return; }
+    const o = { e: 0 };
+    gsap.to(o, { e: 1, duration: 1.4, ease: 'expo.out', onUpdate: () => { enter = o.e; } });
+  }
+  function destroy3d() {
+    ready = false; io.disconnect();
+    removeEventListener('mousemove', onMouse);
+    scene.traverse((o) => { o.geometry?.dispose(); const ms = o.material ? [].concat(o.material) : []; ms.forEach((m) => { m.map?.dispose(); m.dispose(); }); });
+    bgScene?.traverse((o) => o.material?.dispose());
+    copyMat?.dispose(); bgRT?.dispose(); tomato.dispose(); shTex.dispose(); envRT.dispose(); draco.dispose();
+    renderer.dispose(); renderer.forceContextLoss();
+    scene3d = null;
+  }
+  size();
+  const debug = () => products.map((p) => ({ i: p.i, op: +p.op.toFixed(3), mats: p.mats.map((m) => [m.name, +m.opacity.toFixed(3), m.transparent, m.side, m.blending]) }));
+  return { settle: settleNow, update, size, render: () => ready && render(0, 0), enter: enterAnim, destroy: destroy3d, glInfo, ready: () => ready, rotSpring, debug, scene };
+}
+
+function fallbackStatic(reason) {
+  STATIC = true; NOGL = true;
+  html.classList.add('static', 'nogl');
+  slides.forEach((s) => { gsap.killTweensOf(s); gsap.set(s, { opacity: 1 }); s.classList.add('on'); const h = s.querySelector('[data-split]'); gsap.set(h._parts, { opacity: 1, yPercent: 0, filter: 'none' }); gsap.set(s.querySelectorAll('[data-desc]'), { opacity: 1, y: 0 }); });
+  if (reason) showBanner(`3D недоступно (${reason}). Показаны фотографии крышек.`);
+  requestAnimationFrame(() => { measure(); ScrollTrigger.refresh(); });
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   6. stack: recede (scale 0.94 + 35 % ink shade on the inner wrapper), seam, line, history, map
+   ════════════════════════════════════════════════════════════════════ */
+function updateStack() {
+  const y = scrollY, vh = G.vh, shrink = !RM && !phoneMQ.matches;
+  for (let i = 0; i < sheets.length - 1; i++) {
+    const s = sheets[i], next = sheets[i + 1];
+    const c = RM ? 0 : clamp(1 - (next.top - y) / vh);
+    if (Math.abs(c - s.c) < 0.001) continue;
+    s.c = c;
+    s.inner.style.transform = shrink && c > 0 ? `scale(${(1 - 0.06 * c).toFixed(4)})` : '';
+    s.shade.style.opacity = (0.35 * c).toFixed(3);
+  }
+}
+const screenTop = (s) => Math.max(s.top - scrollY, s.stick);   // where the sheet's top is on screen (sticky-aware)
+
+/* seam: "lid dissolve" — the stage's last colour carries over as rows of circles that thin out and burn off */
+const seam = document.querySelector('.seam'), seamCtx = seam.getContext('2d');
+const SEAM = { w: 0, h: 0, cell: 28, dpr: 1, last: -1 };
+function sizeSeam() {
+  SEAM.dpr = Math.min(devicePixelRatio, 1.5);
+  SEAM.w = seam.clientWidth; SEAM.h = seam.clientHeight; SEAM.cell = G.vw < 640 ? 18 : 26;
+  seam.width = Math.round(SEAM.w * SEAM.dpr); seam.height = Math.round(SEAM.h * SEAM.dpr);
+  SEAM.last = -1;
+}
+function drawSeam(burn) {
+  if (Math.abs(burn - SEAM.last) < 0.002) return;
+  SEAM.last = burn;
+  const { w, h, cell, dpr } = SEAM, ctx = seamCtx;
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx.clearRect(0, 0, w, h);
+  const cols = Math.ceil(w / cell) + 1, rows = Math.ceil(h / cell) + 1;
+  const cream = css('--cream'), gold = css('--gold-soft');
+  for (let r = 0; r < rows; r++) {
+    const v = r / (rows - 1);
+    for (let c = 0; c < cols; c++) {
+      const hsh = hash(c, r);
+      // solid at the top, scattered lower down; scroll burns everything off
+      const q = 1.15 - v * 1.25 + (hsh - 0.5) * 0.9 - burn * 1.6;
+      const k = clamp(q * 2.2);
+      if (k <= 0.02) continue;
+      const rad = cell * 0.74 * k;
+      ctx.fillStyle = hash(c + 911, r + 37) < 0.06 ? gold : cream;
+      ctx.beginPath(); ctx.arc(c * cell + (r % 2 ? cell / 2 : 0), r * cell, rad, 0, Math.PI * 2); ctx.fill();
+    }
+  }
+}
+
+/* production line: a scroll-scrubbed trace through 5 stations; loops around each station make it slow down there */
+const lineSheet = byId.line;
+const lineCv = document.querySelector('.line-cv'), lineCtx = lineCv.getContext('2d');
+const stations = [...document.querySelectorAll('.st')];
+const LINE = { pts: [], lens: [], total: 0, stAt: [], dpr: 1, last: -1, w: 0, h: 0 };
+function measureLine() {
+  const tr = lineCv.getBoundingClientRect();
+  LINE.dpr = Math.min(devicePixelRatio, 2);
+  LINE.w = tr.width; LINE.h = tr.height;
+  lineCv.width = Math.round(tr.width * LINE.dpr); lineCv.height = Math.round(tr.height * LINE.dpr);
+  const dots = stations.map((st) => { const r = st.querySelector('.st-dot').getBoundingClientRect(); return { x: r.left + r.width / 2 - tr.left, y: r.top + r.height / 2 - tr.top }; });
+  const vertical = dots.length > 1 && Math.abs(dots[1].x - dots[0].x) < 4;
+  const pts = []; const stAt = [];
+  const loopR = vertical ? 15 : 26;
+  // start off the edge
+  let prev = vertical ? { x: dots[0].x, y: Math.max(0, dots[0].y - 50) } : { x: -40, y: dots[0].y };
+  pts.push(prev);
+  dots.forEach((d, i) => {
+    // approach with a soft bend
+    const entry = vertical ? { x: d.x, y: d.y - loopR } : { x: d.x - loopR, y: d.y };
+    const n = 24;
+    for (let k = 1; k <= n; k++) {
+      const t = k / n, bend = Math.sin(Math.PI * t) * (vertical ? 10 : 22) * (i % 2 ? 1 : -1);
+      pts.push(vertical ? { x: lerp(prev.x, entry.x, t) + bend, y: lerp(prev.y, entry.y, t) } : { x: lerp(prev.x, entry.x, t), y: lerp(prev.y, entry.y, t) + bend });
+    }
+    stAt.push(pts.length - 1);
+    // one and a half turns around the station marker, exiting on the far side
+    const a0 = vertical ? -Math.PI / 2 : Math.PI, turns = 3 * Math.PI, m = 72;
+    for (let k = 1; k <= m; k++) { const a = a0 + (k / m) * turns; pts.push({ x: d.x + Math.cos(a) * loopR, y: d.y + Math.sin(a) * loopR }); }
+    prev = pts[pts.length - 1];
+  });
+  const end = vertical ? { x: prev.x, y: LINE.h + 20 } : { x: LINE.w + 40, y: prev.y };
+  for (let k = 1; k <= 16; k++) pts.push({ x: lerp(prev.x, end.x, k / 16), y: lerp(prev.y, end.y, k / 16) });
+  const lens = [0];
+  for (let i = 1; i < pts.length; i++) lens.push(lens[i - 1] + Math.hypot(pts[i].x - pts[i - 1].x, pts[i].y - pts[i - 1].y));
+  LINE.pts = pts; LINE.lens = lens; LINE.total = lens[lens.length - 1]; LINE.stAt = stAt.map((idx) => lens[idx]); LINE.last = -1;
+}
+function drawLine(prog) {
+  if (Math.abs(prog - LINE.last) < 0.0005) return;
+  LINE.last = prog;
+  const ctx = lineCtx, { pts, lens, total, dpr } = LINE;
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx.clearRect(0, 0, LINE.w, LINE.h);
+  ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+  ctx.strokeStyle = css('--sky-line'); ctx.lineWidth = 1.5; ctx.setLineDash([3, 6]);
+  ctx.beginPath(); pts.forEach((p, i) => (i ? ctx.lineTo(p.x, p.y) : ctx.moveTo(p.x, p.y))); ctx.stroke();
+  ctx.setLineDash([]);
+  const L = prog * total;
+  ctx.strokeStyle = css('--azure-deep'); ctx.lineWidth = 2.25;
+  ctx.beginPath(); ctx.moveTo(pts[0].x, pts[0].y);
+  let head = pts[0];
+  for (let i = 1; i < pts.length; i++) {
+    if (lens[i] <= L) { ctx.lineTo(pts[i].x, pts[i].y); head = pts[i]; continue; }
+    const f = (L - lens[i - 1]) / (lens[i] - lens[i - 1]);
+    head = { x: lerp(pts[i - 1].x, pts[i].x, f), y: lerp(pts[i - 1].y, pts[i].y, f) };
+    ctx.lineTo(head.x, head.y); break;
+  }
+  ctx.stroke();
+  if (prog > 0 && prog < 1) { ctx.fillStyle = css('--azure'); ctx.beginPath(); ctx.arc(head.x, head.y, 4.5, 0, Math.PI * 2); ctx.fill(); }
+  stations.forEach((st, i) => st.classList.toggle('lit', L >= LINE.stAt[i] + 4));
+}
+
+/* history: three parallax layers per row, a rail thread and a turning square marker */
+const hist = byId.history;
+const rows = [...hist.el.querySelectorAll('.tl-rows > li')].map((li) => ({ li, year: li.querySelector('.tl-year'), plate: li.querySelector('.plate'), text: li.querySelector('.tl-text'), off: 0, h: 0 }));
+const rail = hist.el.querySelector('.rail'), thread = rail.querySelector('.rail-thread'), mark = rail.querySelector('.rail-mark');
+const HIST = { railOff: 0, railH: 0 };
+function measureHistory() {
+  const base = hist.inner.getBoundingClientRect().top;
+  rows.forEach((r) => { const b = r.li.getBoundingClientRect(); r.off = b.top - base; r.h = b.height; });
+  const rb = rail.getBoundingClientRect(); HIST.railOff = rb.top - base; HIST.railH = rb.height;
+}
+function updateHistory() {
+  const top = screenTop(hist), vh = G.vh;
+  if (top > vh || top + hist.h < 0) return;
+  if (!RM) rows.forEach((r) => {
+    const d = (top + r.off + r.h / 2 - vh / 2) / vh;
+    r.year.style.transform = `translate3d(0, ${(d * -46).toFixed(1)}px, 0)`;
+    r.plate.style.transform = `translate3d(0, ${(d * -18).toFixed(1)}px, 0)`;
+    r.text.style.transform = `translate3d(0, ${(d * 12).toFixed(1)}px, 0)`;
+  });
+  const f = RM ? 1 : clamp((vh * 0.6 - (top + HIST.railOff)) / Math.max(1, HIST.railH));
+  thread.style.transform = `scaleY(${f.toFixed(4)})`;
+  mark.style.transform = `translate3d(0, ${(f * HIST.railH).toFixed(1)}px, 0) rotate(${(f * 450).toFixed(1)}deg)`;
+}
+
+/* geography: halftone dots computed from Natural Earth admin-0 (public domain) by tools/make-map.mjs */
+/*MAP:BEGIN*/ const MAP = { cols: 97, rows: 48, kokand: {"x":0.5901,"y":0.5139}, grid: "uuuuuuuuubeoooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooouuuuuuuuuuueooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooouuuuuuuuuuuueoooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooouuuuuuuuuuuuboooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooouuuuuuuuuuuuubeoooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooouuuuuuuuuuuuuueoooooeeeooooeeeooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooouuuuuuuuuuuuuuubeebbbubbbbbbuuboooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooouuuuuuuuuuuuuuuuuuuuuuuuuuuuuubeooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooouuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuboooooooooooooooooooooooooooooooooooooeeeeooooooooooooooooooooooouuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuboooooooooooooooooooooooooooooooooooeeoooeeooooooooeeoooooooooooouuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuubbooooooooooooooooooooooooeeeoooooooeoooooeeeeeeeeeooeeeeeeeeooobuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuueooooooooooooooooooooooeeeooeeeoooeooooooooooooooooooooooooeeoooebuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuubooooooooooooooooooooooeooooooooeeeoooooooooooooooooooooooooooeooebbbuuuuuuuuuuuuuuuuuuuuuuuuuuuueoooooooooooooooooooooeoooooooooooooooooooooooooooooooooooooooeooooooeuuuuuuuuuuuuuuuuuuuuuuuuuuuboooooooooooooooooooooebeoooooooooooooooooooooooooooooooooooooooooooobuuuuuuuuuuuuuuuuuuuuuuuuuuueeoooooooooooooooooebbbeooooooooooooooooooooooooooooooooooooooooooooooeuuuuuuuuuuuuuuuuuuuuuuuuuuuubooooooooooooooooeubeoooooooooooooooooooooooooooooooooooooooeooooooeuuuuuuuuuuuuuuuuuuuuuuuuuuuuuboooooooooooooeebueooooooooooooooooooooooooooooooooooooooeeeoooooooobuuuuuuuuuuuuuuuuuuuuuuuuuuuuueoooooooooooebuubeoooooeoooooooooooooooooooooooooooooooeeoooooooooebuuuuuuuuuuuuuuuuuuuuuuuuuuuubooooooooooobuuuuubboooeboooooooooooooooooooooooooooooeeoooooooooooooeeeebeeuuuuuuuuuuuuuuuuuuuuuubeeeeeeoooobuuuuuuubeebubeoooooooooooooooooooooooooooeeoooooooooooooooooooobuuuuuuuuuuuuuuuuuuuuuuuuuuubooeuuuuuuubuuuuuuueeooooooooooooooooooooeeeeeeooooooooooooooooooooooobuuuuuuuuuuuuuuuuuuuuuuuuuubeobuuuuuubeeuuuuuuuubeeooooooooooooooooeeoooooooooooooooooooooooooooebuuuuuuuuuuuuuuuuuuuuuuuuuubeeuuuebbeooeuuuuuuuuubeoooooooooooooooeeoooooooooooooooooooooooooooooeuuuuuuuuuuuuuuuuuuuuuuuuuuuubuuueooooobuuuuuuubbeoooooooooeoeeooooeoooooooooooooooooooooooooooooobuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuueoooobuuuuuubeoooooooooooeeeoeeeeooooooooooooooooooooooooooooooooeuuuuuuuuuuuuuuuuuuuuuuuuuuuuubbeoeeeoebeeebeoooooooooooeeooooeooooooooooooooooooooooooooooooooooeuuuuuuuuuuuuuuuuuuuuuuuuuuuubeooeooeeeebooeoooooooooeeeooooooooooooooooooooooooooooooooooooooooooebuuuuuuuuuuuuuuuuuuuuuuuuuuuboeoooooeoeeoooooooooooeoooooooooooooooooooooooooooooooooooooooooooooeuuuuuuuuuuuuuuuuuuuuuuuuubeoeooooooeooooooooooooooeoooooooooooooooooooooooooooooooooooooooooooooooeuuuuuuuuuuuuuuuuuuubeebbeooeeeeeeeooeeooooooooooeoooooooooooooooooooooooooooooooooooooooooooooooobuuuuuuuuuuuuuuuuueooooooooooooooeeooeeeoeeeeeeeooooooooooooooooooooooooooooooooooooooooooooooooooeuuuuuuuuuuuuuuuubeoooooooooooooooooooeeeoooooeooooooooooooooooooooooooooooooooooooooooooooooooooobuuuuuuuuuuuuuuuubeooooooooooooooooooooooooooeoooooooooooooooooooooooooooooooooooooooooooooooooooooebuuuuuuuuuuuuuubbeoooooooooooooooooooooooooeoooooooooooooooooooooooooooooooooooooooooooooooooooooebuuuuuuuuuuuuuuboooooooooooooooooooooooooeoeooooooooooooooooooooooooooooooooooooooooooooooooooooooebuuuuuuuuuuuubeoooooooooooooooooooooooooeeeeeooooooooooooooooooooooooooooooooooooooooooooooooooooeuuuuuuuuuuuuboooooooooooeeeooooooooooooooooeooooooooooooooooooooooooooooooooooooooooooooooooooooooebbuuuuuuuuuueoooooooooeooeoooooooooooooooeooooooooooooooooooooooooooooooooooooooooooooooooooooooooobbuuuuuuuboooooooooeoooeoooooooooooooooeooooooooooooooooooooooooooooooooooooooooooooooooooooooooooobuuuuuueooooooooeooooeeeooooooooooooooeooooooooooooooooooooooooooooooooooooooooooooooooooooooooobuuuuuueoooooooooeoooooeoooooooooooooooeoooooooooooooooooooooeoeeoooooooooooooooooooooooooooooeooeuuuuuueooooooeeeeoooooeoooooooooooooooeooooooooooooooooooooooooeooooooooooooooooooooooooooooeoeebbbuuueooooooeoooooooooeooooooeeeeooeeoeoooooooooooooooooooooooooeooooooooooooooooooooooooeeeeooooooebeboooeeeoeooooooooeooooooeooeeeoeeeoooooooooooooooooooooooooeeooooooooooooooooooooooeoooooooooooooeoeeoooeoooooooooeooooeoooooooeeooooooooooooooooooooooooooooooeooooooooooooooooooooeooooooooooooooeeooooooooooooooeooeeeoeeeeeoeeoeeeooooooooooooooooooooooooooeoooooooooooooooooooeoooooooooooooooooooooooooooooooeeeeeeeooooeooooooeeoooooooooooooooooo" }; /*MAP:END*/
+const mapFig = document.getElementById('map'), mapCv = mapFig.querySelector('canvas'), mapCtx = mapCv.getContext('2d');
+const ping = mapFig.querySelector('.ping');
+const MAPS = { revealT0: 0, done: false, w: 0, h: 0 };
+function sizeMap() {
+  const r = mapCv.getBoundingClientRect(), dpr = Math.min(devicePixelRatio, 2);
+  MAPS.w = r.width; MAPS.h = r.height; MAPS.dpr = dpr;
+  mapCv.width = Math.round(r.width * dpr); mapCv.height = Math.round(r.height * dpr);
+  ping.style.left = `${MAP.kokand.x * 100}%`; ping.style.top = `${MAP.kokand.y * 100}%`;
+  if (MAPS.done || RM) drawMap(99);
+}
+function drawMap(tSec) {
+  const { w, h, dpr } = MAPS, ctx = mapCtx;
+  if (!w) return;
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, w, h);
+  const cw = w / MAP.cols, ch = h / MAP.rows, base = Math.min(cw, ch) * 0.42;
+  const kx = MAP.kokand.x * w, ky = MAP.kokand.y * h, diag = Math.hypot(w, h);
+  const cUz = css('--azure'), cUzDeep = css('--azure-deep'), cLand = '#C3D6E6';
+  for (let r = 0; r < MAP.rows; r++) for (let c = 0; c < MAP.cols; c++) {
+    const ch0 = MAP.grid[r * MAP.cols + c];
+    if (ch0 === '.') continue;
+    const x = (c + (r % 2 ? 0.5 : 0) + 0.5) * cw, y = (r + 0.5) * ch;
+    const d = Math.hypot(x - kx, y - ky) / diag;
+    const appear = clamp((tSec * 0.9 - d * 1.6) / 0.25);      // dots arrive outward from Kokand
+    if (appear <= 0) continue;
+    const near = Math.exp(-((d / 0.12) ** 2));                 // halftone swell around Kokand
+    let rad, col;
+    if (ch0 === 'u') { rad = base * (0.8 + 0.25 * near); col = near > 0.35 ? cUzDeep : cUz; }
+    else if (ch0 === 'b') { rad = base * 0.36; col = cUz; }
+    else if (ch0 === 'o') { rad = base * (0.58 + 0.2 * near); col = cLand; }
+    else { rad = base * 0.3; col = cLand; }
+    // neighbouring land fades toward the frame, so the map has no hard rectangular edge
+    ctx.globalAlpha = ch0 === 'u' || ch0 === 'b' ? 1 : clamp(Math.min(x, w - x) / (w * 0.12)) * clamp(Math.min(y, h - y) / (h * 0.16));
+    ctx.fillStyle = col;
+    ctx.beginPath(); ctx.arc(x, y, rad * (1 - Math.pow(1 - appear, 3)), 0, Math.PI * 2); ctx.fill();
+  }
+  ctx.globalAlpha = 1;
+}
+const mapIO = new IntersectionObserver(([en]) => {
+  mapFig.classList.toggle('live', en.isIntersecting && !RM);
+  if (en.isIntersecting && !MAPS.revealT0 && !RM) MAPS.revealT0 = performance.now();
+}, { threshold: 0.2 });
+mapIO.observe(mapFig);
+
+/* ════════════════════════════════════════════════════════════════════
+   7. the frame (one ticker) + perf log per tier
+   ════════════════════════════════════════════════════════════════════ */
+const perf = { tier: TIER_NAME, dpr: TIER.dpr, motes: TIER.motes, bgScale: TIER.bgScale, samples: [], acc: [], gl: '', t0: performance.now(), frames: 0, glFrames: 0 };
+const fpsEl = document.getElementById('fps'); if (Q.has('fps')) fpsEl.style.display = 'block';
+let lastT = 0, hdrSolid = false, running = true;
+function frame(time) {
+  if (!running) return;
+  if (time === undefined) time = gsap.ticker.time;
+  const t0 = performance.now();
+  const dt = Math.min(0.1, lastT ? time - lastT : 0.016); lastT = time;
+  veilTick(dt);
+  const solid = scrollY > 8; if (solid !== hdrSolid) { hdrSolid = solid; hdr.classList.toggle('solid', solid); }
+  let drew = false;
+  if (scene3d && !STATIC) {
+    drew = scene3d.update(dt, time);
+    const sv = clamp(((scrollY - G.stageTop) / Math.max(1, G.stageH - G.vh)) * 3.6 - 0.2, 0, 3);
+    const idx = Math.round(sv);
+    if (entered) showSlide(Math.abs(sv - idx) < 0.36 ? idx : -1);
+    storyFill(sv);
+  } else if (!STATIC && NOGL) storyFill(0);
+  updateStack();
+  const num = byId.numbers;
+  const nt = screenTop(num);
+  if (nt < G.vh && nt + num.h > 0) drawSeam(RM ? 0.25 : clamp((G.vh - nt) / (G.vh * 1.1)));
+  if (RM) drawLine(1);
+  else { const lt = lineSheet.top - scrollY; if (lt < G.vh && lt + lineSheet.h > 0) drawLine(clamp((scrollY - lineSheet.top) / Math.max(1, lineSheet.h - G.vh) * 1.08)); }
+  updateHistory();
+  if (MAPS.revealT0 && !MAPS.done) { const ts = (performance.now() - MAPS.revealT0) / 1000; drawMap(ts); if (ts > 2.4) MAPS.done = true; }
+  // perf: JS frame time (update + render submit) and rAF rate, logged every 5 s
+  const ft = performance.now() - t0;
+  perf.frames++; if (drew) { perf.glFrames++; perf.acc.push(ft); }
+  const now = performance.now();
+  if (now - perf.t0 >= 5000) {
+    const fps = (perf.frames * 1000) / (now - perf.t0);
+    const a = perf.acc.slice().sort((x, y) => x - y);
+    const avg = a.length ? a.reduce((x, y) => x + y, 0) / a.length : 0, p95 = a.length ? a[Math.floor(a.length * 0.95)] : 0;
+    const sample = { fps: +fps.toFixed(1), frameMs: +avg.toFixed(2), p95Ms: +p95.toFixed(2), glFrames: perf.glFrames };
+    perf.samples.push(sample); if (perf.samples.length > 60) perf.samples.shift();
+    if (perf.glFrames) console.info(`[light-home] tier=${perf.tier} dpr≤${perf.dpr} motes=${perf.motes} bg×${perf.bgScale} · ${sample.fps} fps · frame ${sample.frameMs} ms (p95 ${sample.p95Ms} ms) · ${perf.gl}`);
+    if (Q.has('fps')) fpsEl.textContent = `${perf.tier} · ${sample.fps} fps · ${sample.frameMs} ms`;
+    perf.frames = 0; perf.glFrames = 0; perf.acc.length = 0; perf.t0 = now;
+  }
+}
+const storyBars = [...document.querySelectorAll('.stories i')];
+let storyLast = -1;
+function storyFill(sv) {
+  if (Math.abs(sv - storyLast) < 0.002) return; storyLast = sv;
+  storyBars.forEach((b, i) => { b.style.transform = `scaleY(${clamp(sv - i + 1).toFixed(3)})`; });
+}
+ticker.add(frame);
+
+/* ════════════════════════════════════════════════════════════════════
+   8. boot, resize, teardown
+   ════════════════════════════════════════════════════════════════════ */
+if (!NOGL) scene3d = initStage();
+if (NOGL) { finishVeil(); V.gone = true; onVeilGone(); clearTimeout(veilBackstop); }
+measure();
+document.fonts?.ready.then(() => { measure(); ScrollTrigger.refresh(); });
+addEventListener('load', () => { measure(); ScrollTrigger.refresh(); });
+let rzT = 0;
+const onResize = () => {
+  clearTimeout(rzT);
+  rzT = setTimeout(() => { measure(); scene3d?.size(); if (STATIC) scene3d?.render(); ScrollTrigger.refresh(); }, 120);
+};
+addEventListener('resize', onResize);
+const ro = new ResizeObserver(() => onResize()); ro.observe(document.querySelector('main'));
+if (RM && scene3d) addEventListener('scroll', () => {}, { passive: true });
+
+function destroy() {
+  running = false;
+  ticker.remove(frame); ticker.remove(lenisRaf);
+  removeEventListener('resize', onResize); ro.disconnect(); revealIO.disconnect(); mapIO.disconnect();
+  document.removeEventListener('keydown', onKey); mqMenu.removeEventListener('change', onMqMenu);
+  ScrollTrigger.getAll().forEach((st) => st.kill());
+  gsap.killTweensOf('*');
+  lenis?.destroy(); lenis = null;
+  scene3d?.destroy();
+}
+addEventListener('pagehide', destroy, { once: true });
+
+window.__lh = {
+  tier: TIER_NAME, perf, get static() { return STATIC; }, get nogl() { return NOGL; },
+  ready: () => (NOGL ? true : !!scene3d?.ready()) && V.gone,
+  slideY, sheetTop: (id) => byId[id]?.top ?? 0,
+  goto(y) { if (lenis) lenis.scrollTo(y, { immediate: true, force: true }); else scrollTo(0, y); ScrollTrigger.update(); },
+  settle() { scene3d?.settle(); },   // QA: jump springs and lerps to their scroll targets
+  debug: () => scene3d?.debug(),   // QA: per-product opacity and material state
+  get scene() { return scene3d?.scene; },
+  freeze() { frame(gsap.ticker.time + 0.016); running = false; },
+  resume() { running = true; },
+  destroy,
+};
+if (scene3d) perf.gl = scene3d.glInfo;
+</script>
+</body>
+</html>
