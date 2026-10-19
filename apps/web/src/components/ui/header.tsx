@@ -56,7 +56,7 @@ export async function Header() {
               sizes="72px"
               className="h-9 w-auto md:h-11"
             />
-            <span className="font-display text-18 font-semibold tracking-tight text-ink-950 md:text-22">
+            <span className="hidden font-display text-18 font-semibold sm:inline tracking-tight text-ink-950 md:text-22">
               {t("brand")}
             </span>
           </Link>
@@ -64,8 +64,8 @@ export async function Header() {
           <ButtonLink href="/contacts#lead-form" size="sm" className="hidden nav:inline-flex">
             {t("cta.requestPrice")}
           </ButtonLink>
-          <div className="ml-auto flex items-center gap-2 nav:hidden">
-            <a href={PRIMARY_PHONE.href} className="btn btn--secondary btn--sm" aria-label={phoneLabel}>
+          <div className="ml-auto flex items-center gap-1 sm:gap-2 nav:hidden">
+            <a href={PRIMARY_PHONE.href} className="btn btn--secondary btn--sm header-call" aria-label={phoneLabel}>
               {t("cta.call")}
             </a>
             <MobileMenu openLabel={t("nav.menuOpen")} closeLabel={t("nav.menuClose")}>

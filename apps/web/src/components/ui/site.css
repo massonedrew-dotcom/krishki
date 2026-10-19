@@ -227,6 +227,12 @@ html:not(.m) .vrail__dot {
   color: var(--azure-700);
 }
 
+.header-call {
+  /* Tap target: .btn--sm is 40 px tall, the header call must reach 44 px. */
+  min-height: 2.75rem;
+  white-space: nowrap;
+}
+
 .burger {
   display: inline-flex;
   align-items: center;
