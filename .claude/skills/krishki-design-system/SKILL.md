@@ -19,10 +19,11 @@ description: Visual language, tokens, typography, motion rules and anti-slop ban
 - Spacing scale 4/8/12/16/24/32/48/64/96/128. Section padding desktop 128, mobile 64.
 
 ## Typography
-- Display: an industrial grotesk with Cyrillic and Uzbek Latin support (candidates: "Unbounded", "Onest", "Manrope" only if contrast is enough; prefer licensed alternatives the client approves). Check ʻ and ʼ glyphs for Uzbek.
-- Text: a readable grotesk with Cyrillic.
+- Display (headings, big figures): Montserrat 700/800; `font-semibold` in markup resolves to 700.
+- Text and UI: Inter 400/500/600. Captions: IBM Plex Mono (`.caption`), never for running Uzbek text.
+- All fonts load cyrillic + cyrillic-ext + latin + latin-ext (Uzbek Ў Қ Ғ Ҳ, oʻ gʻ U+02BB). Decision: docs/plans/redesign-v3.md "Font decision 2026-10-19".
 - Numbers: tabular figures for specs and production numbers.
-- Banned as primary fonts: Inter, Roboto, Arial, system-ui default stack.
+- Banned as primary fonts: Roboto, Arial, system-ui default stack.
 - Scale: 14/16/18/22/28/36/48/64/88. Max line length 68ch.
 
 ## Layout rules

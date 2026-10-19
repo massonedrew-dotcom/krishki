@@ -1,25 +1,27 @@
-import { IBM_Plex_Mono, Onest, Tektur } from "next/font/google";
+import { IBM_Plex_Mono, Inter, Montserrat } from "next/font/google";
 
 // next/font needs literal options (no shared variables). All three are SIL OFL 1.1, self-hosted at build time.
+// cyrillic-ext carries Uzbek Cyrillic Қ Ғ Ҳ; latin-ext carries Uzbek Latin oʻ gʻ (U+02BB).
 
-/** Display: industrial, Cyrillic + Uzbek Latin (U+02BB, U+02BC). */
-export const fontDisplay = Tektur({
-  subsets: ["cyrillic", "latin", "latin-ext"],
+/** Display: headings and big figures. 600 in markup resolves to 700. */
+export const fontDisplay = Montserrat({
+  subsets: ["cyrillic", "cyrillic-ext", "latin", "latin-ext"],
+  weight: ["700", "800"],
   display: "swap",
-  variable: "--font-tektur",
-  axes: ["wdth"],
+  variable: "--font-montserrat",
 });
 
-/** Text: readable grotesk with Cyrillic, Uzbek Latin and tabular figures. */
-export const fontText = Onest({
-  subsets: ["cyrillic", "latin", "latin-ext"],
+/** Text: all body copy and UI, with tabular figures. */
+export const fontText = Inter({
+  subsets: ["cyrillic", "cyrillic-ext", "latin", "latin-ext"],
+  weight: ["400", "500", "600"],
   display: "swap",
-  variable: "--font-onest",
+  variable: "--font-inter",
 });
 
 /** Technical captions and drawing-style annotations. */
 export const fontMono = IBM_Plex_Mono({
-  subsets: ["cyrillic", "latin", "latin-ext"],
+  subsets: ["cyrillic", "cyrillic-ext", "latin", "latin-ext"],
   weight: ["400", "500"],
   display: "swap",
   variable: "--font-plex-mono",
