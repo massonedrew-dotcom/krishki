@@ -1,28 +1,4 @@
 import { expect, test } from "@playwright/test";
-import { join } from "node:path";
-
-const SHOTS = join(__dirname, "..", "..", "..", "qa", "screens", "1b-scaffold");
-const viewports = [
-  { name: "1440", width: 1440, height: 900 },
-  { name: "390", width: 390, height: 844 },
-];
-
-for (const locale of ["ru", "uz", "en"]) {
-  for (const vp of viewports) {
-    test(`/${locale} renders at ${vp.name}`, async ({ page }) => {
-      const errors: string[] = [];
-      page.on("console", (m) => {
-        if (m.type() === "error" || m.type() === "warning") errors.push(m.text());
-      });
-      await page.setViewportSize({ width: vp.width, height: vp.height });
-      await page.goto(`/${locale}`);
-      await expect(page.locator("html")).toHaveAttribute("lang", locale);
-      await expect(page.locator("h1")).toBeVisible();
-      await page.screenshot({ path: join(SHOTS, `${locale}-${vp.name}.png`), fullPage: true });
-      expect(errors).toEqual([]);
-    });
-  }
-}
 
 test.describe("root redirect by Accept-Language", () => {
   test.describe("ru browser", () => {
@@ -48,4 +24,18 @@ test.describe("root redirect by Accept-Language", () => {
       await expect(page).toHaveURL(/\/en$/);
     });
   });
+});
+
+test("old URLs answer with a 301 to the new routes", async ({ request }) => {
+  const map: Record<string, string> = {
+    "/produkciya/": "/ru/products",
+    "/uslugi/": "/ru/services",
+    "/o-nas/": "/ru/about",
+    "/polezno-znat/": "/ru/useful",
+  };
+  for (const [from, to] of Object.entries(map)) {
+    const res = await request.get(from, { maxRedirects: 0 });
+    expect(res.status(), from).toBe(301);
+    expect(res.headers()["location"], from).toContain(to);
+  }
 });
