@@ -28,7 +28,6 @@ html.lenis body {
 }
 .split .w > span {
   display: inline-block;
-  will-change: transform;
 }
 @keyframes word-up {
   from {
@@ -300,6 +299,23 @@ html:not(.m) .vrail__dot {
 .menu-panel .nav__link::after {
   display: none;
 }
+.m .menu-panel .nav__link {
+  opacity: 0;
+  transform: translateY(0.75rem);
+  transition:
+    opacity 250ms var(--ease-out),
+    transform 250ms var(--ease-out);
+}
+.m .menu-panel[data-open="true"] .nav__link {
+  opacity: 1;
+  transform: none;
+}
+.m .menu-panel[data-open="true"] li:nth-child(1) .nav__link { transition-delay: 40ms; }
+.m .menu-panel[data-open="true"] li:nth-child(2) .nav__link { transition-delay: 80ms; }
+.m .menu-panel[data-open="true"] li:nth-child(3) .nav__link { transition-delay: 120ms; }
+.m .menu-panel[data-open="true"] li:nth-child(4) .nav__link { transition-delay: 160ms; }
+.m .menu-panel[data-open="true"] li:nth-child(5) .nav__link { transition-delay: 200ms; }
+.m .menu-panel[data-open="true"] li:nth-child(n + 6) .nav__link { transition-delay: 240ms; }
 
 /* ---------- Photo frames and lid backdrops ---------- */
 .frame {
@@ -400,7 +416,11 @@ html:not(.m) .vrail__dot {
   transition:
     background-color var(--dur-fast) var(--ease-out),
     color var(--dur-fast) var(--ease-out),
-    border-color var(--dur-fast) var(--ease-out);
+    border-color var(--dur-fast) var(--ease-out),
+    transform 160ms var(--ease-out);
+}
+.chip:active {
+  transform: scale(0.97);
 }
 .chip:hover {
   border-color: var(--ink-950);
@@ -417,10 +437,15 @@ html:not(.m) .vrail__dot {
     transform var(--dur-base) var(--ease-out),
     box-shadow var(--dur-base) var(--ease-out);
 }
-.lift:hover,
 .lift:focus-within {
   transform: translateY(-4px);
   box-shadow: var(--shadow-lift);
+}
+@media (hover: hover) and (pointer: fine) {
+  .lift:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lift);
+  }
 }
 .arrow-link {
   display: inline-flex;
@@ -432,14 +457,21 @@ html:not(.m) .vrail__dot {
 }
 .arrow-link::after {
   content: "";
-  width: 1.5rem;
+  width: 2.25rem;
   height: 1px;
   background: currentColor;
-  transition: width var(--dur-base) var(--ease-out);
-  box-shadow: 4px 0 0 0 transparent;
+  transform: scaleX(0.667);
+  transform-origin: left;
+  transition: transform var(--dur-base) var(--ease-out);
 }
-.arrow-link:hover::after {
-  width: 2.25rem;
+@media (hover: hover) and (pointer: fine) {
+  .arrow-link:hover::after,
+  .lift:hover .arrow-link::after {
+    transform: scaleX(1);
+  }
+}
+.lift:focus-within .arrow-link::after {
+  transform: scaleX(1);
 }
 
 /* stacking sections: each card sticks below the header while the next slides over it */

@@ -21,6 +21,7 @@
 | 10 | SEO и аналитика: metadata, canonical, hreflang, sitemap, robots, JSON-LD (Organization, LocalBusiness, Product, BreadcrumbList), OG-картинки, GTM/GA4/Metrica после согласия, проверка ключей переводов в CI | frontend-dev | 4 | 3 ноя | отчёт qa-seo без fail | ⏳ |
 | 14 | Инфраструктура: хостинг (решение отложено), харденинг, docker compose, Caddy, staging с basic auth, бэкап, деплой по тегу | backend-dev + architect | 8, выбор хостинга | 30 окт | staging открывается по HTTPS, заголовки безопасности на месте, бэкап восстанавливается | ⏳ ⛔ хостинг |
 | 11 | Security review (prompts/06) | security-reviewer | 8, 9, 14 | 4 ноя | docs/security/<дата>-full.md без Critical/High | ⏳ |
+| 16 | Анимации, CSS-часть: планы 001, 003, 004, 005, 007 из docs/plans/animation-improvements.md (отклик кнопок и чипов, will-change, hover только для мыши, стрелка-ссылка на transform, волна в мобильном меню). Файлы: только apps/web/src/components/ui/ui.css и site.css | frontend-dev | — | 21 окт | lint+typecheck+build, скриншоты 1440/390 до и после в qa/screens/16-motion-css/, ревью docs/reviews/ | ✅ принято 19 окт (найден баг мобильного меню, см. ревью) |
 | 12 | QA, 301 со старых URL, launch-checklist, запуск | qa-seo + architect | 4, 5, 9, 10, 11, 14 | 6 ноя → 9 ноя | launch-checklist закрыт, ваше «go», первая боевая заявка дошла | ⏳ ⛔ домен |
 
 ## Фаза 2 — сразу после запуска (16 ноя – 18 дек)
