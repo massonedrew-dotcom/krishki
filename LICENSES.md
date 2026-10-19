@@ -17,7 +17,15 @@ Checked 2026-10-15 from the LICENSE files in the cloned repositories.
 | nextlevelbuilder/ui-ux-pro-max-skill | MIT | Yes | Skill |
 | Leonxlnx/taste-skill | MIT | Yes | Skill |
 | VoltAgent/awesome-design-md | MIT | Yes | Reference only. Per CLAUDE.md rule 6, do not copy layout or branding of existing commercial sites |
-| freshtechbro/claudedesignskills (claudedesignskills) | MIT | Yes | Skills copied: gsap-scrolltrigger, react-three-fiber, threejs-webgl, web3d-integration-patterns, blender-web-pipeline |
+| freshtechbro/claudedesignskills (claudedesignskills) | MIT | Yes | Skills copied: react-three-fiber, threejs-webgl, web3d-integration-patterns, blender-web-pipeline. Its gsap-scrolltrigger was replaced by the official one on 2026-10-19 |
+| greensock/gsap-skills | MIT | Yes | Official GSAP skills, all 8 copied (gsap-core, -timeline, -scrolltrigger, -plugins, -react, -frameworks, -performance, -utils). Added 2026-10-19 |
+| emilkowalski/skills (emil-skills) | MIT | Yes | Copied: emil-design-eng, animate, animation-vocabulary, animation-performance, find-animation-opportunities, improve-animations, review-animations. Added 2026-10-19 |
+| BowTiedSwan/animejs-skills | MIT (stated in README, no LICENSE file) | Yes | Skill `animejs` copied. Anime.js is not in the stack; reference only. Added 2026-10-19 |
+| kokonut-labs/kokonutui | MIT | Yes | Reference. Components need `motion` (Framer Motion), not in the stack: adding it needs approval. Added 2026-10-19 |
+| magicuidesign/magicui | MIT | Yes | Reference, same `motion` dependency note. Added 2026-10-19 |
+| DavidHDev/react-bits | **MIT + Commons Clause** | Yes for use in a site; selling the components themselves is forbidden | Reference. Keep the notice if a component is copied. Added 2026-10-19 |
+| juliangarnier/anime | MIT | Yes | Reference, not in the stack. Added 2026-10-19 |
+| motiondivision/motion | MIT | Yes | Reference, not in the stack. Added 2026-10-19 |
 
 ## Open points
 - liquid-logo (PolyForm Shield): confirm use for the preloader (phase 2) before shipping it.
