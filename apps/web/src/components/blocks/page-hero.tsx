@@ -14,20 +14,16 @@ type Props = {
   className?: string;
 };
 
-/** Inner-page hero: mist surface, oversized kinetic title, faint lid rings in the corner. */
+/** Inner-page hero: mist surface, oversized kinetic title, compact (about 60vh at most). */
 export function PageHero({ eyebrow, title, lead, actions, media, className }: Props) {
   return (
     <section className={cx("surface-mist relative overflow-hidden", className)}>
-      <div
-        aria-hidden="true"
-        className="lid-disc pointer-events-none absolute -right-48 -top-40 w-[46rem] max-w-none opacity-70 md:-right-24 md:-top-56 md:w-[60rem]"
-      />
-      <Container className="relative grid items-end gap-10 pb-14 pt-12 md:pb-24 md:pt-20 lg:grid-cols-12 lg:gap-x-10">
+      <Container className="relative grid items-center gap-8 pb-10 pt-10 md:pb-14 md:pt-14 lg:grid-cols-12 lg:gap-x-10">
         <div className={media ? "lg:col-span-7" : "lg:col-span-9"}>
           <Eyebrow>{eyebrow}</Eyebrow>
-          <SplitText as="h1" hero className="text-64 md:text-88" text={title} />
+          <SplitText as="h1" hero className="text-64" text={title} />
           {lead ? (
-            <p className="mt-6 max-w-[34rem] text-18 text-ink-700 md:mt-8 md:text-22" data-hero-fade style={{ "--d": 200 } as React.CSSProperties}>
+            <p className="mt-5 max-w-[34rem] text-18 text-ink-700 md:text-22" data-hero-fade style={{ "--d": 200 } as React.CSSProperties}>
               {lead}
             </p>
           ) : null}

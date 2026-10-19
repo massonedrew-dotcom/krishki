@@ -68,7 +68,7 @@ export default async function ProductsPage({ params }: Props) {
           <div className="lg:col-span-4">
             <SectionHead eyebrow={t("compare.eyebrow")} title={t("compare.title")} id="compare-title" size="md" />
           </div>
-          <div className="rounded-card bg-paper p-5 md:p-8 lg:col-span-8" data-reveal>
+          <div className="min-w-0 overflow-x-auto rounded-card bg-paper p-5 md:p-8 lg:col-span-8" data-reveal>
             <SpecTable
               caption={t("compare.caption")}
               columns={{

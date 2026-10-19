@@ -33,10 +33,10 @@ export default async function HomePage({ params }: Props) {
       {/* 1. Hero + parade slot */}
       <section className="surface-white relative overflow-hidden" aria-labelledby="home-title">
         <Container className="pb-8 pt-10 md:pt-16">
-          <div className="grid gap-y-8 lg:min-h-[calc(100svh-var(--header-h)-13.5rem)] lg:grid-cols-12 lg:items-center lg:gap-x-8">
-            <div className="relative z-10 lg:col-span-5 lg:col-start-7 lg:row-start-1">
+          <div className="relative grid gap-y-8 lg:min-h-[calc(100svh-var(--header-h)-13.5rem)] lg:grid-cols-12 lg:items-center lg:gap-x-8">
+            <div className="relative z-10 lg:col-span-6 lg:col-start-7 lg:row-start-1">
               <Eyebrow>{t("hero.eyebrow")}</Eyebrow>
-              <SplitText as="h1" id="home-title" hero className="text-64 sm:text-88" text={t("hero.title")} />
+              <SplitText as="h1" id="home-title" hero className="text-64" text={t("hero.title")} />
               <p
                 className="mt-6 max-w-[30rem] text-18 text-ink-700 md:mt-8 md:text-22"
                 data-hero-fade
@@ -45,25 +45,26 @@ export default async function HomePage({ params }: Props) {
                 {t("hero.lead")}
               </p>
               <div className="mt-8 flex flex-wrap gap-3" data-hero-fade style={{ "--d": 320 } as React.CSSProperties}>
-                <ButtonLink href="/contacts#lead-form" size="lg">
+                <ButtonLink href="/contacts?direction=wholesale#lead-form" size="lg">
                   {t("hero.primary")}
                 </ButtonLink>
                 <ButtonLink href="/products" variant="secondary" size="lg">
                   {t("hero.secondary")}
                 </ButtonLink>
               </div>
+              <div className="mt-10 max-w-xl" data-hero-fade style={{ "--d": 420 } as React.CSSProperties}>
+                <SpecList
+                  className="grid gap-x-6 sm:grid-cols-3"
+                  rows={[
+                    { label: t("hero.specs.type.label"), value: t("hero.specs.type.value") },
+                    { label: t("hero.specs.batch.label"), value: t("hero.specs.batch.value") },
+                    { label: t("hero.specs.metal.label"), value: t("hero.specs.metal.value") },
+                  ]}
+                />
+              </div>
             </div>
             {/* TODO(task 5): the 3D parade replaces the static render inside this slot. */}
             <HeroParadeSlot alt={t("hero.slotAlt")} caption={t("hero.slotCaption")} />
-            <div className="relative z-10 mt-8 lg:col-span-2 lg:col-start-11 lg:row-start-1 lg:mt-0 lg:self-end" data-hero-fade style={{ "--d": 420 } as React.CSSProperties}>
-              <SpecList
-                rows={[
-                  { label: t("hero.specs.type.label"), value: t("hero.specs.type.value") },
-                  { label: t("hero.specs.batch.label"), value: t("hero.specs.batch.value") },
-                  { label: t("hero.specs.metal.label"), value: t("hero.specs.metal.value") },
-                ]}
-              />
-            </div>
           </div>
           <LidRail />
         </Container>
@@ -98,7 +99,7 @@ export default async function HomePage({ params }: Props) {
             <p className="mt-4 text-18 text-ink-700" data-reveal>
               {t("scale.text")}
             </p>
-            <ButtonLink href="/contacts#lead-form" className="mt-8" data-reveal>
+            <ButtonLink href="/contacts?direction=wholesale#lead-form" className="mt-8" data-reveal>
               {t("scale.cta")}
             </ButtonLink>
           </div>
@@ -111,13 +112,13 @@ export default async function HomePage({ params }: Props) {
         <div className="mt-12 grid gap-6 lg:grid-cols-12">
           {(
             [
-              { key: "sko", href: "/products/sko-i82", img: PHOTO.skoGold, span: "lg:col-span-7 lg:row-span-2", ratio: "4 / 3" },
-              { key: "twist", href: "/products/twist-off", img: PHOTO.twistStack, span: "lg:col-span-5", ratio: "16 / 10" },
-              { key: "ring", href: "/products/wikel-ring", img: PHOTO.rings, span: "lg:col-span-5", ratio: "16 / 10" },
+              { key: "sko", href: "/products/sko-i82", img: PHOTO.skoGold, span: "lg:col-span-4", ratio: "4 / 3" },
+              { key: "twist", href: "/products/twist-off", img: PHOTO.twistStack, span: "lg:col-span-4", ratio: "4 / 3" },
+              { key: "ring", href: "/products/wikel-ring", img: PHOTO.rings, span: "lg:col-span-4", ratio: "4 / 3" },
             ] as const
           ).map((p) => (
             <article key={p.key} className={`lift relative flex flex-col overflow-hidden rounded-card border border-sky-line bg-paper ${p.span}`} data-reveal>
-              <Photo img={p.img} alt={t(`products.items.${p.key}.alt`)} sizes="(min-width: 1024px) 50vw, 100vw" ratio={p.ratio} className="rounded-none" parallax />
+              <Photo img={p.img} alt={t(`products.items.${p.key}.alt`)} sizes="(min-width: 1024px) 33vw, 100vw" ratio={p.ratio} className="rounded-none" parallax />
               <div className="flex flex-1 flex-col items-start gap-3 p-6 md:p-8">
                 <Badge>{t(`products.items.${p.key}.tag`)}</Badge>
                 <h3 className="text-36">
@@ -157,8 +158,8 @@ export default async function HomePage({ params }: Props) {
               ] as const
             ).map((b) => (
               <li key={b.alt} className="lift max-w-none rounded-card bg-paper p-3" data-reveal>
-                <div className="flex aspect-[3/5] items-center justify-center">
-                  <Image src={b.img.src} width={b.img.width} height={b.img.height} alt={b.alt} sizes="(min-width: 640px) 20vw, 44vw" className="max-h-full w-auto object-contain" />
+                <div className="relative aspect-[3/5]">
+                  <Image src={b.img.src} fill alt={b.alt} sizes="(min-width: 640px) 20vw, 44vw" className="object-contain" />
                 </div>
               </li>
             ))}

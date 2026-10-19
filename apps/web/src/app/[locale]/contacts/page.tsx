@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { PageHero } from "@/components/blocks/page-hero";
-import { LeadCta } from "@/components/forms/lead-cta";
-import { ButtonLink, Section } from "@/components/ui";
+import { LeadForm } from "@/components/forms/lead-form";
+import { Section } from "@/components/ui";
 import { EMAIL, FACEBOOK, INSTAGRAM, MAP_URL, PHONES, TELEGRAM, WHATSAPP } from "@/lib/contacts";
 import { pageMetadata } from "@/lib/seo";
 
@@ -18,24 +18,27 @@ export default async function ContactsPage({ params }: Props) {
   setRequestLocale(locale);
   const t = await getTranslations("contacts");
   const tc = await getTranslations("common");
+  const tf = await getTranslations("form");
 
   const linkCls = "inline-flex min-h-11 items-center text-ink-950 no-underline hover:text-azure-700";
 
   return (
     <>
-      <PageHero
-        eyebrow={t("hero.eyebrow")}
-        title={t("hero.title")}
-        lead={t("hero.lead")}
-        actions={
-          <ButtonLink href="#lead-form" size="lg">
-            {tc("cta.requestPrice")}
-          </ButtonLink>
-        }
-      />
+      <PageHero eyebrow={t("hero.eyebrow")} title={t("hero.title")} />
 
-      <Section tone="white">
-        <dl className="grid gap-x-10 gap-y-12 md:grid-cols-2 lg:grid-cols-4">
+      <Section tone="white" id="lead-form" labelledBy="lead-form-title" className="!pt-10 md:!pt-14">
+        <div className="grid items-start gap-12 lg:grid-cols-12 lg:gap-x-10">
+          <div className="lg:col-span-7">
+            <h2 id="lead-form-title" className="text-36">
+              {tf("title")}
+            </h2>
+            <p className="mb-6 mt-3 max-w-[34rem] text-18 text-ink-700">{tf("lead")}</p>
+            <div className="rounded-card border border-sky-line bg-paper p-6 shadow-soft md:p-10">
+              <LeadForm />
+            </div>
+          </div>
+          <div className="lg:col-span-5">
+            <dl className="grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-1">
           <div>
             <dt className="caption border-b border-line pb-3">{t("phones")}</dt>
             <dd className="tnum mt-3 grid gap-1 font-display text-28 font-semibold">
@@ -87,9 +90,9 @@ export default async function ContactsPage({ params }: Props) {
             </dd>
           </div>
         </dl>
+          </div>
+        </div>
       </Section>
-
-      <LeadCta />
     </>
   );
 }

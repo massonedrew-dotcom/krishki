@@ -365,7 +365,6 @@ html:not(.m) .vrail__dot {
 
 /* concentric rings that echo a lid seen from above */
 .lid-disc {
-  position: relative;
   border-radius: var(--radius-lid);
   aspect-ratio: 1;
   background:

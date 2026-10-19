@@ -43,7 +43,7 @@ const CONFIG: Record<ProductSlug, Config> = {
       { key: "elisey", img: PHOTO.tubesElisey },
     ],
     lid: PHOTO.lidSko,
-    banner: PHOTO.bannerSko,
+    banner: PHOTO.skoGold,
     product: "sko",
     related: ["twist-off", "wikel-ring"],
   },
@@ -59,7 +59,7 @@ const CONFIG: Record<ProductSlug, Config> = {
     ],
     packs: [{ key: "mechta", img: PHOTO.tubesTwist }, { key: "bulk" }],
     lid: PHOTO.lidTwist,
-    banner: PHOTO.bannerTwist,
+    banner: PHOTO.twistStack,
     product: "twist",
     related: ["sko-i82", "wikel-ring"],
   },
@@ -131,7 +131,7 @@ export default async function ProductPage({ params }: Props) {
 
       {cfg.banner ? (
         <Section tone="white" className="!pb-0 !pt-12 md:!pt-20">
-          <Photo img={cfg.banner} alt={t("hero.bannerAlt")} sizes="(min-width: 1440px) 1344px, 100vw" ratio="12 / 5" card parallax />
+          <Photo img={cfg.banner} alt={t("hero.bannerAlt")} sizes="(min-width: 1440px) 1344px, 100vw" ratio="16 / 6" card contain className="!bg-white" />
         </Section>
       ) : null}
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
@@ -21,6 +21,17 @@ export type LeadFormProps = {
 export function LeadForm({ defaultDirection, defaultProduct }: LeadFormProps) {
   const t = useTranslations("form");
   const [status, setStatus] = useState<"idle" | "pending">("idle");
+  const [direction, setDirection] = useState<string>(defaultDirection ?? "");
+  const [product, setProduct] = useState<string>(defaultProduct ?? "");
+
+  // Preset from the link that brought the visitor here: /contacts?direction=wholesale&product=sko#lead-form
+  useEffect(() => {
+    const q = new URLSearchParams(window.location.search);
+    const d = q.get("direction");
+    const p = q.get("product");
+    if (d && (DIRECTIONS as readonly string[]).includes(d)) setDirection(d);
+    if (p && (PRODUCTS as readonly string[]).includes(p)) setProduct(p);
+  }, []);
 
   function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -41,7 +52,7 @@ export function LeadForm({ defaultDirection, defaultProduct }: LeadFormProps) {
       <Field label={t("country")}>{(c) => <Input {...c} name="country" autoComplete="country-name" />}</Field>
       <Field label={t("direction")} required requiredLabel={req}>
         {(c) => (
-          <Select {...c} name="direction" defaultValue={defaultDirection ?? ""}>
+          <Select {...c} name="direction" value={direction} onChange={(e) => setDirection(e.target.value)}>
             <option value="" disabled>
               {t("choose")}
             </option>
@@ -55,7 +66,7 @@ export function LeadForm({ defaultDirection, defaultProduct }: LeadFormProps) {
       </Field>
       <Field label={t("product")}>
         {(c) => (
-          <Select {...c} name="product" defaultValue={defaultProduct ?? ""}>
+          <Select {...c} name="product" value={product} onChange={(e) => setProduct(e.target.value)}>
             <option value="" disabled>
               {t("choose")}
             </option>
