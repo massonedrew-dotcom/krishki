@@ -62,7 +62,7 @@ These are caused by the GitHub Pages preview build (`GITHUB_PAGES=1`, `output: "
 | canonical, hreflang and `og:url` point to `https://krishki.uz/…`, not the preview host | Correct for production (`metadataBase` = `SITE_URL`). The preview is meant to declare the real domain as canonical. |
 | `/` is a meta-refresh to `/krishki/ru/`, not an Accept-Language redirect | Static export cannot run middleware. The workflow writes `out/index.html` by hand. |
 | `/krishki/ru` → **301** → `/krishki/ru/` | GitHub Pages directory redirect because of `trailingSlash: true` in the export config. Production uses no trailing slash. |
-| Old URLs (`/produkciya`, `/uslugi`, `/o-nas`, `/polezno-znat`) are not redirected | `redirects()` exists only in the standalone config (`next.config.ts:27-29`). It is covered by e2e against `next start`. |
+| Old URLs (`/produkciya`, `/uslugi`, `/o-nas`, `/polezno-znat`) are not redirected | `redirects()` exists only in the standalone config (`next.config.ts:31-33`). It is covered by e2e against `next start`. |
 | Lead form cannot submit | There is no API on Pages. It was not tested here. |
 | `uses-long-cache-ttl` / `cache-insight` flagged on 36/36 runs | GitHub Pages serves `_next/static/*` with a 10-minute cache. Caddy in production must set `immutable` on hashed assets (backend-dev should verify in the Caddyfile). |
 | `uses-responsive-images` / `image-delivery-insight` (up to 281 KB savings) | The Pages build uses a pass-through image loader (`pages-image-loader.ts`) with no optimizer, so the full-size source is served. **Re-measure on production.** If it persists there, it becomes a real Medium. |
