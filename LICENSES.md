@@ -55,3 +55,4 @@ Checked 2026-10-15 from the LICENSE files in the cloned repositories.
 | three 0.170, gsap 3.12.5, lenis 1.1.0 via unpkg/esm.sh (prototype only) | MIT / GSAP standard licence (no charge, commercial use allowed) / MIT | 2026-10-16 |
 | Montserrat, Inter (Google Fonts, light-home prototype; site from ticket 23) | SIL OFL 1.1 | Yes | 2026-10-19 |
 | Natural Earth (map data, light-home geography) | Public domain | Yes | 2026-10-19 |
+| three 0.186, @react-three/fiber 9.8, @react-three/drei 10.7, @types/three (apps/web, ticket 23) | MIT | Yes | 2026-10-19 |
