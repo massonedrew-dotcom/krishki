@@ -19,19 +19,19 @@ colors:
   signal-500-placeholder: "#C0392B"
 typography:
   display:
-    fontFamily: "Tektur, Arial Narrow, sans-serif"
+    fontFamily: "Montserrat, Arial, sans-serif"
     fontSize: "clamp(2.5rem, 0.8rem + 6.6vw, 5.5rem)"
-    fontWeight: 600
+    fontWeight: 700
     lineHeight: 1
-    letterSpacing: "-0.01em"
+    letterSpacing: "-0.02em"
   heading:
-    fontFamily: "Tektur, Arial Narrow, sans-serif"
+    fontFamily: "Montserrat, Arial, sans-serif"
     fontSize: "clamp(1.625rem, 1.1rem + 2.2vw, 2.25rem)"
-    fontWeight: 600
+    fontWeight: 700
     lineHeight: 1.15
-    letterSpacing: "-0.01em"
+    letterSpacing: "-0.02em"
   body:
-    fontFamily: "Onest, Segoe UI, sans-serif"
+    fontFamily: "Inter, Segoe UI, sans-serif"
     fontSize: "1rem"
     fontWeight: 400
     lineHeight: 1.6
@@ -115,15 +115,15 @@ Rules: lacquer is for actions, focus on dark and one underline accent. No gradie
 
 ## Typography
 
-Fonts (all Google Fonts, SIL OFL 1.1, self-hosted via `next/font/google`, subsets cyrillic + latin + latin-ext, `font-display: swap`):
+Fonts (all Google Fonts, SIL OFL 1.1, self-hosted via `next/font/google`, subsets cyrillic + cyrillic-ext + latin + latin-ext, `font-display: swap`):
 
 | Role | Family | Why |
 |---|---|---|
-| Display / headings | **Tektur** (variable, wght 400–900, wdth 75–100) | Machined, technical letterforms with real character, not a geometric default. Cyrillic and U+02BB/U+02BC verified. |
-| Text | **Onest** (variable, wght 100–900) | Calm grotesk with strong Cyrillic, Uzbek Latin, and tabular figures (`tnum`). |
+| Display / headings, big figures | **Montserrat** (700, 800) | Firm, corporate-industrial letterforms. Cyrillic, Uzbek Cyrillic Ў Қ Ғ Ҳ and U+02BB/U+02BC verified (fontTools, 2026-10-19). `font-semibold` in markup resolves to 700. |
+| Text and UI | **Inter** (400, 500, 600) | Neutral, highly legible grotesk with full Cyrillic, Uzbek Latin and tabular figures (`tnum`). |
 | Technical captions | **IBM Plex Mono** (400, 500) | Drawing-annotation voice for captions, units, table headers. Uzbek `ʻ` renders as a small mark; do not set running Uzbek text in mono. |
 
-Alternates evaluated and glyph-checked (cmap + screenshot): Oswald (display, condensed), IBM Plex Sans (text), Commissioner. Rejected: Manrope (no U+02BB, U+02BC, no Қ Ғ Ҳ), Golos Text, Geologica, Roboto Condensed (no U+02BB), Unbounded (no Қ Ғ Ҳ), Familjen/Hanken Grotesk (no Cyrillic). Banned as primary: Inter, Roboto, Arial, system-ui.
+Alternates evaluated and glyph-checked (cmap + screenshot): Oswald (display, condensed), IBM Plex Sans (text), Commissioner. Rejected: Manrope (no U+02BB, U+02BC, no Қ Ғ Ҳ), Golos Text, Geologica, Roboto Condensed (no U+02BB), Unbounded (no Қ Ғ Ҳ), Familjen/Hanken Grotesk (no Cyrillic). Font decision 2026-10-19 (client rejected Tektur + Onest; evidence in `docs/plans/redesign-v3.md` and `docs/research/font-pairs.png`): Montserrat + Inter chosen over IBM Plex (gap in ʻ) and Commissioner (too soft); Jost, Rubik, PT Sans/Serif also fail an Uzbek glyph. Banned as primary: Roboto, Arial, system-ui.
 
 Scale (px): **14 / 16 / 18 / 22 / 28 / 36 / 48 / 64 / 88** as `text-14` ... `text-88`. 36 and up are fluid below 768 px (88 becomes ~40 px at 390). Line height 1.6 for body, 1.0–1.25 for display. Max line length 68ch (`p` and `li` are capped at 62ch, which keeps Cyrillic and Uzbek lines under 80 characters). Display tracking never below -0.04em. Headings use `text-wrap: balance`.
 

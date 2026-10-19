@@ -46,8 +46,8 @@ Checked 2026-10-15 from the LICENSE files in the cloned repositories.
 ## Fonts and frontend dev tools (task 2, checked 2026-10-16)
 | Item | License | Commercial use | Notes |
 |---|---|---|---|
-| Tektur (Google Fonts) | SIL OFL 1.1 | Yes | self-hosted via next/font |
-| Onest (Google Fonts) | SIL OFL 1.1 | Yes | self-hosted via next/font |
+| Montserrat (Google Fonts) | SIL OFL 1.1 | Yes | self-hosted via next/font; replaced Tektur 2026-10-19 |
+| Inter (Google Fonts) | SIL OFL 1.1 | Yes | self-hosted via next/font; replaced Onest 2026-10-19 |
 | IBM Plex Mono (Google Fonts) | SIL OFL 1.1 | Yes | captions only |
 | axe-core, @axe-core/playwright | MPL-2.0 | Yes | dev dependency, not shipped |
 | next, react, next-intl, tailwindcss | MIT | Yes | |
