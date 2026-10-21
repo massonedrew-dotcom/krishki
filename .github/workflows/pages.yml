@@ -46,8 +46,8 @@ jobs:
             cp -r prototypes/light-home/. apps/web/out/prototype-light/
             rm -rf apps/web/out/prototype-light/tools
           fi
-          BASE="${{ steps.pages.outputs.base_path }}"
-          printf '<!doctype html><meta charset="utf-8"><meta http-equiv="refresh" content="0; url=%s/ru/"><link rel="canonical" href="%s/ru/"><title>ELIT KONSERVA</title>' "$BASE" "$BASE" > apps/web/out/index.html
+          # The root is a review hub for the client (links to the site, prototypes and the change list).
+          cp prototypes/review/index.html apps/web/out/index.html
           touch apps/web/out/.nojekyll
       - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:
