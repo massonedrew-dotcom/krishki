@@ -45,6 +45,10 @@ const EL = 0.56; // ~32°, the angle of the sko-34 photo
 /** Stage ground, display sRGB #110F0C (docs/design/style-directions.md, A). */
 const GROUND: [number, number, number] = [0x11 / 255, 0x0f / 255, 0x0c / 255];
 
+/** Emissive (linear) that lifts #50555A rubber to a readable mid grey on the #110F0C stage. */
+const RUBBER_GLOW: [number, number, number] = [0.085, 0.09, 0.095];
+const NO_GLOW: [number, number, number] = [0, 0, 0];
+
 const smooth = (v: number) => {
   const c = Math.min(1, Math.max(0, v));
   return c * c * (3 - 2 * c);
@@ -121,13 +125,14 @@ function darkStudio(gl: WebGLRenderer): { env: Texture; dispose: () => void } {
 const stageVS = /* glsl */ `void main() { gl_Position = vec4(position.xy, 0.0, 1.0); }`;
 const stageFS = /* glsl */ `
   precision highp float;
-  uniform vec2 uOrigin, uSize, uGlow;   // stage rect in drawing-buffer px; glow centre in stage uv
+  uniform vec2 uOrigin, uSize, uGlow;   // visible stage rect and glow centre, drawing-buffer px
+  uniform float uRadius;                // glow radius, px (the slot width): the stage may be 3 screens tall
   uniform float uTime;
   uniform vec3 uGround;
   void main() {
     vec2 uv = (gl_FragCoord.xy - uOrigin) / uSize;
-    vec2 d = (uv - uGlow) * vec2(uSize.x / uSize.y, 1.0);
-    float glow = exp(-dot(d, d) * 3.2);
+    vec2 d = (gl_FragCoord.xy - uGlow) / uRadius;
+    float glow = exp(-dot(d, d) * 2.2);
     vec3 col = uGround + vec3(0.13, 0.085, 0.04) * glow;                    // oven glow behind the lid
     float pos = fract(uTime / 14.0) * 2.6 - 0.8;                           // light sweep, 14 s
     float band = exp(-pow((uv.x * 0.85 + uv.y * 0.35 - pos) / 0.14, 2.0));
@@ -159,7 +164,8 @@ export function createHeroLidPass(gl: WebGLRenderer, sources: { sko: Object3D; t
     uniforms: {
       uOrigin: { value: new Vector2() },
       uSize: { value: new Vector2(1, 1) },
-      uGlow: { value: new Vector2(0.5, 0.5) },
+      uGlow: { value: new Vector2() },
+      uRadius: { value: 1 },
       uTime: { value: 0 },
       uGround: { value: new Color().setRGB(...GROUND) },
     },
@@ -200,6 +206,9 @@ export function createHeroLidPass(gl: WebGLRenderer, sources: { sko: Object3D; t
       m.envMapIntensity = stage ? 0.22 : 0.7;
       if (m instanceof MeshPhysicalMaterial) m.clearcoat = stage ? 0.35 : 0.8;
     });
+  /** Grey rubber: the dark studio has almost nothing for it to reflect, so on the stage it gets a faint grey glow. */
+  const rubbers: MeshStandardMaterial[] = [];
+  const rubberLook = (stage: boolean) => rubbers.forEach((m) => m.emissive.setRGB(...(stage ? RUBBER_GLOW : NO_GLOW)));
   const rig = (src: Object3D, look: Look): HeroRig => {
     const model = src.clone(true);
     const mats: MeshStandardMaterial[] = [];
@@ -212,6 +221,7 @@ export function createHeroLidPass(gl: WebGLRenderer, sources: { sko: Object3D; t
         outers.push(m);
         lacquers.push(m);
       }
+      if (/Rubber/i.test(m.name)) rubbers.push(m);
       owned.add(m);
       mats.push(m);
       o.material = m;
@@ -238,6 +248,18 @@ export function createHeroLidPass(gl: WebGLRenderer, sources: { sko: Object3D; t
   const prevClear = new Color();
   const full = new Vector2();
 
+  /**
+   * three applies material.envMapIntensity only to a material's own envMap (scene.environment uses
+   * scene.environmentIntensity), so the per-material tuning above needs the map set on each material.
+   */
+  let envNow: Texture | null = null;
+  const setEnv = (tex: Texture) => {
+    if (tex === envNow) return;
+    envNow = tex;
+    scene.environment = tex;
+    for (const m of [...sko.mats, ...twist.mats]) m.envMap = tex;
+  };
+
   const setOpacity = (r: HeroRig, op: number) => {
     if (Math.abs(op - r.op) < 0.002) return;
     r.op = op;
@@ -260,8 +282,9 @@ export function createHeroLidPass(gl: WebGLRenderer, sources: { sko: Object3D; t
       r.root.scale.setScalar(1);
       r.flip.rotation.set(v.flip, 0, 0);
       r.spin.rotation.set(0, 0.4, 0);
-      scene.environment = studioEnv;
+      setEnv(studioEnv);
       lacquerLook(false);
+      rubberLook(false);
       key.intensity = 1.3;
       rim.intensity = 0.9;
       shadow.visible = v.flip === 0 && v.el < 1.4;
@@ -269,8 +292,9 @@ export function createHeroLidPass(gl: WebGLRenderer, sources: { sko: Object3D; t
       shadow.scale.setScalar(1.15);
       return v.el;
     }
-    scene.environment = dark.env;
+    setEnv(dark.env);
     lacquerLook(true);
+    rubberLook(true);
     key.intensity = 2.0;
     rim.intensity = 1.1;
     shadow.visible = false;
@@ -278,9 +302,9 @@ export function createHeroLidPass(gl: WebGLRenderer, sources: { sko: Object3D; t
     // idle: a slow turntable; scroll drives the sequence
     spinT += dt * 0.32;
     const tilt = 0.18 * smooth(p / 0.12); // SKO top → tilts toward the viewer
-    const flip = Math.PI * smooth((p - 0.14) / 0.24); // … flips to the inside (grey ring) and holds
-    const toTwist = smooth((p - 0.46) / 0.12); // cross-fade SKO → Twist-off red
-    const toGreen = smooth((p - 0.74) / 0.14); // colour morph red → green
+    const flip = Math.PI * smooth((p - 0.1) / 0.2); // … flips to the inside (grey ring) and holds
+    const toTwist = smooth((p - 0.5) / 0.12); // cross-fade SKO → Twist-off red
+    const toGreen = smooth((p - 0.76) / 0.14); // colour morph red → green
 
     setOpacity(sko, 1 - toTwist);
     setOpacity(twist, toTwist);
@@ -311,12 +335,13 @@ export function createHeroLidPass(gl: WebGLRenderer, sources: { sko: Object3D; t
         gl.setViewport(f.stage.x, sy, f.stage.w, f.stage.h);
         gl.setScissor(f.stage.x, sy, f.stage.w, f.stage.h);
         const u = stageMat.uniforms;
-        (u.uOrigin!.value as Vector2).set(f.stage.x * pr, sy * pr);
-        (u.uSize!.value as Vector2).set(f.stage.w * pr, f.stage.h * pr);
-        (u.uGlow!.value as Vector2).set(
-          (f.slot.x + f.slot.w / 2 - f.stage.x) / Math.max(1, f.stage.w),
-          1 - (f.slot.y + f.slot.h / 2 - f.stage.y) / Math.max(1, f.stage.h),
-        );
+        // the light sweep runs across the visible part of the stage, not its full (tall) height
+        const top = Math.max(0, f.stage.y);
+        const bottom = Math.min(f.canvasH, f.stage.y + f.stage.h);
+        (u.uOrigin!.value as Vector2).set(f.stage.x * pr, (f.canvasH - bottom) * pr);
+        (u.uSize!.value as Vector2).set(f.stage.w * pr, Math.max(1, bottom - top) * pr);
+        (u.uGlow!.value as Vector2).set((f.slot.x + f.slot.w / 2) * pr, (f.canvasH - f.slot.y - f.slot.h / 2) * pr);
+        u.uRadius!.value = Math.max(1, f.slot.w) * pr;
         u.uTime!.value = f.time;
         gl.render(stageScene, ortho);
       }
