@@ -20,7 +20,7 @@ Goal of the site: generate qualified B2B leads (wholesale, export, private label
 - Always load krishki-domain before writing any copy or data model
 
 ## Roles (subagents in `.claude/agents/`)
-architect, frontend-dev, threed-dev, backend-dev, security-reviewer, qa-seo.
+architect, frontend-dev, threed-dev, backend-dev, security-reviewer, qa-seo, marketer (research, positioning, page structure), web-designer (style directions, mockups, visual review).
 Task ownership is in TASKS.md. Every task must name its owner and its Definition of Done.
 
 ## Orchestration (lead architect = the main Claude session)
@@ -36,6 +36,15 @@ The main session is the lead architect. It owns the plan, splits work, starts th
 4. Rejected work goes back to the same agent with concrete findings; the lead does not silently fix large problems itself.
 5. The lead updates TASKS.md statuses and reports to the user in Russian.
 6. The `architect` subagent is used only for isolated design write-ups (ADRs, API contracts); decisions are approved by the lead and the user.
+
+### When to delegate vs do it in the main loop (adopted 2026-10-26)
+Source: Anthropic, "Building agents: when to fold subagents into your main agent loop" (2026-10-22). Default is a single main loop with skills; a subagent must earn its place.
+- **Do in the main loop (load the matching skill):** work that chains on what this session already knows, edits the same files, or is a few steps — small UI fixes, copy changes, wiring assets, design decisions, marketing/positioning reasoning, plan updates. Every handoff is a lossy summary and adds latency.
+- **Use a subagent only for:** (a) parallel independent work that needs a fresh, throwaway context (multi-angle web research, a separate component with a clean interface such as the 3D background); (b) black-box verification (security-reviewer, qa-seo, an independent visual review); (c) a context that is measurably bloated or needs different tool permissions.
+- **Fold chained specialists together:** if agent B always consumes agent A's output (e.g. marketer → web-designer), run them as one task in the main loop or one agent, not a relay.
+- **Brief by context, not by org chart:** give a subagent a piece that needs little from the rest of the system and ask for a compact result (files + checks + findings), not a narrative.
+- **One writer per build dir:** never let two agents run `next build`/`next start` in `apps/web` at once (the shared `.next` corrupts; seen on ticket 24).
+- **Measure before changing the setup:** keep a small set of golden checks per area (Playwright specs, lint/typecheck/build, pytest); change one thing at a time and keep what holds up.
 
 ## Working rules
 1. Plan first: for any task larger than one file, write the plan to `docs/plans/<task>.md` and wait for approval.

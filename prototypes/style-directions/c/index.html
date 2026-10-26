@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Направление C — «Чертёж на жести» · ELIT KONSERVA (макет)</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Direction C — "Drawing on tin": brushed tin ground, ink line work, the lid explained as an engineering
+   drawing with a title block. Gold only on the lid, red only for «Заказать». */
+:root{
+  --tin:#DADDE0; --plate:#ECEEF0; --white:#FFFFFF; --ink:#101317; --muted:#434A53; --hair:#A9B0B8; --hair-soft:#C6CBD1;
+  --gold-text:#7A5A12; --gold:#C9A64E;
+  --order:#B8231A; --order-hi:#9C1D15;
+  --dark:#101317; --dark-raised:#1A1E24; --dark-line:#2E343C; --dark-text:#E4E7EA; --dark-muted:#A3A9B1; --dark-gold:#E6C27A;
+  --display:"Montserrat",system-ui,sans-serif; --body:"Inter",system-ui,sans-serif;
+  --pad:clamp(16px,4vw,56px); --ease:cubic-bezier(.16,1,.3,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{color:var(--ink);font:400 16px/1.6 var(--body);-webkit-font-smoothing:antialiased;overflow-x:clip;
+  background:
+    repeating-linear-gradient(90deg,rgba(255,255,255,.18) 0 1px,transparent 1px 3px),
+    repeating-linear-gradient(90deg,rgba(16,19,23,.025) 0 1px,transparent 1px 7px),
+    var(--tin)}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--ink);color:var(--plate)}
+:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.tnum{font-variant-numeric:tabular-nums lining-nums}
+.todo{color:var(--muted);font-size:13px}
+.todo b{color:var(--order);font-weight:600}
+
+/* ---------- header ---------- */
+.top{background:var(--ink);color:var(--dark-muted);font-size:13px}
+.top .in,.mainrow .in{max-width:1440px;margin:0 auto;padding:0 var(--pad);display:flex;align-items:center;gap:28px}
+.top .in{height:44px}
+.top .aud{display:flex;gap:2px;height:100%}
+.top .aud a{display:flex;align-items:center;padding:0 16px;color:var(--dark-text);font-weight:500;border-right:1px solid var(--dark-line)}
+.top .aud a:first-child{border-left:1px solid var(--dark-line);margin-left:-16px}
+.top .aud a:hover{background:var(--dark-raised)}
+.sp{flex:1}
+.top .msg{display:flex;gap:18px}
+.top .msg a:hover,.top .phone:hover{color:var(--dark-text)}
+.top .phone{color:var(--dark-text)}
+.lang{display:flex;gap:2px}
+.lang a{padding:4px 7px;border-radius:2px;font-weight:500}
+.lang a[aria-current]{background:var(--dark-text);color:var(--ink)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:48px;padding:0 24px;border-radius:2px;font:600 15px/1 var(--body);transition:background .25s var(--ease),color .25s var(--ease)}
+.btn-sm{height:32px;padding:0 14px;font-size:13px}
+.btn-order{background:var(--order);color:#fff}
+.btn-order:hover{background:var(--order-hi)}
+.btn-ink{background:var(--ink);color:var(--plate)}
+.btn-ink:hover{background:#2A3038}
+.btn-line{border:1px solid var(--ink);color:var(--ink);background:transparent}
+.btn-line:hover{background:var(--ink);color:var(--plate)}
+.btn svg{width:16px;height:16px}
+.mainrow{border-bottom:1px solid var(--hair);background:rgba(236,238,240,.7)}
+.mainrow .in{height:80px}
+.brand{display:flex;align-items:center;gap:14px}
+.brand img{width:108px}
+.brand span{font:600 13px/1.2 var(--display);letter-spacing:.16em;color:var(--muted);border-left:1px solid var(--hair);padding-left:14px}
+.nav{display:flex;gap:4px;margin-left:auto;font:600 15px/1 var(--display)}
+.nav a{padding:12px 14px;border-radius:2px}
+.nav a:hover{background:var(--tin)}
+.burger,.mob-order{display:none}
+
+/* ---------- hero ---------- */
+.hero{max-width:1440px;margin:0 auto;padding:64px var(--pad) 0;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:48px;align-items:center}
+.hero h1{font:700 clamp(38px,4.4vw,68px)/1.04 var(--display);letter-spacing:-.025em;text-wrap:balance}
+.hero h1 span{color:var(--gold-text)}
+.hero .lead{margin-top:24px;font-size:18px;color:var(--muted);max-width:44ch}
+.hero .cta{margin-top:32px;display:flex;flex-wrap:wrap;gap:12px}
+.hero .note{margin-top:14px;font-size:14px;color:var(--muted)}
+.hero .facts{margin-top:40px;border-top:1px solid var(--ink);display:flex;flex-wrap:wrap}
+.hero .facts div{padding:14px 20px 0 0}
+.hero .facts div+div{padding-left:20px;border-left:1px solid var(--hair)}
+.hero .facts dt{font-size:13px;color:var(--muted)}
+.hero .facts dd{font:600 17px/1.25 var(--display);white-space:nowrap}
+.hero .facts dt{white-space:nowrap}
+
+/* drawing frame */
+.drawing{position:relative;background:var(--plate);border:1.5px solid var(--ink);padding:10px}
+.drawing .inner{border:1px solid var(--ink);position:relative}
+.drawing svg.sec-svg{display:block;width:100%;height:auto}
+.view{position:relative;display:grid;place-items:center;padding:28px 0 0;
+  background:linear-gradient(90deg,transparent calc(50% - .5px),rgba(16,19,23,.35) calc(50% - .5px) calc(50% + .5px),transparent 0)}
+.view .hero-lid{width:52%;filter:drop-shadow(0 22px 24px rgba(16,19,23,.25))}
+.view .vh{position:absolute;left:20px;top:14px}
+.vh b{display:block;font:700 18px/1.2 var(--display)}
+.vh small{font-size:12px;color:var(--muted)}
+.vh em{display:block;margin-top:10px;max-width:17ch;font:600 11px/1.45 var(--body);font-style:normal;color:var(--order)}
+.slot3d{position:absolute;left:22%;right:22%;top:10px;bottom:-6px;border:1px dashed var(--order);border-radius:2px;pointer-events:none}
+.slot3d span{position:absolute;right:8px;top:6px;font:600 11px/1.45 var(--body);color:var(--order);text-align:right;max-width:24ch}
+.title-block{display:grid;grid-template-columns:2fr 1fr 1fr;border-top:1px solid var(--ink);font-size:13px}
+.title-block > div{padding:8px 12px;border-left:1px solid var(--ink)}
+.title-block > div:first-child{border-left:0}
+.title-block small{display:block;font-size:11px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.title-block b{font:600 15px/1.3 var(--display)}
+
+/* living background still: the line (lids moving on a rail behind the hero) */
+.line{position:relative;max-width:1440px;margin:56px auto 0;height:120px;overflow:hidden;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.line .rail{position:absolute;inset:0;display:flex;align-items:center;gap:64px;padding-left:24px;width:max-content}
+.line img{width:88px;opacity:.9}
+.line img.tilt{width:96px}
+@media (prefers-reduced-motion:no-preference){.line .rail{animation:run 40s linear infinite}}
+@keyframes run{to{transform:translateX(-50%)}}
+
+/* ---------- section heads ---------- */
+.sec{max-width:1440px;margin:0 auto;padding:128px var(--pad)}
+.sec-head{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:48px;align-items:end;margin-bottom:56px}
+.sec-head h2{font:700 clamp(32px,3.6vw,54px)/1.06 var(--display);letter-spacing:-.02em;text-wrap:balance}
+.sec-head p{color:var(--muted);max-width:56ch}
+
+/* products: one datasheet, three columns aligned with subgrid */
+.ds{display:grid;grid-template-columns:200px repeat(3,minmax(0,1fr));grid-template-rows:auto auto repeat(6,auto) auto;background:var(--plate);border:1px solid var(--ink)}
+.ds .labels,.ds article{display:grid;grid-row:1/-1;grid-template-rows:subgrid}
+.ds article{border-left:1px solid var(--ink)}
+.ds .labels > *,.ds article > *{padding:12px 20px;border-top:1px solid var(--hair-soft)}
+.ds .labels > :nth-child(-n+2),.ds article > :nth-child(-n+2){border-top:0}
+.ds .labels span{font-size:13px;color:var(--muted);align-self:stretch}
+.ds .pic{aspect-ratio:4/3;display:grid;place-items:center;padding:20px;background:var(--white)}
+.ds .pic img{width:78%}
+.ds .pic.pair{position:relative}
+.ds .pic.pair img{position:absolute;width:56%}
+.ds .pic.pair img:first-child{left:6%;top:8%}.ds .pic.pair img:last-child{right:6%;bottom:6%}
+.ds .pic.photo{padding:0}
+.ds .pic.photo img{width:100%;height:100%;object-fit:cover}
+.ds h3{font:700 24px/1.15 var(--display);letter-spacing:-.01em;padding-top:18px!important}
+.ds h3 small{display:block;font:500 14px/1.4 var(--body);color:var(--gold-text);margin-top:4px}
+.ds .v{font-size:15px}
+.ds .v .k{display:none}
+.ds .act{display:flex;gap:8px;flex-wrap:wrap;padding:20px!important;border-top:1px solid var(--ink)!important}
+.ds .labels .act-l{border-top:1px solid var(--ink)!important}
+
+/* factory: dark section, the production line as a diagram */
+.dark{background:var(--dark);color:var(--dark-text)}
+.dark .sec-head p{color:var(--dark-muted)}
+.stations{list-style:none;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:20px;position:relative;padding-top:8px}
+.stations::before{content:"";position:absolute;left:0;right:0;top:34px;height:2px;background:var(--dark-line)}
+.st{position:relative}
+.st .node{width:54px;height:54px;border-radius:50%;display:grid;place-items:center;font:600 16px/1 var(--display);background:var(--dark);border:2px solid var(--dark-muted);color:var(--dark-text);position:relative}
+.st.gold .node{border-color:var(--dark-gold);color:var(--dark-gold)}
+.st h3{margin-top:20px;font:600 20px/1.2 var(--display)}
+.st p{margin-top:8px;font-size:14px;color:var(--dark-muted);line-height:1.55}
+.st .todo{color:var(--dark-muted)}.st .todo b{color:#FF9C8A}
+.st .shot{margin-top:16px;aspect-ratio:1;overflow:hidden;border-radius:2px;background:var(--dark-raised)}
+.st .shot img{width:100%;height:100%;object-fit:cover}
+.st .shot.slot{display:flex;align-items:flex-end;padding:10px;border:1px dashed var(--dark-line);font-size:12px;line-height:1.4;color:var(--dark-muted)}
+.st .shot.slot b{color:var(--dark-gold);font-weight:600}
+/* timeline as a measured ruler 1996-2026 */
+.ruler{margin-top:96px;position:relative;height:160px}
+.ruler .scale{position:absolute;left:0;right:0;top:84px;height:16px;border-top:2px solid var(--dark-text);
+  background:repeating-linear-gradient(90deg,var(--dark-muted) 0 1px,transparent 1px calc(100% / 30)) top/100% 8px no-repeat}
+.ruler .ev{position:absolute;top:0;transform:translateX(-1px);padding-left:10px;border-left:2px solid var(--dark-gold);height:84px}
+.ruler .ev b{display:block;font:700 28px/1 var(--display);color:var(--dark-gold);letter-spacing:-.02em}
+.ruler .ev span{display:block;font-size:13px;line-height:1.3;color:var(--dark-muted);max-width:96px;margin-top:4px}
+.ruler .ev.l{transform:translateX(calc(-100% + 1px));padding-left:0;padding-right:10px;border-left:0;border-right:2px solid var(--dark-gold);text-align:right}
+.ruler .ev.l span{margin-left:auto}
+.ruler .ends{position:absolute;top:108px;left:0;right:0;display:flex;justify-content:space-between;font-size:13px;color:var(--dark-muted)}
+.ruler-list{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+
+footer{max-width:1440px;margin:0 auto;padding:32px var(--pad);color:var(--muted);font-size:14px}
+
+@media (max-width:1279px){
+  .top{display:none}.nav{display:none}
+  .mob-order{display:inline-flex;margin-left:auto}
+  .burger{display:inline-grid;place-items:center;width:44px;height:44px;border:1px solid var(--ink);border-radius:2px;background:none;color:var(--ink)}
+  .burger svg{width:20px}
+}
+@media (max-width:1100px){
+  .stations{grid-template-columns:repeat(4,minmax(0,1fr));row-gap:48px}
+  .stations::before{display:none}
+}
+@media (max-width:900px){
+  .mainrow .in{height:64px;gap:12px}
+  .brand img{width:88px}.brand span{display:none}
+  .hero{grid-template-columns:1fr;padding-top:24px;gap:28px}
+  .hero h1{font-size:36px}
+  .hero .lead{font-size:16px}
+  .hero .cta .btn{flex:1 1 100%}
+  .hero .facts{display:block}
+  .hero .facts div,.hero .facts div+div{padding:12px 0;border-left:0;border-bottom:1px solid var(--hair)}
+  .hero > div:first-child{display:contents}
+  .hero h1{order:1}.hero .lead{order:2;margin-top:0}.drawing{order:3}.hero .cta{order:4;margin-top:0}.hero .note{order:5;margin-top:-16px}.hero .facts{order:6;margin-top:0}
+  .view{padding-top:124px;background:none}
+  .view .vh{right:16px;background:var(--plate)}
+  .vh em{max-width:none;margin-top:6px}
+  .slot3d{top:116px}
+  .view .hero-lid{width:66%}
+  .slot3d{left:10%;right:10%}
+  .slot3d span{font-size:10px}
+  .title-block{grid-template-columns:1fr 1fr}
+  .title-block > div:first-child{grid-column:1/-1;border-bottom:1px solid var(--ink)}
+  .title-block > div:nth-child(2){border-left:0}
+  .line{height:84px;margin-top:40px}.line img{width:60px}.line img.tilt{width:66px}.line .rail{gap:36px}
+  .sec{padding:64px var(--pad)}
+  .sec-head{grid-template-columns:1fr;gap:16px;margin-bottom:36px}
+  .ds{display:block;background:none;border:0}
+  .ds .labels{display:none}
+  .ds article{display:block;border:1px solid var(--ink);background:var(--plate);margin-bottom:24px}
+  .ds article > *{border-top:1px solid var(--hair-soft)}
+  .ds .v{display:grid;grid-template-columns:120px 1fr;gap:12px}
+  .ds .v .k{display:block;font-size:13px;color:var(--muted)}
+  .ds .v:empty{display:none}
+  .stations{grid-template-columns:1fr;row-gap:0}
+  .st{display:grid;grid-template-columns:54px 1fr;column-gap:16px;padding-bottom:32px;position:relative}
+  .st::before{content:"";position:absolute;left:26px;top:54px;bottom:0;width:2px;background:var(--dark-line)}
+  .st:last-child::before{display:none}
+  .st .node{grid-row:span 4}
+  .st h3{margin-top:12px}
+  .st .shot{aspect-ratio:3/2}
+  .ruler{display:none}
+  .ruler-list{position:static;width:auto;height:auto;overflow:visible;clip-path:none;white-space:normal;display:block;list-style:none;margin-top:48px;border-left:2px solid var(--dark-text);padding-left:18px}
+  .ruler-list li{padding:10px 0}
+  .ruler-list b{font:700 26px/1 var(--display);color:var(--dark-gold);margin-right:10px}
+  .ruler-list span{color:var(--dark-muted);font-size:15px}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="top">
+    <div class="in">
+      <nav class="aud" aria-label="Разделы для партнёров"><a href="#">Поставщикам</a><a href="#">Дистрибьюторам</a></nav>
+      <a class="btn btn-order btn-sm" href="#order">Заказать</a>
+      <span class="sp"></span>
+      <div class="msg"><a href="#">Telegram</a><a href="#">WhatsApp</a></div>
+      <a class="phone tnum" href="tel:+998975908822">+998 97 590-88-22</a>
+      <nav class="lang" aria-label="Язык"><a href="#" aria-current="true">RU</a><a href="#">UZ</a><a href="#">EN</a></nav>
+    </div>
+  </div>
+  <div class="mainrow">
+    <div class="in">
+      <a class="brand" href="#"><img src="img/logo.webp" width="320" height="179" alt="Мечта хозяйки"><span>ELIT&nbsp;KONSERVA</span></a>
+      <nav class="nav" aria-label="Основная навигация"><a href="#products">Продукция</a><a href="#factory">О заводе</a><a href="#">Услуги</a><a href="#">Бренды</a><a href="#">Контакты</a></nav>
+      <a class="btn btn-order btn-sm mob-order" href="#order">Заказать</a>
+      <button class="burger" aria-label="Открыть меню"><svg viewBox="0 0 20 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M0 1h20M0 7h20M0 13h20"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero" aria-labelledby="h1">
+    <div>
+      <h1 id="h1">Завод металлических крышек в&nbsp;Коканде <span>с&nbsp;1996&nbsp;года</span></h1>
+      <p class="lead">Крышки СКО I-82, Twist-Off 82 и викельные кольца. Свои лакировка и литография жести, лаки PPG.</p>
+      <div class="cta">
+        <a class="btn btn-order" href="#order">Заказать</a>
+        <a class="btn btn-line" href="#order">Запросить прайс</a>
+      </div>
+      <p class="note">Цены и условия — после заявки. Отправляем образцы.</p>
+      <dl class="facts tnum">
+        <div><dt>На рынке</dt><dd>с 1996</dd></div>
+        <div><dt>В заказе</dt><dd>1 000 – 10 000 000 шт.</dd></div>
+        <div><dt>Поставки</dt><dd>Узбекистан и ЦА</dd></div>
+      </dl>
+    </div>
+
+    <figure class="drawing">
+      <div class="inner">
+        <div class="view">
+          <div class="vh"><b>Вид сверху</b><small>фото</small><em>3D: СКО переворачивается — изнанка с серым кольцом — затем Twist-Off. Фолбэк — это фото.</em></div>
+          <img class="hero-lid" src="img/sko-34.webp" width="900" height="560" alt="Крышка СКО I-82, золотистый лак">
+          <div class="slot3d" aria-hidden="true"></div>
+        </div>
+        <svg class="sec-svg" viewBox="0 60 640 260" role="img" aria-labelledby="dr-t dr-d">
+          <title id="dr-t">Схема разреза крышки СКО I-82</title>
+          <desc id="dr-d">Жесть ЭЖК 0,17–0,20 мм; снаружи золотистый лак; внутри пищевая эмаль и лак; ребро жёсткости; кольцо из пищевой резины. Схема, не в масштабе.</desc>
+          <defs>
+            <pattern id="grid" width="16" height="16" patternUnits="userSpaceOnUse"><path d="M16 0H0V16" fill="none" stroke="#101317" stroke-opacity=".06"/></pattern>
+            <path id="half" d="M320 170 H396 Q404 170 408 178 L412 186 H462 Q470 186 472 178 L474 172 Q477 165 481 172 L484 182 Q486 188 494 188 H546 Q556 188 560 180 Q566 166 578 168 Q592 170 592 186 V250 Q592 266 578 266 Q568 266 568 256"/>
+          </defs>
+          <rect width="640" height="360" fill="url(#grid)"/>
+          <!-- centre line -->
+          <path d="M320 60 V300" stroke="#101317" stroke-width="1" stroke-dasharray="10 4 2 4"/>
+          <g fill="none" stroke-linejoin="round" stroke-linecap="round">
+            <!-- inner enamel (silver-grey), metal, outer gold lacquer -->
+            <g transform="translate(0 3)" stroke="#B9BCBF" stroke-width="3"><use href="#half"/><use href="#half" transform="matrix(-1 0 0 1 640 0)"/></g>
+            <g stroke="#6B737D" stroke-width="5"><use href="#half"/><use href="#half" transform="matrix(-1 0 0 1 640 0)"/></g>
+            <g transform="translate(0 -3)" stroke="#C9A64E" stroke-width="2.5"><use href="#half"/><use href="#half" transform="matrix(-1 0 0 1 640 0)"/></g>
+          </g>
+          <!-- sealing ring, grey rubber -->
+          <ellipse cx="575" cy="210" rx="11" ry="16" fill="#7D838A"/>
+          <ellipse cx="65" cy="210" rx="11" ry="16" fill="#7D838A"/>
+          <!-- leaders and labels -->
+          <g stroke="#101317" stroke-width="1" fill="none">
+            <path d="M250 167 L222 100 H40"/><circle cx="250" cy="167" r="2.5" fill="#101317"/>
+            <path d="M360 174 L380 236 H566"/><circle cx="360" cy="174" r="2.5" fill="#101317"/>
+            <path d="M478 168 L500 150 H610"/><circle cx="478" cy="168" r="2.5" fill="#101317"/>
+            <path d="M575 222 L612 300 H450"/><circle cx="575" cy="222" r="2.5" fill="#101317"/>
+            <path d="M140 187 L196 300 H30"/><circle cx="140" cy="187" r="2.5" fill="#101317"/>
+          </g>
+          <g font-family="Inter, sans-serif" font-size="12.5" fill="#101317">
+            <text x="40" y="94">Снаружи: золотистый лак</text>
+            <text x="384" y="230">Внутри: пищевая эмаль и лак</text>
+            <text x="502" y="144">Ребро жёсткости</text>
+            <text x="596" y="294" text-anchor="end">Кольцо: пищевая резина</text>
+            <text x="30" y="294">Жесть ЭЖК 0,17–0,20 мм</text>
+          </g>
+          <text x="30" y="130" font-family="Montserrat, sans-serif" font-weight="700" font-size="17" fill="#101317">Разрез А–А</text>
+          <text x="30" y="146" font-family="Inter, sans-serif" font-size="11.5" fill="#434A53">схема, не в масштабе</text>
+        </svg>
+        
+        <div class="title-block">
+          <div><small>Изделие</small><b>Крышка СКО I-82</b></div>
+          <div><small>Марки</small><b>«Мечта хозяйки», «Елисейские крышки»</b></div>
+          <div><small>Завод</small><b>Коканд · с 1996</b></div>
+        </div>
+      </div>
+    </figure>
+  </section>
+
+  <div class="line" aria-hidden="true">
+    <div class="rail">
+      <img src="img/sko-top.webp" alt=""><img class="tilt" src="img/twist-red-34.webp" alt=""><img src="img/twist-green-top.webp" alt=""><img class="tilt" src="img/sko-34.webp" alt=""><img src="img/twist-red-top.webp" alt=""><img class="tilt" src="img/twist-green-34.webp" alt=""><img src="img/sko-top.webp" alt=""><img class="tilt" src="img/twist-red-34.webp" alt=""><img src="img/twist-green-top.webp" alt=""><img class="tilt" src="img/sko-34.webp" alt=""><img src="img/twist-red-top.webp" alt=""><img class="tilt" src="img/twist-green-34.webp" alt="">
+      <img src="img/sko-top.webp" alt=""><img class="tilt" src="img/twist-red-34.webp" alt=""><img src="img/twist-green-top.webp" alt=""><img class="tilt" src="img/sko-34.webp" alt=""><img src="img/twist-red-top.webp" alt=""><img class="tilt" src="img/twist-green-34.webp" alt=""><img src="img/sko-top.webp" alt=""><img class="tilt" src="img/twist-red-34.webp" alt=""><img src="img/twist-green-top.webp" alt=""><img class="tilt" src="img/sko-34.webp" alt=""><img src="img/twist-red-top.webp" alt=""><img class="tilt" src="img/twist-green-34.webp" alt="">
+    </div>
+  </div>
+
+  <section class="sec" id="products" aria-labelledby="h-prod">
+    <div class="sec-head">
+      <h2 id="h-prod">Паспорт продукции</h2>
+      <p>Три продукта в одной таблице, чтобы сравнить без звонка. Здесь только данные из каталога завода; размеры, которых в каталоге нет, — по заявке.</p>
+    </div>
+    <div class="ds tnum">
+      <div class="labels" aria-hidden="true">
+        <span></span><span></span><span>Для</span><span>Материал</span><span>Снаружи</span><span>Внутри</span><span>Уплотнение</span><span>Упаковка</span><span class="act-l"></span>
+      </div>
+      <article aria-labelledby="p1">
+        <div class="pic"><img src="img/sko-34.webp" width="900" height="560" alt="Крышка СКО I-82, золотистая"></div>
+        <h3 id="p1">СКО I-82<small>«Мечта хозяйки», «Елисейские крышки»</small></h3>
+        <div class="v"><span class="k">Для</span>банки с горловиной СКО I-82</div>
+        <div class="v"><span class="k">Материал</span>жесть ЭЖК, 0,17–0,20 мм, ребро жёсткости</div>
+        <div class="v"><span class="k">Снаружи</span>золотистый лак</div>
+        <div class="v"><span class="k">Внутри</span>пищевая эмаль и лак, серебристо-серый</div>
+        <div class="v"><span class="k">Уплотнение</span>кольцо из пищевой резины</div>
+        <div class="v"><span class="k">Упаковка</span>туба 50 шт.</div>
+        <div class="act"><a class="btn btn-ink" href="#order">Запросить прайс</a><a class="btn btn-line" href="#">Подробнее</a></div>
+      </article>
+      <article aria-labelledby="p2">
+        <div class="pic pair"><img src="img/twist-red-34.webp" width="900" height="560" alt="Крышка Twist-Off 82, красная"><img src="img/twist-green-34.webp" width="900" height="560" alt="Крышка Twist-Off 82, зелёная"></div>
+        <h3 id="p2">Twist-Off 82<small>красная и зелёная</small></h3>
+        <div class="v"><span class="k">Для</span>банки с резьбовой горловиной 82, закрывается рукой</div>
+        <div class="v"><span class="k">Материал</span>консервная жесть ЭЖК</div>
+        <div class="v"><span class="k">Снаружи</span>литография в один цвет и лак</div>
+        <div class="v"><span class="k">Внутри</span>лак</div>
+        <div class="v"><span class="k">Уплотнение</span>пластизоль, стерилизация и пастеризация; вакуумная кнопка</div>
+        <div class="v"><span class="k">Упаковка</span>туба 20 шт. · короб 850 шт. для заводов</div>
+        <div class="act"><a class="btn btn-ink" href="#order">Запросить прайс</a><a class="btn btn-line" href="#">Подробнее</a></div>
+      </article>
+      <article aria-labelledby="p3">
+        <div class="pic photo"><img src="img/rings.webp" width="950" height="650" alt="Викельные уплотнительные кольца"></div>
+        <h3 id="p3">Викельное кольцо<small>свой участок с 2014 года</small></h3>
+        <div class="v"><span class="k">Для</span>крышек СКО I-82, под внутренний борт</div>
+        <div class="v"><span class="k">Материал</span><span>пищевая резина, по ГОСТ. <span class="todo">Размер и марка: <b>TODO(client)</b></span></span></div>
+        <div class="v"><span class="k">Снаружи</span>—</div>
+        <div class="v"><span class="k">Внутри</span>—</div>
+        <div class="v"><span class="k">Уплотнение</span>само кольцо — уплотнение крышки СКО</div>
+        <div class="v"><span class="k">Упаковка</span>мешок или гофрокороб 30 кг</div>
+        <div class="act"><a class="btn btn-ink" href="#order">Запросить прайс</a><a class="btn btn-line" href="#">Подробнее</a></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="dark" id="factory" aria-labelledby="h-fac">
+    <div class="sec">
+      <div class="sec-head">
+        <h2 id="h-fac">Линия: семь операций</h2>
+        <p>Путь крышки на заводе в Коканде. Каждую партию проверяет своя лаборатория. Пустые кадры — задание на съёмку.</p>
+      </div>
+      <ol class="stations">
+        <li class="st"><span class="node tnum">01</span><h3>Жесть</h3><p class="tnum">ЭЖК. Лист 710×510 – 1145×950 мм, 0,15–0,40 мм.</p><div class="shot slot"><span><b>Снять:</b> листы, кромка. TODO(client)</span></div></li>
+        <li class="st gold"><span class="node tnum">02</span><h3>Лакировка</h3><p>Лаки PPG (Германия), стерилизация выше 100 °C.</p><div class="shot slot"><span><b>Снять:</b> выход из печи. TODO(client)</span></div></li>
+        <li class="st gold"><span class="node tnum">03</span><h3>Литография</h3><p>Офсет по металлу, УФ-краски, свой препресс.</p><div class="shot"><img src="img/litho-mix.webp" width="950" height="650" alt="Крышки с литографией" loading="lazy"></div></li>
+        <li class="st"><span class="node tnum">04</span><h3>Штамповка</h3><p>СКО I-82 и Twist-Off 82. <span class="todo">Оборудование: <b>TODO(client)</b></span></p><div class="shot"><img src="img/sko-gold-stack.webp" width="950" height="650" alt="Стопка крышек СКО" loading="lazy"></div></li>
+        <li class="st"><span class="node tnum">05</span><h3>Уплотнение</h3><p>Викельные кольца; пластизоль в Twist-Off.</p><div class="shot slot"><span><b>Снять:</b> закладка кольца. TODO(client)</span></div></li>
+        <li class="st"><span class="node tnum">06</span><h3>Контроль</h3><p>Каждая партия: масса покрытия, твёрдость, адгезия по ГОСТ.</p><div class="shot slot"><span><b>Снять:</b> лаборатория. TODO(client)</span></div></li>
+        <li class="st"><span class="node tnum">07</span><h3>Упаковка</h3><p>Тубы 50 и 20 шт., короб 850 шт. Отгрузка по ЦА.</p><div class="shot"><img src="img/tubes-mechta.webp" width="950" height="650" alt="Тубы «Мечта хозяйки»" loading="lazy"></div></li>
+      </ol>
+
+      <div class="ruler tnum" aria-hidden="true">
+        <div class="scale"></div>
+        <div class="ev" style="left:0%"><b>1996</b><span>основан завод</span></div>
+        <div class="ev l" style="left:60%"><b>2014</b><span>викельные кольца</span></div>
+        <div class="ev" style="left:66.7%"><b>2016</b><span>цех Twist-Off</span></div>
+        <div class="ev" style="left:86.6%"><b>2022</b><span>«Елисейские крышки»</span></div>
+        <div class="ends"><span>1996</span><span>2026</span></div>
+      </div>
+      <ol class="ruler-list tnum">
+        <li><b>1996</b><span>Основан завод ООО «Elit Konserva»</span></li>
+        <li><b>2014</b><span>Свои викельные кольца</span></li>
+        <li><b>2016</b><span>Отдельный цех Twist-Off и новые склады</span></li>
+        <li><b>2022</b><span>Линия СКО «Елисейские крышки»</span></li>
+      </ol>
+    </div>
+  </section>
+</main>
+<footer id="order">Макет направления C. Форма заявки и остальные секции — в следующих итерациях. 2019 – 2026 © ООО «Elit Konserva»</footer>
+</body>
+</html>
