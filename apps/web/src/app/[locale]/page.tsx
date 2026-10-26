@@ -1,17 +1,13 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { NumberedList } from "@/components/blocks/numbered-list";
-import { SectionHead } from "@/components/blocks/section-head";
-import { SpecList } from "@/components/blocks/spec-list";
-import { LeadCta } from "@/components/forms/lead-cta";
-import { HeroParadeSlot } from "@/components/home/hero-parade-slot";
-import { LidRail } from "@/components/home/lid-rail";
-import { Badge, ButtonLink, Container, Eyebrow, Marquee, Photo, Section, SplitText } from "@/components/ui";
+import { LeadForm } from "@/components/forms/lead-form";
+import { HeroLidSlot } from "@/components/home/hero-lid-slot";
+import { ButtonLink, Container, Marquee, Section, SplitText } from "@/components/ui";
 import { Link } from "@/i18n/navigation";
 import { MAP_URL } from "@/lib/contacts";
 import { pageMetadata } from "@/lib/seo";
-import { PARTNERS, PHOTO, TUBE } from "@/lib/site";
+import { LID_CUTOUT, LID_PHOTO, ORDER_HREF, PARTNERS, PHOTO, TUBE_V2 } from "@/lib/site";
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -20,219 +16,321 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return pageMetadata(locale, "", "home");
 }
 
-const WHY = ["quality", "region", "samples", "prices", "custom", "volume"] as const;
+const ROWS = ["for", "material", "outside", "inside", "seal", "pack"] as const;
+const STATIONS = [
+  { key: "tin", gold: false },
+  { key: "lacquer", gold: true },
+  { key: "litho", gold: true, img: PHOTO.lithoMix },
+  { key: "stamp", gold: false, img: PHOTO.skoGold },
+  { key: "seal", gold: false },
+  { key: "qc", gold: false },
+  { key: "pack", gold: false, img: PHOTO.tubesMechta },
+] as const;
+/** Years sit at their true position on a 1996-2026 ruler (percent of 30 years). */
+const YEARS = [
+  { key: "y1996", year: "1996", at: 0, left: false },
+  { key: "y2014", year: "2014", at: 60, left: true },
+  { key: "y2016", year: "2016", at: 66.7, left: false },
+  { key: "y2022", year: "2022", at: 86.7, left: false },
+] as const;
+const AUDIENCE = [
+  { key: "distributors", href: "/distributors" },
+  { key: "suppliers", href: "/suppliers" },
+  { key: "private", href: "/private-label" },
+] as const;
+const TUBES = [
+  { key: "mechta", img: TUBE_V2.skoMechta },
+  { key: "twistGreen", img: TUBE_V2.twistGreen },
+  { key: "twistRed", img: TUBE_V2.twistRed },
+  { key: "moya", img: TUBE_V2.moyaMechta },
+  { key: "rosa", img: TUBE_V2.rosa },
+] as const;
+/** Lids on the production line strip: decorative, the same sequence twice for a seamless loop. */
+const LINE = [
+  LID_CUTOUT.skoTop,
+  LID_CUTOUT.twistRed34,
+  LID_CUTOUT.twistGreenTop,
+  LID_CUTOUT.sko34,
+  LID_CUTOUT.twistRedTop,
+  LID_CUTOUT.twistGreen34,
+];
 
+const WHOLESALE = `${ORDER_HREF}?direction=wholesale`;
+
+/**
+ * Home, plan v4 section 3 in style C. The first screen is direction A (dark graphite stage, gold lid).
+ * TODO(client): factory photos for the stations without a picture, exact dimensions for the datasheet,
+ * ring size and rubber grade, permission to show partner logos.
+ */
 export default async function HomePage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("home");
-  const tc = await getTranslations("common");
+  const tf = await getTranslations("form");
 
-    return (
+  return (
     <>
-      {/* 1. Hero + parade slot */}
-      <section className="surface-white relative overflow-hidden" aria-labelledby="home-title">
-        <Container className="pb-8 pt-10 md:pt-16">
-          <div className="relative grid gap-y-8 lg:min-h-[calc(100svh-var(--header-h)-13.5rem)] lg:grid-cols-12 lg:items-center lg:gap-x-8">
-            <div className="relative z-10 lg:col-span-6 lg:col-start-7 lg:row-start-1">
-              <Eyebrow>{t("hero.eyebrow")}</Eyebrow>
-              <SplitText as="h1" id="home-title" hero className="text-64" text={t("hero.title")} />
-              <p
-                className="mt-6 max-w-[30rem] text-18 text-ink-700 md:mt-8 md:text-22"
-                data-hero-fade
-                style={{ "--d": 200 } as React.CSSProperties}
-              >
-                {t("hero.lead")}
-              </p>
-              <div className="mt-8 flex flex-wrap gap-3" data-hero-fade style={{ "--d": 320 } as React.CSSProperties}>
-                <ButtonLink href="/contacts?direction=wholesale#lead-form" size="lg">
-                  {t("hero.primary")}
-                </ButtonLink>
-                <ButtonLink href="/products" variant="secondary" size="lg">
-                  {t("hero.secondary")}
-                </ButtonLink>
-              </div>
-              <div className="mt-10 max-w-xl" data-hero-fade style={{ "--d": 420 } as React.CSSProperties}>
-                <SpecList
-                  className="grid gap-x-6 sm:grid-cols-3"
-                  rows={[
-                    { label: t("hero.specs.type.label"), value: t("hero.specs.type.value") },
-                    { label: t("hero.specs.batch.label"), value: t("hero.specs.batch.value") },
-                    { label: t("hero.specs.metal.label"), value: t("hero.specs.metal.value") },
-                  ]}
-                />
-              </div>
+      {/* 1. Hero: direction A. The 3D lid takes over #hero-lid-slot later. */}
+      <section className="h-stage surface-stage" aria-labelledby="home-title">
+        <Container className="h-stage__grid">
+          <div className="h-stage__text">
+            <h1 id="home-title">
+              {t("hero.titleLead")} <strong>{t("hero.titleAccent")}</strong>
+            </h1>
+            <p className="h-stage__lead">{t("hero.lead")}</p>
+            <div className="h-stage__cta mt-8 flex flex-wrap gap-3">
+              <ButtonLink href={ORDER_HREF} variant="order" size="lg">
+                {t("hero.order")}
+              </ButtonLink>
+              <ButtonLink href={WHOLESALE} variant="secondary" size="lg">
+                {t("hero.price")}
+              </ButtonLink>
             </div>
-            {/* TODO(task 5): the 3D parade replaces the static render inside this slot. */}
-            <HeroParadeSlot alt={t("hero.slotAlt")} caption={t("hero.slotCaption")} />
+            <p className="h-stage__note max-w-none">{t("hero.note")}</p>
           </div>
-          <LidRail />
+          <HeroLidSlot alt={t("hero.slotAlt")} />
+          <ul className="h-facts tnum">
+            {(["market", "batch", "geo"] as const).map((k) => (
+              <li key={k}>
+                {t(`hero.facts.${k}.l`)}
+                <b>{t(`hero.facts.${k}.v`)}</b>
+              </li>
+            ))}
+          </ul>
         </Container>
       </section>
 
-      {/* 2. Why us */}
-      <Section tone="mist" labelledBy="why-title">
-        <div className="grid gap-12 lg:grid-cols-12 lg:gap-x-10">
-          <div className="lg:col-span-4">
-            <div className="lg:sticky lg:top-[calc(var(--header-h)+2rem)]">
-              <SectionHead eyebrow={t("why.eyebrow")} title={t("why.title")} id="why-title" />
-            </div>
-          </div>
-          <div className="lg:col-span-8">
-            <NumberedList items={WHY.map((k) => ({ key: k, title: t(`why.items.${k}.t`), text: t(`why.items.${k}.d`) }))} />
-          </div>
+      {/* the production line: lids travel on a rail, the visible slice of the living background */}
+      <div className="h-line" aria-hidden="true">
+        <div className="h-line__rail">
+          {[0, 1].flatMap((n) =>
+            LINE.map((img, i) => (
+              <Image key={`${n}-${i}`} src={img.src} width={img.width} height={img.height} alt="" sizes="96px" />
+            )),
+          )}
         </div>
-      </Section>
+      </div>
 
-      {/* 3. Scale */}
-      <Section tone="sky" labelledBy="scale-title">
-        <div className="grid items-end gap-10 lg:grid-cols-12">
-          <div className="lg:col-span-8">
-            <Eyebrow>{t("scale.eyebrow")}</Eyebrow>
-            <p className="tnum font-display text-64 font-semibold leading-none tracking-tight text-azure-700 sm:text-88 lg:text-120" data-reveal>
-              {t("scale.number")}
-            </p>
-            <p className="caption mt-4">{t("scale.unit")}</p>
-          </div>
-          <div className="lg:col-span-4">
-            <SplitText as="h2" id="scale-title" className="text-36" text={t("scale.title")} />
-            <p className="mt-4 text-18 text-ink-700" data-reveal>
-              {t("scale.text")}
-            </p>
-            <ButtonLink href="/contacts?direction=wholesale#lead-form" className="mt-8" data-reveal>
-              {t("scale.cta")}
-            </ButtonLink>
-          </div>
-        </div>
-      </Section>
-
-      {/* 4. Products */}
+      {/* 2. Products: one comparison datasheet */}
       <Section tone="white" labelledBy="products-title">
-        <SectionHead eyebrow={t("products.eyebrow")} title={t("products.title")} lead={t("products.lead")} id="products-title" />
-        <div className="mt-12 grid gap-6 lg:grid-cols-12">
-          {(
-            [
-              { key: "sko", href: "/products/sko-i82", img: PHOTO.skoGold, span: "lg:col-span-4", ratio: "4 / 3" },
-              { key: "twist", href: "/products/twist-off", img: PHOTO.twistStack, span: "lg:col-span-4", ratio: "4 / 3" },
-              { key: "ring", href: "/products/wikel-ring", img: PHOTO.rings, span: "lg:col-span-4", ratio: "4 / 3" },
-            ] as const
-          ).map((p) => (
-            <article key={p.key} className={`lift relative flex flex-col overflow-hidden rounded-card border border-sky-line bg-paper ${p.span}`} data-reveal>
-              <Photo img={p.img} alt={t(`products.items.${p.key}.alt`)} sizes="(min-width: 1024px) 33vw, 100vw" ratio={p.ratio} className="rounded-none" parallax />
-              <div className="flex flex-1 flex-col items-start gap-3 p-6 md:p-8">
-                <Badge>{t(`products.items.${p.key}.tag`)}</Badge>
-                <h3 className="text-36">
-                  <Link href={p.href} className="no-underline after:absolute after:inset-0 after:content-['']">
-                    {t(`products.items.${p.key}.name`)}
-                  </Link>
-                </h3>
-                <p className="text-16 text-ink-700">{t(`products.items.${p.key}.desc`)}</p>
-                <span className="arrow-link mt-auto pt-2">{tc("cta.more")}</span>
+        <div className="h-head">
+          <SplitText as="h2" id="products-title" text={t("products.title")} />
+          <p data-reveal>{t("products.lead")}</p>
+        </div>
+        <div className="h-ds tnum" data-reveal>
+          <div className="h-ds__labels" aria-hidden="true">
+            <span />
+            <span />
+            {ROWS.map((r) => (
+              <span key={r}>{t(`products.labels.${r}`)}</span>
+            ))}
+            <span />
+          </div>
+          {(["sko", "twist", "ring"] as const).map((p) => (
+            <article key={p} className="h-ds__col" aria-labelledby={`ds-${p}`}>
+              {p === "sko" ? (
+                <div className="h-ds__pic h-ds__pic--one">
+                  <Image src={LID_PHOTO.sko34.src} width={800} height={800} alt={t("products.items.sko.alt")} sizes="(min-width: 1024px) 28vw, 90vw" />
+                </div>
+              ) : p === "twist" ? (
+                <div className="h-ds__pic h-ds__pic--pair">
+                  <Image src={LID_PHOTO.twistRed34.src} width={800} height={800} alt={t("products.items.twist.altRed")} sizes="(min-width: 1024px) 18vw, 60vw" />
+                  <Image src={LID_PHOTO.twistGreen34.src} width={800} height={800} alt={t("products.items.twist.altGreen")} sizes="(min-width: 1024px) 18vw, 60vw" />
+                </div>
+              ) : (
+                <div className="h-ds__pic h-ds__pic--photo">
+                  <Image src={PHOTO.rings.src} width={PHOTO.rings.width} height={PHOTO.rings.height} alt={t("products.items.ring.alt")} sizes="(min-width: 1024px) 28vw, 90vw" />
+                </div>
+              )}
+              <h3 id={`ds-${p}`}>
+                {t(`products.items.${p}.name`)}
+                <small>{t(`products.items.${p}.sub`)}</small>
+              </h3>
+              {ROWS.map((r) => (
+                <div key={r} className="h-ds__v">
+                  <span className="h-ds__k">{t(`products.labels.${r}`)}</span>
+                  {t(`products.items.${p}.${r}`)}
+                </div>
+              ))}
+              <div className="h-ds__act">
+                <ButtonLink href={`${WHOLESALE}&product=${p === "twist" ? "twist" : p === "ring" ? "ring" : "sko"}`} size="sm">
+                  {t("products.price")}
+                </ButtonLink>
+                <ButtonLink
+                  href={p === "sko" ? "/products/sko-i82" : p === "twist" ? "/products/twist-off" : "/products/wikel-ring"}
+                  variant="secondary"
+                  size="sm"
+                >
+                  {t("products.more")}
+                </ButtonLink>
               </div>
             </article>
           ))}
         </div>
-        <div className="mt-10">
-          <ButtonLink href="/products" variant="secondary">
-            {t("products.all")}
-          </ButtonLink>
-        </div>
       </Section>
 
-      {/* 5. Brands */}
-      <Section tone="sky" labelledBy="brands-title">
-        <div className="grid gap-12 lg:grid-cols-12 lg:gap-x-10">
-          <div className="lg:col-span-4">
-            <SectionHead eyebrow={t("brands.eyebrow")} title={t("brands.title")} lead={t("brands.lead")} id="brands-title" size="md" />
-            <ButtonLink href="/brands" className="mt-8" data-reveal>
-              {t("brands.cta")}
-            </ButtonLink>
+      {/* 3. Factory: the line as stations, then the timeline ruler */}
+      <section className="surface-azure" aria-labelledby="factory-title" id="factory">
+        <Container className="py-[var(--section-y)]">
+          <div className="h-head">
+            <SplitText as="h2" id="factory-title" text={t("factory.title")} />
+            <p data-reveal>{t("factory.lead")}</p>
           </div>
-          <ul className="grid grid-cols-2 gap-4 sm:grid-cols-4 lg:col-span-8">
-            {(
-              [
-                { img: TUBE.skoMechta, alt: t("brands.mechtaAlt") },
-                { img: TUBE.twistGreenRed, alt: t("brands.twistAlt") },
-                { img: TUBE.moyaMechta, alt: t("brands.moyaAlt") },
-                { img: TUBE.rosa, alt: t("brands.rosaAlt") },
-              ] as const
-            ).map((b) => (
-              <li key={b.alt} className="lift max-w-none rounded-card bg-paper p-3" data-reveal>
-                <div className="relative aspect-[3/5]">
-                  <Image src={b.img.src} fill alt={b.alt} sizes="(min-width: 640px) 20vw, 44vw" className="object-contain" />
-                </div>
+          <ol className="h-stations">
+            {STATIONS.map((s, i) => (
+              <li key={s.key} className={`h-st${s.gold ? " h-st--gold" : ""}`} data-reveal>
+                <span className="h-st__node tnum" aria-hidden="true">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <h3>{t(`factory.stations.${s.key}.t`)}</h3>
+                <p>{t(`factory.stations.${s.key}.d`)}</p>
+                {"img" in s ? (
+                  <div className="h-st__shot">
+                    <Image
+                      src={s.img.src}
+                      width={s.img.width}
+                      height={s.img.height}
+                      alt={t(`factory.stations.${s.key}.alt`)}
+                      sizes="(min-width: 1120px) 14vw, 90vw"
+                    />
+                  </div>
+                ) : null}
               </li>
             ))}
-          </ul>
-        </div>
-      </Section>
-
-      {/* 6. Services: two stacking cards */}
-      <section className="surface-white py-[var(--section-y)]" aria-labelledby="services-title">
-        <Container>
-          <SectionHead eyebrow={t("services.eyebrow")} title={t("services.title")} id="services-title" />
-          <div className="mt-12 grid gap-6">
-            {(["lacquer", "private"] as const).map((k, i) => (
-              <article
-                key={k}
-                className="stack-card grid overflow-hidden rounded-card border border-sky-line bg-mist shadow-soft md:grid-cols-2"
-                style={{ "--stack": i } as React.CSSProperties}
-              >
-                <div className="flex flex-col items-start gap-4 p-6 md:p-12">
-                  <Badge>{t(`services.items.${k}.tag`)}</Badge>
-                  <h3 className="text-48">{t(`services.items.${k}.title`)}</h3>
-                  <p className="text-18 text-ink-700">{t(`services.items.${k}.text`)}</p>
-                  <ButtonLink href={k === "lacquer" ? "/services" : "/private-label"} variant="secondary" className="mt-auto">
-                    {t(`services.items.${k}.cta`)}
-                  </ButtonLink>
-                </div>
-                <Photo
-                  img={k === "lacquer" ? PHOTO.lithoMix : PHOTO.privateSko}
-                  alt={t(`services.items.${k}.alt`)}
-                  sizes="(min-width: 768px) 50vw, 100vw"
-                  className="min-h-64 rounded-none"
-                  ratio="fill"
-                />
-              </article>
+          </ol>
+          <div className="h-ruler tnum" aria-hidden="true">
+            <div className="h-ruler__scale" />
+            {YEARS.map((y) => (
+              <div key={y.key} className={`h-ruler__ev${y.left ? " h-ruler__ev--l" : ""}`} style={{ left: `${y.at}%` }}>
+                <b>{y.year}</b>
+                <span>{t(`factory.years.${y.key}.s`)}</span>
+              </div>
             ))}
+            <div className="h-ruler__ends">
+              <span>1996</span>
+              <span>2026</span>
+            </div>
           </div>
+          <ol className="h-years tnum">
+            {YEARS.map((y) => (
+              <li key={y.key}>
+                <b>{y.year}</b>
+                <span>{t(`factory.years.${y.key}.d`)}</span>
+              </li>
+            ))}
+          </ol>
         </Container>
       </section>
 
-      {/* 7. Partners */}
-      <section className="surface-mist py-[var(--section-y)]" aria-labelledby="partners-title">
+      {/* 4. Who we work with: a drawing index linking to the audience pages */}
+      <Section tone="white" labelledBy="audience-title">
+        <div className="h-head">
+          <SplitText as="h2" id="audience-title" text={t("audience.title")} />
+        </div>
+        <ul className="h-index" data-reveal>
+          {AUDIENCE.map((a) => (
+            <li key={a.key} className="h-index__item">
+              <h3>
+                <Link href={a.href}>{t(`audience.items.${a.key}.t`)}</Link>
+              </h3>
+              <p>{t(`audience.items.${a.key}.d`)}</p>
+              <span className="arrow-link mt-auto pt-2">{t(`audience.items.${a.key}.cta`)}</span>
+            </li>
+          ))}
+        </ul>
+      </Section>
+
+      {/* 5. Brands in tubes */}
+      <Section tone="mist" labelledBy="brands-title">
+        <div className="h-head">
+          <SplitText as="h2" id="brands-title" text={t("brands.title")} />
+          <p data-reveal>{t("brands.lead")}</p>
+        </div>
+        <ul className="h-tubes" data-reveal>
+          {TUBES.map((b) => (
+            <li key={b.key}>
+              <figure className="h-tube">
+                <div className="h-tube__pic">
+                  <Image src={b.img.src} fill alt={t(`brands.items.${b.key}.alt`)} sizes="(min-width: 1024px) 18vw, 62vw" />
+                </div>
+                <figcaption>
+                  <b>{t(`brands.items.${b.key}.n`)}</b>
+                  {t(`brands.items.${b.key}.d`)}
+                </figcaption>
+              </figure>
+            </li>
+          ))}
+        </ul>
+        <ButtonLink href="/brands" variant="secondary" className="mt-8">
+          {t("brands.cta")}
+        </ButtonLink>
+      </Section>
+
+      {/* 6. Services */}
+      <Section tone="white" labelledBy="services-title">
+        <div className="h-head">
+          <SplitText as="h2" id="services-title" text={t("services.title")} />
+        </div>
+        <div className="grid gap-6 md:grid-cols-2">
+          {(["lacquer", "private"] as const).map((k) => (
+            <article key={k} className="h-frame" data-reveal>
+              <div className="h-frame__in">
+                <div className="h-frame__pic">
+                  <Image
+                    src={k === "lacquer" ? PHOTO.lithoMix.src : PHOTO.privateSko.src}
+                    fill
+                    alt={t(`services.items.${k}.alt`)}
+                    sizes="(min-width: 768px) 45vw, 100vw"
+                  />
+                </div>
+                <div className="h-frame__body">
+                  <p className="h-frame__tag max-w-none">{t(`services.items.${k}.tag`)}</p>
+                  <h3>{t(`services.items.${k}.title`)}</h3>
+                  <p>{t(`services.items.${k}.text`)}</p>
+                  <ButtonLink href={k === "lacquer" ? "/services" : "/private-label"} variant="secondary" size="sm" className="mt-auto">
+                    {t(`services.items.${k}.cta`)}
+                  </ButtonLink>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </Section>
+
+      {/* 7. Partners. TODO(client): permission to show the logos (brief #7). */}
+      <section className="surface-sky py-[var(--section-y)]" aria-labelledby="partners-title">
         <Container>
-          <SectionHead eyebrow={t("partners.eyebrow")} title={t("partners.title")} lead={t("partners.lead")} id="partners-title" size="md" />
+          <div className="h-head">
+            <SplitText as="h2" id="partners-title" text={t("partners.title")} />
+            <p data-reveal>{t("partners.lead")}</p>
+          </div>
         </Container>
-        <div className="mt-12" data-reveal>
+        <div data-reveal>
           <Marquee items={PARTNERS} label={t("partners.label")} />
         </div>
       </section>
 
-      {/* 8. Geography */}
-      <Section tone="white" labelledBy="geo-title">
-        <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-x-10">
-          <div className="lg:col-span-7">
-            <SectionHead eyebrow={t("geo.eyebrow")} title={t("geo.title")} lead={t("geo.text")} id="geo-title" />
+      {/* 8. Geography and the inline order form */}
+      <Section tone="white" id="lead-form" labelledBy="geo-title">
+        <div className="grid items-start gap-12 lg:grid-cols-12 lg:gap-x-10">
+          <div className="lg:col-span-5">
+            <SplitText as="h2" id="geo-title" className="text-48" text={t("geo.title")} />
+            <p className="mt-5 text-18 text-ink-700" data-reveal>
+              {t("geo.text")}
+            </p>
             <ButtonLink href={MAP_URL} variant="secondary" className="mt-8" data-reveal>
               {t("geo.cta")}
             </ButtonLink>
           </div>
-          <div className="relative mx-auto w-full max-w-md lg:col-span-5" aria-hidden="true">
-            <div className="lid-disc w-full" />
-            <Image
-              src={PHOTO.lidTwist.src}
-              width={PHOTO.lidTwist.width}
-              height={PHOTO.lidTwist.height}
-              alt=""
-              sizes="28rem"
-              className="absolute left-1/2 top-1/2 w-[78%] -translate-x-1/2 -translate-y-1/2 drop-shadow-[0_20px_24px_rgba(15,27,42,0.2)]"
-            />
+          <div className="h-frame lg:col-span-7" data-reveal>
+            <div className="h-frame__in p-6 md:p-10">
+              <h3 className="text-28">{tf("title")}</h3>
+              <p className="mb-6 mt-2 text-ink-700">{tf("lead")}</p>
+              <LeadForm />
+            </div>
           </div>
         </div>
       </Section>
-
-      <LeadCta />
     </>
   );
 }

@@ -1,40 +1,54 @@
 @import "tailwindcss";
 @import "../components/ui/ui.css";
 @import "../components/ui/site.css";
+@import "../components/home/home.css";
 
 /*
- * Design tokens v2 (light). See DESIGN.md at the repo root and docs/plans/design-direction-v2.md.
- * Raw tokens live on :root; the @theme inline block mirrors them so Tailwind utilities
- * (bg-sky, text-azure-700, rounded-media ...) resolve to the same variables.
+ * Design tokens v3: direction C «Чертёж на жести» (drawing on tin), client decision 2026-10-26.
+ * See docs/design/style-directions.md. The home hero alone uses direction A (.surface-stage).
+ * Raw tokens live on :root; the @theme inline block mirrors them so Tailwind utilities resolve to the same
+ * variables. Token names are kept from v2 (azure, sky, mist ...) so that every page restyles at once: the
+ * "azure" ramp now carries ink and graphite, "sky" is a darker tin, "mist" is the drawing plate.
  * Surface variables (--surface, --fg, ...) are re-pointed by .surface-* classes.
  */
 :root {
-  /* surfaces */
+  /* surfaces: tin ground, drawing plate, white product panel */
+  --tin: #dadde0;
   --paper: #ffffff;
-  --mist: #f5f8fb;
-  --sky: #eaf4fb;
-  --sky-line: #d2e3f0;
+  --mist: #eceef0;
+  --sky: #cfd3d8;
+  --sky-line: #a9b0b8;
+  --hair-soft: #c6cbd1;
 
   /* ink */
-  --ink-950: #0f1b2a;
-  --ink-700: #34475c;
-  --ink-500: #566b80;
-  --ink-300: #9db0c3;
+  --ink-950: #101317;
+  --ink-700: #434a53;
+  --ink-500: #4b525b;
+  --ink-300: #8a929b;
 
-  /* brand azure: sampled from the old krishki.uz header */
-  --azure-300: #8fd0ec;
-  --azure-500: #1e98cc;
-  --azure-700: #0e5e9c;
-  --azure-900: #0a3f6b;
+  /* line work and graphite (the old azure ramp) */
+  --azure-300: #a9b0b8;
+  --azure-500: #434a53;
+  --azure-700: #101317;
+  --azure-900: #1a1e24;
 
-  /* «Мечта хозяйки» red, sampled from logo.png: CTA only */
-  --red-600: #d61f29;
-  --red-700: #b3161f;
+  /* «Заказать» red: the only red in the UI */
+  --red-600: #b8231a;
+  --red-700: #9c1d15;
 
-  /* lacquer gold: lids and fine details */
+  /* gold: accent only (hero, key numbers, hairlines) */
   --gold-700: #7a5a12;
-  --gold-500: #c8962e;
+  --gold-500: #c9a64e;
   --gold-300: #e6c27a;
+
+  /* hero stage (direction A) */
+  --stage: #110f0c;
+  --stage-raised: #1b1814;
+  --stage-line: #3b342a;
+  --stage-text: #f3ede2;
+  --stage-muted: #b5ac9c;
+  --stage-gold: #e2c27f;
+  --stage-gold-fill: #d6ae5c;
 
   --danger: #b3261e;
 
@@ -52,12 +66,12 @@
   --section-y: 4.5rem;
   --page-x: 1rem;
   --container-max: 90rem;
-  --header-h: 4.25rem;
+  --header-h: 4rem;
 
-  /* shape: controls 8, media 16, big media 20, lids are circles */
-  --radius-ui: 0.5rem;
-  --radius-media: 1rem;
-  --radius-card: 1.25rem;
+  /* shape: engineering drawing, 2 px everywhere, lids are circles */
+  --radius-ui: 2px;
+  --radius-media: 2px;
+  --radius-card: 2px;
   --radius-lid: 9999px;
 
   /* motion */
@@ -67,31 +81,31 @@
   --dur-base: 300ms;
   --dur-slow: 600ms;
 
-  /* depth */
-  --shadow-soft: 0 1px 2px rgb(15 27 42 / 0.06), 0 14px 32px -12px rgb(15 27 42 / 0.16);
-  --shadow-lift: 0 2px 4px rgb(15 27 42 / 0.06), 0 28px 56px -16px rgb(14 94 156 / 0.28);
+  /* depth: flat UI, a hairline instead of a shadow */
+  --shadow-soft: 0 1px 0 rgb(16 19 23 / 0.08);
+  --shadow-lift: 0 1px 0 rgb(16 19 23 / 0.1), 0 14px 24px -18px rgb(16 19 23 / 0.35);
 
-  /* type */
-  --font-display-stack: var(--font-tektur), "Arial Narrow", sans-serif;
-  --font-text-stack: var(--font-onest), "Segoe UI", sans-serif;
-  --font-mono-stack: var(--font-plex-mono), ui-monospace, monospace;
+  /* type: Montserrat (display) + Inter (text, captions, buttons) */
+  --font-display-stack: var(--font-montserrat), system-ui, sans-serif;
+  --font-text-stack: var(--font-inter), system-ui, sans-serif;
+  --font-mono-stack: var(--font-inter), system-ui, sans-serif;
 
-  /* semantic surface: white is the default */
-  --surface: var(--paper);
-  --surface-raised: var(--paper);
+  /* semantic surface: tin is the default ground */
+  --surface: var(--tin);
+  --surface-raised: var(--mist);
   --fg: var(--ink-950);
-  --fg-muted: var(--ink-500);
+  --fg-muted: var(--ink-700);
   --line: var(--sky-line);
-  --line-strong: #6f8499;
-  --accent: var(--red-600);
-  --accent-hover: var(--red-700);
-  --on-accent: #ffffff;
-  --link: var(--azure-700);
-  --accent-text: var(--azure-700);
-  --focus: var(--azure-700);
-  --disabled-bg: var(--sky-line);
-  --disabled-fg: var(--ink-500);
-  --select-caret: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1.5 6 6.5l5-5' stroke='%230f1b2a' stroke-width='1.5'/%3E%3C/svg%3E");
+  --line-strong: #6b737d;
+  --accent: var(--ink-950);
+  --accent-hover: #2a3038;
+  --on-accent: #eceef0;
+  --link: var(--ink-950);
+  --accent-text: var(--gold-700);
+  --focus: var(--ink-950);
+  --disabled-bg: var(--hair-soft);
+  --disabled-fg: #4b525b;
+  --select-caret: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1.5 6 6.5l5-5' stroke='%23101317' stroke-width='1.5'/%3E%3C/svg%3E");
   color-scheme: light;
 }
 
@@ -111,52 +125,76 @@
 .surface-white,
 .surface-mist,
 .surface-sky {
-  --surface-raised: var(--paper);
   --fg: var(--ink-950);
-  --fg-muted: var(--ink-500);
+  --fg-muted: var(--ink-700);
   --line: var(--sky-line);
-  --line-strong: #6f8499;
-  --link: var(--azure-700);
-  --accent-text: var(--azure-700);
-  --focus: var(--azure-700);
-  --disabled-bg: var(--sky-line);
-  --disabled-fg: var(--ink-500);
-  --select-caret: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1.5 6 6.5l5-5' stroke='%230f1b2a' stroke-width='1.5'/%3E%3C/svg%3E");
+  --line-strong: #6b737d;
+  --link: var(--ink-950);
+  --accent: var(--ink-950);
+  --accent-hover: #2a3038;
+  --on-accent: #eceef0;
+  --accent-text: var(--gold-700);
+  --focus: var(--ink-950);
+  --disabled-bg: var(--hair-soft);
+  --disabled-fg: #4b525b;
+  --select-caret: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1.5 6 6.5l5-5' stroke='%23101317' stroke-width='1.5'/%3E%3C/svg%3E");
   color-scheme: light;
 }
+/* white = the tin ground itself (brushed lines of <html> show through) */
 .surface-white {
-  --surface: var(--paper);
+  --surface: var(--tin);
+  --surface-raised: var(--mist);
 }
+/* mist = the drawing plate */
 .surface-mist {
   --surface: var(--mist);
+  --surface-raised: var(--paper);
 }
+/* sky = darker tin band */
 .surface-sky {
   --surface: var(--sky);
-  --line: #c4dbec;
+  --surface-raised: var(--mist);
+  --line: #8f98a1;
 }
 
-/* the one deep section per page: the azure brand band */
-.surface-azure {
-  --surface: var(--azure-700);
+/* the one dark section per page: ink panel (factory, order CTA) */
+.surface-azure,
+.surface-stage {
+  --surface: var(--ink-950);
   --surface-raised: var(--azure-900);
-  --fg: #ffffff;
-  --fg-muted: #cfe6f5;
-  --line: rgb(255 255 255 / 0.28);
-  --line-strong: rgb(255 255 255 / 0.6);
-  --link: #ffffff;
+  --fg: #e4e7ea;
+  --fg-muted: #a3a9b1;
+  --line: #2e343c;
+  --line-strong: #6b737d;
+  --link: #e4e7ea;
+  --accent: var(--stage-gold-fill);
+  --accent-hover: var(--gold-300);
+  --on-accent: var(--ink-950);
   --accent-text: var(--gold-300);
-  --focus: #ffffff;
+  --focus: var(--gold-300);
   --disabled-bg: var(--azure-900);
-  --disabled-fg: #a9cde6;
+  --disabled-fg: #a3a9b1;
   --select-caret: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1.5 6 6.5l5-5' stroke='%23ffffff' stroke-width='1.5'/%3E%3C/svg%3E");
   color-scheme: dark;
 }
+/* hero stage: warm graphite instead of cold ink */
+.surface-stage {
+  --surface: var(--stage);
+  --surface-raised: var(--stage-raised);
+  --fg: var(--stage-text);
+  --fg-muted: var(--stage-muted);
+  --line: var(--stage-line);
+}
 
-.surface-white,
 .surface-mist,
 .surface-sky,
-.surface-azure {
+.surface-azure,
+.surface-stage {
   background-color: var(--surface);
+  color: var(--fg);
+}
+.surface-white {
+  background-color: transparent;
   color: var(--fg);
 }
 
@@ -165,6 +203,7 @@
   --color-mist: var(--mist);
   --color-sky: var(--sky);
   --color-sky-line: var(--sky-line);
+  --color-tin: var(--tin);
   --color-ink-950: var(--ink-950);
   --color-ink-700: var(--ink-700);
   --color-ink-500: var(--ink-500);
@@ -213,22 +252,22 @@
   --text-36--line-height: 1.15;
   --text-48: clamp(1.875rem, 1rem + 3.4vw, 3rem);
   --text-48--line-height: 1.06;
-  --text-64: clamp(2.25rem, 1rem + 5vw, 4rem);
-  --text-64--line-height: 1.02;
+  --text-64: clamp(2.25rem, 1rem + 4vw, 3.75rem);
+  --text-64--line-height: 1.05;
   --text-88: clamp(2.5rem, 0.8rem + 6.6vw, 5.5rem);
   --text-88--line-height: 0.98;
   --text-120: clamp(2.75rem, 0.4rem + 8.6vw, 7.5rem);
   --text-120--line-height: 0.94;
 
   --radius-*: initial;
-  --radius-ui: 0.5rem;
-  --radius-media: 1rem;
-  --radius-card: 1.25rem;
+  --radius-ui: 2px;
+  --radius-media: 2px;
+  --radius-card: 2px;
   --radius-lid: 9999px;
 
   --shadow-*: initial;
-  --shadow-soft: 0 1px 2px rgb(15 27 42 / 0.06), 0 14px 32px -12px rgb(15 27 42 / 0.16);
-  --shadow-lift: 0 2px 4px rgb(15 27 42 / 0.06), 0 28px 56px -16px rgb(14 94 156 / 0.28);
+  --shadow-soft: 0 1px 0 rgb(16 19 23 / 0.08);
+  --shadow-lift: 0 1px 0 rgb(16 19 23 / 0.1), 0 14px 24px -18px rgb(16 19 23 / 0.35);
 
   --breakpoint-*: initial;
   --breakpoint-sm: 40rem;
@@ -240,14 +279,19 @@
 
 @layer base {
   html {
-    background: var(--paper);
+    /* brushed tin: two line patterns over the tin ground, no image cost */
+    background:
+      repeating-linear-gradient(90deg, rgb(255 255 255 / 0.18) 0 1px, transparent 1px 3px),
+      repeating-linear-gradient(90deg, rgb(16 19 23 / 0.025) 0 1px, transparent 1px 7px),
+      var(--tin);
     color: var(--ink-950);
     font-family: var(--font-text-stack);
     font-size: 100%;
     -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
     scroll-padding-top: calc(var(--header-h) + 1rem);
-    scrollbar-color: var(--ink-300) var(--mist);
+    scrollbar-color: var(--ink-300) var(--tin);
   }
   body {
     min-height: 100vh;
@@ -261,8 +305,8 @@
   h3,
   h4 {
     font-family: var(--font-display-stack);
-    font-weight: 600;
-    letter-spacing: -0.015em;
+    font-weight: 700;
+    letter-spacing: -0.02em;
     text-wrap: balance;
   }
   p,
@@ -271,13 +315,13 @@
     text-wrap: pretty;
   }
   ::selection {
-    background: var(--azure-300);
-    color: var(--ink-950);
+    background: var(--ink-950);
+    color: var(--mist);
   }
   input,
   textarea,
   select {
-    caret-color: var(--azure-700);
+    caret-color: var(--ink-950);
   }
   :focus-visible {
     outline: 2px solid var(--focus);
@@ -288,15 +332,15 @@
   }
 }
 
-/* tabular figures for specs, prices, production numbers */
+/* tabular figures for specs, quantities, production numbers */
 .tnum {
   font-variant-numeric: tabular-nums lining-nums;
 }
 
-/* technical caption: mono, small, uppercase, like a drawing annotation */
+/* drawing annotation: small caps-style caption in Inter */
 .caption {
-  font-family: var(--font-mono-stack);
-  font-weight: 400;
+  font-family: var(--font-text-stack);
+  font-weight: 500;
   font-size: 0.75rem;
   line-height: 1.5;
   letter-spacing: 0.08em;
@@ -310,7 +354,7 @@
   top: -4rem;
   z-index: 80;
   padding: var(--space-3) var(--space-4);
-  background: var(--azure-700);
+  background: var(--ink-950);
   color: #fff;
   border-radius: var(--radius-ui);
   font-weight: 600;

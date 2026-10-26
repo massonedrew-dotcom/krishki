@@ -101,102 +101,212 @@
       "description": "ELIT KONSERVA: SKO I-82 and twist-off 82 lids, sealing rings, tinplate lithography. Since 1996, batches from 1,000 to 10,000,000 pcs."
     },
     "hero": {
-      "eyebrow": "Kokand · Uzbekistan · since 1996",
-      "title": "Lids the harvest can trust",
-      "lead": "SKO I-82 and twist-off 82 from the factory in Kokand. For home canning and for canneries.",
-      "primary": "Request a price list",
-      "secondary": "See the products",
-      "specs": {
-        "type": { "label": "Type", "value": "SKO I-82 · Twist-off 82" },
-        "batch": { "label": "Batch", "value": "1,000 to 10,000,000 pcs" },
-        "metal": { "label": "Metal", "value": "Tinplate EZhK" }
-      },
-      "railLabel": "Lid range",
-      "rail": {
-        "gold": "Gold",
-        "mechta": "Mechta khozyayki",
-        "elisey": "Eliseyskie",
-        "litho": "Full colour",
-        "private": "Your brand",
-        "twist": "Twist-off",
-        "twistColor": "Twist-off colour",
-        "ring": "Ring"
-      },
-      "slotAlt": "Gold SKO I-82 lid, angled top view",
-      "slotCaption": "SKO I-82 lid, render"
-    },
-    "why": {
-      "eyebrow": "Why us",
-      "title": "Six reasons to order from Kokand",
-      "items": {
-        "quality": { "t": "Quality under control", "d": "The lab checks every batch. Lacquers and enamels are food grade, from European producers." },
-        "region": { "t": "Uzbekistan and Central Asia", "d": "We supply batches across the country and neighbouring countries of the region." },
-        "samples": { "t": "We send samples", "d": "Sample first, batch later. Try the lids on your own line." },
-        "prices": { "t": "Flexible prices", "d": "The price depends on type, coating and volume. We send the price list on request." },
-        "custom": { "t": "Made to order", "d": "Lids under your own brand: your design, our lithography." },
-        "volume": { "t": "From 1,000 to 10,000,000 pcs", "d": "One trial batch or a whole season for a cannery." }
+      "titleLead": "Metal lid factory in Kokand",
+      "titleAccent": "since 1996",
+      "lead": "SKO I-82 lids, Twist-Off 82 lids and sealing rings. Our own tinplate lacquering and lithography, PPG lacquers.",
+      "order": "Order",
+      "price": "Request a price list",
+      "note": "We give prices and terms after your request. We send samples.",
+      "slotAlt": "SKO I-82 lid, gold lacquer",
+      "facts": {
+        "market": {
+          "l": "On the market",
+          "v": "since 1996"
+        },
+        "batch": {
+          "l": "Order size",
+          "v": "1,000 – 10,000,000 pcs"
+        },
+        "geo": {
+          "l": "Supply",
+          "v": "Uzbekistan and Central Asia"
+        }
       }
     },
-    "scale": {
-      "eyebrow": "Volume",
-      "number": "1,000 – 10,000,000",
-      "unit": "pieces in one order",
-      "title": "One batch or a whole season",
-      "text": "The minimum order is 1,000 pieces. There is practically no upper limit: up to ten million at a time.",
-      "cta": "Calculate my volume"
-    },
     "products": {
-      "eyebrow": "Products",
-      "title": "Three products. One factory.",
-      "lead": "Lids for jars with the SKO I-82 finish and with an 82 thread, plus sealing rings for them.",
-      "items": {
-        "sko": { "tag": "SKO I-82", "name": "SKO I-82 lids", "desc": "Gold, lithographed and private label. For glass jars with the SKO I-82 finish.", "alt": "A stack of gold SKO I-82 lids" },
-        "twist": { "tag": "Twist-off 82", "name": "Twist-off 82", "desc": "Screw lids with a vacuum button. Closed by hand, no seamer needed.", "alt": "Green and red twist-off lids" },
-        "ring": { "tag": "Since 2014", "name": "Sealing ring", "desc": "Food-grade rubber made to GOST. Sits under the inner rim of an SKO lid.", "alt": "Rubber sealing rings" }
+      "title": "Product datasheet",
+      "lead": "Three products in one table, so you can compare without a call. Sizes that are not in the catalogue are given on request.",
+      "price": "Request a price list",
+      "more": "Details",
+      "labels": {
+        "for": "For",
+        "material": "Material",
+        "outside": "Outside",
+        "inside": "Inside",
+        "seal": "Seal",
+        "pack": "Packing"
       },
-      "all": "All products"
+      "items": {
+        "sko": {
+          "name": "SKO I-82",
+          "sub": "Mechta khozyayki, Eliseyskie krishki",
+          "alt": "SKO I-82 lid, gold",
+          "for": "jars with the SKO I-82 neck finish",
+          "material": "EZhK tinplate, 0.17–0.20 mm, stiffening rib",
+          "outside": "gold lacquer",
+          "inside": "food enamel and lacquer, silver-grey",
+          "seal": "food-grade rubber ring",
+          "pack": "tube of 50 pcs"
+        },
+        "twist": {
+          "name": "Twist-Off 82",
+          "sub": "red and green",
+          "altRed": "Twist-Off 82 lid, red",
+          "altGreen": "Twist-Off 82 lid, green",
+          "for": "jars with an 82 threaded neck, closed by hand",
+          "material": "canning tinplate EZhK",
+          "outside": "single-colour lithography and lacquer",
+          "inside": "lacquer",
+          "seal": "plastisol, sterilisation and pasteurisation; vacuum button",
+          "pack": "tube of 20 pcs · 850 pcs box for canneries"
+        },
+        "ring": {
+          "name": "Sealing ring",
+          "sub": "own workshop since 2014",
+          "alt": "Rubber sealing rings",
+          "for": "SKO I-82 lids, under the inner rim",
+          "material": "food-grade rubber, made to GOST",
+          "outside": "—",
+          "inside": "—",
+          "seal": "the ring itself seals the SKO lid",
+          "pack": "30 kg bag or corrugated box"
+        }
+      }
+    },
+    "factory": {
+      "title": "The factory: seven operations",
+      "lead": "The path of a lid through the Kokand factory. Our own lab checks every batch.",
+      "stations": {
+        "tin": {
+          "t": "Tinplate",
+          "d": "EZhK tinplate. Sheets from 710×510 to 1145×950 mm, 0.15–0.40 mm thick."
+        },
+        "lacquer": {
+          "t": "Lacquering",
+          "d": "PPG lacquers (Germany), withstand sterilisation above 100 °C."
+        },
+        "litho": {
+          "t": "Lithography",
+          "d": "Offset printing on metal, UV inks, in-house pre-press.",
+          "alt": "Lids with lithography"
+        },
+        "stamp": {
+          "t": "Stamping",
+          "d": "SKO I-82 and Twist-Off 82 lids.",
+          "alt": "A stack of gold SKO lids"
+        },
+        "seal": {
+          "t": "Sealing",
+          "d": "Sealing rings for SKO, plastisol in Twist-Off."
+        },
+        "qc": {
+          "t": "Control",
+          "d": "The lab checks every batch: coating mass, hardness, adhesion to GOST."
+        },
+        "pack": {
+          "t": "Packing",
+          "d": "Tubes of 50 and 20 pcs, a 850 pcs box. Shipping across Uzbekistan and Central Asia.",
+          "alt": "Mechta khozyayki tubes"
+        }
+      },
+      "years": {
+        "y1996": {
+          "s": "factory founded",
+          "d": "The Elit Konserva factory is founded"
+        },
+        "y2014": {
+          "s": "sealing rings",
+          "d": "Our own sealing rings"
+        },
+        "y2016": {
+          "s": "Twist-Off workshop",
+          "d": "A separate Twist-Off workshop and new warehouses"
+        },
+        "y2022": {
+          "s": "Eliseyskie krishki",
+          "d": "The SKO line Eliseyskie krishki"
+        }
+      }
+    },
+    "audience": {
+      "title": "Three ways to work with us",
+      "items": {
+        "distributors": {
+          "t": "For distributors",
+          "d": "Wholesale and export: batches from 1,000 to 10,000,000 pcs, samples sent.",
+          "cta": "For distributors"
+        },
+        "suppliers": {
+          "t": "For suppliers",
+          "d": "Cooperation with ELIT KONSERVA: leave a request and we will contact you.",
+          "cta": "Leave a request"
+        },
+        "private": {
+          "t": "Private label",
+          "d": "Your design on SKO and Twist-Off lids. Lithography at our factory, runs from 1,000 pcs.",
+          "cta": "How it works"
+        }
+      }
     },
     "brands": {
-      "eyebrow": "Brands",
-      "title": "Tubes of 50 with lithography",
-      "lead": "Mechta khozyayki, Eliseyskie krishki, Moya mechta, Rosa, Gurman. Each line has its own design and packaging.",
+      "title": "Brands",
+      "lead": "Mechta khozyayki, Eliseyskie krishki, Moya mechta and Rosa. Lithographed tubes for home canning.",
       "cta": "All brands",
-      "mechtaAlt": "Tube of 50 Mechta khozyayki lids",
-      "moyaAlt": "Tube of Moya mechta lids",
-      "rosaAlt": "Tube of Rosa lids",
-      "gurmanAlt": "Tubes of Gurman lids",
-      "twistAlt": "Mechta khozyayki twist-off tubes, green and red"
+      "items": {
+        "mechta": {
+          "n": "Mechta khozyayki",
+          "d": "SKO · tube of 50",
+          "alt": "Mechta khozyayki lid tube, 50 pcs"
+        },
+        "twistGreen": {
+          "n": "Mechta khozyayki",
+          "d": "Twist-Off, green · 20 pcs",
+          "alt": "Twist-Off Mechta khozyayki tube, green"
+        },
+        "twistRed": {
+          "n": "Mechta khozyayki",
+          "d": "Twist-Off, red · 20 pcs",
+          "alt": "Twist-Off Mechta khozyayki tube, red"
+        },
+        "moya": {
+          "n": "Moya mechta",
+          "d": "SKO · tube of 50",
+          "alt": "Moya mechta lid tube"
+        },
+        "rosa": {
+          "n": "Rosa",
+          "d": "SKO · tube of 50",
+          "alt": "Rosa lid tube"
+        }
+      }
     },
     "services": {
-      "eyebrow": "Services",
       "title": "We lacquer and print tinplate ourselves",
       "items": {
         "lacquer": {
           "tag": "Lacquering and lithography",
           "title": "PPG lacquers, HUBER GROUP inks",
-          "text": "Offset printing on metal and food-grade coating. Tinplate sheets from 710×510 to 1145×950 mm.",
+          "text": "Offset printing on metal and a food-grade coating. Tinplate sheets from 710×510 to 1145×950 mm.",
           "cta": "About the services",
           "alt": "Lids with colour lithography: vegetables and fruit"
         },
         "private": {
           "tag": "Private label",
           "title": "Your brand on every jar",
-          "text": "Your design on SKO and twist-off lids. Volume from 1,000 pcs.",
+          "text": "Your design on SKO and twist-off lids. Runs from 1,000 pcs.",
           "cta": "How it works",
-          "alt": "SKO lids with customer logos"
+          "alt": "SKO lids with a customer logo"
         }
       }
     },
     "partners": {
-      "eyebrow": "Partners",
-      "title": "Trusted by",
+      "title": "Who we work with",
       "lead": "Brands we work with.",
       "label": "Partner logos"
     },
     "geo": {
-      "eyebrow": "Geography",
-      "title": "We work across Uzbekistan and Central Asia",
-      "text": "The factory is in Kokand, Fergana region. We send samples and build batches to your volume.",
+      "title": "Uzbekistan and Central Asia",
+      "text": "The factory is in Kokand, Fergana region. We send samples and build batches for your run.",
       "cta": "How to find us"
     }
   },

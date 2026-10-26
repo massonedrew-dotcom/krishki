@@ -101,102 +101,212 @@
       "description": "ELIT KONSERVA: SKO I-82 va twist-off 82 qopqoqlari, zichlovchi halqalar, tunuka litografiyasi. 1996-yildan, 1 000 dan 10 000 000 donagacha."
     },
     "hero": {
-      "eyebrow": "Qoʻqon · Oʻzbekiston · 1996-yildan",
-      "title": "Hosilga ishonch bildirilgan qopqoqlar",
-      "lead": "Qoʻqon zavodidan SKO I-82 va twist-off 82. Uy konservasi va konserva zavodlari uchun.",
-      "primary": "Narxnoma soʻrash",
-      "secondary": "Mahsulotlarni koʻrish",
-      "specs": {
-        "type": { "label": "Turi", "value": "SKO I-82 · Twist-off 82" },
-        "batch": { "label": "Partiya", "value": "1 000 dan 10 000 000 donagacha" },
-        "metal": { "label": "Metall", "value": "EZhK tunukasi" }
-      },
-      "railLabel": "Qopqoqlar qatori",
-      "rail": {
-        "gold": "Oltin rang",
-        "mechta": "Mechta khozyayki",
-        "elisey": "Eliseyskie",
-        "litho": "Rangli",
-        "private": "Sizning brendingiz",
-        "twist": "Twist-off",
-        "twistColor": "Twist-off rangli",
-        "ring": "Halqa"
-      },
-      "slotAlt": "Oltin rangli SKO I-82 qopqogʻi, tepadan qiya koʻrinish",
-      "slotCaption": "SKO I-82 qopqogʻi, render"
-    },
-    "why": {
-      "eyebrow": "Nega biz",
-      "title": "Qoʻqondan buyurtma berishning olti sababi",
-      "items": {
-        "quality": { "t": "Nazoratdagi sifat", "d": "Laboratoriya har bir partiyani tekshiradi. Laklar va emallar oziq-ovqat uchun, Yevropa ishlab chiqaruvchilaridan." },
-        "region": { "t": "Oʻzbekiston va Markaziy Osiyo", "d": "Partiyalarni mamlakat boʻylab va mintaqaning qoʻshni davlatlariga yetkazamiz." },
-        "samples": { "t": "Namunalarni yuboramiz", "d": "Avval namuna, keyin partiya. Qopqoqlarni oʻz liningizda sinab koʻring." },
-        "prices": { "t": "Moslashuvchan narxlar", "d": "Narx turi, qoplamasi va hajmiga bogʻliq. Narxnomani ariza boʻyicha yuboramiz." },
-        "custom": { "t": "Buyurtma asosida ishlaymiz", "d": "Oʻz savdo belgingiz ostidagi qopqoqlar: sizning dizayningiz, bizning litografiyamiz." },
-        "volume": { "t": "1 000 dan 10 000 000 donagacha", "d": "Sinov uchun bitta partiya yoki konserva zavodi uchun butun mavsum." }
+      "titleLead": "Qoʻqondagi metall qopqoqlar zavodi",
+      "titleAccent": "1996-yildan",
+      "lead": "SKO I-82, Twist-Off 82 qopqoqlari va zichlovchi halqalar. Tunukaga lak berish va litografiya oʻzimizda, PPG laklari.",
+      "order": "Buyurtma",
+      "price": "Narxnoma soʻrash",
+      "note": "Narx va shartlarni ariza qoldirilgandan soʻng aytamiz. Namunalarni yuboramiz.",
+      "slotAlt": "SKO I-82 qopqogʻi, oltin rangli lak",
+      "facts": {
+        "market": {
+          "l": "Bozorda",
+          "v": "1996-yildan"
+        },
+        "batch": {
+          "l": "Buyurtma hajmi",
+          "v": "1 000 – 10 000 000 dona"
+        },
+        "geo": {
+          "l": "Yetkazib berish",
+          "v": "Oʻzbekiston va Markaziy Osiyo"
+        }
       }
     },
-    "scale": {
-      "eyebrow": "Hajm",
-      "number": "1 000 – 10 000 000",
-      "unit": "dona bir buyurtmada",
-      "title": "Bitta partiya yoki butun mavsum",
-      "text": "Minimal buyurtma — 1 000 dona. Yuqori chegara deyarli yoʻq: bir martada oʻn milliongacha.",
-      "cta": "Hajmimni hisoblash"
-    },
     "products": {
-      "eyebrow": "Mahsulotlar",
-      "title": "Uch mahsulot. Bitta zavod.",
-      "lead": "SKO I-82 boʻyinli va 82 rezbali bankalar uchun qopqoqlar hamda ular uchun zichlovchi halqalar.",
-      "items": {
-        "sko": { "tag": "SKO I-82", "name": "SKO I-82 qopqoqlari", "desc": "Oltin rangli, litografiyali va oʻz brendingiz ostida. SKO I-82 boʻyinli shisha bankalar uchun.", "alt": "Oltin rangli SKO I-82 qopqoqlari dastasi" },
-        "twist": { "tag": "Twist-off 82", "name": "Twist-off 82", "desc": "Vakuum tugmali burama qopqoqlar. Qoʻlda buraladi, zakatka mashinasi kerak emas.", "alt": "Yashil va qizil twist-off qopqoqlari" },
-        "ring": { "tag": "2014-yildan", "name": "Zichlovchi halqa", "desc": "GOST boʻyicha oziq-ovqat rezinasi. SKO qopqogʻining ichki yoqasi ostiga oʻrnashadi.", "alt": "Rezina zichlovchi halqalar" }
+      "title": "Mahsulot pasporti",
+      "lead": "Uchta mahsulot bitta jadvalda: qoʻngʻiroqsiz solishtiring. Katalogda yoʻq oʻlchamlarni ariza boʻyicha aytamiz.",
+      "price": "Narxnoma soʻrash",
+      "more": "Batafsil",
+      "labels": {
+        "for": "Qaysi bank uchun",
+        "material": "Material",
+        "outside": "Tashqarida",
+        "inside": "Ichkarida",
+        "seal": "Zichlagich",
+        "pack": "Qadoq"
       },
-      "all": "Barcha mahsulotlar"
+      "items": {
+        "sko": {
+          "name": "SKO I-82",
+          "sub": "«Mechta khozyayki», «Eliseyskie krishki»",
+          "alt": "SKO I-82 qopqogʻi, oltin rangli",
+          "for": "SKO I-82 boʻyinli bankalar",
+          "material": "EZhK tunuka, 0,17–0,20 mm, qattiqlik qirrasi",
+          "outside": "oltin rangli lak",
+          "inside": "oziq-ovqat emali va lak, kumushrang-kulrang",
+          "seal": "oziq-ovqat kauchugidan halqa",
+          "pack": "tuba, 50 dona"
+        },
+        "twist": {
+          "name": "Twist-Off 82",
+          "sub": "qizil va yashil",
+          "altRed": "Twist-Off 82 qopqogʻi, qizil",
+          "altGreen": "Twist-Off 82 qopqogʻi, yashil",
+          "for": "82 rezbali boʻyinli bankalar, qoʻlda yopiladi",
+          "material": "konserva tunukasi EZhK",
+          "outside": "bir rangli litografiya va lak",
+          "inside": "lak",
+          "seal": "plastizol, sterilizatsiya va pasterizatsiya; vakuum tugmasi",
+          "pack": "tuba 20 dona · zavodlar uchun quti 850 dona"
+        },
+        "ring": {
+          "name": "Zichlovchi halqa",
+          "sub": "2014-yildan oʻz uchastkamiz",
+          "alt": "Zichlovchi halqalar",
+          "for": "SKO I-82 qopqoqlari, ichki qirra ostida",
+          "material": "oziq-ovqat kauchugi, GOST boʻyicha",
+          "outside": "—",
+          "inside": "—",
+          "seal": "halqaning oʻzi SKO qopqogʻini zichlaydi",
+          "pack": "30 kg qop yoki gofrokarton quti"
+        }
+      }
+    },
+    "factory": {
+      "title": "Zavod: yetti operatsiya",
+      "lead": "Qopqoqning Qoʻqon zavodidagi yoʻli. Har bir partiyani oʻz laboratoriyamiz tekshiradi.",
+      "stations": {
+        "tin": {
+          "t": "Tunuka",
+          "d": "EZhK tunuka. Varaq 710×510 dan 1145×950 mm gacha, qalinligi 0,15–0,40 mm."
+        },
+        "lacquer": {
+          "t": "Laklash",
+          "d": "PPG laklari (Germaniya), 100 °C dan yuqori sterilizatsiyaga chidaydi."
+        },
+        "litho": {
+          "t": "Litografiya",
+          "d": "Metallga ofset bosma, UV-boʻyoqlar, oʻz pressi.",
+          "alt": "Litografiyali qopqoqlar"
+        },
+        "stamp": {
+          "t": "Shtamplash",
+          "d": "SKO I-82 va Twist-Off 82 qopqoqlari.",
+          "alt": "Oltin rangli SKO qopqoqlari dastasi"
+        },
+        "seal": {
+          "t": "Zichlash",
+          "d": "SKO uchun zichlovchi halqalar, Twist-Off da plastizol."
+        },
+        "qc": {
+          "t": "Nazorat",
+          "d": "Har bir partiyani laboratoriya tekshiradi: qoplama massasi, qattiqlik, adgeziya GOST boʻyicha."
+        },
+        "pack": {
+          "t": "Qadoqlash",
+          "d": "50 va 20 dona tubalar, 850 dona quti. Oʻzbekiston va Markaziy Osiyo boʻylab joʻnatish.",
+          "alt": "«Mechta khozyayki» tubalari"
+        }
+      },
+      "years": {
+        "y1996": {
+          "s": "zavod tashkil etildi",
+          "d": "«Elit Konserva» MChJ zavodi tashkil etildi"
+        },
+        "y2014": {
+          "s": "zichlovchi halqalar",
+          "d": "Oʻz zichlovchi halqalarimiz"
+        },
+        "y2016": {
+          "s": "Twist-Off sexi",
+          "d": "Alohida Twist-Off sexi va yangi omborlar"
+        },
+        "y2022": {
+          "s": "«Eliseyskie krishki»",
+          "d": "SKO liniyasi «Eliseyskie krishki»"
+        }
+      }
+    },
+    "audience": {
+      "title": "Biz bilan hamkorlik yoʻllari",
+      "items": {
+        "distributors": {
+          "t": "Distribyutorlarga",
+          "d": "Ulgurji va eksport: 1 000 dan 10 000 000 donagacha partiyalar, namunalarni yuboramiz.",
+          "cta": "Distribyutorlar uchun"
+        },
+        "suppliers": {
+          "t": "Yetkazib beruvchilarga",
+          "d": "ELIT KONSERVA bilan hamkorlik: ariza qoldiring, biz siz bilan bogʻlanamiz.",
+          "cta": "Ariza qoldirish"
+        },
+        "private": {
+          "t": "Oʻz brendingiz ostida",
+          "d": "SKO va Twist-Off qopqoqlarida sizning dizayningiz. Litografiya bizning zavodda, 1 000 donadan.",
+          "cta": "Bu qanday ishlaydi"
+        }
+      }
     },
     "brands": {
-      "eyebrow": "Brendlar",
-      "title": "Litografiyali 50 talik tubalar",
-      "lead": "Mechta khozyayki, Eliseyskie krishki, Moya mechta, Rosa, Gurman. Har bir qatorning oʻz dizayni va oʻramasi bor.",
+      "title": "Brendlar",
+      "lead": "«Mechta khozyayki», «Eliseyskie krishki», «Moya mechta» va «Rosa». Uy sharoitida konservalash uchun litografiyali tubalar.",
       "cta": "Barcha brendlar",
-      "mechtaAlt": "50 talik «Mechta khozyayki» qopqoqlari tubasi",
-      "moyaAlt": "«Moya mechta» qopqoqlari tubasi",
-      "rosaAlt": "«Rosa» qopqoqlari tubasi",
-      "gurmanAlt": "«Gurman» qopqoqlari tubalari",
-      "twistAlt": "«Mechta khozyayki» twist-off tubalari, yashil va qizil"
+      "items": {
+        "mechta": {
+          "n": "Mechta khozyayki",
+          "d": "SKO · tuba 50 dona",
+          "alt": "«Mechta khozyayki» qopqoqlari tubasi, 50 dona"
+        },
+        "twistGreen": {
+          "n": "Mechta khozyayki",
+          "d": "Twist-Off, yashil · 20 dona",
+          "alt": "Twist-Off «Mechta khozyayki» tubasi, yashil"
+        },
+        "twistRed": {
+          "n": "Mechta khozyayki",
+          "d": "Twist-Off, qizil · 20 dona",
+          "alt": "Twist-Off «Mechta khozyayki» tubasi, qizil"
+        },
+        "moya": {
+          "n": "Moya mechta",
+          "d": "SKO · tuba 50 dona",
+          "alt": "«Moya mechta» qopqoqlari tubasi"
+        },
+        "rosa": {
+          "n": "Rosa",
+          "d": "SKO · tuba 50 dona",
+          "alt": "«Rosa» qopqoqlari tubasi"
+        }
+      }
     },
     "services": {
-      "eyebrow": "Xizmatlar",
-      "title": "Tunukani oʻzimiz boʻyaymiz va bosamiz",
+      "title": "Tunukani oʻzimiz laklaymiz va bosamiz",
       "items": {
         "lacquer": {
           "tag": "Lak va litografiya",
           "title": "PPG laklari, HUBER GROUP boʻyoqlari",
-          "text": "Metallda ofset bosma va oziq-ovqat qoplamasi. Tunuka varagʻi 710×510 dan 1145×950 mm gacha.",
+          "text": "Metallga ofset bosma va oziq-ovqat qoplamasi. Tunuka varagʻi 710×510 dan 1145×950 mm gacha.",
           "cta": "Xizmatlar haqida",
           "alt": "Rangli litografiyali qopqoqlar: sabzavot va mevalar"
         },
         "private": {
           "tag": "Oʻz brendingiz ostida",
           "title": "Har bir bankada sizning brendingiz",
-          "text": "SKO va twist-off qopqoqlarida sizning dizayningiz. Hajm 1 000 donadan.",
+          "text": "SKO va twist-off qopqoqlarida sizning dizayningiz. Tiraj 1 000 donadan.",
           "cta": "Bu qanday ishlaydi",
           "alt": "Buyurtmachi logotipli SKO qopqoqlari"
         }
       }
     },
     "partners": {
-      "eyebrow": "Hamkorlar",
-      "title": "Bizga ishonishadi",
+      "title": "Kimlar bilan ishlaymiz",
       "lead": "Biz ishlaydigan brendlar.",
       "label": "Hamkorlar logotiplari"
     },
     "geo": {
-      "eyebrow": "Geografiya",
-      "title": "Oʻzbekiston va Markaziy Osiyo boʻylab ishlaymiz",
-      "text": "Zavod Qoʻqonda, Fargʻona viloyatida. Namunalar yuboramiz va partiyani sizning hajmingizga moslab tayyorlaymiz.",
+      "title": "Oʻzbekiston va Markaziy Osiyo",
+      "text": "Zavod Qoʻqonda, Fargʻona viloyatida. Namunalarni yuboramiz va partiyalarni sizning tirajingizga yigʻamiz.",
       "cta": "Bizni qanday topish mumkin"
     }
   },

@@ -15,11 +15,10 @@
     padding: 0 var(--space-6);
     border: 1px solid transparent;
     border-radius: var(--radius-ui);
-    font-family: var(--font-mono-stack);
-    font-size: 0.8125rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    font-weight: 500;
+    font-family: var(--font-text-stack);
+    font-size: 0.9375rem;
+    letter-spacing: 0.005em;
+    font-weight: 600;
     line-height: 1.2;
     text-decoration: none;
     white-space: nowrap;
@@ -33,12 +32,12 @@
   .btn--sm {
     --btn-h: 2.5rem;
     padding: 0 var(--space-4);
-    font-size: 0.75rem;
+    font-size: 0.8125rem;
   }
   .btn--lg {
     --btn-h: 3.5rem;
     padding: 0 var(--space-8);
-    font-size: 0.875rem;
+    font-size: 1rem;
   }
   .btn--primary {
     background: var(--accent);
@@ -47,6 +46,15 @@
   .btn--primary:hover,
   .btn--primary[data-state="hover"] {
     background: var(--accent-hover);
+  }
+  /* «Заказать»: the only red button */
+  .btn--order {
+    background: var(--red-600);
+    color: #fff;
+  }
+  .btn--order:hover,
+  .btn--order[data-state="hover"] {
+    background: var(--red-700);
   }
   .btn--secondary {
     background: transparent;
@@ -282,7 +290,7 @@
     padding: 0 var(--space-2);
     border: 1px solid var(--line-strong);
     border-radius: var(--radius-ui);
-    font-family: var(--font-mono-stack);
+    font-family: var(--font-text-stack);
     font-size: 0.75rem;
     letter-spacing: 0.06em;
     text-transform: uppercase;
@@ -320,7 +328,7 @@
     vertical-align: baseline;
   }
   .spec thead th {
-    font-family: var(--font-mono-stack);
+    font-family: var(--font-text-stack);
     font-size: 0.75rem;
     font-weight: 400;
     letter-spacing: 0.08em;
@@ -350,7 +358,7 @@
     justify-content: center;
     min-width: 2.75rem;
     min-height: 2.75rem;
-    font-family: var(--font-mono-stack);
+    font-family: var(--font-text-stack);
     font-size: var(--text-14);
     letter-spacing: 0.06em;
     text-transform: uppercase;

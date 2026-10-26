@@ -1,28 +1,20 @@
-import { IBM_Plex_Mono, Onest, Tektur } from "next/font/google";
+import { Inter, Montserrat } from "next/font/google";
 
-// next/font needs literal options (no shared variables). All three are SIL OFL 1.1, self-hosted at build time.
+// next/font needs literal options (no shared variables). Both are SIL OFL 1.1, self-hosted at build time.
+// Glyph check (2026-10-26): Cyrillic, Uzbek Cyrillic (Ў Қ Ғ Ҳ) and U+02BB/U+02BC are present in both.
 
-/** Display: industrial, Cyrillic + Uzbek Latin (U+02BB, U+02BC). */
-export const fontDisplay = Tektur({
+/** Display: Montserrat. Weights 300 (hero stage) to 700 (headings), variable font. */
+export const fontDisplay = Montserrat({
   subsets: ["cyrillic", "latin", "latin-ext"],
   display: "swap",
-  variable: "--font-tektur",
-  axes: ["wdth"],
+  variable: "--font-montserrat",
 });
 
-/** Text: readable grotesk with Cyrillic, Uzbek Latin and tabular figures. */
-export const fontText = Onest({
+/** Text, captions and buttons: Inter with tabular figures. */
+export const fontText = Inter({
   subsets: ["cyrillic", "latin", "latin-ext"],
   display: "swap",
-  variable: "--font-onest",
+  variable: "--font-inter",
 });
 
-/** Technical captions and drawing-style annotations. */
-export const fontMono = IBM_Plex_Mono({
-  subsets: ["cyrillic", "latin", "latin-ext"],
-  weight: ["400", "500"],
-  display: "swap",
-  variable: "--font-plex-mono",
-});
-
-export const fontVariables = `${fontDisplay.variable} ${fontText.variable} ${fontMono.variable}`;
+export const fontVariables = `${fontDisplay.variable} ${fontText.variable}`;

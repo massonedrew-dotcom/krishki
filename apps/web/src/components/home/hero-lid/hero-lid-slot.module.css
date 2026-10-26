@@ -1,0 +1,39 @@
+/* Square, transparent slot. Size it from the page (width); the height follows. */
+.slot {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  touch-action: pan-y; /* never trap vertical scroll */
+  user-select: none;
+}
+
+/* same framing as the 3D lid: 84 % of the slot width, centred */
+.photo {
+  position: absolute;
+  top: 50%;
+  left: 8%;
+  width: 84%;
+  height: auto;
+  transform: translateY(-50%);
+  transition: opacity 700ms cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+/* the 3D lid is drawn by the background canvas into this rect: fade the photo out, keep it for a11y */
+.slot[data-live] .photo {
+  opacity: 0;
+}
+
+@media (pointer: fine) {
+  .slot[data-live] {
+    cursor: grab;
+  }
+  .slot[data-live]:active {
+    cursor: grabbing;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .photo {
+    transition: none;
+  }
+}

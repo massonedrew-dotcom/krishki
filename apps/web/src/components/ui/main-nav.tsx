@@ -51,7 +51,7 @@ export function HeaderOrder({ href, label, topbarId }: { href: string; label: st
   }, [topbarId]);
 
   return (
-    <ButtonLink href={href} size="sm" className="header-order" data-stuck={stuck}>
+    <ButtonLink href={href} size="sm" variant="order" className="header-order" data-stuck={stuck}>
       {label}
     </ButtonLink>
   );

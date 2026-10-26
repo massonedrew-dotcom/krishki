@@ -107,3 +107,20 @@ export const TUBE = {
 
 export const LOGO: Img = { src: "/images/brand/mechta-khozyayki-v2-600.webp", width: 600, height: 335 };
 
+
+/** Alpha cutouts of the lid photos (no background), for the dark hero stage and the production line strip. */
+export const LID_CUTOUT = {
+  sko34: { src: "/images/lids/sko-34-cutout.webp", width: 785, height: 500 },
+  skoTop: { src: "/images/lids/sko-top-cutout.webp", width: 785, height: 783 },
+  twistRed34: { src: "/images/lids/twist-red-34-cutout.webp", width: 751, height: 472 },
+  twistGreen34: { src: "/images/lids/twist-green-34-cutout.webp", width: 783, height: 518 },
+  twistRedTop: { src: "/images/lids/twist-red-top-cutout.webp", width: 659, height: 696 },
+  twistGreenTop: { src: "/images/lids/twist-green-top-cutout.webp", width: 677, height: 690 },
+} satisfies Record<string, Img>;
+
+/** Lid photos on white (800 px), for white product panels. */
+export const LID_PHOTO = {
+  sko34: { src: "/images/lids/sko-34-800.webp", width: 800, height: 800 },
+  twistRed34: { src: "/images/lids/twist-red-34-800.webp", width: 800, height: 800 },
+  twistGreen34: { src: "/images/lids/twist-green-34-800.webp", width: 800, height: 800 },
+} satisfies Record<string, Img>;

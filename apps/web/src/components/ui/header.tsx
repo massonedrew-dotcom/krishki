@@ -29,31 +29,33 @@ export async function Header() {
 
   return (
     <>
-      <div id={TOPBAR_ID} className="topbar surface-mist hidden xl:block">
-        <Container className="flex h-11 items-center justify-between gap-6">
+      <div id={TOPBAR_ID} className="topbar hidden xl:block">
+        <Container className="flex h-11 items-center gap-6">
           <MainNav
             items={audience}
             label={t("header.audienceLabel")}
-            listClassName="gap-6"
+            className="h-full"
+            listClassName="topbar__list"
             linkClassName="topbar__link"
           />
-          <div className="flex items-center gap-6">
-            <ButtonLink href={ORDER_HREF} size="sm" className="topbar__order">
-              {orderLabel}
-            </ButtonLink>
-            <a
-              href={PRIMARY_PHONE.href}
-              className="topbar__link tnum font-medium text-ink-950"
-              aria-label={phoneLabel}
-            >
-              {PRIMARY_PHONE.display}
-            </a>
-            <LangSwitch label={t("lang.label")} locales={locales} />
-          </div>
+          <ButtonLink href={ORDER_HREF} size="sm" variant="order">
+            {orderLabel}
+          </ButtonLink>
+          <span className="flex-1" aria-hidden="true" />
+          <a href={TELEGRAM.href} className="topbar__plain">
+            {t("contacts.telegram")}
+          </a>
+          <a href={WHATSAPP.href} className="topbar__plain">
+            {t("contacts.whatsapp")}
+          </a>
+          <a href={PRIMARY_PHONE.href} className="topbar__plain tnum !text-[#e4e7ea]" aria-label={phoneLabel}>
+            {PRIMARY_PHONE.display}
+          </a>
+          <LangSwitch label={t("lang.label")} locales={locales} />
         </Container>
       </div>
       <header className="site-header">
-        <Container className="flex h-[var(--header-h)] items-center gap-3 xl:gap-10">
+        <Container className="flex h-[var(--header-h)] items-center gap-3 xl:gap-8">
           <Link href="/" aria-label={t("header.homeLabel")} className="flex min-h-11 shrink-0 items-center gap-3 no-underline">
             {/* TODO(client): replace the raster logo with a vector file when it arrives. */}
             <Image
@@ -63,13 +65,13 @@ export async function Header() {
               alt=""
               priority
               sizes="120px"
-              className="h-9 w-auto md:h-11"
+              className="h-9 w-auto md:h-14"
             />
-            <span className="hidden font-display text-18 font-semibold tracking-tight text-ink-950 sm:inline md:text-22">
+            <span className="hidden border-l border-sky-line pl-4 font-display text-14 font-semibold tracking-[0.16em] text-ink-700 sm:inline">
               {t("brand")}
             </span>
           </Link>
-          <MainNav items={items} label={t("nav.mainLabel")} className="hidden xl:block" listClassName="gap-7" />
+          <MainNav items={items} label={t("nav.mainLabel")} className="hidden xl:block" listClassName="gap-1" />
           <div className="ml-auto flex items-center gap-2 sm:gap-3">
             <HeaderOrder href={ORDER_HREF} label={orderLabel} topbarId={TOPBAR_ID} />
             <MobileMenu openLabel={t("nav.menuOpen")} closeLabel={t("nav.menuClose")}>
@@ -82,7 +84,7 @@ export async function Header() {
                 linkClassName="nav__link nav__link--sub"
               />
               <div className="mt-8 grid gap-4">
-                <ButtonLink href={ORDER_HREF} size="lg">
+                <ButtonLink href={ORDER_HREF} size="lg" variant="order">
                   {orderLabel}
                 </ButtonLink>
                 <a

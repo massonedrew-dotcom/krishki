@@ -2,7 +2,8 @@ import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from "reac
 import { Link as IntlLink } from "@/i18n/navigation";
 import { cx } from "@/lib/cx";
 
-export type ButtonVariant = "primary" | "secondary" | "ghost";
+/** `order` is the red «Заказать» button; `primary` is ink (gold on dark panels). */
+export type ButtonVariant = "primary" | "secondary" | "ghost" | "order";
 export type ButtonSize = "sm" | "md" | "lg";
 /** Forces a visual state in the styleguide only. Real pages never pass it. */
 export type ForcedState = "hover" | "focus";

@@ -90,7 +90,7 @@ html.lenis body {
 .page-progress > span {
   display: block;
   height: 100%;
-  background: var(--azure-500);
+  background: var(--gold-500);
   transform: scaleX(0);
   transform-origin: left;
 }
@@ -141,39 +141,79 @@ html:not(.m) .vrail__dot {
 }
 
 /* ---------- Header ---------- */
-/* Top row (from 1280 px): mist surface, ink text. ink-700 on mist is about 9:1, azure-700 about 6:1. */
+/* Top row (from 1280 px): ink band, as in the C drawing sheet. #e4e7ea on #101317 is 15:1, #a3a9b1 is 7.9:1. */
 .topbar {
-  border-bottom: 1px solid var(--sky-line);
+  background: var(--ink-950);
+  color: #a3a9b1;
   font-size: var(--text-14);
+  --btn-h: 2rem;
 }
 .topbar__link {
   position: relative;
   display: inline-flex;
   align-items: center;
-  min-height: 2.25rem;
-  color: var(--ink-700);
+  min-height: 2.75rem;
+  padding: 0 var(--space-4);
+  color: #e4e7ea;
   font-weight: 500;
   text-decoration: none;
   white-space: nowrap;
 }
+.topbar__list {
+  display: flex;
+  height: 100%;
+}
+.topbar__list li {
+  max-width: none;
+  border-right: 1px solid #2e343c;
+}
+.topbar__list li:first-child {
+  border-left: 1px solid #2e343c;
+}
 .topbar__link:hover {
-  color: var(--ink-950);
-  text-decoration: underline;
-  text-underline-offset: 0.35em;
+  background: var(--azure-900);
 }
 .topbar__link[aria-current="page"] {
-  color: var(--azure-700);
+  background: var(--azure-900);
+  box-shadow: inset 0 -2px 0 var(--gold-300);
+}
+.topbar__plain {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.25rem;
+  color: #a3a9b1;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.topbar__plain:hover {
+  color: #e4e7ea;
   text-decoration: underline;
-  text-decoration-thickness: 2px;
-  text-underline-offset: 0.35em;
 }
 .topbar .btn {
   --btn-h: 2rem;
   padding: 0 var(--space-4);
 }
+.topbar .lang {
+  border-color: #6b737d;
+}
 .topbar .lang__item {
   min-width: 2.25rem;
   min-height: 2rem;
+  color: #c4c9cf;
+}
+.topbar .lang__item + .lang__item {
+  border-left-color: #6b737d;
+}
+.topbar .lang__item:hover {
+  color: #fff;
+  background: var(--azure-900);
+}
+.topbar .lang__item[aria-current="true"] {
+  background: #e4e7ea;
+  color: var(--ink-950);
+}
+.topbar :focus-visible {
+  outline-color: var(--gold-300);
 }
 .site-header {
   position: sticky;
@@ -189,7 +229,7 @@ html:not(.m) .vrail__dot {
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: rgb(255 255 255 / 0.9);
+  background: rgb(236 238 240 / 0.92);
   backdrop-filter: saturate(1.4) blur(14px);
   pointer-events: none;
 }
@@ -198,23 +238,23 @@ html:not(.m) .vrail__dot {
   display: inline-flex;
   align-items: center;
   min-height: 2.75rem;
-  font-family: var(--font-mono-stack);
-  font-size: 0.75rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  font-weight: 500;
-  color: var(--ink-700);
+  padding: 0 0.75rem;
+  font-family: var(--font-display-stack);
+  font-size: 0.9375rem;
+  letter-spacing: -0.005em;
+  font-weight: 600;
+  color: var(--ink-950);
   text-decoration: none;
   white-space: nowrap;
 }
 .nav__link::after {
   content: "";
   position: absolute;
-  left: 0;
-  right: 0;
+  left: 0.75rem;
+  right: 0.75rem;
   bottom: 0.45rem;
   height: 2px;
-  background: var(--azure-500);
+  background: var(--ink-950);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform var(--dur-base) var(--ease-out);
@@ -224,7 +264,7 @@ html:not(.m) .vrail__dot {
   transform: scaleX(1);
 }
 .nav__link[aria-current="page"] {
-  color: var(--azure-700);
+  color: var(--ink-950);
 }
 
 /* «Заказать» in the main row: always there below 1280 px (44 px tall), after the top row scrolls away from 1280 px. */
@@ -310,7 +350,7 @@ html:not(.m) .vrail__dot {
   inset: var(--header-h) 0 0 0;
   z-index: 55;
   overflow-y: auto;
-  background: var(--paper);
+  background: var(--mist);
   padding: var(--space-6) var(--page-x) var(--space-12);
   transform: translateY(-1rem);
   opacity: 0;
@@ -327,6 +367,7 @@ html:not(.m) .vrail__dot {
   transition-delay: 0s;
 }
 .menu-panel .nav__link {
+  padding: 0;
   text-transform: none;
   letter-spacing: -0.01em;
   color: var(--ink-950);
@@ -399,10 +440,10 @@ html:not(.m) .vrail__dot {
   border-radius: var(--radius-lid);
   aspect-ratio: 1;
   background:
-    radial-gradient(circle at 50% 50%, transparent 0 56%, rgb(30 152 204 / 0.14) 56.4% 56.9%, transparent 57.3%),
+    radial-gradient(circle at 50% 50%, transparent 0 56%, rgb(16 19 23 / 0.14) 56.4% 56.9%, transparent 57.3%),
     radial-gradient(circle at 50% 50%, transparent 0 70%, rgb(200 150 46 / 0.4) 70.3% 70.8%, transparent 71.2%),
     radial-gradient(circle at 50% 50%, #ffffff 0 62%, var(--sky) 62.4% 100%);
-  box-shadow: inset 0 0 0 1px rgb(30 152 204 / 0.2);
+  box-shadow: inset 0 0 0 1px rgb(16 19 23 / 0.25);
 }
 
 /* subtle grain, no gradients: lives on the azure band and the hero */
