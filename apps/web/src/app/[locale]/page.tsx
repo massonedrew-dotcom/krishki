@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { LeadForm } from "@/components/forms/lead-form";
-import { HeroLidSlot } from "@/components/home/hero-lid-slot";
+import { LivingBackground } from "@/components/home/background";
+import { HeroLidSlot } from "@/components/home/hero-lid";
 import { ButtonLink, Container, Marquee, Section, SplitText } from "@/components/ui";
 import { Link } from "@/i18n/navigation";
 import { MAP_URL } from "@/lib/contacts";
@@ -55,6 +56,9 @@ const LINE = [
   LID_CUTOUT.twistGreen34,
 ];
 
+/** Background moods → section ids on this page. */
+const BG_SECTIONS = { hero: "hero", products: "products", factory: "factory", order: "lead-form" };
+
 const WHOLESALE = `${ORDER_HREF}?direction=wholesale`;
 
 /**
@@ -70,8 +74,11 @@ export default async function HomePage({ params }: Props) {
 
   return (
     <>
-      {/* 1. Hero: direction A. The 3D lid takes over #hero-lid-slot later. */}
-      <section className="h-stage surface-stage" aria-labelledby="home-title">
+      {/* one fixed WebGL layer behind the page; it also paints the hero stage and draws the hero lid */}
+      <LivingBackground sections={BG_SECTIONS} />
+
+      {/* 1. Hero: direction A. Tall on desktop with a sticky stage, so scrolling turns the lid. */}
+      <section id="hero" className="h-stage surface-stage" aria-labelledby="home-title">
         <Container className="h-stage__grid">
           <div className="h-stage__text">
             <h1 id="home-title">
@@ -88,7 +95,7 @@ export default async function HomePage({ params }: Props) {
             </div>
             <p className="h-stage__note max-w-none">{t("hero.note")}</p>
           </div>
-          <HeroLidSlot alt={t("hero.slotAlt")} />
+          <HeroLidSlot alt={t("hero.slotAlt")} className="stage-lid" sizes="(min-width: 1024px) 40vw, 90vw" />
           <ul className="h-facts tnum">
             {(["market", "batch", "geo"] as const).map((k) => (
               <li key={k}>
@@ -112,7 +119,7 @@ export default async function HomePage({ params }: Props) {
       </div>
 
       {/* 2. Products: one comparison datasheet */}
-      <Section tone="white" labelledBy="products-title">
+      <Section tone="white" id="products" labelledBy="products-title">
         <div className="h-head">
           <SplitText as="h2" id="products-title" text={t("products.title")} />
           <p data-reveal>{t("products.lead")}</p>

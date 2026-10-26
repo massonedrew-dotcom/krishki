@@ -6,12 +6,16 @@
 /* ---------- A: the hero stage ---------- */
 .h-stage {
   position: relative;
-  overflow: hidden;
+  overflow: clip; /* clip, not hidden: hidden would break the sticky stage below */
   border-bottom: 1px solid var(--stage-gold-fill);
   background:
     radial-gradient(60% 55% at 70% 42%, rgb(214 174 92 / 0.2), transparent 70%),
     radial-gradient(40% 40% at 8% 96%, rgb(184 35 26 / 0.1), transparent 70%),
     var(--stage);
+}
+/* the living background paints the stage (and the lid) into this rect once it is live */
+html[data-hero-lid="live"] .h-stage {
+  background: transparent;
 }
 .h-stage__grid {
   display: grid;
@@ -70,6 +74,17 @@
   .h-facts {
     align-self: end;
   }
+  /*
+   * Scroll room for the 3D lid sequence (SKO → inside → Twist-off red → green) while the stage stays put.
+   * Only when the 3D lid is live: the photo fallback (reduced motion, weak GPU) keeps a one-screen hero.
+   */
+  html[data-hero-lid="live"] .h-stage {
+    height: 300svh;
+  }
+  .h-stage__grid {
+    position: sticky;
+    top: var(--header-h);
+  }
 }
 @media (max-width: 63.99rem) {
   .h-stage__text {
@@ -97,19 +112,15 @@
   }
 }
 
-/* the lid: fixed 1:1 box so the 3D canvas can replace the photo without layout shift */
+/* the lid slot: a fixed 1:1 box (hero-lid/), so the 3D lid replaces the photo without layout shift */
 .stage-lid {
-  position: relative;
-  aspect-ratio: 1;
-  width: 100%;
-  display: grid;
-  place-items: center;
   background: radial-gradient(50% 50% at 50% 52%, rgb(214 174 92 / 0.2), transparent 70%);
 }
-.stage-lid__img {
-  width: 96%;
-  height: auto;
+.stage-lid img {
   filter: drop-shadow(0 40px 50px rgb(0 0 0 / 0.55));
+}
+html[data-hero-lid="live"] .stage-lid {
+  background: none;
 }
 
 /* ---------- the production line strip (visible slice of the living background) ---------- */
