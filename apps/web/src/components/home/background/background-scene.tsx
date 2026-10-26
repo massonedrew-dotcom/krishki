@@ -8,16 +8,18 @@ import {
   Group,
   MathUtils,
   type Mesh,
+  type MeshStandardMaterial,
   type PerspectiveCamera,
   PMREMGenerator,
   setConsoleFunction,
   Vector2,
 } from "three";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js";
 import { blendPose, damp, LIDS_DESKTOP, LIDS_MOBILE, makeSeeds, newPose, type Frame } from "./choreography";
 import { heroLidLive } from "../hero-lid/store";
 import { createHeroLidPass, type HeroLidPass, type HeroView } from "./hero-lid-pass";
-import { loadLidKit, type Look, type LidKit } from "./lid-kit";
+import { isMesh, loadLidKit, type Look, type LidKit } from "./lid-kit";
 import { bindHeroScroll, bindScrollMoods, type HeroScroll, type ScrollState } from "./scroll-moods";
 import { createTinField } from "./tin-field";
 import { type FrameStats, type LiveTier, type Mood, MOODS, type SectionIds } from "./types";
@@ -33,6 +35,10 @@ const FOV = 32;
 const TRAVEL = 2.4;
 /** three mixes fog after tone mapping and sRGB encoding, so this is a display value: the field's average pearl-sky. */
 const FOG_RGB: [number, number, number] = [0.93, 0.958, 0.982];
+
+/** Fog runs 6 → 21; lids fade out by size between these depths, so none reads as a fogged silhouette. */
+const HAZE_FROM = 13;
+const HAZE_TO = 18;
 
 export type BackgroundSceneProps = {
   tier: LiveTier;
@@ -164,7 +170,7 @@ function World({ tier, sections, heroLid, heroScroll, debug, onReady, onFail }: 
     room.dispose();
     pmrem.dispose();
     scene.environment = env.texture;
-    scene.fog = new Fog(0xffffff, 6, 21);
+    scene.fog = new Fog(0xffffff, 6, 21); // see HAZE_FROM / HAZE_TO
     scene.fog.color.setRGB(...FOG_RGB);
     scene.add(group);
 
@@ -172,7 +178,13 @@ function World({ tier, sections, heroLid, heroScroll, debug, onReady, onFail }: 
       .then((k) => {
         if (disposed) return k.dispose();
         kit.current = k;
-        for (const l of k.lids) group.add(l.root);
+        for (const l of k.lids) {
+          // material.envMapIntensity (tuned in lid-kit) only applies to a material's own envMap
+          l.root.traverse((o) => {
+            if (isMesh(o)) (o.material as MeshStandardMaterial).envMap = env.texture;
+          });
+          group.add(l.root);
+        }
         hero.current = createHeroLidPass(gl, k.sources, env.texture);
         gl.compile(scene, camera);
         S.readyFrames = 0;
@@ -183,7 +195,10 @@ function World({ tier, sections, heroLid, heroScroll, debug, onReady, onFail }: 
 
     return () => {
       disposed = true;
-      heroLidLive.set(false);
+      if (heroLidLive.get()) {
+        heroLidLive.set(false);
+        ScrollTrigger.refresh();
+      }
       hero.current?.dispose();
       hero.current = null;
       kit.current?.dispose();
@@ -286,7 +301,10 @@ function World({ tier, sections, heroLid, heroScroll, debug, onReady, onFail }: 
         if (!lid || !seed) continue;
         blendPose(seed, S.t, frame, S.weights, enter, pose);
         lid.root.position.set(pose.x, pose.y, pose.z);
-        lid.root.scale.setScalar(pose.s);
+        // a lid deep in the haze turns into a flat pale disc on the field: shrink it away before that
+        const haze = MathUtils.smoothstep(-pose.z, HAZE_FROM, HAZE_TO);
+        lid.root.visible = haze < 0.999;
+        lid.root.scale.setScalar(pose.s * (1 - haze));
         lid.tilt.rotation.set(pose.rx, 0, pose.rz);
         lid.spin.rotation.y = pose.spin;
       }
@@ -327,7 +345,11 @@ function World({ tier, sections, heroLid, heroScroll, debug, onReady, onFail }: 
       time: S.t,
     });
     // hand over from the photo (and the hero's CSS ground) only once the canvas is fully faded in
-    if (S.enter > 0.55) heroLidLive.set(true);
+    if (S.enter > 0.55 && !heroLidLive.get()) {
+      heroLidLive.set(true);
+      // the hero grows to its scroll-sequence height when live (home.css): re-measure every trigger
+      ScrollTrigger.refresh();
+    }
   }, 1);
 
   return (

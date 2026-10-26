@@ -76,21 +76,26 @@ function hero(d: LidSeed, t: number, f: Frame, o: Pose, deeper = 0) {
 /** products: the trio (SKO, Twist-off, ring) comes forward; the rest recede into the haze. */
 function products(d: LidSeed, t: number, f: Frame, o: Pose) {
   if (d.i > 2) {
-    // the rest sink past the fog far plane and shrink, so they dissolve into the field instead of reading as pale discs
+    // the rest sink into the haze; the scene shrinks them away there (HAZE_* in background-scene.tsx)
     hero(d, t * 0.6, f, o, 16);
     o.s *= 0.6;
     return;
   }
-  const k = d.i - 1;
   const p = portrait(f);
-  const z = p ? -6.8 : -5.2;
-  o.x = p ? 0 : k * 0.58 * halfW(z, f);
-  o.y = (p ? -k * 0.6 : -0.04) * halfH(z, f) + Math.sin(t * 0.8 + d.i * 2.1) * 0.05;
+  if (p) {
+    // on a phone the datasheet fills the width and the trio would sit right behind the heading: drift deeper
+    hero(d, t, f, o, 3);
+    return;
+  }
+  const k = d.i - 1;
+  const z = -5.2;
+  o.x = k * 0.58 * halfW(z, f);
+  o.y = -0.04 * halfH(z, f) + Math.sin(t * 0.8 + d.i * 2.1) * 0.05;
   o.z = z;
   o.rx = 1.12 + 0.05 * Math.sin(t * 0.5 + d.i);
   o.rz = 0.06 * Math.sin(t * 0.4 + d.ph[2]);
   o.spin = d.ph[3] + t * 0.3;
-  o.s = p ? 0.78 : 1.05;
+  o.s = 1.05;
 }
 
 /** factory: two production lines; lids advance one slot at a time, like a press feeding a conveyor. */
