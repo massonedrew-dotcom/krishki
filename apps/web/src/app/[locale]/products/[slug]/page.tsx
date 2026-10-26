@@ -204,7 +204,7 @@ export default async function ProductPage({ params }: Props) {
               <li key={r} className="max-w-none">
                 <Link
                   href={`/products/${r}`}
-                  className="lift group flex items-end justify-between gap-6 rounded-card border border-sky-line bg-mist p-6 no-underline md:p-10"
+                  className="lift group flex flex-wrap items-end justify-between gap-6 rounded-card border border-sky-line bg-mist p-6 no-underline md:p-10"
                 >
                   <span>
                     <span className="caption block">{th(`${k}.tag`)}</span>

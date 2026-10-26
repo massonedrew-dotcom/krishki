@@ -63,10 +63,10 @@ function level(ratio: number): string {
 function Block({ id, title, children }: { id: string; title: string; children: React.ReactNode }) {
   return (
     <div className="grid gap-x-8 gap-y-10 md:grid-cols-12">
-      <h2 id={id} className="text-48 md:col-span-3">
+      <h2 id={id} className="min-w-0 text-48 md:col-span-3">
         {title}
       </h2>
-      <div className="md:col-span-9">{children}</div>
+      <div className="min-w-0 [overflow-wrap:anywhere] md:col-span-9">{children}</div>
     </div>
   );
 }
