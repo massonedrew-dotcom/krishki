@@ -21,13 +21,16 @@
       "services": "Xizmatlar",
       "privateLabel": "Oʻz brendingiz",
       "about": "Zavod haqida",
+      "suppliers": "Yetkazib beruvchilarga",
+      "distributors": "Distribyutorlarga",
+      "order": "Buyurtma",
       "useful": "Foydali maslahat",
       "contacts": "Aloqa"
     },
     "header": {
       "homeLabel": "ELIT KONSERVA, bosh sahifa",
       "phoneLabel": "Qoʻngʻiroq qilish: {phone}",
-      "topTag": "Qoʻqon, Oʻzbekiston · 1996-yildan"
+      "audienceLabel": "Auditoriya boʻyicha boʻlimlar"
     },
     "contacts": {
       "whatsapp": "WhatsApp",
@@ -45,6 +48,7 @@
       "since": "1996-yildan buyon ishlaymiz. Qoʻqon, Oʻzbekiston.",
       "brands": "Mechta khozyayki / Beka orzusi · Eliseyskie krishki",
       "navTitle": "Boʻlimlar",
+      "partnersTitle": "Hamkorlik",
       "contactsTitle": "Aloqa",
       "addressTitle": "Manzil",
       "address": "Oʻzbekiston Respublikasi, Fargʻona viloyati, Qoʻqon sh., Qipchoq ariq koʻchasi, 98A",
@@ -676,6 +680,144 @@
     "hours": "Ish vaqti",
     "hoursValue": "Aniqlanmoqda",
     "social": "Ijtimoiy tarmoqlar"
+  },
+  "suppliers": {
+    "meta": {
+      "title": "Yetkazib beruvchilarga: ELIT KONSERVA bilan hamkorlik",
+      "description": "Qoʻqondagi ELIT KONSERVA zavodi bilan hamkorlik: ariza qoldiring, biz siz bilan bogʻlanamiz."
+    },
+    "hero": {
+      "eyebrow": "Hamkorlik",
+      "title": "Yetkazib beruvchilarga",
+      "lead": "ELIT KONSERVA bilan hamkorlik: ariza qoldiring, biz siz bilan bogʻlanamiz"
+    },
+    "form": {
+      "title": "Ariza qoldiring",
+      "lead": "Aloqa maʼlumotlarini qoldiring va nima haqida gaplashmoqchi ekanligingizni qisqacha yozing."
+    }
+  },
+  "distributors": {
+    "meta": {
+      "title": "Distribyutorlarga: SKO va twist-off qopqoqlari ulgurji",
+      "description": "Qoʻqondan SKO I-82, twist-off 82 qopqoqlari va zichlovchi halqalarni ulgurji va eksport yetkazib berish. 1 000 dan 10 000 000 donagacha, namunalar bor."
+    },
+    "hero": {
+      "eyebrow": "Distribyutorlarga",
+      "title": "Ulgurji va eksport yetkazib berish",
+      "lead": "MDH davlatlaridagi ulgurji xaridorlar va eksportchilar uchun. 1 000 dan 10 000 000 donagacha partiyalar, namunalarni yuboramiz.",
+      "terms": "Narx va shartlarni ariza qoldirilgandan soʻng aytamiz.",
+      "cta": "Narxnoma soʻrash",
+      "more": "Qadoqlash va partiyalar",
+      "alt": "«Mechta khozyayki», twist-off, «Moya mechta» va «Rosa» qopqoqlari tubalari"
+    },
+    "supply": {
+      "title": "Nimalarni yetkazamiz",
+      "items": {
+        "sko": {
+          "t": "SKO I-82 qopqoqlari",
+          "d": "SKO I-82 boʻyinli shisha bankalar uchun. Oltin rangli, rangli va sizning brendingiz ostida."
+        },
+        "twist": {
+          "t": "Twist-off 82",
+          "d": "82 rezbali boʻyinli bankalar uchun burab yopiladigan qopqoqlar. Vakuum tugmasi, plastizol zichlagich, qoʻlda yopiladi."
+        },
+        "ring": {
+          "t": "Zichlovchi halqa",
+          "d": "SKO I-82 qopqoqlari uchun oziq-ovqat kauchugidan zichlovchi halqa. 2014-yildan ishlab chiqaramiz."
+        },
+        "brands": {
+          "t": "Brend liniyalari",
+          "d": "«Mechta khozyayki», «Eliseyskie krishki», «Moya mechta» va «Rosa». Barcha brendlar zavodga tegishli."
+        }
+      }
+    },
+    "lots": {
+      "title": "Partiyalar va qadoqlash",
+      "lead": "1 000 dan 10 000 000 donagacha partiyalarni yetkazamiz.",
+      "caption": "Liniyalar boʻyicha qadoqlash",
+      "columns": {
+        "param": "Liniya",
+        "unit": "Qadoq",
+        "group": "Guruhli qadoq"
+      },
+      "rows": {
+        "mechta": {
+          "l": "Mechta khozyayki, SKO",
+          "unit": "50 dona",
+          "group": "10 ta tuba = 500 dona, polietilen qop"
+        },
+        "elisey": {
+          "l": "Eliseyskie krishki",
+          "unit": "50 dona",
+          "group": "10 ta tuba = 1 000 dona, karton quti"
+        },
+        "moya": {
+          "l": "Moya mechta, Rosa",
+          "unit": "50 dona",
+          "group": "Qutida 1 000 dona"
+        },
+        "twist": {
+          "l": "Mechta khozyayki, twist-off 82",
+          "unit": "20 dona",
+          "group": "12 ta tuba = 240 dona qopda; konserva zavodlari uchun qutida 850 dona sochma"
+        },
+        "ring": {
+          "l": "Zichlovchi halqa",
+          "unit": "30 kg",
+          "group": "Qop yoki gofrokarton quti"
+        }
+      }
+    },
+    "samples": {
+      "title": "Namunalar",
+      "text": "Namunalarni yuboramiz. Arizada qaysi qopqoqlar kerakligini yozing, biz siz bilan bogʻlanamiz.",
+      "cta": "Namuna soʻrash"
+    },
+    "geo": {
+      "title": "Oʻzbekiston, Markaziy Osiyo, MDH",
+      "text": "Zavod Qoʻqonda, Fargʻona viloyatida. Oʻzbekiston va mintaqa davlatlariga yetkazamiz; MDH davlatlari — ustuvor bozor.",
+      "cta": "Bizni qanday topish mumkin"
+    },
+    "partners": {
+      "title": "Kimlar bilan ishlaymiz",
+      "label": "Hamkorlar logotiplari"
+    },
+    "cta": {
+      "title": "Narxnoma va namunalarni soʻrang",
+      "text": "Qopqoq turi va hajmini yozing. Partiyalar 1 000 donadan.",
+      "button": "Ariza qoldirish"
+    }
+  },
+  "order": {
+    "meta": {
+      "title": "Qopqoqlarga buyurtma: narxnoma va namuna uchun ariza",
+      "description": "SKO I-82, twist-off 82 qopqoqlari yoki zichlovchi halqalar uchun ariza qoldiring. Narx va shartlarni ariza qoldirilgandan soʻng aytamiz."
+    },
+    "hero": {
+      "eyebrow": "Ariza",
+      "title": "Qopqoqlarga buyurtma",
+      "lead": "Narx va shartlarni ariza qoldirilgandan soʻng aytamiz. Namunalarni yuboramiz."
+    },
+    "steps": {
+      "title": "Arizadan yetkazib berishgacha",
+      "items": {
+        "request": {
+          "t": "Ariza",
+          "d": "Ariza qoldirasiz: qanday qopqoqlar va qancha hajmda kerak."
+        },
+        "price": {
+          "t": "Narxnoma va namunalar",
+          "d": "Biz narxnomani yuboramiz va namunalarni joʻnatamiz."
+        },
+        "supply": {
+          "t": "Yetkazib berish",
+          "d": "Partiyani kelishamiz va buyurtmani joʻnatamiz."
+        }
+      }
+    },
+    "contacts": {
+      "title": "Toʻgʻridan-toʻgʻri bogʻlanish"
+    }
   },
   "privacy": {
     "meta": {

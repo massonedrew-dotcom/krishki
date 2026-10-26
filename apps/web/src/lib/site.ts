@@ -1,16 +1,33 @@
 
-/** Primary navigation. Labels come from messages `common.nav.<key>`. */
+/** Main row of the header. Labels come from messages `common.nav.<key>`. */
 export const NAV = [
   { key: "products", href: "/products" },
-  { key: "brands", href: "/brands" },
-  { key: "services", href: "/services" },
-  { key: "privateLabel", href: "/private-label" },
   { key: "about", href: "/about" },
-  { key: "useful", href: "/useful" },
+  { key: "services", href: "/services" },
+  { key: "brands", href: "/brands" },
   { key: "contacts", href: "/contacts" },
 ] as const;
 
-export type NavKey = (typeof NAV)[number]["key"];
+/** Top row of the header: pages for a particular audience. */
+export const AUDIENCE_NAV = [
+  { key: "suppliers", href: "/suppliers" },
+  { key: "distributors", href: "/distributors" },
+] as const;
+
+/** Target of the red «Заказать» button. */
+export const ORDER_HREF = "/order";
+
+/** Pages that live in the footer only. */
+export const EXTRA_NAV = [
+  { key: "privateLabel", href: "/private-label" },
+  { key: "useful", href: "/useful" },
+] as const;
+
+export type NavKey =
+  | (typeof NAV)[number]["key"]
+  | (typeof AUDIENCE_NAV)[number]["key"]
+  | (typeof EXTRA_NAV)[number]["key"]
+  | "order";
 
 export const PRODUCT_SLUGS = ["sko-i82", "twist-off", "wikel-ring"] as const;
 export type ProductSlug = (typeof PRODUCT_SLUGS)[number];
@@ -28,6 +45,9 @@ export const PAGE_PATHS = [
   "/about",
   "/useful",
   "/contacts",
+  "/suppliers",
+  "/distributors",
+  "/order",
   "/privacy",
 ] as const;
 
@@ -64,6 +84,19 @@ export const PHOTO = {
   bannerMechta: { src: "/images/banners/slide-01.webp", width: 1440, height: 600 },
 } satisfies Record<string, Img>;
 
+/** Single-tube packshots, 797x1200 at -1200 and 398x600 at -600. */
+/** Single tubes, trimmed to the tube; widths differ per tube at 1200 px height. */
+const tubeV2 = (name: string, width: number): Img => ({ src: `/images/tubes/v2/${name}-1200.webp`, width, height: 1200 });
+export const TUBE_V2 = {
+  gurmanG: tubeV2("gurman-g", 599),
+  gurmanFamily: tubeV2("gurman-family", 647),
+  moyaMechta: tubeV2("moya-mechta", 573),
+  rosa: tubeV2("rosa", 570),
+  skoMechta: tubeV2("sko-mechta", 528),
+  twistGreen: tubeV2("twist-green", 560),
+  twistRed: tubeV2("twist-red", 567),
+} satisfies Record<string, Img>;
+
 export const TUBE = {
   skoMechta: { src: "/images/tubes/sko-mechta.webp", width: 240, height: 472 },
   twistGreenRed: { src: "/images/tubes/twist-green-red.webp", width: 370, height: 395 },
@@ -72,5 +105,5 @@ export const TUBE = {
   gurman: { src: "/images/tubes/gurman.webp", width: 650, height: 1110 },
 } satisfies Record<string, Img>;
 
-export const LOGO: Img = { src: "/images/brand/mechta-khozyayki.webp", width: 260, height: 150 };
+export const LOGO: Img = { src: "/images/brand/mechta-khozyayki-v2-600.webp", width: 600, height: 335 };
 

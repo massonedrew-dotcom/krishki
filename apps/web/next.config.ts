@@ -14,9 +14,12 @@ const OLD_URLS: [string, string][] = [
 // GITHUB_PAGES=1 builds a static preview for GitHub Pages (no server, no redirects, no middleware).
 const isPagesPreview = process.env.GITHUB_PAGES === "1";
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+// A separate build dir lets a review server run while an agent builds into .next.
+const distDir = process.env.NEXT_DIST_DIR ?? ".next";
 
 const nextConfig: NextConfig = isPagesPreview
   ? {
+      distDir,
       output: "export",
       basePath,
       trailingSlash: true,
@@ -25,6 +28,7 @@ const nextConfig: NextConfig = isPagesPreview
       images: { loader: "custom", loaderFile: "./src/lib/pages-image-loader.ts" },
     }
   : {
+      distDir,
       output: "standalone",
       poweredByHeader: false,
       transpilePackages: ["@krishki/shared"],

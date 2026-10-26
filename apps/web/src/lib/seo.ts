@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { LOCALES } from "@krishki/shared";
 
-export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://krishki.uz";
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://elit-konserva.com";
 
 const HREFLANG: Record<string, string> = { ru: "ru-UZ", uz: "uz-UZ", en: "en" };
 const OG_LOCALE: Record<string, string> = { ru: "ru_RU", uz: "uz_UZ", en: "en_US" };

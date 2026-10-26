@@ -141,39 +141,39 @@ html:not(.m) .vrail__dot {
 }
 
 /* ---------- Header ---------- */
+/* Top row (from 1280 px): mist surface, ink text. ink-700 on mist is about 9:1, azure-700 about 6:1. */
 .topbar {
-  background: var(--azure-900);
-  color: #fff;
+  border-bottom: 1px solid var(--sky-line);
   font-size: var(--text-14);
 }
-.topbar a {
-  color: #fff;
+.topbar__link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.25rem;
+  color: var(--ink-700);
+  font-weight: 500;
   text-decoration: none;
+  white-space: nowrap;
 }
-.topbar a:hover {
+.topbar__link:hover {
+  color: var(--ink-950);
   text-decoration: underline;
+  text-underline-offset: 0.35em;
 }
-.topbar a:focus-visible {
-  outline-color: #fff;
+.topbar__link[aria-current="page"] {
+  color: var(--azure-700);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.35em;
 }
-.topbar .lang {
-  border-color: rgb(255 255 255 / 0.45);
+.topbar .btn {
+  --btn-h: 2rem;
+  padding: 0 var(--space-4);
 }
 .topbar .lang__item {
-  color: #cfe6f5;
   min-width: 2.25rem;
   min-height: 2rem;
-}
-.topbar .lang__item + .lang__item {
-  border-left-color: rgb(255 255 255 / 0.45);
-}
-.topbar .lang__item:hover {
-  color: #fff;
-  background: rgb(255 255 255 / 0.12);
-}
-.topbar .lang__item[aria-current="true"] {
-  background: #fff;
-  color: var(--azure-900);
 }
 .site-header {
   position: sticky;
@@ -227,10 +227,29 @@ html:not(.m) .vrail__dot {
   color: var(--azure-700);
 }
 
-.header-call {
-  /* Tap target: .btn--sm is 40 px tall, the header call must reach 44 px. */
-  min-height: 2.75rem;
+/* «Заказать» in the main row: always there below 1280 px (44 px tall), after the top row scrolls away from 1280 px. */
+.header-order {
+  --btn-h: 2.75rem;
   white-space: nowrap;
+}
+@media (min-width: 80rem) {
+  .header-order {
+    --btn-h: 2.5rem;
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-0.375rem);
+    transition:
+      opacity var(--dur-base) var(--ease-out),
+      transform var(--dur-base) var(--ease-out),
+      background-color var(--dur-fast) var(--ease-out),
+      visibility 0s linear var(--dur-base);
+  }
+  .header-order[data-stuck="true"] {
+    visibility: visible;
+    opacity: 1;
+    transform: none;
+    transition-delay: 0s;
+  }
 }
 
 .burger {
@@ -244,6 +263,12 @@ html:not(.m) .vrail__dot {
   background: transparent;
   color: var(--ink-950);
   cursor: pointer;
+}
+@media (min-width: 80rem) {
+  /* unlayered display above beats the xl:hidden utility, so hide explicitly */
+  .burger {
+    display: none;
+  }
 }
 .burger__bars,
 .burger__bars::before,
@@ -314,6 +339,12 @@ html:not(.m) .vrail__dot {
 }
 .menu-panel .nav__link::after {
   display: none;
+}
+.menu-panel .nav__link--sub {
+  font-size: var(--text-22);
+  font-weight: 500;
+  min-height: 3rem;
+  color: var(--ink-700);
 }
 .m .menu-panel .nav__link {
   opacity: 0;
@@ -552,6 +583,10 @@ html:not(.m) .vrail__dot {
   }
   .lift,
   .lift:hover {
+    transition: none;
+    transform: none;
+  }
+  .header-order {
     transition: none;
     transform: none;
   }
