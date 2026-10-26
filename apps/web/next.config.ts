@@ -19,7 +19,8 @@ const distDir = process.env.NEXT_DIST_DIR ?? ".next";
 
 const nextConfig: NextConfig = isPagesPreview
   ? {
-      distDir,
+      // with output "export", distDir is also the export folder: keep Next's default "out" for the Pages workflow
+      ...(process.env.NEXT_DIST_DIR ? { distDir } : {}),
       output: "export",
       basePath,
       trailingSlash: true,
