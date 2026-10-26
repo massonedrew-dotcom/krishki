@@ -163,12 +163,14 @@ test("keyboard: tab order runs through the top row, then the main row; focus is 
     seen.push(info?.label ?? "");
   }
   const at = (s: string) => seen.findIndex((x) => x.includes(s));
-  // skip link, Поставщикам, Дистрибьюторам, Заказать, phone, RU, UZ, EN, logo, Продукция, ...
+  // skip link, Поставщикам, Дистрибьюторам, Заказать, Telegram, WhatsApp, phone, RU, UZ, EN, logo, Продукция, ...
   expect(seen[0]).toContain("Перейти");
   expect(at("Поставщикам")).toBe(1);
   expect(at("Дистрибьюторам")).toBe(2);
   expect(at("Заказать")).toBe(3);
-  expect(at("+998")).toBe(4);
+  expect(at("Telegram")).toBe(4);
+  expect(at("WhatsApp")).toBe(5);
+  expect(at("+998")).toBe(6);
   expect(at("ELIT KONSERVA")).toBeGreaterThan(at("EN"));
   expect(at("Продукция")).toBeGreaterThan(at("ELIT KONSERVA"));
   expect(at("Контакты")).toBeGreaterThan(at("Бренды"));
