@@ -27,6 +27,15 @@ Checked 2026-10-15 from the LICENSE files in the cloned repositories.
 | juliangarnier/anime | MIT | Yes | Reference, not in the stack. Added 2026-10-19 |
 | motiondivision/motion | MIT | Yes | Reference, not in the stack. Added 2026-10-19 |
 
+## Generated images (Higgsfield, 2026-10-26)
+Made on the client's Higgsfield account (plan Lite); per Higgsfield terms, outputs belong to the account owner. All inputs are the client's own photos and packaging.
+| Files | Model | Source | Edits |
+|---|---|---|---|
+| `apps/web/public/images/lids/*.webp` (SKO, Twist-off red/green, 5 views each) | Nano Banana 2.1, 2K | client photos `sko-gold-stack`, `twist-stack`, SKO inside photo from chat | none; rejected frames in `assets/generated/lids-2026-10-26/_rejected/` |
+| `apps/web/public/images/tubes/v2/*.webp` (7 tubes) | GPT Image 2.5 high, 2K | client tube photos in `apps/web/public/images/tubes/` | fine print the model invented (a Russian producer, an Ivanovo address, a GOST number, a slogan) removed by Nano Banana inpaint + local blend; label brand text unchanged |
+| `apps/web/public/images/brand/mechta-khozyayki-v2-*.webp` | GPT Image 2.5 high, 2K, transparent | old-site `logo.png` (260×150) | trimmed; a redraw of the client's own wordmark, a vector master is still TODO(client) |
+Masters (PNG) live in `assets/generated/` (git-ignored).
+
 ## Open points
 - liquid-logo (PolyForm Shield): confirm use for the preloader (phase 2) before shipping it.
 - Skills copied into `.claude/skills/` come from the repos above and carry the same licenses.

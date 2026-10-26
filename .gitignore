@@ -17,3 +17,11 @@ __pycache__/
 qa/screens/
 prototypes/hero-scroll/tools/node_modules/
 apps/web/out/
+
+# generated image originals (large PNG), web copies live in apps/web/public/images
+assets/generated/
+.next-review/
+.next-fe/
+.next-3d/
+research_notes/
+reports/
