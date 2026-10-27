@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useRef, useState, useSyncExternalStore } from "react";
-import { HeroLidSlot } from "../hero-lid/hero-lid-slot";
-import { activeStep, type HeroStepKey, STEP_COUNT, stepAnchor } from "../hero-lid/steps";
-import { heroLidLive, heroStepsScroll } from "../hero-lid/store";
+import { useEffect, useRef, useState } from "react";
+import { frameAt, HeroLidSlot } from "../hero-lid/hero-lid-slot";
+import { activeStep, type HeroStepKey, STEP_COUNT, stepAnchor, stepLocal } from "../hero-lid/steps";
+import { heroStepsScroll } from "../hero-lid/store";
 
 export type HeroStepItem = {
   key: HeroStepKey;
@@ -15,10 +15,8 @@ export type HeroStepItem = {
 
 export type HeroStepsProps = {
   items: HeroStepItem[];
-  /** Alt of the SKO photo (the LCP image). */
-  alt: string;
-  /** Alt of the Twist-Off photo (fallback picture of step 2). */
-  altTwist: string;
+  /** Alt texts of the photos per step: SKO (the LCP image), Twist-Off, ring. */
+  alts: [string, string, string];
   sizes?: string;
 };
 
@@ -27,18 +25,28 @@ const DESKTOP = "(min-width: 64rem)";
 const pad = (n: number) => String(n).padStart(2, "0");
 
 /**
- * Hero product steps «01 / 03»: the 3D object on the turntable (drawn by the living background into the
- * slot) and a datasheet card with the product's name and spec rows. Scroll drives the step while the 3D
- * lid is live (the hero gets scroll room in home.css); the step buttons scroll to a step. Without the
- * live 3D (first paint, reduced motion, no WebGL, static tier) the hero is one screen, the slot shows the
- * matching photo and the buttons switch the card directly. No GSAP here: a passive scroll listener.
+ * Hero product steps «01 / 03»: the live photo of the product (frames change within a step as the lid is
+ * turned) and a datasheet card with the product's name and spec rows. Scroll drives the step (the hero
+ * gets scroll room in home.css via html[data-hero-scroll]); the step buttons scroll to a step. With
+ * reduced motion the hero is one screen and the buttons switch the card directly. A passive scroll listener.
  */
-export function HeroSteps({ items, alt, altTwist, sizes }: HeroStepsProps) {
-  const live = useSyncExternalStore(heroLidLive.subscribe, heroLidLive.get, () => false);
+export function HeroSteps({ items, alts, sizes }: HeroStepsProps) {
+  // scroll-driven unless the visitor asked for reduced motion (then: one screen, buttons switch the step)
+  const [live, setLive] = useState(false);
   const root = useRef<HTMLDivElement>(null);
   const [picked, setPicked] = useState(0);
-  const [scrolled, setScrolled] = useState(0);
-  const active = live ? scrolled : picked;
+  const [scrolled, setScrolled] = useState({ step: 0, frame: 0 });
+  const active = live ? scrolled.step : picked;
+  const frame = live ? scrolled.frame : 0;
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    document.documentElement.dataset.heroScroll = "on";
+    setLive(true);
+    return () => {
+      delete document.documentElement.dataset.heroScroll;
+    };
+  }, []);
 
   // the sticky offset follows the real header height (it has a second row below 80rem)
   useEffect(() => {
@@ -68,7 +76,9 @@ export function HeroSteps({ items, alt, altTwist, sizes }: HeroStepsProps) {
       const range = t.height - pin.getBoundingClientRect().height;
       const p = range > 1 ? Math.min(1, Math.max(0, (top - t.top) / range)) : 0;
       heroStepsScroll.progress = p;
-      setScrolled(activeStep(p));
+      const step = activeStep(p);
+      const frameNow = frameAt(step, stepLocal(p, step));
+      setScrolled((prev) => (prev.step === step && prev.frame === frameNow ? prev : { step, frame: frameNow }));
     };
     const queue = () => {
       if (!frame) frame = requestAnimationFrame(measure);
@@ -104,7 +114,7 @@ export function HeroSteps({ items, alt, altTwist, sizes }: HeroStepsProps) {
   return (
     <div ref={root} className="h-steps" data-live={live || undefined}>
       <div className="h-steps__pin">
-        <HeroLidSlot alt={alt} altTwist={altTwist} step={active} className="stage-lid" sizes={sizes} />
+        <HeroLidSlot alts={alts} step={active} frame={frame} className="stage-lid" sizes={sizes} />
         <div className="h-step">
           <div className="h-step__bar">
             <p className="h-step__idx tnum" aria-hidden="true">

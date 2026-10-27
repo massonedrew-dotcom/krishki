@@ -79,8 +79,8 @@ html[data-hero-lid="live"] .h-stage {
    * put. Only when the 3D lid is live: the photo fallback (reduced motion, weak GPU) keeps a one-screen hero.
    * --hero-pin-top is the measured header height (hero-steps.tsx); the header has a second row below 80rem.
    */
-  html[data-hero-lid="live"] .h-stage {
-    height: 360svh;
+  html[data-hero-scroll="on"] .h-stage {
+    height: 300svh;
   }
   .h-stage__grid {
     position: sticky;
@@ -114,10 +114,10 @@ html[data-hero-lid="live"] .h-stage {
     order: 6;
   }
   /* live: the step block gets the scroll room and its pin sticks under the header */
-  html[data-hero-lid="live"] .h-steps {
+  html[data-hero-scroll="on"] .h-steps {
     height: 280svh;
   }
-  html[data-hero-lid="live"] .h-steps__pin {
+  html[data-hero-scroll="on"] .h-steps__pin {
     position: sticky;
     top: var(--hero-pin-top, var(--header-h));
     height: calc(100svh - var(--hero-pin-top, var(--header-h)));

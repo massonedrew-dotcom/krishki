@@ -1,101 +1,85 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useSyncExternalStore } from "react";
 import styles from "./hero-lid-slot.module.css";
-import { HERO_LID_ID, heroLidDrag, heroLidLive } from "./store";
+import { HERO_LID_ID } from "./store";
+
+type Frame = { src: string; width: number; height: number };
+
+/**
+ * Live photo frames per hero step (client, 27 Oct: real-looking lids instead of the 3D render). Generated
+ * packshots with an alpha background, masters in assets/generated/lids-live-2026-10-27/. Within a step the
+ * scroll walks through the frames like a lid turned in the hand: SKO top → tilt → inside with the rubber ring.
+ */
+const FRAMES: Frame[][] = [
+  [
+    { src: "/images/lids/live/sko-34.webp", width: 904, height: 608 },
+    { src: "/images/lids/live/sko-tilt.webp", width: 694, height: 652 },
+    { src: "/images/lids/live/sko-inside-tilt.webp", width: 712, height: 689 },
+    { src: "/images/lids/live/sko-inside.webp", width: 894, height: 658 },
+  ],
+  [
+    { src: "/images/lids/live/red-34.webp", width: 849, height: 551 },
+    { src: "/images/lids/live/red-tilt.webp", width: 715, height: 595 },
+    { src: "/images/lids/live/red-inside.webp", width: 849, height: 610 },
+    { src: "/images/lids/live/green-34.webp", width: 880, height: 599 },
+  ],
+  [{ src: "/images/lids/live/rings.webp", width: 947, height: 793 }],
+];
+
+/** Frame index inside a step for its local scroll progress 0 … 1. */
+export const frameAt = (step: number, local: number) => {
+  const n = FRAMES[step]?.length ?? 1;
+  return Math.min(n - 1, Math.max(0, Math.floor(local * n)));
+};
 
 export type HeroLidSlotProps = {
-  /** Alt text of the SKO I-82 photo, from messages (e.g. «Крышка СКО I-82»). */
-  alt: string;
-  /** Alt text of the Twist-Off 82 photo (fallback picture of step 2). Without it step 2 keeps the SKO photo. */
-  altTwist?: string;
-  /**
-   * Hero step shown by the fallback picture (no 3D yet, reduced motion, no WebGL): 0 SKO, 1 Twist-Off,
-   * 2 wikel ring (drawn in CSS). When the 3D lid is live the canvas draws the step instead.
-   */
+  /** Alt texts per step (SKO, Twist-Off, ring), from messages. */
+  alts: [string, string, string];
+  /** Step shown: 0 SKO, 1 Twist-Off, 2 wikel ring. */
   step?: number;
-  /** Element id the living background tracks; keep the default unless the page has two slots. */
+  /** Frame inside the step (see frameAt). */
+  frame?: number;
   id?: string;
-  /** next/image sizes for the photo. */
   sizes?: string;
   className?: string;
 };
 
 /**
- * Hero centre: a square slot. Server-rendered alpha cutout of the SKO I-82 lid photo (LCP element, and
- * the fallback for reduced motion / no WebGL / before the canvas loads), framed like the 3D lid
- * (84 % of the slot width, centred), so the hand-over has no jump. Works on the dark hero stage.
- * When <LivingBackground/> is on the page and live, it paints the hero's dark stage and draws the 3D
- * lid into this exact rect (same canvas, one WebGL context); the photo fades out and
- * html[data-hero-lid="live"] is set, so the hero section can drop its own background.
- * Mouse drag turns the lid; touch is ignored so page scroll is never trapped.
+ * Hero centre: the live photo of the product of the current step. The frames of the current and the next
+ * step are mounted and loaded eagerly, so a turn never waits for the network; the frames cross-fade and the
+ * shown one floats gently. The first SKO frame is the LCP image.
  */
-export function HeroLidSlot({ alt, altTwist, step = 0, id = HERO_LID_ID, sizes = "(min-width: 1024px) 34vw, 72vw", className }: HeroLidSlotProps) {
-  const live = useSyncExternalStore(heroLidLive.subscribe, heroLidLive.get, () => false);
-  const last = useRef<{ x: number; y: number } | null>(null);
-  // the fallback pictures follow the step only while the 3D lid is not live (then the canvas draws the step)
-  const shown = live || (step === 1 && !altTwist) ? 0 : step;
-
-  const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (!live || e.pointerType !== "mouse" || e.button !== 0) return;
-    e.currentTarget.setPointerCapture(e.pointerId);
-    last.current = { x: e.clientX, y: e.clientY };
-    heroLidDrag.active = true;
-  };
-  const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
-    const p = last.current;
-    if (!p) return;
-    const w = Math.max(1, e.currentTarget.clientWidth);
-    heroLidDrag.yaw += ((e.clientX - p.x) / w) * Math.PI * 1.6;
-    heroLidDrag.pitch = Math.max(-0.9, Math.min(0.9, heroLidDrag.pitch + ((e.clientY - p.y) / w) * Math.PI));
-    last.current = { x: e.clientX, y: e.clientY };
-  };
-  const end = () => {
-    last.current = null;
-    heroLidDrag.active = false;
-  };
+export function HeroLidSlot({ alts, step = 0, frame = 0, id = HERO_LID_ID, sizes = "(min-width: 1024px) 34vw, 72vw", className }: HeroLidSlotProps) {
+  const mounted: { s: number; f: number }[] = [];
+  FRAMES.forEach((frames, s) =>
+    frames.forEach((_, f) => {
+      if (s === step || s === step + 1 || (s === 0 && f === 0)) mounted.push({ s, f });
+    }),
+  );
 
   return (
-    <div
-      id={id}
-      data-hero-lid=""
-      data-live={live || undefined}
-      data-step={shown}
-      className={[styles.slot, className].filter(Boolean).join(" ")}
-      onPointerDown={onPointerDown}
-      onPointerMove={onPointerMove}
-      onPointerUp={end}
-      onPointerCancel={end}
-      onLostPointerCapture={end}
-    >
-      <Image
-        src="/images/lids/sko-34-cutout.webp"
-        width={785}
-        height={500}
-        alt={shown === 0 ? alt : ""}
-        aria-hidden={shown === 0 ? undefined : true}
-        priority
-        sizes={sizes}
-        className={styles.photo}
-        data-on={shown === 0 || undefined}
-        draggable={false}
-      />
-      {/* mounted only when shown: the live tier never needs it, so it is never downloaded there */}
-      {altTwist && shown === 1 ? (
-        <Image
-          src="/images/lids/twist-red-34-cutout.webp"
-          width={751}
-          height={472}
-          alt={altTwist}
-          sizes={sizes}
-          className={styles.photo}
-          data-on=""
-          draggable={false}
-        />
-      ) : null}
-      {/* the wikel ring has no cutout photo: a matte grey ring in CSS, seen at the same angle */}
-      <span aria-hidden="true" className={styles.ring} data-on={shown === 2 || undefined} />
+    <div id={id} data-hero-lid="" data-step={step} className={[styles.slot, className].filter(Boolean).join(" ")}>
+      {mounted.map(({ s, f }) => {
+        const img = FRAMES[s]![f]!;
+        const on = s === step && f === frame;
+        return (
+          <Image
+            key={img.src}
+            src={img.src}
+            width={img.width}
+            height={img.height}
+            alt={on ? alts[s]! : ""}
+            aria-hidden={on ? undefined : true}
+            priority={s === 0 && f === 0}
+            loading={s === 0 && f === 0 ? undefined : "eager"}
+            sizes={sizes}
+            className={styles.photo}
+            data-on={on || undefined}
+            draggable={false}
+          />
+        );
+      })}
     </div>
   );
 }

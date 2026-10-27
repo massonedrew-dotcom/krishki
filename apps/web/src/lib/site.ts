@@ -69,7 +69,7 @@ export const PHOTO = {
   skoGold: { src: "/images/photos/sko-gold-stack.webp", width: 950, height: 650 },
   ringsBox: { src: "/images/photos/rings-box.webp", width: 950, height: 650 },
   /** Cutouts on transparent background (27 Oct): no grey photo backdrop, no carton print. */
-  rings: { src: "/images/photos/rings-cut.webp", width: 779, height: 676, cutout: true },
+  rings: { src: "/images/lids/live/rings.webp", width: 947, height: 793, cutout: true },
   tubesElisey: { src: "/images/photos/tubes-elisey-cut.webp", width: 776, height: 384, cutout: true },
   tubesMechta: { src: "/images/photos/tubes-mechta.webp", width: 810, height: 457 },
   tubesTwist: { src: "/images/photos/tubes-twist.webp", width: 816, height: 456 },

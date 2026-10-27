@@ -3,57 +3,46 @@
   position: relative;
   aspect-ratio: 1 / 1;
   width: 100%;
-  touch-action: pan-y; /* never trap vertical scroll */
   user-select: none;
 }
 
-/* same framing as the 3D lid: 84 % of the slot width, centred. Fallback pictures cross-fade by step. */
-.photo,
-.ring {
-  position: absolute;
-  top: 50%;
-  left: 8%;
-  width: 84%;
-  opacity: 0;
-  transition: opacity 500ms cubic-bezier(0.165, 0.84, 0.44, 1);
-}
+/* live photos: centred, contained, cross-fading by step and frame; the shown one floats gently */
 .photo {
-  height: auto;
-  transform: translateY(-50%);
-}
-.photo[data-on],
-.ring[data-on] {
-  opacity: 1;
-}
-
-/* wikel ring: a flat grey rubber band seen from ~32° above (an ellipse), matte */
-.ring {
-  aspect-ratio: 1 / 1;
-  border-radius: 50%;
-  box-shadow:
-    inset 0 0 0 clamp(10px, 2.6vw, 22px) #7e8388,
-    inset 0 2px 0 clamp(10px, 2.6vw, 22px) #9a9fa4;
-  transform: translateY(-50%) scaleY(0.53);
-}
-
-/* the 3D lid is drawn by the background canvas into this rect: hide the pictures, keep the alt for a11y */
-.slot[data-live] .photo,
-.slot[data-live] .ring {
+  position: absolute;
+  inset: 4%;
+  width: 92%;
+  height: 92%;
+  object-fit: contain;
   opacity: 0;
+  transform: scale(0.96);
+  transition:
+    opacity 260ms cubic-bezier(0.165, 0.84, 0.44, 1),
+    transform 500ms cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+.photo[data-on] {
+  opacity: 1;
+  transform: none;
 }
 
-@media (pointer: fine) {
-  .slot[data-live] {
-    cursor: grab;
+@media (prefers-reduced-motion: no-preference) {
+  .slot {
+    animation: lid-float 6s ease-in-out infinite;
   }
-  .slot[data-live]:active {
-    cursor: grabbing;
+}
+@keyframes lid-float {
+  0%,
+  100% {
+    translate: 0 0;
+    rotate: 0deg;
+  }
+  50% {
+    translate: 0 -2.5%;
+    rotate: -1.5deg;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .photo,
-  .ring {
+  .photo {
     transition: none;
   }
 }

@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { LeadForm } from "@/components/forms/lead-form";
-import { LivingBackground } from "@/components/home/background";
 import { HERO_STEPS } from "@/components/home/hero-lid";
 import { HeroSteps } from "@/components/home/hero-steps";
 import { HomeScroll } from "@/components/home/home-scroll";
@@ -48,8 +47,6 @@ const TUBES = [
   { key: "moya", img: TUBE_V2.moyaMechta },
   { key: "rosa", img: TUBE_V2.rosa },
 ] as const;
-/** Background moods → section ids on this page. */
-const BG_SECTIONS = { hero: "hero", products: "products", factory: "factory", order: "lead-form" };
 
 const WHOLESALE = `${ORDER_HREF}?direction=wholesale`;
 
@@ -66,9 +63,6 @@ export default async function HomePage({ params }: Props) {
 
   return (
     <>
-      {/* one fixed WebGL layer behind the page; it also paints the hero stage and draws the hero lid */}
-      <LivingBackground sections={BG_SECTIONS} />
-
       {/* 1. Hero: direction A. Tall on desktop with a sticky stage, so scrolling turns the lid. */}
       <section id="hero" className="h-stage surface-stage" aria-labelledby="home-title" data-hero-track="">
         <Container className="h-stage__grid">
@@ -89,8 +83,7 @@ export default async function HomePage({ params }: Props) {
           </div>
           {/* three scroll steps: the 3D object turns on the stage, the card shows its datasheet rows */}
           <HeroSteps
-            alt={t("hero.slotAlt")}
-            altTwist={t("products.items.twist.altRed")}
+            alts={[t("hero.slotAlt"), t("products.items.twist.altRed"), t("products.items.ring.alt")]}
             sizes="(min-width: 1024px) 36vw, 90vw"
             items={HERO_STEPS.map((k) => ({
               key: k,

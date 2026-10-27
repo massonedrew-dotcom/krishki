@@ -37,7 +37,7 @@ export function BgDemo() {
       <>
         <LivingBackground tier={opts.tier === "auto" ? "desktop" : opts.tier} debug />
         <div style={{ width: 800, height: 800 }}>
-          <HeroLidSlot alt="SKO I-82 lid" sizes="800px" />
+          <HeroLidSlot alts={["SKO I-82 lid", "Twist-Off 82 lid", "Wikel ring"]} sizes="800px" />
         </div>
       </>
     );
@@ -75,7 +75,7 @@ export function BgDemo() {
             </div>
             {s.id === "hero" ? (
               <div style={{ position: "sticky", top: "14vh", width: "min(40vw, 560px)", minWidth: 280, marginLeft: "auto", marginRight: "4vw" }}>
-                <HeroLidSlot alt="SKO I-82 lid" />
+                <HeroLidSlot alts={["SKO I-82 lid", "Twist-Off 82 lid", "Wikel ring"]} />
               </div>
             ) : null}
           </section>
