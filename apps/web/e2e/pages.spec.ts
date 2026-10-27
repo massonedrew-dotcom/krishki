@@ -78,14 +78,11 @@ cases("ru", ROUTES);
 cases("uz", ["", "/products/sko-i82", "/contacts"]);
 cases("en", ["", "/services"]);
 
-test("mobile menu opens, lists every section and closes on Escape", async ({ page }) => {
+test("phone header lists every section as a button", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/ru");
-  await page.getByRole("button", { name: "Открыть меню" }).click();
-  await expect(page.locator(".menu-panel a[href='/ru/contacts']")).toBeVisible();
-  await page.screenshot({ path: join(SHOTS, "ru-mobile-menu-390.png") });
-  await page.keyboard.press("Escape");
-  await expect(page.locator(".menu-panel a[href='/ru/contacts']")).toBeHidden();
+  await expect(page.locator(".head-row a[href='/ru/contacts']")).toBeVisible();
+  await page.screenshot({ path: join(SHOTS, "ru-mobile-header-390.png") });
 });
 
 test("catalogue filter hides other types", async ({ page }) => {
@@ -97,7 +94,7 @@ test("catalogue filter hides other types", async ({ page }) => {
 test("language switch keeps the page", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto("/ru/brands");
-  await page.locator(".topbar nav.lang a", { hasText: "UZ" }).click();
+  await page.locator(".site-header nav.lang a", { hasText: "UZ" }).click();
   await expect(page).toHaveURL(/\/uz\/brands$/);
 });
 

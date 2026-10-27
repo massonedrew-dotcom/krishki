@@ -68,69 +68,54 @@ for (const locale of LOCALES) {
 }
 
 for (const locale of LOCALES) {
-  test(`burger sheet at 390 (${locale})`, async ({ page }) => {
+  test(`section buttons row at 390 (${locale})`, async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto(`/${locale}`);
     await settle(page);
-    await page.locator(".burger").click();
-    const panel = page.locator(".menu-panel");
-    await expect(panel).toHaveAttribute("data-open", "true");
-    await page.waitForTimeout(900); // link stagger
-    await page.screenshot({ path: join(SHOTS, `${locale}-burger-open-390.png`) });
-    // The sheet fills the screen under the header row and holds every top-row item.
-    const box = await panel.boundingBox();
-    const headerBox = await page.locator(".site-header").boundingBox();
-    expect(box?.height ?? 0).toBeGreaterThan(600);
-    expect(Math.abs((box?.y ?? 0) - ((headerBox?.y ?? 0) + (headerBox?.height ?? 0)))).toBeLessThan(2);
-    for (const href of ["/suppliers", "/distributors", "/order", "/products", "/about", "/services", "/brands", "/contacts"]) {
-      await expect(panel.locator(`a[href='/${locale}${href}']`).first()).toBeVisible();
+    const row = page.locator(".head-row");
+    await expect(row).toBeVisible();
+    await page.screenshot({ path: join(SHOTS, `${locale}-header-390.png`) });
+    // No burger: every section and audience page is a button in the second header row.
+    await expect(page.locator(".burger")).toHaveCount(0);
+    for (const href of ["/products", "/about", "/services", "/brands", "/contacts", "/distributors", "/suppliers"]) {
+      await expect(row.locator(`a[href='/${locale}${href}']`)).toHaveCount(1);
     }
+    await expect(page.locator(".header-order")).toBeVisible();
   });
 }
 
-test("sticky header after scroll at 1440 keeps one row and moves the order button in", async ({ page }) => {
+test("1440: one sticky row with sections, audience buttons, language and order", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto("/ru");
   await settle(page);
-  const order = page.locator(".header-order");
-  await expect(order).toBeHidden();
-  await expect(page.locator(".topbar")).toBeVisible();
+  await expect(page.locator(".topbar")).toHaveCount(0);
+  await expect(page.locator(".head-row")).toBeHidden();
+  await expect(page.locator(".header-order")).toBeVisible();
+  await expect(page.locator(".site-header .head-btn:visible", { hasText: "Дистрибьюторам" })).toBeVisible();
+  await expect(page.locator(".site-header .head-btn:visible", { hasText: "Поставщикам" })).toBeVisible();
   await page.evaluate(() => window.scrollTo(0, 1400));
   await page.waitForTimeout(700);
-  await expect(order).toBeVisible();
   const header = await page.locator(".site-header").boundingBox();
   expect(header?.y ?? 99).toBeLessThanOrEqual(1);
+  await expect(page.locator(".header-order")).toBeVisible();
   await page.screenshot({ path: join(SHOTS, "ru-sticky-scrolled-1440.png") });
-  await page.evaluate(() => window.scrollTo(0, 0));
-  await page.waitForTimeout(700);
-  await expect(order).toBeHidden();
 });
 
-test("below 1280 the top row is gone and the order button stays next to the burger", async ({ page }) => {
+test("the second row shows below 1280 only", async ({ page }) => {
   await page.setViewportSize({ width: 1279, height: 800 });
   await page.goto("/ru");
   await settle(page);
-  await expect(page.locator(".topbar")).toBeHidden();
-  await expect(page.locator(".burger")).toBeVisible();
-  await expect(page.locator(".header-order")).toBeVisible();
+  await expect(page.locator(".head-row")).toBeVisible();
   await page.setViewportSize({ width: 1280, height: 800 });
   await page.waitForTimeout(300);
-  await expect(page.locator(".topbar")).toBeVisible();
-  await expect(page.locator(".burger")).toBeHidden();
+  await expect(page.locator(".head-row")).toBeHidden();
 });
 
 test("mobile targets are at least 44 px", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/ru");
   await settle(page);
-  for (const sel of [".burger", ".header-order", ".site-header a[aria-label]"]) {
-    const box = await page.locator(sel).first().boundingBox();
-    expect(box?.height ?? 0, sel).toBeGreaterThanOrEqual(43.5);
-    expect(box?.width ?? 0, sel).toBeGreaterThanOrEqual(43.5);
-  }
-  await page.locator(".burger").click();
-  await page.waitForTimeout(700);
-  for (const sel of [".menu-panel .nav__link", ".menu-panel .btn", ".menu-panel .lang__item", ".menu-panel a.link"]) {
+  for (const sel of [".header-order", ".site-header a[aria-label]:visible", ".head-row .head-btn", ".head-row .lang__item"]) {
     const boxes = await page.locator(sel).evaluateAll((els) =>
       els.map((e) => {
         const r = e.getBoundingClientRect();
@@ -142,19 +127,19 @@ test("mobile targets are at least 44 px", async ({ page }) => {
   }
 });
 
-test("keyboard: tab order runs through the top row, then the main row; focus is visible", async ({ page }) => {
+test("keyboard: tab order runs logo, sections, audience, language, order; focus is visible", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto("/ru");
   await settle(page);
   const seen: string[] = [];
-  for (let i = 0; i < 16; i++) {
+  for (let i = 0; i < 13; i++) {
     await page.keyboard.press("Tab");
     const info = await page.evaluate(() => {
       const el = document.activeElement as HTMLElement | null;
       if (!el) return null;
       const cs = getComputedStyle(el);
       return {
-        label: (el.getAttribute("aria-label") || el.textContent || "").trim().replace(/\s+/g, " ").slice(0, 40),
+        label: (el.getAttribute("aria-label") || el.textContent || "").trim().replace(/s+/g, " ").slice(0, 40),
         outline: cs.outlineStyle !== "none" && parseFloat(cs.outlineWidth) >= 2,
       };
     });
@@ -163,48 +148,24 @@ test("keyboard: tab order runs through the top row, then the main row; focus is 
     seen.push(info?.label ?? "");
   }
   const at = (s: string) => seen.findIndex((x) => x.includes(s));
-  // skip link, Поставщикам, Дистрибьюторам, Заказать, Telegram, WhatsApp, phone, RU, UZ, EN, logo, Продукция, ...
   expect(seen[0]).toContain("Перейти");
-  expect(at("Поставщикам")).toBe(1);
-  expect(at("Дистрибьюторам")).toBe(2);
-  expect(at("Заказать")).toBe(3);
-  expect(at("Telegram")).toBe(4);
-  expect(at("WhatsApp")).toBe(5);
-  expect(at("+998")).toBe(6);
-  expect(at("ELIT KONSERVA")).toBeGreaterThan(at("EN"));
-  expect(at("Продукция")).toBeGreaterThan(at("ELIT KONSERVA"));
+  expect(at("Продукция")).toBeGreaterThan(0);
   expect(at("Контакты")).toBeGreaterThan(at("Бренды"));
-});
-
-test("keyboard: Escape closes the sheet and returns focus to the burger; Tab stays in the sheet", async ({ page }) => {
-  await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto("/ru");
-  await settle(page);
-  const burger = page.locator(".burger");
-  await burger.focus();
-  await page.keyboard.press("Enter");
-  await expect(page.locator(".menu-panel")).toHaveAttribute("data-open", "true");
-  // Tab from the burger enters the sheet, Shift+Tab from the burger wraps to its last item.
-  await page.keyboard.press("Shift+Tab");
-  await expect(page.locator(".menu-panel :focus")).toHaveCount(1);
-  await page.keyboard.press("Tab");
-  await expect(burger).toBeFocused();
-  await page.keyboard.press("Escape");
-  await expect(page.locator(".menu-panel")).toHaveAttribute("data-open", "false");
-  await expect(burger).toBeFocused();
-  await expect(burger).toHaveAttribute("aria-expanded", "false");
+  expect(at("Поставщикам")).toBeGreaterThan(at("Контакты"));
+  expect(at("Дистрибьюторам")).toBeGreaterThan(at("Поставщикам"));
+  expect(at("Заказать")).toBeGreaterThan(at("Дистрибьюторам"));
 });
 
 test("language switch keeps the page on the new routes", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto("/ru/distributors");
-  await page.locator(".topbar nav.lang a", { hasText: "UZ" }).click();
+  await page.locator(".site-header nav.lang a", { hasText: "UZ" }).click();
   await expect(page).toHaveURL(/\/uz\/distributors$/);
   await expect(page.locator("h1")).toHaveText("Ulgurji va eksport yetkazib berish");
 });
 
 test("/order keeps the direction preset from the link", async ({ page }) => {
-  await page.goto("/ru/distributors");
+  await page.goto("/ru");
   await settle(page);
   await page.locator("section a[href='/ru/order?direction=wholesale']").first().click();
   await expect(page).toHaveURL(/\/ru\/order\?direction=wholesale$/);

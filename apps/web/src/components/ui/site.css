@@ -141,80 +141,6 @@ html:not(.m) .vrail__dot {
 }
 
 /* ---------- Header ---------- */
-/* Top row (from 1280 px): ink band, as in the C drawing sheet. #e4e7ea on #101317 is 15:1, #a3a9b1 is 7.9:1. */
-.topbar {
-  background: var(--ink-950);
-  color: #a3a9b1;
-  font-size: var(--text-14);
-  --btn-h: 2rem;
-}
-.topbar__link {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  min-height: 2.75rem;
-  padding: 0 var(--space-4);
-  color: #e4e7ea;
-  font-weight: 500;
-  text-decoration: none;
-  white-space: nowrap;
-}
-.topbar__list {
-  display: flex;
-  height: 100%;
-}
-.topbar__list li {
-  max-width: none;
-  border-right: 1px solid #2e343c;
-}
-.topbar__list li:first-child {
-  border-left: 1px solid #2e343c;
-}
-.topbar__link:hover {
-  background: var(--azure-900);
-}
-.topbar__link[aria-current="page"] {
-  background: var(--azure-900);
-  box-shadow: inset 0 -2px 0 var(--gold-300);
-}
-.topbar__plain {
-  display: inline-flex;
-  align-items: center;
-  min-height: 2.25rem;
-  color: #a3a9b1;
-  text-decoration: none;
-  white-space: nowrap;
-}
-.topbar__plain:hover {
-  color: #e4e7ea;
-  text-decoration: underline;
-}
-.topbar .btn {
-  --btn-h: 2rem;
-  padding: 0 var(--space-4);
-}
-.topbar .lang {
-  border-color: #6b737d;
-}
-.topbar .lang__item {
-  min-width: 2.25rem;
-  min-height: 2rem;
-  color: #c4c9cf;
-}
-.topbar .lang__item + .lang__item {
-  border-left-color: #6b737d;
-}
-.topbar .lang__item:hover {
-  color: #fff;
-  background: var(--azure-900);
-}
-.topbar .lang__item[aria-current="true"] {
-  background: #e4e7ea;
-  color: var(--ink-950);
-}
-.topbar :focus-visible {
-  outline-color: var(--gold-300);
-}
 .site-header {
   position: sticky;
   top: 0;
@@ -222,8 +148,7 @@ html:not(.m) .vrail__dot {
   isolation: isolate;
   border-bottom: 1px solid var(--sky-line);
 }
-/* The blur lives on a pseudo-element: backdrop-filter on the header itself would make it the
-   containing block for the position:fixed .menu-panel rendered inside it. */
+/* The blur lives on a pseudo-element, so the header never becomes a containing block for fixed children. */
 .site-header::before {
   content: "";
   position: absolute;
@@ -267,7 +192,21 @@ html:not(.m) .vrail__dot {
   color: var(--ink-950);
 }
 
-/* «Заказать» in the main row: always there below 1280 px (44 px tall), after the top row scrolls away from 1280 px. */
+/* 1280–1535 px: the single row is tight (uz labels are the longest), so the section links sit closer. */
+@media (min-width: 80rem) and (max-width: 95.99rem) {
+  .site-header .nav__link {
+    padding: 0 0.5rem;
+  }
+  .site-header .nav__link::after {
+    left: 0.5rem;
+    right: 0.5rem;
+  }
+  .site-header .head-btn {
+    padding: 0 0.625rem;
+  }
+}
+
+/* «Заказать»: always in the logo row. */
 .header-order {
   --btn-h: 2.75rem;
   white-space: nowrap;
@@ -275,135 +214,57 @@ html:not(.m) .vrail__dot {
 @media (min-width: 80rem) {
   .header-order {
     --btn-h: 2.5rem;
-    visibility: hidden;
-    opacity: 0;
-    transform: translateY(-0.375rem);
-    transition:
-      opacity var(--dur-base) var(--ease-out),
-      transform var(--dur-base) var(--ease-out),
-      background-color var(--dur-fast) var(--ease-out),
-      visibility 0s linear var(--dur-base);
-  }
-  .header-order[data-stuck="true"] {
-    visibility: visible;
-    opacity: 1;
-    transform: none;
-    transition-delay: 0s;
   }
 }
 
-.burger {
+/* Header buttons: audience pages from 1280 px, every section in the second row below 1280 px. */
+.head-btn {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  width: 2.75rem;
-  height: 2.75rem;
+  min-height: 2.5rem;
+  padding: 0 0.875rem;
   border: 1px solid var(--line-strong);
   border-radius: var(--radius-ui);
-  background: transparent;
-  color: var(--ink-950);
-  cursor: pointer;
-}
-@media (min-width: 80rem) {
-  /* unlayered display above beats the xl:hidden utility, so hide explicitly */
-  .burger {
-    display: none;
-  }
-}
-.burger__bars,
-.burger__bars::before,
-.burger__bars::after {
-  display: block;
-  width: 1.125rem;
-  height: 2px;
-  background: currentColor;
-  transition:
-    transform var(--dur-base) var(--ease-out),
-    background-color var(--dur-fast);
-}
-.burger__bars {
-  position: relative;
-}
-.burger__bars::before,
-.burger__bars::after {
-  content: "";
-  position: absolute;
-  left: 0;
-}
-.burger__bars::before {
-  top: -6px;
-}
-.burger__bars::after {
-  top: 6px;
-}
-.burger[aria-expanded="true"] .burger__bars {
-  background: transparent;
-}
-.burger[aria-expanded="true"] .burger__bars::before {
-  transform: translateY(6px) rotate(45deg);
-}
-.burger[aria-expanded="true"] .burger__bars::after {
-  transform: translateY(-6px) rotate(-45deg);
-}
-.menu-panel {
-  position: fixed;
-  inset: var(--header-h) 0 0 0;
-  z-index: 55;
-  overflow-y: auto;
-  background: var(--mist);
-  padding: var(--space-6) var(--page-x) var(--space-12);
-  transform: translateY(-1rem);
-  opacity: 0;
-  visibility: hidden;
-  transition:
-    opacity var(--dur-base) var(--ease-out),
-    transform var(--dur-base) var(--ease-out),
-    visibility 0s linear var(--dur-base);
-}
-.menu-panel[data-open="true"] {
-  transform: none;
-  opacity: 1;
-  visibility: visible;
-  transition-delay: 0s;
-}
-.menu-panel .nav__link {
-  padding: 0;
-  text-transform: none;
-  letter-spacing: -0.01em;
+  background: rgb(255 255 255 / 0.6);
   color: var(--ink-950);
   font-family: var(--font-display-stack);
-  font-size: var(--text-28);
+  font-size: 0.875rem;
   font-weight: 600;
-  min-height: 3.5rem;
-  width: 100%;
-  border-bottom: 1px solid var(--sky-line);
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
 }
-.menu-panel .nav__link::after {
+.head-btn:hover {
+  background: var(--ink-950);
+  color: #fff;
+}
+.head-btn[aria-current="page"] {
+  background: var(--ink-950);
+  border-color: var(--ink-950);
+  color: #fff;
+}
+@media (max-width: 47.99rem) {
+  .head-btn {
+    min-height: 2.75rem;
+  }
+}
+.head-row {
+  border-top: 1px solid var(--sky-line);
+}
+.head-row__track {
+  position: relative; /* keeps the sr-only language names inside the scroller */
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-block: 0.5rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.head-row__track::-webkit-scrollbar {
   display: none;
 }
-.menu-panel .nav__link--sub {
-  font-size: var(--text-22);
-  font-weight: 500;
-  min-height: 3rem;
-  color: var(--ink-700);
-}
-.m .menu-panel .nav__link {
-  opacity: 0;
-  transform: translateY(0.75rem);
-  transition:
-    opacity 250ms var(--ease-out),
-    transform 250ms var(--ease-out);
-}
-.m .menu-panel[data-open="true"] .nav__link {
-  opacity: 1;
-  transform: none;
-}
-.m .menu-panel[data-open="true"] li:nth-child(1) .nav__link { transition-delay: 40ms; }
-.m .menu-panel[data-open="true"] li:nth-child(2) .nav__link { transition-delay: 80ms; }
-.m .menu-panel[data-open="true"] li:nth-child(3) .nav__link { transition-delay: 120ms; }
-.m .menu-panel[data-open="true"] li:nth-child(4) .nav__link { transition-delay: 160ms; }
-.m .menu-panel[data-open="true"] li:nth-child(5) .nav__link { transition-delay: 200ms; }
-.m .menu-panel[data-open="true"] li:nth-child(n + 6) .nav__link { transition-delay: 240ms; }
 
 /* ---------- Photo frames and lid backdrops ---------- */
 .frame {

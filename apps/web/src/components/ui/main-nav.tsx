@@ -1,16 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { Link, usePathname } from "@/i18n/navigation";
 import { cx } from "@/lib/cx";
-import { ButtonLink } from "./button";
 
 type Props = {
   items: { href: string; label: string }[];
   label: string;
   className?: string;
   listClassName?: string;
-  /** Class of each link. The main row and the sheet use `nav__link`, the top row uses `topbar__link`. */
+  /** Class of each link. The desktop row uses `nav__link`, audience buttons and the phone row use `head-btn`. */
   linkClassName?: string;
 };
 
@@ -35,24 +33,3 @@ export function MainNav({ items, label, className, listClassName, linkClassName 
   );
 }
 
-/**
- * «Заказать» in the main row. Below 1280 px it is always shown next to the burger. From 1280 px the top row
- * carries the button, and this one fades in only after the top row has scrolled out of view.
- */
-export function HeaderOrder({ href, label, topbarId }: { href: string; label: string; topbarId: string }) {
-  const [stuck, setStuck] = useState(false);
-
-  useEffect(() => {
-    const topbar = document.getElementById(topbarId);
-    if (!topbar) return;
-    const io = new IntersectionObserver(([entry]) => setStuck(entry ? !entry.isIntersecting : false));
-    io.observe(topbar);
-    return () => io.disconnect();
-  }, [topbarId]);
-
-  return (
-    <ButtonLink href={href} size="sm" variant="order" className="header-order" data-stuck={stuck}>
-      {label}
-    </ButtonLink>
-  );
-}
