@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import type { CSSProperties } from "react";
 import styles from "./hero-lid-slot.module.css";
 import { HERO_LID_ID } from "./store";
 
@@ -27,18 +28,15 @@ const FRAMES: Frame[][] = [
   [{ src: "/images/lids/live/rings.webp", width: 947, height: 793 }],
 ];
 
-/** Frame index inside a step for its local scroll progress 0 … 1. */
-export const frameAt = (step: number, local: number) => {
-  const n = FRAMES[step]?.length ?? 1;
-  return Math.min(n - 1, Math.max(0, Math.floor(local * n)));
-};
+/** Number of photo frames of a step. */
+export const frameCount = (step: number) => FRAMES[step]?.length ?? 1;
 
 export type HeroLidSlotProps = {
   /** Alt texts per step (SKO, Twist-Off, ring), from messages. */
   alts: [string, string, string];
   /** Step shown: 0 SKO, 1 Twist-Off, 2 wikel ring. */
   step?: number;
-  /** Frame inside the step (see frameAt). */
+  /** Frame nearest to the scroll position (gets the alt text); the picture itself follows --pos (CSS). */
   frame?: number;
   id?: string;
   sizes?: string;
@@ -47,8 +45,9 @@ export type HeroLidSlotProps = {
 
 /**
  * Hero centre: the live photo of the product of the current step. The frames of the current and the next
- * step are mounted and loaded eagerly, so a turn never waits for the network; the frames cross-fade and the
- * shown one floats gently. The first SKO frame is the LCP image.
+ * step are mounted and loaded eagerly, so a turn never waits for the network. Inside a step the frames
+ * cross-fade and turn continuously with the scroll (--pos, set by HeroSteps on an ancestor); between steps
+ * they fade. The whole slot floats gently. The first SKO frame is the LCP image.
  */
 export function HeroLidSlot({ alts, step = 0, frame = 0, id = HERO_LID_ID, sizes = "(min-width: 1024px) 34vw, 72vw", className }: HeroLidSlotProps) {
   const mounted: { s: number; f: number }[] = [];
@@ -76,6 +75,8 @@ export function HeroLidSlot({ alts, step = 0, frame = 0, id = HERO_LID_ID, sizes
             sizes={sizes}
             className={styles.photo}
             data-on={on || undefined}
+            data-cur={s === step || undefined}
+            style={{ "--i": f } as CSSProperties}
             draggable={false}
           />
         );

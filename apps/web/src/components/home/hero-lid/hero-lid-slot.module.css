@@ -23,6 +23,16 @@
   opacity: 1;
   transform: none;
 }
+/* inside the current step the scroll position (--pos, frames 0 … n−1) blends the two nearest frames and
+   turns them a little, so the lid seems to rotate in the hand instead of cutting between photos */
+.photo[data-cur] {
+  --d: calc(var(--pos, 0) - var(--i, 0));
+  --ad: max(var(--d), -1 * var(--d));
+  /* one frame holds while it turns; the swap to the next happens in a narrow window around the midpoint */
+  opacity: clamp(0, calc((0.62 - var(--ad)) * 5), 1);
+  transform: rotate(calc(var(--d) * -10deg)) scale(calc(1 - var(--ad) * 0.06));
+  transition: opacity 120ms linear;
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .slot {

@@ -80,7 +80,7 @@ html[data-hero-lid="live"] .h-stage {
    * --hero-pin-top is the measured header height (hero-steps.tsx); the header has a second row below 80rem.
    */
   html[data-hero-scroll="on"] .h-stage {
-    height: 300svh;
+    height: 460svh; /* 3 steps, 4 photo frames each: room to turn slowly */
   }
   .h-stage__grid {
     position: sticky;
@@ -115,7 +115,7 @@ html[data-hero-lid="live"] .h-stage {
   }
   /* live: the step block gets the scroll room and its pin sticks under the header */
   html[data-hero-scroll="on"] .h-steps {
-    height: 280svh;
+    height: 400svh;
   }
   html[data-hero-scroll="on"] .h-steps__pin {
     position: sticky;
@@ -344,7 +344,7 @@ html[data-hero-lid="live"] .stage-lid {
 }
 .h-ds__pic {
   position: relative;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 16 / 10; /* client, 27 Oct: smaller boxes, bigger products */
   background: var(--paper);
 }
 .h-ds__pic img {
@@ -352,27 +352,27 @@ html[data-hero-lid="live"] .stage-lid {
   object-fit: contain;
 }
 .h-ds__pic--one img {
-  inset: 6%;
-  width: 88%;
-  height: 88%;
+  inset: 5%;
+  width: 90%;
+  height: 90%;
 }
 .h-ds__pic--pair img {
-  width: 58%;
-  height: 58%;
+  width: 54%;
+  height: 66%;
 }
 .h-ds__pic--pair img:first-child {
-  left: 2%;
+  left: 3%;
   top: 4%;
 }
 .h-ds__pic--pair img:last-child {
-  right: 2%;
+  right: 3%;
   bottom: 4%;
 }
 /* the rings are a cutout (27 Oct): shown whole on paper like the lids, never cropped */
 .h-ds__pic--photo img {
-  inset: 6%;
-  width: 88%;
-  height: 88%;
+  inset: 4%;
+  width: 92%;
+  height: 92%;
 }
 .h-ds__k {
   display: block;

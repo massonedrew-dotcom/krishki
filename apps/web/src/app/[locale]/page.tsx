@@ -9,7 +9,7 @@ import { ButtonLink, Container, Marquee, Section, SplitText } from "@/components
 import { Link } from "@/i18n/navigation";
 import { MAP_URL } from "@/lib/contacts";
 import { pageMetadata } from "@/lib/seo";
-import { LID_PHOTO, ORDER_HREF, PARTNERS, PHOTO, TUBE_V2 } from "@/lib/site";
+import { ORDER_HREF, PARTNERS, PHOTO, TUBE_V2 } from "@/lib/site";
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -125,12 +125,12 @@ export default async function HomePage({ params }: Props) {
             <article key={p} className="h-ds__col" aria-labelledby={`ds-${p}`}>
               {p === "sko" ? (
                 <div className="h-ds__pic h-ds__pic--one">
-                  <Image src={LID_PHOTO.sko34.src} width={800} height={800} alt={t("products.items.sko.alt")} sizes="(min-width: 1024px) 28vw, 90vw" />
+                  <Image src="/images/lids/live/sko-34.webp" width={904} height={608} alt={t("products.items.sko.alt")} sizes="(min-width: 1024px) 28vw, 90vw" />
                 </div>
               ) : p === "twist" ? (
                 <div className="h-ds__pic h-ds__pic--pair">
-                  <Image src={LID_PHOTO.twistRed34.src} width={800} height={800} alt={t("products.items.twist.altRed")} sizes="(min-width: 1024px) 18vw, 60vw" />
-                  <Image src={LID_PHOTO.twistGreen34.src} width={800} height={800} alt={t("products.items.twist.altGreen")} sizes="(min-width: 1024px) 18vw, 60vw" />
+                  <Image src="/images/lids/live/red-34.webp" width={849} height={551} alt={t("products.items.twist.altRed")} sizes="(min-width: 1024px) 18vw, 60vw" />
+                  <Image src="/images/lids/live/green-34.webp" width={880} height={599} alt={t("products.items.twist.altGreen")} sizes="(min-width: 1024px) 18vw, 60vw" />
                 </div>
               ) : (
                 <div className="h-ds__pic h-ds__pic--photo">

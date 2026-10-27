@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { frameAt, HeroLidSlot } from "../hero-lid/hero-lid-slot";
+import { frameCount, HeroLidSlot } from "../hero-lid/hero-lid-slot";
 import { activeStep, type HeroStepKey, STEP_COUNT, stepAnchor, stepLocal } from "../hero-lid/steps";
 import { heroStepsScroll } from "../hero-lid/store";
 
@@ -77,7 +77,10 @@ export function HeroSteps({ items, alts, sizes }: HeroStepsProps) {
       const p = range > 1 ? Math.min(1, Math.max(0, (top - t.top) / range)) : 0;
       heroStepsScroll.progress = p;
       const step = activeStep(p);
-      const frameNow = frameAt(step, stepLocal(p, step));
+      // continuous frame position inside the step: the slot cross-fades and turns the photos by it (CSS)
+      const pos = stepLocal(p, step) * (frameCount(step) - 1);
+      el.style.setProperty("--pos", pos.toFixed(3));
+      const frameNow = Math.round(pos);
       setScrolled((prev) => (prev.step === step && prev.frame === frameNow ? prev : { step, frame: frameNow }));
     };
     const queue = () => {
