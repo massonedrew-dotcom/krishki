@@ -5,7 +5,7 @@ name: Preview on GitHub Pages
 
 on:
   push:
-    branches: [main, redesign-v4]
+    branches: [main] # redesign-v4 shared the "pages" group and cancelled the main deploys; Pages only accepts main
   workflow_dispatch:
 
 permissions:
