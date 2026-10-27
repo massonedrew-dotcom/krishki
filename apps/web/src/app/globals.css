@@ -122,12 +122,6 @@
   }
 }
 
-@media (min-width: 80rem) {
-  html {
-    scroll-padding-top: calc(var(--header-h) + 1rem);
-  }
-}
-
 .surface-white,
 .surface-mist,
 .surface-sky {
@@ -296,8 +290,7 @@
     -webkit-text-size-adjust: 100%;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
-    /* below 1280 px the header has a second row of section buttons (3.5rem) */
-    scroll-padding-top: calc(var(--header-h) + 4.5rem);
+    scroll-padding-top: calc(var(--header-h) + 1rem);
     scrollbar-color: var(--ink-300) var(--tin);
   }
   body {

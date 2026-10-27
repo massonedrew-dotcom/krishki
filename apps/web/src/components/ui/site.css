@@ -251,7 +251,8 @@ html:not(.m) .vrail__dot {
   }
 }
 .head-row {
-  border-top: 1px solid var(--sky-line);
+  border-bottom: 1px solid var(--sky-line);
+  background: rgb(236 238 240 / 0.92);
 }
 .head-row__track {
   position: relative; /* keeps the sr-only language names inside the scroller */

@@ -10,8 +10,8 @@ import { MainNav } from "./main-nav";
 
 /**
  * One sticky header, no burger (client, 27 Oct). From 1280 px a single row: logo, sections, audience buttons,
- * language, «Заказать». Below 1280 px the logo row keeps «Заказать», and the sections and audience pages sit
- * as buttons in a second row that scrolls sideways.
+ * language, «Заказать». Below 1280 px the sticky logo row keeps «Заказать», and the sections and audience
+ * pages sit as buttons in a row under it that scrolls sideways and scrolls away with the page.
  */
 export async function Header() {
   const t = await getTranslations("common");
@@ -25,6 +25,7 @@ export async function Header() {
   const phoneLabel = t("header.phoneLabel", { phone: PRIMARY_PHONE.display });
 
   return (
+    <>
     <header className="site-header">
       <Container className="flex h-[var(--header-h)] items-center gap-3 xl:gap-6">
         <Link href="/" aria-label={t("header.homeLabel")} className="flex min-h-11 shrink-0 items-center gap-3 no-underline">
@@ -66,14 +67,16 @@ export async function Header() {
           </ButtonLink>
         </div>
       </Container>
-      <div className="head-row xl:hidden">
-        <Container className="head-row__track">
-          <MainNav items={[...items, ...audience]} label={t("nav.mainLabel")} listClassName="gap-2" linkClassName="head-btn" />
-          <div className="md:hidden">
-            <LangSwitch preview label={t("lang.label")} locales={locales} />
-          </div>
-        </Container>
-      </div>
     </header>
+    {/* not sticky (client, 27 Oct): the button row scrolls away and only the logo row stays on top */}
+    <div className="head-row xl:hidden">
+      <Container className="head-row__track">
+        <MainNav items={[...items, ...audience]} label={t("nav.mainLabel")} listClassName="gap-2" linkClassName="head-btn" />
+        <div className="md:hidden">
+          <LangSwitch preview label={t("lang.label")} locales={locales} />
+        </div>
+      </Container>
+    </div>
+    </>
   );
 }

@@ -5,6 +5,7 @@ import { LeadForm } from "@/components/forms/lead-form";
 import { LivingBackground } from "@/components/home/background";
 import { HERO_STEPS } from "@/components/home/hero-lid";
 import { HeroSteps } from "@/components/home/hero-steps";
+import { HomeScroll } from "@/components/home/home-scroll";
 import { ButtonLink, Container, Marquee, Section, SplitText } from "@/components/ui";
 import { Link } from "@/i18n/navigation";
 import { MAP_URL } from "@/lib/contacts";
@@ -22,11 +23,11 @@ const ROWS = ["for", "material", "outside", "inside", "seal", "pack"] as const;
 const STATIONS = [
   { key: "tin", gold: false },
   { key: "lacquer", gold: true },
-  { key: "litho", gold: true, img: PHOTO.lithoMix },
-  { key: "stamp", gold: false, img: PHOTO.skoGold },
+  { key: "litho", gold: true },
+  { key: "stamp", gold: false },
   { key: "seal", gold: false },
   { key: "qc", gold: false },
-  { key: "pack", gold: false, img: PHOTO.tubesMechta },
+  { key: "pack", gold: false },
 ] as const;
 /** Years sit at their true position on a 1996-2026 ruler (percent of 30 years). */
 const YEARS = [
@@ -109,6 +110,9 @@ export default async function HomePage({ params }: Props) {
         </Container>
       </section>
 
+      {/* Sections 2-8 stack like sheets: each slides up over the previous one (home-scroll.tsx) */}
+      <HomeScroll />
+      <div className="h-stack">
       {/* 2. Products: one comparison datasheet */}
       <Section tone="white" id="products" labelledBy="products-title">
         <div className="h-head">
@@ -169,33 +173,28 @@ export default async function HomePage({ params }: Props) {
 
       {/* 3. Factory: the line as stations, then the timeline ruler */}
       <section className="surface-azure" aria-labelledby="factory-title" id="factory">
-        <Container className="py-[var(--section-y)]">
-          <div className="h-head">
-            <SplitText as="h2" id="factory-title" text={t("factory.title")} />
-            <p data-reveal>{t("factory.lead")}</p>
-          </div>
-          <ol className="h-stations">
-            {STATIONS.map((s, i) => (
-              <li key={s.key} className={`h-st${s.gold ? " h-st--gold" : ""}`} data-reveal>
-                <span className="h-st__node tnum" aria-hidden="true">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <h3>{t(`factory.stations.${s.key}.t`)}</h3>
-                <p>{t(`factory.stations.${s.key}.d`)}</p>
-                {"img" in s ? (
-                  <div className="h-st__shot">
-                    <Image
-                      src={s.img.src}
-                      width={s.img.width}
-                      height={s.img.height}
-                      alt={t(`factory.stations.${s.key}.alt`)}
-                      sizes="(min-width: 1120px) 14vw, 90vw"
-                    />
-                  </div>
-                ) : null}
-              </li>
-            ))}
-          </ol>
+        {/* the line: pinned on desktop while the rail fills and the stations light up one by one */}
+        <div className="h-line-track">
+          <Container className="h-line-pin">
+            <div className="h-head">
+              <SplitText as="h2" id="factory-title" text={t("factory.title")} />
+              <p data-reveal>{t("factory.lead")}</p>
+            </div>
+            <ol className="h-stations">
+              <li className="h-stations__rail" aria-hidden="true" />
+              {STATIONS.map((s, i) => (
+                <li key={s.key} className={`h-st${s.gold ? " h-st--gold" : ""}`}>
+                  <span className="h-st__node tnum" aria-hidden="true">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <h3>{t(`factory.stations.${s.key}.t`)}</h3>
+                  <p>{t(`factory.stations.${s.key}.d`)}</p>
+                </li>
+              ))}
+            </ol>
+          </Container>
+        </div>
+        <Container className="pb-[var(--section-y)]">
           <div className="h-ruler tnum" aria-hidden="true">
             <div className="h-ruler__scale" />
             {YEARS.map((y) => (
@@ -329,6 +328,7 @@ export default async function HomePage({ params }: Props) {
           </div>
         </div>
       </Section>
+      </div>
     </>
   );
 }
