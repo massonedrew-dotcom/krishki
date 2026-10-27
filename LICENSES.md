@@ -34,6 +34,8 @@ Made on the client's Higgsfield account (plan Lite); per Higgsfield terms, outpu
 | `apps/web/public/images/lids/*.webp` (SKO, Twist-off red/green, 5 views each) | Nano Banana 2.1, 2K | client photos `sko-gold-stack`, `twist-stack`, SKO inside photo from chat | none; rejected frames in `assets/generated/lids-2026-10-26/_rejected/` |
 | `apps/web/public/images/tubes/v2/*.webp` (7 tubes) | GPT Image 2.5 high, 2K | client tube photos in `apps/web/public/images/tubes/` | fine print the model invented (a Russian producer, an Ivanovo address, a GOST number, a slogan) removed by Nano Banana inpaint + local blend; label brand text unchanged |
 | `apps/web/public/images/brand/mechta-khozyayki-v2-*.webp` | GPT Image 2.5 high, 2K, transparent | old-site `logo.png` (260×150) | trimmed; a redraw of the client's own wordmark, a vector master is still TODO(client) |
+| `apps/web/public/images/lids/live/*.webp` (SKO, Twist-off red/green, rings; 14 views, 2026-10-27) | GPT Image 2.5: low on chroma green/blue, high/medium on transparent | `lids/sko-34`, `lids/twist-{red,green}-34`, `photos/rings` (all client-derived) | backdrop keyed out and trimmed locally (sharp); no text on the objects |
+| `apps/web/public/images/photos/tubes-elisey-cut.webp` | Higgsfield background remover | client photo `photos/tubes-elisey.webp` | trimmed |
 Masters (PNG) live in `assets/generated/` (git-ignored).
 
 ## Open points
