@@ -51,7 +51,8 @@ export const PAGE_PATHS = [
   "/privacy",
 ] as const;
 
-export type Img = { src: string; width: number; height: number };
+/** `cutout`: transparent background, always shown whole (contain), never cropped by a frame. */
+export type Img = { src: string; width: number; height: number; cutout?: boolean };
 
 /** Partner names are proper nouns, not translatable copy. */
 export const PARTNERS: { key: string; name: string; img: Img }[] = [
@@ -67,8 +68,9 @@ export const PARTNERS: { key: string; name: string; img: Img }[] = [
 export const PHOTO = {
   skoGold: { src: "/images/photos/sko-gold-stack.webp", width: 950, height: 650 },
   ringsBox: { src: "/images/photos/rings-box.webp", width: 950, height: 650 },
-  rings: { src: "/images/photos/rings.webp", width: 950, height: 650 },
-  tubesElisey: { src: "/images/photos/tubes-elisey.webp", width: 810, height: 457 },
+  /** Cutouts on transparent background (27 Oct): no grey photo backdrop, no carton print. */
+  rings: { src: "/images/photos/rings-cut.webp", width: 779, height: 676, cutout: true },
+  tubesElisey: { src: "/images/photos/tubes-elisey-cut.webp", width: 776, height: 384, cutout: true },
   tubesMechta: { src: "/images/photos/tubes-mechta.webp", width: 810, height: 457 },
   tubesTwist: { src: "/images/photos/tubes-twist.webp", width: 816, height: 456 },
   lithoMix: { src: "/images/photos/litho-mix.webp", width: 950, height: 650 },

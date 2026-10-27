@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import Image from "next/image";
 import { PageHero } from "@/components/blocks/page-hero";
+import { LeadForm } from "@/components/forms/lead-form";
 import { SectionHead } from "@/components/blocks/section-head";
 import { Link } from "@/i18n/navigation";
 import { ButtonLink, Container, Marquee, Section } from "@/components/ui";
@@ -25,8 +26,8 @@ const SUPPLY = [
 
 const PACK_ROWS = ["mechta", "elisey", "moya", "twist", "ring"] as const;
 
-/** Wholesale form preset; the lead form reads ?direction= on /order. */
-const ORDER_WHOLESALE = "/order?direction=wholesale";
+/** The wholesale request form sits on this page (client, 27 Oct). */
+const FORM = "#lead-form";
 
 /**
  * Distributors and export buyers. No commercial terms on this page (client, 2026-10-26): prices, discounts,
@@ -47,7 +48,7 @@ export default async function DistributorsPage({ params }: Props) {
         lead={t("hero.lead")}
         actions={
           <>
-            <ButtonLink href={ORDER_WHOLESALE} size="lg">
+            <ButtonLink href={FORM} size="lg">
               {t("hero.cta")}
             </ButtonLink>
             <ButtonLink href="#lots" variant="secondary" size="lg">
@@ -140,7 +141,7 @@ export default async function DistributorsPage({ params }: Props) {
               {t("samples.title")}
             </h2>
             <p className="mb-8 mt-4 text-18 text-ink-700">{t("samples.text")}</p>
-            <ButtonLink href={ORDER_WHOLESALE} variant="secondary">
+            <ButtonLink href={FORM} variant="secondary">
               {t("samples.cta")}
             </ButtonLink>
           </article>
@@ -166,14 +167,16 @@ export default async function DistributorsPage({ params }: Props) {
         </div>
       </section>
 
-      <section className="surface-azure grain py-[var(--section-y)]" aria-labelledby="distributors-cta-title">
-        <Container>
-          <SectionHead title={t("cta.title")} lead={t("cta.text")} id="distributors-cta-title" size="md" />
-          <ButtonLink href={ORDER_WHOLESALE} size="lg" className="mt-8">
-            {t("cta.button")}
-          </ButtonLink>
-        </Container>
-      </section>
+      <Section tone="white" id="lead-form" labelledBy="distributors-cta-title">
+        <div className="grid items-start gap-10 lg:grid-cols-12 lg:gap-x-10">
+          <div className="lg:col-span-4">
+            <SectionHead title={t("cta.title")} lead={t("cta.text")} id="distributors-cta-title" size="md" />
+          </div>
+          <div className="rounded-card border border-sky-line bg-paper p-6 shadow-soft md:p-10 lg:col-span-8">
+            <LeadForm defaultDirection="wholesale" />
+          </div>
+        </div>
+      </Section>
     </>
   );
 }

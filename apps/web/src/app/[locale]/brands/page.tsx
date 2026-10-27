@@ -7,7 +7,7 @@ import { LeadCta } from "@/components/forms/lead-cta";
 import { Photo, Section, SplitText } from "@/components/ui";
 import { cx } from "@/lib/cx";
 import { pageMetadata } from "@/lib/seo";
-import { LOGO, PHOTO, TUBE, type Img } from "@/lib/site";
+import { LOGO, PHOTO, TUBE_V2, type Img } from "@/lib/site";
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -25,11 +25,11 @@ type Brand = {
 };
 
 const BRANDS: Brand[] = [
-  { key: "mechta", specs: ["types", "tube", "group"], tubes: [TUBE.skoMechta, TUBE.twistGreenRed], logo: true },
+  { key: "mechta", specs: ["types", "tube", "group"], tubes: [TUBE_V2.skoMechta, TUBE_V2.twistGreen], logo: true },
   { key: "elisey", specs: ["types", "tube", "group"], photo: PHOTO.tubesElisey },
-  { key: "moya", specs: ["metal", "outer", "inner", "top", "inks", "pack"], tubes: [TUBE.moyaMechta] },
-  { key: "rosa", specs: ["metal", "outer", "inner", "top", "inks", "pack"], tubes: [TUBE.rosa] },
-  { key: "gurman", specs: ["tube", "designs", "rest"], photo: TUBE.gurman },
+  { key: "moya", specs: ["metal", "outer", "inner", "top", "inks", "pack"], tubes: [TUBE_V2.moyaMechta] },
+  { key: "rosa", specs: ["metal", "outer", "inner", "top", "inks", "pack"], tubes: [TUBE_V2.rosa] },
+  { key: "gurman", specs: ["tube", "designs", "rest"], tubes: [TUBE_V2.gurmanFamily, TUBE_V2.gurmanG] },
 ];
 
 export default async function BrandsPage({ params }: Props) {
@@ -69,8 +69,6 @@ export default async function BrandsPage({ params }: Props) {
                     alt={t(`${b.key}.imgAlt`)}
                     sizes="(min-width: 1024px) 40vw, 100vw"
                     card
-                    ratio={b.key === "gurman" ? "4 / 4.4" : undefined}
-                    imgClassName={b.key === "gurman" ? "object-top" : undefined}
                   />
                 ) : null}
               </div>

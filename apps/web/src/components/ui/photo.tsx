@@ -12,7 +12,7 @@ type Props = {
   card?: boolean;
   priority?: boolean;
   parallax?: boolean;
-  /** Fit the picture inside the frame instead of cropping (packshots). */
+  /** Fit the picture inside the frame instead of cropping (packshots). Cutout images always fit. */
   contain?: boolean;
   imgClassName?: string;
 };
@@ -32,7 +32,7 @@ export function Photo({ img, alt, sizes, className, ratio, card, priority, paral
         alt={alt}
         sizes={sizes}
         priority={priority}
-        className={cx(contain && "!object-contain", imgClassName)}
+        className={cx((contain || img.cutout) && "!object-contain", img.cutout && "p-[6%]", imgClassName)}
         data-parallax={parallax ? "0.1" : undefined}
       />
     </div>

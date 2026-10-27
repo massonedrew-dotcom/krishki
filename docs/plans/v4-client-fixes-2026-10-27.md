@@ -16,5 +16,13 @@ Owner: lead (main loop). Branch: redesign-v4. Source: client feedback 27 Oct + l
 9. Hero: dark empty band below the stage before the lid marquee; the stats column floats far from the headline.
 10. Not yet checked: 390 px slices and inner pages.
 
+## Client points, round 2 (same day, on the live v4)
+11. **Hero lid does not read as SKO.** Inside view has no rubber ring. A real SKO I-82 has a food-grade rubber ring seated in the groove along the inner rim (lid-standards.md:11; client: grey). Our generated photo `lids/sko-inside-*.webp` misses it too. Fix: model the ring in the hero lid (grey, matte rubber, visible bead along the rim), check against the client's lid, regenerate the inside photo only if it is used as fallback.
+12. **Lid change is only a colour swap.** Replace with the old prototype motion (prototype-light «01 / 03» product scroll): each lid turns in 3D while its card shows name and spec rows (type, control, sealing, closing, packing). Three steps: SKO I-82 → Twist-Off 82 → wikel ring, facts from the datasheet only.
+13. **Remove the lid marquee strip** under the hero.
+14. **Background 3D**: the floating rubber ring looks odd; lids cover text and wash out the «Три пути к нам» cards. Drop the ring from the background, keep lids out of text columns, add a solid surface under cards. Merges with finding 7.
+15. **Rename «Красим и печатаем жесть сами»** — new heading in messages/*.json, e.g. «Своя лакировка и литография жести» (ru/uz/en, client to approve wording).
+16. **Header** (client 27 Oct: both): no burger on phone and no right-hand top row on desktop; one header with buttons (Заказать, Дистрибьюторам, Поставщикам), contacts and languages fit in.
+
 ## Done when
 Screenshots 1440/390 of home, /brands, /about, /distributors, /products/wikel-ring; lint, typecheck, build pass; review note in docs/reviews; client sees v4 on the Pages link.
