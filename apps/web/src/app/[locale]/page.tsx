@@ -3,12 +3,13 @@ import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { LeadForm } from "@/components/forms/lead-form";
 import { LivingBackground } from "@/components/home/background";
-import { HeroLidSlot } from "@/components/home/hero-lid";
+import { HERO_STEPS } from "@/components/home/hero-lid";
+import { HeroSteps } from "@/components/home/hero-steps";
 import { ButtonLink, Container, Marquee, Section, SplitText } from "@/components/ui";
 import { Link } from "@/i18n/navigation";
 import { MAP_URL } from "@/lib/contacts";
 import { pageMetadata } from "@/lib/seo";
-import { LID_CUTOUT, LID_PHOTO, ORDER_HREF, PARTNERS, PHOTO, TUBE_V2 } from "@/lib/site";
+import { LID_PHOTO, ORDER_HREF, PARTNERS, PHOTO, TUBE_V2 } from "@/lib/site";
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -46,16 +47,6 @@ const TUBES = [
   { key: "moya", img: TUBE_V2.moyaMechta },
   { key: "rosa", img: TUBE_V2.rosa },
 ] as const;
-/** Lids on the production line strip: decorative, the same sequence twice for a seamless loop. */
-const LINE = [
-  LID_CUTOUT.skoTop,
-  LID_CUTOUT.twistRed34,
-  LID_CUTOUT.twistGreenTop,
-  LID_CUTOUT.sko34,
-  LID_CUTOUT.twistRedTop,
-  LID_CUTOUT.twistGreen34,
-];
-
 /** Background moods → section ids on this page. */
 const BG_SECTIONS = { hero: "hero", products: "products", factory: "factory", order: "lead-form" };
 
@@ -78,7 +69,7 @@ export default async function HomePage({ params }: Props) {
       <LivingBackground sections={BG_SECTIONS} />
 
       {/* 1. Hero: direction A. Tall on desktop with a sticky stage, so scrolling turns the lid. */}
-      <section id="hero" className="h-stage surface-stage" aria-labelledby="home-title">
+      <section id="hero" className="h-stage surface-stage" aria-labelledby="home-title" data-hero-track="">
         <Container className="h-stage__grid">
           <div className="h-stage__text">
             <h1 id="home-title">
@@ -95,7 +86,18 @@ export default async function HomePage({ params }: Props) {
             </div>
             <p className="h-stage__note max-w-none">{t("hero.note")}</p>
           </div>
-          <HeroLidSlot alt={t("hero.slotAlt")} className="stage-lid" sizes="(min-width: 1024px) 40vw, 90vw" />
+          {/* three scroll steps: the 3D object turns on the stage, the card shows its datasheet rows */}
+          <HeroSteps
+            alt={t("hero.slotAlt")}
+            altTwist={t("products.items.twist.altRed")}
+            sizes="(min-width: 1024px) 36vw, 90vw"
+            items={HERO_STEPS.map((k) => ({
+              key: k,
+              name: t(`products.items.${k}.name`),
+              sub: t(`products.items.${k}.sub`),
+              rows: ROWS.map((r) => ({ label: t(`products.labels.${r}`), value: t(`products.items.${k}.${r}`) })),
+            }))}
+          />
           <ul className="h-facts tnum">
             {(["market", "batch", "geo"] as const).map((k) => (
               <li key={k}>
@@ -106,17 +108,6 @@ export default async function HomePage({ params }: Props) {
           </ul>
         </Container>
       </section>
-
-      {/* the production line: lids travel on a rail, the visible slice of the living background */}
-      <div className="h-line" aria-hidden="true">
-        <div className="h-line__rail">
-          {[0, 1].flatMap((n) =>
-            LINE.map((img, i) => (
-              <Image key={`${n}-${i}`} src={img.src} width={img.width} height={img.height} alt="" sizes="96px" />
-            )),
-          )}
-        </div>
-      </div>
 
       {/* 2. Products: one comparison datasheet */}
       <Section tone="white" id="products" labelledBy="products-title">

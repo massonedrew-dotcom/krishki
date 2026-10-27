@@ -6,12 +6,16 @@ import type { LidKind, Mood } from "./types";
  * A lid's diameter is 1 world unit before `s`.
  */
 
-/** Lid list per tier. The first three are the featured trio for the `products` mood: SKO, Twist-off, ring. */
+/**
+ * Lid list per tier: SKO and Twist-Off only (the floating wikel ring was dropped, client 2026-10-27; the
+ * ring has its own step in the hero). Lids live in the side bands of the frame, and the scene shrinks any
+ * lid that comes near text (keep-out.ts).
+ */
 export const LIDS_DESKTOP: readonly LidKind[] = [
-  "sko", "twistRed", "ring", "sko", "twistGreen", "sko", "ring",
-  "twistRed", "sko", "twistGreen", "sko", "ring", "sko", "twistRed",
+  "sko", "twistRed", "sko", "twistGreen", "sko", "twistRed",
+  "sko", "twistGreen", "sko", "twistRed", "sko", "twistGreen",
 ];
-export const LIDS_MOBILE: readonly LidKind[] = ["sko", "twistRed", "ring", "sko", "twistGreen", "sko", "ring"];
+export const LIDS_MOBILE: readonly LidKind[] = ["sko", "twistRed", "sko", "twistGreen", "sko", "twistRed"];
 
 export type Pose = { x: number; y: number; z: number; rx: number; rz: number; spin: number; s: number };
 /** tanH = tan(fov / 2), aspect = width / height. */
@@ -44,17 +48,20 @@ const portrait = (f: Frame) => f.aspect < 0.9;
 /** Lids are sized against the frame height; on a portrait phone that is too wide, so they shrink. */
 const sizeK = (f: Frame) => (portrait(f) ? 0.72 : 1);
 
-/** Seeds: a low-discrepancy spread (R2 sequence) so lids never clump; near lids are pushed to the sides. */
+/**
+ * Seeds: a low-discrepancy spread (R2 sequence) so lids never clump. Every lid sits in a side band
+ * (|nx| 0.7 … 1.04 of the half frame, alternating sides): the middle of the frame is where the copy is.
+ */
 export function makeSeeds(n: number): LidSeed[] {
   const a1 = 0.7548776662, a2 = 0.569840291;
   return Array.from({ length: n }, (_, i) => {
-    let nx = (fract(0.5 + a1 * (i + 1)) * 2 - 1) * 0.92;
+    const side = i % 2 === 0 ? -1 : 1;
+    const nx = side * (0.7 + 0.34 * fract(0.5 + a1 * (i + 1)));
     const ny = (fract(0.5 + a2 * (i + 1)) * 2 - 1) * 0.86;
     const z = -(5.6 + 7.2 * hash(i, 3));
-    if (z > -7.6 && Math.abs(nx) < 0.45) nx = (nx < 0 ? -1 : 1) * (0.45 + Math.abs(nx) * 0.6);
     return {
       i, n, nx, ny, z,
-      s: 0.78 + 0.3 * hash(i, 4),
+      s: 0.6 + 0.24 * hash(i, 4),
       dir: hash(i, 5) < 0.5 ? -1 : 1,
       ph: [hash(i, 6) * 6.283, hash(i, 7) * 6.283, hash(i, 8) * 6.283, hash(i, 9) * 6.283],
     };
@@ -73,29 +80,10 @@ function hero(d: LidSeed, t: number, f: Frame, o: Pose, deeper = 0) {
   o.s = d.s * sizeK(f);
 }
 
-/** products: the trio (SKO, Twist-off, ring) comes forward; the rest recede into the haze. */
+/** products: the lids recede a little and stay in the side bands, clear of the datasheet. */
 function products(d: LidSeed, t: number, f: Frame, o: Pose) {
-  if (d.i > 2) {
-    // the rest sink into the haze; the scene shrinks them away there (HAZE_* in background-scene.tsx)
-    hero(d, t * 0.6, f, o, 16);
-    o.s *= 0.6;
-    return;
-  }
-  const p = portrait(f);
-  if (p) {
-    // on a phone the datasheet fills the width and the trio would sit right behind the heading: drift deeper
-    hero(d, t, f, o, 3);
-    return;
-  }
-  const k = d.i - 1;
-  const z = -5.2;
-  o.x = k * 0.58 * halfW(z, f);
-  o.y = -0.04 * halfH(z, f) + Math.sin(t * 0.8 + d.i * 2.1) * 0.05;
-  o.z = z;
-  o.rx = 1.12 + 0.05 * Math.sin(t * 0.5 + d.i);
-  o.rz = 0.06 * Math.sin(t * 0.4 + d.ph[2]);
-  o.spin = d.ph[3] + t * 0.3;
-  o.s = 1.05;
+  hero(d, t * 0.8, f, o, 1.6);
+  o.s *= 0.85;
 }
 
 /** factory: two production lines; lids advance one slot at a time, like a press feeding a conveyor. */
@@ -122,16 +110,16 @@ function factory(d: LidSeed, t: number, f: Frame, o: Pose) {
   o.s = 0.8 * sizeK(f);
 }
 
-/** order: lids settle into low stacks along the bottom of the frame and rest. */
+/** order: lids settle into low stacks in the bottom corners of the frame (clear of the form) and rest. */
 function order(d: LidSeed, _t: number, f: Frame, o: Pose) {
   const p = portrait(f);
-  const piles = p ? 3 : 5;
+  const piles = p ? 2 : 4;
   const k = d.i % piles;
   const level = Math.floor(d.i / piles);
   const z = -(7.4 + (k % 2) * 2.0);
-  const nx = lerp(p ? -0.6 : -0.78, p ? 0.6 : 0.78, k / (piles - 1));
+  const nx = p ? (k === 0 ? -0.9 : 0.9) : [-0.96, -0.76, 0.76, 0.96][k] ?? 0.9;
   const rx = 0.42;
-  const s = 0.82 * sizeK(f);
+  const s = 0.7 * sizeK(f);
   const lift = level * 0.13 * s; // a lid is ~0.105 of its diameter tall
   o.x = nx * halfW(z, f);
   o.y = (p ? -0.62 : -0.56) * halfH(z, f) + lift * Math.cos(rx);

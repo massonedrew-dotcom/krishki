@@ -36,5 +36,12 @@ export const heroLidLive = {
   },
 };
 
+/**
+ * Hero steps progress (0 … 1). Written by <HeroSteps/> from its own scroll track (the sticky hero on
+ * desktop, the sticky step block on phones); while `driven`, the hero-lid pass uses it instead of its own
+ * ScrollTrigger range on the hero section.
+ */
+export const heroStepsScroll = { progress: 0, driven: false };
+
 /** Default id of the hero slot element that the background tracks. */
 export const HERO_LID_ID = "hero-lid";

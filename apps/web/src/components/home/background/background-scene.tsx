@@ -13,14 +13,16 @@ import {
   PMREMGenerator,
   setConsoleFunction,
   Vector2,
+  Vector3,
 } from "three";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js";
 import { blendPose, damp, LIDS_DESKTOP, LIDS_MOBILE, makeSeeds, newPose, type Frame } from "./choreography";
-import { heroLidLive } from "../hero-lid/store";
+import { heroLidLive, heroStepsScroll } from "../hero-lid/store";
 import { createHeroLidPass, type HeroLidPass, type HeroView } from "./hero-lid-pass";
 import { isMesh, loadLidKit, type Look, type LidKit } from "./lid-kit";
 import { bindHeroScroll, bindScrollMoods, type HeroScroll, type ScrollState } from "./scroll-moods";
+import { createKeepOut, type KeepOut } from "./keep-out";
 import { createTinField } from "./tin-field";
 import { type FrameStats, type LiveTier, type Mood, MOODS, type SectionIds } from "./types";
 
@@ -147,6 +149,10 @@ function World({ tier, sections, heroLid, heroScroll, debug, onReady, onFail }: 
   const heroP = useRef({ hero: 0, smooth: 0 }).current;
   const fieldMesh = useRef<Mesh>(null);
   const pose = useMemo(() => newPose(), []);
+  const keepOut = useRef<KeepOut | null>(null);
+  /** Per lid: 1 = free, 0 = shrunk away (over text); damped. */
+  const clear = useMemo(() => new Float32Array(kinds.length).fill(1), [kinds.length]);
+  const proj = useMemo(() => new Vector3(), []);
   const buf = useMemo(() => new Vector2(), []);
   const S = useRef({
     scroll: { mood: "hero", progress: 0, bound: [] } as ScrollState,
@@ -218,6 +224,16 @@ function World({ tier, sections, heroLid, heroScroll, debug, onReady, onFail }: 
     () => bindHeroScroll(sections.hero, JSON.parse(heroScrollKey) as HeroScroll, heroP),
     [sections.hero, heroScrollKey, heroP],
   );
+
+  // lids keep out of the page's text (measured from the DOM)
+  useEffect(() => {
+    const ko = createKeepOut();
+    keepOut.current = ko;
+    return () => {
+      keepOut.current = null;
+      ko.dispose();
+    };
+  }, []);
 
   // a little pointer parallax on fine pointers only
   useEffect(() => {
@@ -295,6 +311,13 @@ function World({ tier, sections, heroLid, heroScroll, debug, onReady, onFail }: 
     const k = kit.current;
     if (k) {
       const frame: Frame = { tanH: Math.tan(MathUtils.degToRad(FOV / 2)), aspect: state.size.width / Math.max(1, state.size.height) };
+      const ko = keepOut.current;
+      const { width: vw, height: vh } = state.size;
+      ko?.frame(vh);
+      camera.updateMatrixWorld();
+      // lids near text shrink ("smaller near copy"); over text they shrink away
+      const pxPerUnit = vh / 2 / frame.tanH; // px per world unit at depth 1
+      const margin = vw < 768 ? 6 : 16;
       for (let i = 0; i < k.lids.length; i++) {
         const lid = k.lids[i];
         const seed = seeds[i];
@@ -303,8 +326,19 @@ function World({ tier, sections, heroLid, heroScroll, debug, onReady, onFail }: 
         lid.root.position.set(pose.x, pose.y, pose.z);
         // a lid deep in the haze turns into a flat pale disc on the field: shrink it away before that
         const haze = MathUtils.smoothstep(-pose.z, HAZE_FROM, HAZE_TO);
-        lid.root.visible = haze < 0.999;
-        lid.root.scale.setScalar(pose.s * (1 - haze));
+        let want = 1;
+        if (ko) {
+          proj.set(group.position.x + pose.x, group.position.y + pose.y, pose.z).project(camera);
+          const depth = Math.max(0.1, camera.position.z - pose.z);
+          const r = ((0.5 * pose.s * (1 - haze)) / depth) * pxPerUnit;
+          const gap = ko.gap((proj.x + 1) * 0.5 * vw, (1 - proj.y) * 0.5 * vh, r);
+          want = gap < margin ? 0 : gap < r * 0.6 + margin ? 0.55 : 1;
+        }
+        const was = clear[i] ?? 1;
+        const c = damp(was, want, want < was ? 5 : 2.2, dt); // shrink fast, grow back slowly
+        clear[i] = c;
+        lid.root.visible = haze < 0.999 && c > 0.01;
+        lid.root.scale.setScalar(pose.s * (1 - haze) * c);
         lid.tilt.rotation.set(pose.rx, 0, pose.rz);
         lid.spin.rotation.y = pose.spin;
       }
@@ -333,7 +367,9 @@ function World({ tier, sections, heroLid, heroScroll, debug, onReady, onFail }: 
     if (sections.hero && !stageEl.current?.isConnected) stageEl.current = document.getElementById(sections.hero);
     const sb = stageEl.current?.getBoundingClientRect() ?? null;
     const dt = Math.min(rawDt, 0.05);
-    heroP.smooth = damp(heroP.smooth, heroP.hero, 5, dt); // scrub with a little inertia
+    // the hero steps (hero-steps/) report their own sticky range; else the hero section's ScrollTrigger range
+    const heroTarget = heroStepsScroll.driven ? heroStepsScroll.progress : heroP.hero;
+    heroP.smooth = damp(heroP.smooth, heroTarget, 6, dt); // scrub with a little inertia; the turntable adds a spring
     const onScreen = (q: DOMRect) => q.width >= 8 && q.bottom > 0 && q.top < size.height && q.right > 0 && q.left < size.width;
     if (!onScreen(b) && !(sb && onScreen(sb))) return;
     h.render(r, {

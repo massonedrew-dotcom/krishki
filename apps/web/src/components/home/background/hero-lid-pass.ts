@@ -8,7 +8,7 @@ import {
   Mesh,
   MeshBasicMaterial,
   MeshPhysicalMaterial,
-  type MeshStandardMaterial,
+  MeshStandardMaterial,
   type Object3D,
   OrthographicCamera,
   PerspectiveCamera,
@@ -23,16 +23,19 @@ import {
   type WebGLRenderer,
 } from "three";
 import { heroLidDrag } from "../hero-lid/store";
+import { stepLocal, stepPos } from "../hero-lid/steps";
 import { damp } from "./choreography";
-import { isMesh, type Look, normalise, TWIST_GREEN, TWIST_RED, tune } from "./lid-kit";
+import { isMesh, type Look, normalise, RUBBER_GREY, seatWikelRing, TWIST_GREEN, TWIST_RED, tune, WIKEL_MID_Y, wikelRingGeometry } from "./lid-kit";
 
 /*
  * Hero lid, drawn by the living background's renderer (one WebGL context for the page):
  * 1. the dark warm stage of the hero section (style A «Лаковая печь»: #110F0C ground, oven glow,
  *    a slow light sweep) is painted into the hero section's rect;
- * 2. the lid is drawn into the hero slot's rect (viewport + scissor).
- * The sequence follows scroll progress through the hero: SKO top → tilt and flip to the inside with
- * the grey ring → cross-fade to the Twist-off in red → colour morph to green. Idle = slow turntable.
+ * 2. the products are drawn around the hero slot's rect (viewport + scissor).
+ * Three scroll steps, as in the light-home prototype: SKO I-82, Twist-Off 82 and the wikel ring stand
+ * on a turntable 120° apart; scroll turns it (a spring) so the next product swings round to the front
+ * while the HTML card beside it changes (hero-steps/). Within its step the SKO flips to show the inside
+ * with the grey rubber ring, the Twist-Off goes from red to green. Idle = a slow spin on their own axis.
  */
 
 export type HeroView = "34" | "top" | "profile" | "inside" | "edge";
@@ -41,18 +44,34 @@ export type HeroRect = { x: number; y: number; w: number; h: number };
 const FOV = 20;
 /** The lid fills this share of the slot width; the fallback cutout uses the same share. */
 const FILL = 0.84;
+/** Slots wider than this aspect frame the lid by their height (a lid seen from above is ~0.6 as tall as wide). */
+const FRAME_ASPECT = 1.25;
 const EL = 0.56; // ~32°, the angle of the sko-34 photo
+/** The products swing out beyond the slot while the turntable turns: draw into a rect this much larger. */
+const EXPAND_X = 1.5;
+const EXPAND_Y = 1.2;
+/** Turntable: radius (lid diameters), step angle, x squash at rest / while turning (keeps the side ones tucked in). */
+const R = 1.1;
+const STEP = (Math.PI * 2) / 3;
+const SQUASH_REST = 0.32;
+const SQUASH_TURN = 0.5;
 /** Stage ground, display sRGB #110F0C (docs/design/style-directions.md, A). */
 const GROUND: [number, number, number] = [0x11 / 255, 0x0f / 255, 0x0c / 255];
 
-/** Emissive (linear) that lifts #50555A rubber to a readable mid grey on the #110F0C stage. */
-const RUBBER_GLOW: [number, number, number] = [0.085, 0.09, 0.095];
+/** Emissive (linear) that keeps the matte grey rubber readable on the #110F0C stage. */
+const RUBBER_GLOW: [number, number, number] = [0.032, 0.035, 0.04];
 const NO_GLOW: [number, number, number] = [0, 0, 0];
+/** The stage's warm key light tints rubber beige: a cooler base keeps it reading neutral grey there. */
+const RUBBER_STAGE = new Color("#6E7A88");
+const RUBBER_STUDIO = new Color(RUBBER_GREY);
 
+const clamp01 = (v: number) => Math.min(1, Math.max(0, v));
 const smooth = (v: number) => {
-  const c = Math.min(1, Math.max(0, v));
+  const c = clamp01(v);
   return c * c * (3 - 2 * c);
 };
+/** Angle wrapped to −π … π. */
+const wrap = (a: number) => a - Math.PI * 2 * Math.round(a / (Math.PI * 2));
 
 const VIEWS: Record<HeroView, { el: number; flip: number; yaw: number }> = {
   "34": { el: EL, flip: 0, yaw: 0 },
@@ -62,7 +81,8 @@ const VIEWS: Record<HeroView, { el: number; flip: number; yaw: number }> = {
   edge: { el: 0.1, flip: Math.PI / 2, yaw: 0.5 },
 };
 
-type HeroRig = { root: Group; flip: Group; spin: Group; mats: MeshStandardMaterial[]; op: number };
+/** root: turntable position · face: yaw toward the camera · flip: tilt / flip about X · spin: own axis. */
+type HeroRig = { root: Group; face: Group; flip: Group; spin: Group; mats: MeshStandardMaterial[]; op: number };
 
 export type HeroFrame = {
   slot: HeroRect;
@@ -70,19 +90,37 @@ export type HeroFrame = {
   stage: HeroRect | null;
   canvasH: number;
   dt: number;
-  /** Scroll progress through the hero, 0 … 1 (already smoothed). */
+  /** Scroll progress through the hero steps, 0 … 1 (already smoothed). */
   progress: number;
   time: number;
 };
 
 export type HeroLidPass = {
   render: (gl: WebGLRenderer, f: HeroFrame) => void;
-  /** QA: one lid frozen in a reference photo view, white studio (matches apps/web/public/images/lids). */
+  /** QA: one product frozen in a reference photo view, white studio (matches apps/web/public/images/lids). */
   compare: (look: Look, view: HeroView) => void;
   release: () => void;
   comparing: () => boolean;
   dispose: () => void;
 };
+
+/** Damped spring, mass 1, fixed 1/120 s substeps (the turntable's feel, as in the prototype). */
+function spring(x: number, tension = 60, friction = 14.5) {
+  const s = { x, v: 0, target: x };
+  return {
+    s,
+    step(dt: number) {
+      let n = Math.max(1, Math.ceil(dt * 120));
+      const h = dt / n;
+      while (n--) {
+        const a = -tension * (s.x - s.target) - friction * s.v;
+        s.v += a * h;
+        s.x += s.v * h;
+      }
+      return s.x;
+    },
+  };
+}
 
 /** A dark studio: near-black room, one big warm softbox (key), a thin warm strip (rim), a dim floor bounce. */
 function darkStudio(gl: WebGLRenderer): { env: Texture; dispose: () => void } {
@@ -197,20 +235,32 @@ export function createHeroLidPass(gl: WebGLRenderer, sources: { sko: Object3D; t
   shadow.renderOrder = -1;
   scene.add(shadow);
 
+  // the wikel ring, built in code: seated in the SKO, and on its own as the third product
+  const ringGeo = wikelRingGeometry(128);
+
   const owned = new Set<Material>([shMat, stageMat]);
   const outers: MeshStandardMaterial[] = [];
   /** Coloured lacquer: on the dark stage the big overhead softbox would mirror across the whole top. */
   const lacquers: MeshStandardMaterial[] = [];
   const lacquerLook = (stage: boolean) =>
     lacquers.forEach((m) => {
-      m.envMapIntensity = stage ? 0.22 : 0.7;
+      m.envMapIntensity = stage ? 0.3 : 0.7;
       if (m instanceof MeshPhysicalMaterial) m.clearcoat = stage ? 0.35 : 0.8;
     });
   /** Grey rubber: the dark studio has almost nothing for it to reflect, so on the stage it gets a faint grey glow. */
   const rubbers: MeshStandardMaterial[] = [];
-  const rubberLook = (stage: boolean) => rubbers.forEach((m) => m.emissive.setRGB(...(stage ? RUBBER_GLOW : NO_GLOW)));
-  const rig = (src: Object3D, look: Look): HeroRig => {
-    const model = src.clone(true);
+  const rubberLook = (stage: boolean) =>
+    rubbers.forEach((m) => {
+      m.emissive.setRGB(...(stage ? RUBBER_GLOW : NO_GLOW));
+      m.color.copy(stage ? RUBBER_STAGE : RUBBER_STUDIO);
+    });
+  const rubber = () => {
+    const m = new MeshStandardMaterial({ name: "Wikel_Rubber_Code", color: RUBBER_GREY, roughness: 0.88, metalness: 0, envMapIntensity: 0.45 });
+    owned.add(m); // cloned per rig below; the template is freed with the rest
+    return m;
+  };
+
+  const rig = (model: Object3D, look: Look): HeroRig => {
     const mats: MeshStandardMaterial[] = [];
     model.traverse((o) => {
       if (!isMesh(o)) return;
@@ -227,20 +277,34 @@ export function createHeroLidPass(gl: WebGLRenderer, sources: { sko: Object3D; t
       o.material = m;
     });
     const root = new Group();
+    const face = new Group();
     const flip = new Group();
     const spin = new Group();
-    root.add(flip);
+    root.add(face);
+    face.add(flip);
     flip.add(spin);
     spin.add(normalise(model));
     scene.add(root);
-    return { root, flip, spin, mats, op: -1 };
+    return { root, face, flip, spin, mats, op: -1 };
   };
-  const sko = rig(sources.sko, "sko");
-  const twist = rig(sources.twist, "twistRedPlain");
-  const red = new Color(TWIST_RED);
+
+  const skoModel = sources.sko.clone(true);
+  seatWikelRing(skoModel, ringGeo, rubber());
+  const ringModel = new Group();
+  const ringMesh = new Mesh(ringGeo, rubber());
+  ringMesh.position.y = -WIKEL_MID_Y;
+  ringModel.add(ringMesh);
+
+  const sko = rig(skoModel, "sko");
+  const twist = rig(sources.twist.clone(true), "twistRedPlain");
+  const ring = rig(ringModel, "ring");
+  const rigs = [sko, twist, ring];
+  // a touch lighter than the studio red: under the warm key light on the dark stage it read as brown
+  const red = new Color(TWIST_RED).offsetHSL(0, 0.12, 0.14);
   const green = new Color(TWIST_GREEN);
   const setTwistColour = (k: number) => outers.forEach((m) => m.color.copy(red).lerp(green, k));
 
+  const turn = spring(0);
   let spinT = 0;
   let yaw = 0;
   let cmp: { look: Look; view: HeroView } | null = null;
@@ -257,29 +321,29 @@ export function createHeroLidPass(gl: WebGLRenderer, sources: { sko: Object3D; t
     if (tex === envNow) return;
     envNow = tex;
     scene.environment = tex;
-    for (const m of [...sko.mats, ...twist.mats]) m.envMap = tex;
+    for (const r of rigs) for (const m of r.mats) m.envMap = tex;
   };
 
   const setOpacity = (r: HeroRig, op: number) => {
     if (Math.abs(op - r.op) < 0.002) return;
     r.op = op;
-    r.root.visible = op > 0.002;
+    r.root.visible = op > 0.004;
     for (const m of r.mats) m.opacity = op;
   };
 
-  /** Poses the lids for this frame; returns the camera elevation. */
+  /** Poses the products for this frame; returns the camera elevation. */
   function pose(dt: number, p: number): number {
     if (!heroLidDrag.active) heroLidDrag.pitch = damp(heroLidDrag.pitch, 0, 3, dt);
     yaw = damp(yaw, heroLidDrag.yaw, 8, dt);
 
     if (cmp) {
       const v = VIEWS[cmp.view];
-      const r = cmp.look === "sko" ? sko : twist;
-      setOpacity(sko, r === sko ? 1 : 0);
-      setOpacity(twist, r === twist ? 1 : 0);
+      const r = cmp.look === "sko" ? sko : cmp.look === "ring" ? ring : twist;
+      for (const x of rigs) setOpacity(x, x === r ? 1 : 0);
       setTwistColour(cmp.look === "twistGreen" ? 1 : 0);
-      r.root.rotation.set(0, v.yaw, 0);
+      r.root.position.set(0, 0, 0);
       r.root.scale.setScalar(1);
+      r.face.rotation.set(0, v.yaw, 0);
       r.flip.rotation.set(v.flip, 0, 0);
       r.spin.rotation.set(0, 0.4, 0);
       setEnv(studioEnv);
@@ -299,25 +363,38 @@ export function createHeroLidPass(gl: WebGLRenderer, sources: { sko: Object3D; t
     rim.intensity = 1.1;
     shadow.visible = false;
 
-    // idle: a slow turntable; scroll drives the sequence
     spinT += dt * 0.32;
-    const tilt = 0.18 * smooth(p / 0.12); // SKO top → tilts toward the viewer
-    const flip = Math.PI * smooth((p - 0.1) / 0.2); // … flips to the inside (grey ring) and holds
-    const toTwist = smooth((p - 0.5) / 0.12); // cross-fade SKO → Twist-off red
-    const toGreen = smooth((p - 0.76) / 0.14); // colour morph red → green
+    turn.s.target = stepPos(p);
+    const pos = turn.step(dt);
+    // the turntable opens up while it turns and closes at rest, so the ones behind tuck in beside the front one
+    const off = Math.abs(pos - Math.round(pos));
+    const squash = SQUASH_REST + (SQUASH_TURN - SQUASH_REST) * smooth(off / 0.18);
 
-    setOpacity(sko, 1 - toTwist);
-    setOpacity(twist, toTwist);
-    sko.root.rotation.set(0, yaw, 0);
-    sko.root.scale.setScalar(1 - 0.08 * toTwist);
-    sko.flip.rotation.set(flip + tilt + heroLidDrag.pitch, 0, 0);
-    sko.spin.rotation.y = spinT;
-
-    twist.root.rotation.set(0, yaw, 0);
-    twist.root.scale.setScalar(0.92 + 0.08 * toTwist);
-    twist.flip.rotation.set(tilt * (1 - toTwist) + heroLidDrag.pitch, 0, 0.05 * Math.sin(spinT * 0.7));
-    twist.spin.rotation.y = spinT + 1.2 * (1 - toTwist); // a little turn as it arrives
+    // within the steps: the SKO flips to its inside (the grey ring), the Twist-Off goes from red to green
+    const skoFlip = Math.PI * smooth((stepLocal(p, 0) - 0.08) / 0.3);
+    const toGreen = smooth((stepLocal(p, 1) - 0.3) / 0.4);
     setTwistColour(toGreen);
+
+    for (let i = 0; i < rigs.length; i++) {
+      const r = rigs[i]!;
+      const th = wrap((i - pos) * STEP); // 0 = front
+      const front = smooth((Math.cos(th) - 0.05) / 0.9); // 1 at the front, ½ at ±60°, 0 from ±87° away
+      setOpacity(r, front);
+      if (front <= 0.004) continue;
+      const bob = Math.sin(spinT * 2.5 + i * 2.1) * 0.012;
+      // the ones behind are lowered a little, so seen from above they pass beside the front one, not over it
+      r.root.position.set(Math.sin(th) * R * squash, bob - (1 - Math.cos(th)) * R * 0.4, (Math.cos(th) - 1) * R);
+      // the lone ring is shown a little smaller: tilted toward the viewer it reads taller than a lid
+      r.root.scale.setScalar((0.7 + 0.3 * front) * (r === ring ? 0.9 : 1));
+      // mostly faces the camera; a little of the turn shows, plus the mouse drag
+      r.face.rotation.set(0, -th * 0.82 + yaw, 0);
+      r.spin.rotation.y = spinT + i * 2.0;
+      const pitch = heroLidDrag.pitch;
+      // SKO: from the photo's angle it tilts toward the viewer, then flips over and leans in a little more to show the ring
+      if (r === sko) r.flip.rotation.set(0.16 * smooth(stepLocal(p, 0) / 0.08) + skoFlip * (1 + 0.12 / Math.PI) + pitch, 0, 0);
+      else if (r === twist) r.flip.rotation.set(0.16 + pitch, 0, 0.05 * Math.sin(spinT * 0.7));
+      else r.flip.rotation.set(0.24 + pitch, 0, 0.06 * Math.sin(spinT * 0.9));
+    }
     return EL;
   }
 
@@ -346,16 +423,30 @@ export function createHeroLidPass(gl: WebGLRenderer, sources: { sko: Object3D; t
         gl.render(stageScene, ortho);
       }
 
-      // 2. the lid into the slot
-      const aspect = f.slot.w / Math.max(1, f.slot.h);
-      const dist = 1 / (FILL * 2 * Math.tan((FOV * Math.PI) / 360) * Math.min(aspect, 1));
-      camera.aspect = aspect;
+      // 2. the products into a rect around the slot (larger than the slot, so the turn is not cut off),
+      //    scissored to the hero stage
+      const ex = cmp ? 1 : EXPAND_X;
+      const ey = cmp ? 1 : EXPAND_Y;
+      const vw = f.slot.w * ex;
+      const vh = f.slot.h * ey;
+      const vx = f.slot.x - (vw - f.slot.w) / 2;
+      const vyTop = f.slot.y - (vh - f.slot.h) / 2;
+      const ref = Math.max(1, Math.min(f.slot.w, f.slot.h * FRAME_ASPECT)); // px across the lid ÷ FILL
+      const dist = (vh / (FILL * ref)) / (2 * Math.tan((FOV * Math.PI) / 360));
+      camera.aspect = vw / Math.max(1, vh);
       camera.updateProjectionMatrix();
       camera.position.set(0, Math.sin(el) * dist, Math.cos(el) * dist);
       camera.lookAt(0, 0, 0);
-      const y = f.canvasH - f.slot.y - f.slot.h; // three's viewport origin is bottom-left
-      gl.setViewport(f.slot.x, y, f.slot.w, f.slot.h);
-      gl.setScissor(f.slot.x, y, f.slot.w, f.slot.h);
+      const y = f.canvasH - vyTop - vh; // three's viewport origin is bottom-left
+      gl.setViewport(vx, y, vw, vh);
+      let sx0 = vx, sy0 = vyTop, sx1 = vx + vw, sy1 = vyTop + vh;
+      if (f.stage && !cmp) {
+        sx0 = Math.max(sx0, f.stage.x);
+        sy0 = Math.max(sy0, f.stage.y);
+        sx1 = Math.min(sx1, f.stage.x + f.stage.w);
+        sy1 = Math.min(sy1, f.stage.y + f.stage.h);
+      }
+      gl.setScissor(sx0, f.canvasH - sy1, Math.max(0, sx1 - sx0), Math.max(0, sy1 - sy0));
       if (cmp) {
         gl.getClearColor(prevClear);
         const a = gl.getClearAlpha();
@@ -378,8 +469,9 @@ export function createHeroLidPass(gl: WebGLRenderer, sources: { sko: Object3D; t
     },
     comparing: () => cmp !== null,
     dispose() {
-      for (const r of [sko, twist]) r.root.removeFromParent();
+      for (const r of rigs) r.root.removeFromParent();
       owned.forEach((m) => m.dispose());
+      ringGeo.dispose();
       shGeo.dispose();
       shTex.dispose();
       stageGeo.dispose();

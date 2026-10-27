@@ -26,8 +26,9 @@ export type LivingBackgroundProps = {
    */
   heroLid?: string | null;
   /**
-   * Scroll range of the hero sequence (SKO → inside → Twist-off red → green), as ScrollTrigger
-   * start/end on the hero section; endTrigger = id of a later section to stretch it (e.g. "products").
+   * Scroll range of the hero steps (SKO I-82 → Twist-Off 82 → wikel ring), as ScrollTrigger start/end on
+   * the hero section; endTrigger = id of a later section to stretch it (e.g. "products"). Ignored while a
+   * <HeroSteps/> is mounted: it reports its own sticky range (hero-lid/store.ts heroStepsScroll).
    * Default { start: "top top", end: "bottom bottom" }: give the hero extra height (e.g. 250–300vh)
    * with a sticky slot inside, or pin it, so the sequence has room.
    */
@@ -54,6 +55,8 @@ export function LivingBackground({
   const [mode, setMode] = useState<Mode | null>(null);
   const [live, setLive] = useState(false);
   const [reason, setReason] = useState<string | null>(null);
+  /** QA: ?bgdebug=1 exposes window.__livingBg (frame times) on any page, e.g. to measure fps on the home page. */
+  const [queryDebug, setQueryDebug] = useState(false);
 
   // a new object literal from the parent on every render must not rebind ScrollTrigger
   const key = JSON.stringify(sections);
@@ -64,7 +67,9 @@ export function LivingBackground({
     let idle: number | undefined;
     let timer: number | undefined;
     const start = () => {
-      if (!cancelled) setMode(detectMode(tier));
+      if (cancelled) return;
+      setQueryDebug(new URLSearchParams(window.location.search).get("bgdebug") === "1");
+      setMode(detectMode(tier));
     };
     const schedule = () => {
       // Safari has no requestIdleCallback
@@ -110,7 +115,7 @@ export function LivingBackground({
         <StaticBackdrop className={styles.still} />
       ) : (
         <div className={styles.canvas}>
-          <BackgroundScene tier={mode} sections={stableSections} heroLid={heroLid} heroScroll={heroScroll} debug={debug} onReady={onReady} onFail={onFail} />
+          <BackgroundScene tier={mode} sections={stableSections} heroLid={heroLid} heroScroll={heroScroll} debug={debug || queryDebug} onReady={onReady} onFail={onFail} />
         </div>
       )}
     </div>,

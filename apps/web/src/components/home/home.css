@@ -67,23 +67,24 @@ html[data-hero-lid="live"] .h-stage {
 @media (min-width: 64rem) {
   .h-stage__grid {
     grid-template-columns: minmax(0, 5fr) minmax(0, 5fr) minmax(0, 2fr);
-    min-height: calc(100svh - var(--header-h) - 2.75rem);
-    padding-block: var(--space-12);
+    min-height: calc(100svh - var(--hero-pin-top, var(--header-h)) - 2.75rem);
+    padding-block: var(--space-8);
     gap: var(--space-8);
   }
   .h-facts {
     align-self: end;
   }
   /*
-   * Scroll room for the 3D lid sequence (SKO → inside → Twist-off red → green) while the stage stays put.
-   * Only when the 3D lid is live: the photo fallback (reduced motion, weak GPU) keeps a one-screen hero.
+   * Scroll room for the three product steps (SKO I-82 → Twist-Off 82 → wikel ring) while the stage stays
+   * put. Only when the 3D lid is live: the photo fallback (reduced motion, weak GPU) keeps a one-screen hero.
+   * --hero-pin-top is the measured header height (hero-steps.tsx); the header has a second row below 80rem.
    */
   html[data-hero-lid="live"] .h-stage {
-    height: 300svh;
+    height: 360svh;
   }
   .h-stage__grid {
     position: sticky;
-    top: var(--header-h);
+    top: var(--hero-pin-top, var(--header-h));
   }
 }
 @media (max-width: 63.99rem) {
@@ -97,22 +98,51 @@ html[data-hero-lid="live"] .h-stage {
     order: 2;
     margin-top: 0;
   }
-  .stage-lid {
-    order: 3;
-  }
+  /* the CTAs stay on the first screen; the scroll steps follow them */
   .h-stage__cta {
-    order: 4;
+    order: 3;
+    margin-top: 0;
   }
   .h-stage__note {
-    order: 5;
+    order: 4;
     margin-top: calc(var(--space-4) * -1);
+  }
+  .h-steps {
+    order: 5;
   }
   .h-facts {
     order: 6;
   }
+  /* live: the step block gets the scroll room and its pin sticks under the header */
+  html[data-hero-lid="live"] .h-steps {
+    height: 280svh;
+  }
+  html[data-hero-lid="live"] .h-steps__pin {
+    position: sticky;
+    top: var(--hero-pin-top, var(--header-h));
+    height: calc(100svh - var(--hero-pin-top, var(--header-h)));
+    justify-content: center;
+    padding-block: var(--space-3);
+  }
 }
 
-/* the lid slot: a fixed 1:1 box (hero-lid/), so the 3D lid replaces the photo without layout shift */
+/* ---------- A: hero product steps (hero-steps/) ---------- */
+.h-steps__pin {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+}
+/* the lid slot: a fixed 5:4 box, so the 3D lid replaces the photo without layout shift */
+.h-steps .stage-lid {
+  aspect-ratio: 5 / 4;
+  width: min(100%, 28rem, 46svh);
+}
+@media (max-width: 63.99rem) {
+  .h-steps .stage-lid {
+    width: min(100%, 28rem, 40svh);
+  }
+}
 .stage-lid {
   background: radial-gradient(50% 50% at 50% 52%, rgb(214 174 92 / 0.2), transparent 70%);
 }
@@ -123,45 +153,146 @@ html[data-hero-lid="live"] .stage-lid {
   background: none;
 }
 
-/* ---------- the production line strip (visible slice of the living background) ---------- */
-.h-line {
-  position: relative;
-  overflow: hidden;
-  height: 7.5rem;
-  border-bottom: 1px solid var(--sky-line);
-  background: rgb(236 238 240 / 0.55);
+/* the card: a datasheet fragment with drawing-bracket corners */
+.h-step {
+  --c: var(--stage-gold-fill);
+  --l: 10px;
+  --t: 1.5px;
+  width: 100%;
+  max-width: 30rem;
+  padding: var(--space-3) var(--space-6) var(--space-2);
+  background:
+    linear-gradient(var(--c), var(--c)) 0 0 / var(--l) var(--t) no-repeat,
+    linear-gradient(var(--c), var(--c)) 0 0 / var(--t) var(--l) no-repeat,
+    linear-gradient(var(--c), var(--c)) 100% 0 / var(--l) var(--t) no-repeat,
+    linear-gradient(var(--c), var(--c)) 100% 0 / var(--t) var(--l) no-repeat,
+    linear-gradient(var(--c), var(--c)) 0 100% / var(--l) var(--t) no-repeat,
+    linear-gradient(var(--c), var(--c)) 0 100% / var(--t) var(--l) no-repeat,
+    linear-gradient(var(--c), var(--c)) 100% 100% / var(--l) var(--t) no-repeat,
+    linear-gradient(var(--c), var(--c)) 100% 100% / var(--t) var(--l) no-repeat,
+    rgb(17 15 12 / 0.55);
 }
-.h-line__rail {
+.h-step__bar {
   display: flex;
   align-items: center;
-  gap: 4rem;
-  height: 100%;
-  width: max-content;
-  padding-left: 1.5rem;
+  justify-content: space-between;
+  gap: var(--space-4);
 }
-.h-line__rail img {
-  width: 5.5rem;
-  height: auto;
+.h-step__idx {
+  font-family: var(--font-mono-stack, var(--font-text-stack));
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--stage-gold);
 }
-@media (prefers-reduced-motion: no-preference) {
-  .h-line__rail {
-    animation: h-run 60s linear infinite;
-  }
+.h-step__idx span {
+  color: var(--stage-muted);
+  font-weight: 500;
 }
-@keyframes h-run {
-  to {
-    transform: translateX(-50%);
-  }
+.h-step__pips {
+  display: flex;
+  gap: 2px;
+}
+.h-step__pip {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 1.75rem;
+  cursor: pointer;
+}
+.h-step__pip i {
+  width: 100%;
+  height: 2px;
+  background: var(--stage-line);
+  transition: background-color 300ms var(--ease-out, ease-out);
+}
+.h-step__pip[aria-pressed="true"] i {
+  background: var(--stage-gold-fill);
+}
+.h-step__pip:hover i {
+  background: var(--stage-muted);
+}
+.h-step__pip[aria-pressed="true"]:hover i {
+  background: var(--stage-gold);
+}
+.h-step__pip:focus-visible {
+  outline: 2px solid var(--stage-gold);
+  outline-offset: 2px;
+}
+/* the three cards share one cell: the card box never changes height between steps */
+.h-step__cards {
+  display: grid;
+}
+.h-step__card {
+  grid-area: 1 / 1;
+  padding-top: var(--space-2, 0.5rem);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition:
+    opacity 300ms cubic-bezier(0.165, 0.84, 0.44, 1),
+    transform 450ms cubic-bezier(0.165, 0.84, 0.44, 1),
+    visibility 0s 450ms;
+}
+.h-step__card[data-on] {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition:
+    opacity 450ms cubic-bezier(0.165, 0.84, 0.44, 1) 120ms,
+    transform 600ms cubic-bezier(0.165, 0.84, 0.44, 1) 120ms,
+    visibility 0s;
+}
+.h-step__name {
+  font-family: var(--font-display-stack);
+  font-size: clamp(1.375rem, 1.1rem + 0.8vw, 1.75rem);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  color: var(--stage-text);
+  max-width: none;
+}
+.h-step__sub {
+  margin-top: 0.25rem;
+  font-size: var(--text-14);
+  font-weight: 500;
+  color: var(--stage-gold);
+  max-width: none;
+}
+.h-step__rows {
+  margin-top: var(--space-2);
+}
+.h-step__rows > div {
+  display: grid;
+  grid-template-columns: 7rem minmax(0, 1fr);
+  gap: var(--space-3);
+  padding: 0.3rem 0;
+  border-top: 1px solid var(--stage-line);
+  font-size: var(--text-14);
+  line-height: 1.4;
+}
+.h-step__rows dt {
+  color: var(--stage-muted);
+}
+.h-step__rows dd {
+  color: var(--stage-text);
 }
 @media (max-width: 47.99rem) {
-  .h-line {
-    height: 5.25rem;
+  .h-step {
+    padding: var(--space-3) var(--space-4) var(--space-2, 0.5rem);
   }
-  .h-line__rail {
-    gap: 2.25rem;
+  .h-step__rows > div {
+    grid-template-columns: 6.25rem minmax(0, 1fr);
+    padding: 0.3rem 0;
+    font-size: 0.8125rem;
   }
-  .h-line__rail img {
-    width: 3.75rem;
+}
+@media (prefers-reduced-motion: reduce) {
+  .h-step__card,
+  .h-step__card[data-on],
+  .h-step__pip i {
+    transition: none;
   }
 }
 
@@ -237,11 +368,11 @@ html[data-hero-lid="live"] .stage-lid {
   right: 2%;
   bottom: 4%;
 }
+/* the rings are a cutout (27 Oct): shown whole on paper like the lids, never cropped */
 .h-ds__pic--photo img {
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  inset: 6%;
+  width: 88%;
+  height: 88%;
 }
 .h-ds__k {
   display: block;
