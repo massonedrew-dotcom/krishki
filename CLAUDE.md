@@ -17,10 +17,13 @@ Goal of the site: generate qualified B2B leads (wholesale, export, private label
 ## Skills to load
 - Project skills in `.claude/skills/`: krishki-domain, krishki-design-system, krishki-3d, krishki-backend, krishki-security, krishki-seo-i18n, krishki-qa
 - Community skills (installed by scripts/install.*): impeccable, ui-ux-pro-max, taste-skill, awwwards-3d
+- Engineering skills from ECC (MIT, 2026-10-28): verification-loop, search-first, error-handling, e2e-testing, browser-qa, frontend-a11y, react-performance, make-interfaces-feel-better, i18n-sync, seo, fastapi-patterns, postgres-patterns, database-migrations, api-design, docker-patterns, deployment-patterns, security-review, strategic-compact
+- Rules in `.claude/rules/`: `krishki-team.md` (every agent reads it first: scope, hard rules, repo commands, DoD, report format) and ECC coding rules for common, typescript, react, python, web. CLAUDE.md wins on conflict.
 - Always load krishki-domain before writing any copy or data model
 
 ## Roles (subagents in `.claude/agents/`)
-architect, frontend-dev, threed-dev, backend-dev, security-reviewer, qa-seo, marketer (research, positioning, page structure), web-designer (style directions, mockups, visual review).
+Builders: architect, frontend-dev, threed-dev, backend-dev, marketer (research, positioning, page structure), web-designer (style directions, mockups, visual review).
+Verification (read-only, run by the lead after builders): code-reviewer (apps/web diffs), api-reviewer (apps/api and DB), security-reviewer, qa-seo (e2e, a11y, perf, SEO). Fixer: build-fixer (red checks, smallest change, never weakens checks).
 Task ownership is in TASKS.md. Every task must name its owner and its Definition of Done.
 
 ## Orchestration (lead architect = the main Claude session)

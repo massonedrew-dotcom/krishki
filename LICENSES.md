@@ -24,6 +24,7 @@ Checked 2026-10-15 from the LICENSE files in the cloned repositories.
 | kokonut-labs/kokonutui | MIT | Yes | Reference. Components need `motion` (Framer Motion), not in the stack: adding it needs approval. Added 2026-10-19 |
 | magicuidesign/magicui | MIT | Yes | Reference, same `motion` dependency note. Added 2026-10-19 |
 | DavidHDev/react-bits | **MIT + Commons Clause** | Yes for use in a site; selling the components themselves is forbidden | Reference. Keep the notice if a component is copied. Added 2026-10-19 |
+| affaan-m/everything-claude-code (ECC) @ 25278e7 | MIT, © 2026 Affaan Mustafa | Yes | 18 skills copied into `.claude/skills/` with a krishki note (verification-loop, search-first, error-handling, e2e-testing, browser-qa, frontend-a11y, react-performance, make-interfaces-feel-better, i18n-sync, seo, fastapi-patterns, postgres-patterns, database-migrations, api-design, docker-patterns, deployment-patterns, security-review, strategic-compact); rules `common, typescript, react, python, web` in `.claude/rules/`; agents code-reviewer, api-reviewer, build-fixer, security-reviewer and qa-seo adapted from its reviewers. No hooks or scripts installed. Added 2026-10-28 |
 | juliangarnier/anime | MIT | Yes | Reference, not in the stack. Added 2026-10-19 |
 | motiondivision/motion | MIT | Yes | Reference, not in the stack. Added 2026-10-19 |
 
