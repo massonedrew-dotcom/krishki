@@ -304,6 +304,7 @@ html[data-hero-lid="live"] .stage-lid {
 }
 .h-head h2 {
   font-size: var(--text-48);
+  line-height: var(--text-48--line-height); /* the body line-height split two-line titles apart */
 }
 .h-head p {
   color: var(--fg-muted);
@@ -471,6 +472,7 @@ html[data-hero-lid="live"] .stage-lid {
 /* ---------- sheet stack (home-scroll.tsx): sections slide up over each other, as in the old version ---------- */
 html[data-home-scroll="on"] .h-stack > * {
   position: sticky; /* top is set per sheet: 0, or vh - height for a tall one */
+  isolation: isolate; /* keeps the shade and z-indexed children inside the sheet (phones have no transform) */
   transform-origin: 50% calc(100% - 50svh);
 }
 html[data-home-scroll="on"] .h-stack > *:last-child {
@@ -507,20 +509,19 @@ html[data-home-scroll="on"] .h-stack > *::after {
   position: relative;
   --line-progress: var(--line-p, 1);
 }
-/* the rail: grey track with a gold fill that follows the scroll (--line-p 0..1 from home-scroll.tsx) */
-.h-stations__rail {
+/* the rail, drawn by the list itself: grey track (::before) and a gold fill (::after) that follows the scroll
+   (--line-p 0..1 from home-scroll.tsx) */
+.h-stations::before,
+.h-stations::after {
+  content: "";
   position: absolute;
   left: 1.6875rem;
   top: 1.6875rem;
   bottom: 1.6875rem;
   width: 2px;
-  max-width: none;
   background: var(--line);
 }
-.h-stations__rail::after {
-  content: "";
-  position: absolute;
-  inset: 0;
+.h-stations::after {
   background: var(--gold-300);
   transform-origin: 50% 0;
   transform: scaleY(var(--line-progress));
@@ -574,11 +575,13 @@ html[data-home-scroll="on"] .h-stack > *::after {
 html[data-home-scroll="on"] .h-st h3,
 html[data-home-scroll="on"] .h-st p {
   transition:
+    color 400ms var(--ease-out),
     opacity 500ms var(--ease-out),
     transform 600ms var(--ease-out);
 }
+/* dimmed by colour, not opacity: the waiting stations still pass AA (#a3a9b1-ish on ink, ≥ 7:1) */
 html[data-home-scroll="on"] .h-st:not([data-lit]) h3 {
-  opacity: 0.3;
+  color: var(--fg-muted);
 }
 html[data-home-scroll="on"] .h-st:not([data-lit]) p {
   opacity: 0;
@@ -612,7 +615,8 @@ html[data-home-scroll="on"] .h-st[data-lit] .h-st__node {
     column-gap: var(--space-5, 1.25rem);
     padding-top: 0.5rem;
   }
-  .h-stations__rail {
+  .h-stations::before,
+  .h-stations::after {
     left: 0;
     right: 0;
     top: 2.1875rem;
@@ -620,7 +624,7 @@ html[data-home-scroll="on"] .h-st[data-lit] .h-st__node {
     width: auto;
     height: 2px;
   }
-  .h-stations__rail::after {
+  .h-stations::after {
     transform-origin: 0 50%;
     transform: scaleX(var(--line-progress));
   }

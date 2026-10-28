@@ -35,14 +35,15 @@ export function HomeScroll() {
     let frame = 0;
     const update = () => {
       frame = 0;
+      // reads first, writes after: no forced layout between them
       const y = window.scrollY;
       const vh = window.innerHeight;
+      const r = track?.getBoundingClientRect();
       for (let i = 0; i < sheets.length - 1; i++) {
         const next = tops[i + 1] ?? Infinity;
         sheets[i]!.style.setProperty("--recede", clamp01(1 - (next - y) / vh).toFixed(3));
       }
-      if (track) {
-        const r = track.getBoundingClientRect();
+      if (track && r) {
         // desktop: the pin holds while the track scrolls by; below 70rem the list itself passes 60 % of the screen
         const p = pinned.matches
           ? clamp01(-r.top / Math.max(1, r.height - vh))
@@ -57,16 +58,27 @@ export function HomeScroll() {
     };
 
     measure();
+    // phones fire resize whenever the address bar shows or hides; only a real size change re-measures
+    let lastW = window.innerWidth;
+    let lastH = window.innerHeight;
+    const onResize = () => {
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      if (w === lastW && Math.abs(h - lastH) < 120) return;
+      lastW = w;
+      lastH = h;
+      measure();
+    };
     const ro = new ResizeObserver(() => measure());
     sheets.forEach((s) => ro.observe(s));
     window.addEventListener("scroll", queue, { passive: true });
-    window.addEventListener("resize", measure);
+    window.addEventListener("resize", onResize);
     document.documentElement.dataset.homeScroll = "on";
     return () => {
       cancelAnimationFrame(frame);
       ro.disconnect();
       window.removeEventListener("scroll", queue);
-      window.removeEventListener("resize", measure);
+      window.removeEventListener("resize", onResize);
       delete document.documentElement.dataset.homeScroll;
       sheets.forEach((s) => {
         s.style.top = "";

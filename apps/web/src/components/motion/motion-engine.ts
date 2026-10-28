@@ -13,6 +13,8 @@ let ready = false;
 function boot(): void {
   gsap.registerPlugin(ScrollTrigger);
   lenis = new Lenis({ lerp: 0.1, smoothWheel: true });
+  // published for code that must scroll without pulling GSAP/Lenis into its own bundle (hero step buttons)
+  window.__lenis = lenis;
   lenis.on("scroll", ScrollTrigger.update);
   gsap.ticker.add((time) => lenis?.raf(time * 1000));
   gsap.ticker.lagSmoothing(0);

@@ -59,6 +59,10 @@
     },
     "units": {
       "pcs": "dona"
+    },
+    "marquee": {
+      "pause": "Logotiplar lentasini toʻxtatish",
+      "play": "Logotiplar lentasini ishga tushirish"
     }
   },
   "form": {
@@ -187,13 +191,11 @@
         },
         "litho": {
           "t": "Litografiya",
-          "d": "Metallga ofset bosma, UV-boʻyoqlar, oʻz pressi.",
-          "alt": "Litografiyali qopqoqlar"
+          "d": "Metallga ofset bosma, UV-boʻyoqlar, oʻz pressi."
         },
         "stamp": {
           "t": "Shtamplash",
-          "d": "SKO I-82 va Twist-Off 82 qopqoqlari.",
-          "alt": "Oltin rangli SKO qopqoqlari dastasi"
+          "d": "SKO I-82 va Twist-Off 82 qopqoqlari."
         },
         "seal": {
           "t": "Zichlash",
@@ -205,8 +207,7 @@
         },
         "pack": {
           "t": "Qadoqlash",
-          "d": "50 va 20 dona tubalar, 850 dona quti. Oʻzbekiston va Markaziy Osiyo boʻylab joʻnatish.",
-          "alt": "«Mechta khozyayki» tubalari"
+          "d": "50 va 20 dona tubalar, 850 dona quti. Oʻzbekiston va Markaziy Osiyo boʻylab joʻnatish."
         }
       },
       "years": {
@@ -301,7 +302,6 @@
     },
     "partners": {
       "title": "Kimlar bilan ishlaymiz",
-      "lead": "Biz ishlaydigan brendlar.",
       "label": "Hamkorlar logotiplari"
     },
     "geo": {

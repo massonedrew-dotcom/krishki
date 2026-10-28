@@ -342,6 +342,29 @@ html:not(.m) .vrail__dot {
 .marquee[data-live][data-dragging] {
   cursor: grabbing;
 }
+/* pause / play (WCAG 2.2.2): small, under the strip's right end, 44px target */
+.marquee-wrap {
+  display: grid;
+}
+.marquee__toggle {
+  justify-self: end;
+  margin: var(--space-3) var(--page-x) 0 0;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  background: var(--paper);
+  color: var(--ink-950);
+  font-size: 0.75rem;
+  letter-spacing: -0.1em;
+  cursor: pointer;
+}
+.marquee__toggle:hover {
+  background: var(--ink-950);
+  color: #fff;
+}
 .marquee__group {
   display: flex;
   flex: none;

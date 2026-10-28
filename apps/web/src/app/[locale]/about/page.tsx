@@ -25,6 +25,7 @@ export default async function AboutPage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("about");
+  const tc = await getTranslations("common");
 
   const gallery = [
     { key: "gold", img: PHOTO.skoGold, cls: "md:col-span-7", ratio: "4 / 3" },
@@ -89,7 +90,7 @@ export default async function AboutPage({ params }: Props) {
           <SectionHead eyebrow={t("partners.eyebrow")} title={t("partners.title")} id="about-partners-title" size="md" />
         </Container>
         <div className="mt-12" data-reveal>
-          <Marquee items={PARTNERS} label={t("partners.label")} />
+          <Marquee items={PARTNERS} label={t("partners.label")} pauseLabel={tc("marquee.pause")} playLabel={tc("marquee.play")} />
         </div>
       </section>
 

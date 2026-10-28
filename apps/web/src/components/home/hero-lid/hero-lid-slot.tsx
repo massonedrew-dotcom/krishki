@@ -1,31 +1,19 @@
 "use client";
 
 import Image from "next/image";
-import type { CSSProperties } from "react";
+import { type CSSProperties, useEffect, useState } from "react";
+import { type Img, LID_LIVE } from "@/lib/site";
 import styles from "./hero-lid-slot.module.css";
 import { HERO_LID_ID } from "./store";
 
-type Frame = { src: string; width: number; height: number };
-
 /**
- * Live photo frames per hero step (client, 27 Oct: real-looking lids instead of the 3D render). Generated
- * packshots with an alpha background, masters in assets/generated/lids-live-2026-10-27/. Within a step the
- * scroll walks through the frames like a lid turned in the hand: SKO top → tilt → inside with the rubber ring.
+ * Live photo frames per hero step (client, 27 Oct: real-looking lids instead of the 3D render). Within a step
+ * the scroll walks through the frames like a lid turned in the hand: SKO top → tilt → inside with the ring.
  */
-const FRAMES: Frame[][] = [
-  [
-    { src: "/images/lids/live/sko-34.webp", width: 904, height: 608 },
-    { src: "/images/lids/live/sko-tilt.webp", width: 694, height: 652 },
-    { src: "/images/lids/live/sko-inside-tilt.webp", width: 712, height: 689 },
-    { src: "/images/lids/live/sko-inside.webp", width: 894, height: 658 },
-  ],
-  [
-    { src: "/images/lids/live/red-34.webp", width: 849, height: 551 },
-    { src: "/images/lids/live/red-tilt.webp", width: 715, height: 595 },
-    { src: "/images/lids/live/red-inside.webp", width: 849, height: 610 },
-    { src: "/images/lids/live/green-34.webp", width: 880, height: 599 },
-  ],
-  [{ src: "/images/lids/live/rings.webp", width: 947, height: 793 }],
+const FRAMES: Img[][] = [
+  [LID_LIVE.sko34, LID_LIVE.skoTilt, LID_LIVE.skoInsideTilt, LID_LIVE.skoInside],
+  [LID_LIVE.red34, LID_LIVE.redTilt, LID_LIVE.redInside, LID_LIVE.green34],
+  [LID_LIVE.rings],
 ];
 
 /** Number of photo frames of a step. */
@@ -44,16 +32,33 @@ export type HeroLidSlotProps = {
 };
 
 /**
- * Hero centre: the live photo of the product of the current step. The frames of the current and the next
- * step are mounted and loaded eagerly, so a turn never waits for the network. Inside a step the frames
+ * Hero centre: the live photo of the product of the current step. First paint mounts only the first SKO
+ * frame (the LCP image); once the page has loaded and is idle, the frames of the current and the next step
+ * are mounted eagerly, so a turn never waits for the network and nothing competes with the LCP. Inside a step the frames
  * cross-fade and turn continuously with the scroll (--pos, set by HeroSteps on an ancestor); between steps
  * they fade. The whole slot floats gently. The first SKO frame is the LCP image.
  */
 export function HeroLidSlot({ alts, step = 0, frame = 0, id = HERO_LID_ID, sizes = "(min-width: 1024px) 34vw, 72vw", className }: HeroLidSlotProps) {
+  // the extra frames wait for window load + idle, so they never compete with the LCP frame
+  const [warm, setWarm] = useState(false);
+  useEffect(() => {
+    let idle = 0;
+    const go = () => {
+      const ric = window.requestIdleCallback ?? ((cb: () => void) => window.setTimeout(cb, 200));
+      idle = ric(() => setWarm(true));
+    };
+    if (document.readyState === "complete") go();
+    else window.addEventListener("load", go, { once: true });
+    return () => {
+      window.removeEventListener("load", go);
+      (window.cancelIdleCallback ?? window.clearTimeout)(idle);
+    };
+  }, []);
   const mounted: { s: number; f: number }[] = [];
   FRAMES.forEach((frames, s) =>
     frames.forEach((_, f) => {
-      if (s === step || s === step + 1 || (s === 0 && f === 0)) mounted.push({ s, f });
+      const first = s === 0 && f === 0;
+      if (first || (warm && (s === step || s === step + 1))) mounted.push({ s, f });
     }),
   );
 

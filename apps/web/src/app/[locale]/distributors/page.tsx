@@ -163,7 +163,7 @@ export default async function DistributorsPage({ params }: Props) {
           <SectionHead title={t("partners.title")} id="partners-title" size="md" />
         </Container>
         <div className="mt-12" data-reveal>
-          <Marquee items={PARTNERS} label={t("partners.label")} />
+          <Marquee items={PARTNERS} label={t("partners.label")} pauseLabel={tc("marquee.pause")} playLabel={tc("marquee.play")} />
         </div>
       </section>
 

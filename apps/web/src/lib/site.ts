@@ -66,11 +66,27 @@ export const PARTNERS: { key: string; name: string; img: Img }[] = [
   { key: "ibrat", name: "Ibrat", img: { src: "/images/partners/cut/ibrat.webp", width: 240, height: 104 } },
 ];
 
+/**
+ * Live lid photos (27 Oct): generated packshots on alpha, used by the hero steps and the home datasheet.
+ * Masters in assets/generated/lids-live-2026-10-27/.
+ */
+export const LID_LIVE = {
+  sko34: { src: "/images/lids/live/sko-34.webp", width: 904, height: 608 },
+  skoTilt: { src: "/images/lids/live/sko-tilt.webp", width: 694, height: 652 },
+  skoInsideTilt: { src: "/images/lids/live/sko-inside-tilt.webp", width: 712, height: 689 },
+  skoInside: { src: "/images/lids/live/sko-inside.webp", width: 894, height: 658 },
+  red34: { src: "/images/lids/live/red-34.webp", width: 849, height: 551 },
+  redTilt: { src: "/images/lids/live/red-tilt.webp", width: 715, height: 595 },
+  redInside: { src: "/images/lids/live/red-inside.webp", width: 849, height: 610 },
+  green34: { src: "/images/lids/live/green-34.webp", width: 880, height: 599 },
+  rings: { src: "/images/lids/live/rings.webp", width: 947, height: 793 },
+} satisfies Record<string, Img>;
+
 export const PHOTO = {
   skoGold: { src: "/images/photos/sko-gold-stack.webp", width: 950, height: 650 },
   ringsBox: { src: "/images/photos/rings-box.webp", width: 950, height: 650 },
   /** Cutouts on transparent background (27 Oct): no grey photo backdrop, no carton print. */
-  rings: { src: "/images/lids/live/rings.webp", width: 947, height: 793, cutout: true },
+  rings: { src: "/images/lids/live/rings.webp", width: 947, height: 793, cutout: true }, // same file as LID_LIVE.rings
   tubesElisey: { src: "/images/photos/tubes-elisey-cut.webp", width: 776, height: 384, cutout: true },
   tubesMechta: { src: "/images/photos/tubes-mechta.webp", width: 810, height: 457 },
   tubesTwist: { src: "/images/photos/tubes-twist.webp", width: 816, height: 456 },

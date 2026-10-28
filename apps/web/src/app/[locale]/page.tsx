@@ -8,8 +8,8 @@ import { HomeScroll } from "@/components/home/home-scroll";
 import { ButtonLink, Container, Marquee, Section, SplitText } from "@/components/ui";
 import { Link } from "@/i18n/navigation";
 import { MAP_URL } from "@/lib/contacts";
-import { pageMetadata } from "@/lib/seo";
-import { ORDER_HREF, PARTNERS, PHOTO, TUBE_V2 } from "@/lib/site";
+import { organizationJsonLd, pageMetadata } from "@/lib/seo";
+import { LID_LIVE, ORDER_HREF, PARTNERS, PHOTO, TUBE_V2 } from "@/lib/site";
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -60,10 +60,15 @@ export default async function HomePage({ params }: Props) {
   setRequestLocale(locale);
   const t = await getTranslations("home");
   const tf = await getTranslations("form");
+  const tc = await getTranslations("common");
+
+  // constant JSON from our own facts; "<" escaped so it can never close the script tag
+  const jsonLd = JSON.stringify(organizationJsonLd()).replace(/</g, String.raw`\u003c`);
 
   return (
     <>
-      {/* 1. Hero: direction A. Tall on desktop with a sticky stage, so scrolling turns the lid. */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd }} />
+      {/* 1. Hero: direction A. Tall with a sticky stage, so scrolling turns the live lid photos step by step. */}
       <section id="hero" className="h-stage surface-stage" aria-labelledby="home-title" data-hero-track="">
         <Container className="h-stage__grid">
           <div className="h-stage__text">
@@ -81,7 +86,7 @@ export default async function HomePage({ params }: Props) {
             </div>
             <p className="h-stage__note max-w-none">{t("hero.note")}</p>
           </div>
-          {/* three scroll steps: the 3D object turns on the stage, the card shows its datasheet rows */}
+          {/* three scroll steps: the live photo turns through its views, the card shows its datasheet rows */}
           <HeroSteps
             alts={[t("hero.slotAlt"), t("products.items.twist.altRed"), t("products.items.ring.alt")]}
             sizes="(min-width: 1024px) 36vw, 90vw"
@@ -125,12 +130,12 @@ export default async function HomePage({ params }: Props) {
             <article key={p} className="h-ds__col" aria-labelledby={`ds-${p}`}>
               {p === "sko" ? (
                 <div className="h-ds__pic h-ds__pic--one">
-                  <Image src="/images/lids/live/sko-34.webp" width={904} height={608} alt={t("products.items.sko.alt")} sizes="(min-width: 1024px) 28vw, 90vw" />
+                  <Image src={LID_LIVE.sko34.src} width={LID_LIVE.sko34.width} height={LID_LIVE.sko34.height} alt={t("products.items.sko.alt")} sizes="(min-width: 1024px) 28vw, 90vw" />
                 </div>
               ) : p === "twist" ? (
                 <div className="h-ds__pic h-ds__pic--pair">
-                  <Image src="/images/lids/live/red-34.webp" width={849} height={551} alt={t("products.items.twist.altRed")} sizes="(min-width: 1024px) 18vw, 60vw" />
-                  <Image src="/images/lids/live/green-34.webp" width={880} height={599} alt={t("products.items.twist.altGreen")} sizes="(min-width: 1024px) 18vw, 60vw" />
+                  <Image src={LID_LIVE.red34.src} width={LID_LIVE.red34.width} height={LID_LIVE.red34.height} alt={t("products.items.twist.altRed")} sizes="(min-width: 1024px) 18vw, 60vw" />
+                  <Image src={LID_LIVE.green34.src} width={LID_LIVE.green34.width} height={LID_LIVE.green34.height} alt={t("products.items.twist.altGreen")} sizes="(min-width: 1024px) 18vw, 60vw" />
                 </div>
               ) : (
                 <div className="h-ds__pic h-ds__pic--photo">
@@ -174,7 +179,6 @@ export default async function HomePage({ params }: Props) {
               <p data-reveal>{t("factory.lead")}</p>
             </div>
             <ol className="h-stations">
-              <li className="h-stations__rail" aria-hidden="true" />
               {STATIONS.map((s, i) => (
                 <li key={s.key} className={`h-st${s.gold ? " h-st--gold" : ""}`}>
                   <span className="h-st__node tnum" aria-hidden="true">
@@ -236,7 +240,8 @@ export default async function HomePage({ params }: Props) {
           <SplitText as="h2" id="brands-title" text={t("brands.title")} />
           <p data-reveal>{t("brands.lead")}</p>
         </div>
-        <ul className="h-tubes" data-reveal>
+        {/* scrolls sideways on phones: focusable and named so keyboard users can scroll it too */}
+        <ul className="h-tubes" data-reveal tabIndex={0} aria-label={t("brands.title")}>
           {TUBES.map((b) => (
             <li key={b.key}>
               <figure className="h-tube">
@@ -293,7 +298,7 @@ export default async function HomePage({ params }: Props) {
           <SplitText as="h2" id="partners-title" className="text-48" text={t("partners.title")} />
         </Container>
         <div className="mt-10 md:mt-12" data-reveal>
-          <Marquee items={PARTNERS} label={t("partners.label")} />
+          <Marquee items={PARTNERS} label={t("partners.label")} pauseLabel={tc("marquee.pause")} playLabel={tc("marquee.play")} />
         </div>
       </section>
 

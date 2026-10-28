@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import { frameCount, HeroLidSlot } from "../hero-lid/hero-lid-slot";
 import { activeStep, type HeroStepKey, STEP_COUNT, stepAnchor, stepLocal } from "../hero-lid/steps";
-import { heroStepsScroll } from "../hero-lid/store";
 
 export type HeroStepItem = {
   key: HeroStepKey;
@@ -61,7 +60,7 @@ export function HeroSteps({ items, alts, sizes }: HeroStepsProps) {
     return () => ro.disconnect();
   }, []);
 
-  // live: scroll progress over the sticky range → shared store (3D pass) and the shown card
+  // live: scroll progress over the sticky range → the shown card and the photo position (--pos)
   useEffect(() => {
     const el = root.current;
     if (!live || !el) return;
@@ -75,7 +74,6 @@ export function HeroSteps({ items, alts, sizes }: HeroStepsProps) {
       const t = track.getBoundingClientRect();
       const range = t.height - pin.getBoundingClientRect().height;
       const p = range > 1 ? Math.min(1, Math.max(0, (top - t.top) / range)) : 0;
-      heroStepsScroll.progress = p;
       const step = activeStep(p);
       // continuous frame position inside the step: the slot cross-fades and turns the photos by it (CSS)
       const pos = stepLocal(p, step) * (frameCount(step) - 1);
@@ -86,7 +84,6 @@ export function HeroSteps({ items, alts, sizes }: HeroStepsProps) {
     const queue = () => {
       if (!frame) frame = requestAnimationFrame(measure);
     };
-    heroStepsScroll.driven = true;
     measure();
     window.addEventListener("scroll", queue, { passive: true });
     window.addEventListener("resize", queue);
@@ -96,7 +93,6 @@ export function HeroSteps({ items, alts, sizes }: HeroStepsProps) {
       window.removeEventListener("scroll", queue);
       window.removeEventListener("resize", queue);
       mq.removeEventListener("change", queue);
-      heroStepsScroll.driven = false;
     };
   }, [live]);
 
@@ -111,7 +107,9 @@ export function HeroSteps({ items, alts, sizes }: HeroStepsProps) {
     const top = parseFloat(getComputedStyle(pin).top) || 0;
     const range = track.offsetHeight - pin.offsetHeight;
     const y = track.getBoundingClientRect().top + window.scrollY - top + stepAnchor(i) * range;
-    window.scrollTo({ top: Math.max(0, y), behavior: "smooth" });
+    // through Lenis when it runs (so the two never fight), else the native smooth scroll
+    if (window.__lenis) window.__lenis.scrollTo(Math.max(0, y));
+    else window.scrollTo({ top: Math.max(0, y), behavior: "smooth" });
   };
 
   return (

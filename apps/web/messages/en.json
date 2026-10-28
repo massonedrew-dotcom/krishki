@@ -59,6 +59,10 @@
     },
     "units": {
       "pcs": "pcs"
+    },
+    "marquee": {
+      "pause": "Pause the logo strip",
+      "play": "Play the logo strip"
     }
   },
   "form": {
@@ -187,13 +191,11 @@
         },
         "litho": {
           "t": "Lithography",
-          "d": "Offset printing on metal, UV inks, in-house pre-press.",
-          "alt": "Lids with lithography"
+          "d": "Offset printing on metal, UV inks, in-house pre-press."
         },
         "stamp": {
           "t": "Stamping",
-          "d": "SKO I-82 and Twist-Off 82 lids.",
-          "alt": "A stack of gold SKO lids"
+          "d": "SKO I-82 and Twist-Off 82 lids."
         },
         "seal": {
           "t": "Sealing",
@@ -205,8 +207,7 @@
         },
         "pack": {
           "t": "Packing",
-          "d": "Tubes of 50 and 20 pcs, a 850 pcs box. Shipping across Uzbekistan and Central Asia.",
-          "alt": "Mechta khozyayki tubes"
+          "d": "Tubes of 50 and 20 pcs, a 850 pcs box. Shipping across Uzbekistan and Central Asia."
         }
       },
       "years": {
@@ -301,7 +302,6 @@
     },
     "partners": {
       "title": "Who we work with",
-      "lead": "Brands we work with.",
       "label": "Partner logos"
     },
     "geo": {
