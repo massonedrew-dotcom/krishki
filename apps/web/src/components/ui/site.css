@@ -331,22 +331,22 @@ html:not(.m) .vrail__dot {
 .marquee__track {
   display: flex;
   width: max-content;
-  animation: marquee 48s linear infinite;
+  will-change: transform;
 }
-.marquee:hover .marquee__track,
-.marquee:focus-within .marquee__track {
-  animation-play-state: paused;
+/* driven by marquee.tsx: drift + page scroll + drag; vertical page scroll on touch stays free */
+.marquee[data-live] {
+  touch-action: pan-y;
+  cursor: grab;
+  user-select: none;
+}
+.marquee[data-live][data-dragging] {
+  cursor: grabbing;
 }
 .marquee__group {
   display: flex;
   flex: none;
   gap: var(--space-6);
   padding-right: var(--space-6);
-}
-@keyframes marquee {
-  to {
-    transform: translateX(-50%);
-  }
 }
 
 /* ---------- Filter chips ---------- */
@@ -480,9 +480,6 @@ html:not(.m) .vrail__dot {
   .marquee {
     mask-image: none;
     overflow-x: auto;
-  }
-  .marquee__track {
-    animation: none;
   }
   .lift,
   .lift:hover {
