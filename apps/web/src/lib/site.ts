@@ -55,14 +55,15 @@ export const PAGE_PATHS = [
 export type Img = { src: string; width: number; height: number; cutout?: boolean };
 
 /** Partner names are proper nouns, not translatable copy. */
+/** Partner logos with the white ground keyed out (28 Oct), so they sit bare on any section colour. */
 export const PARTNERS: { key: string; name: string; img: Img }[] = [
-  { key: "modesto", name: "Modesto", img: { src: "/images/partners/modesto.webp", width: 250, height: 150 } },
-  { key: "olivye", name: "Оливьез", img: { src: "/images/partners/olivye.webp", width: 250, height: 150 } },
-  { key: "hilol", name: "Hilol", img: { src: "/images/partners/hilol.webp", width: 250, height: 150 } },
-  { key: "picolla", name: "Picolla", img: { src: "/images/partners/picolla.webp", width: 250, height: 150 } },
-  { key: "sardoba", name: "Sardoba", img: { src: "/images/partners/sardoba.webp", width: 250, height: 150 } },
-  { key: "ittifoq", name: "Ittifoq", img: { src: "/images/partners/ittifoq.webp", width: 250, height: 150 } },
-  { key: "ibrat", name: "Ibrat", img: { src: "/images/partners/ibrat.webp", width: 250, height: 150 } },
+  { key: "modesto", name: "Modesto", img: { src: "/images/partners/cut/modesto.webp", width: 244, height: 130 } },
+  { key: "olivye", name: "Оливьез", img: { src: "/images/partners/cut/olivye.webp", width: 241, height: 112 } },
+  { key: "hilol", name: "Hilol", img: { src: "/images/partners/cut/hilol.webp", width: 216, height: 147 } },
+  { key: "picolla", name: "Picolla", img: { src: "/images/partners/cut/picolla.webp", width: 243, height: 112 } },
+  { key: "sardoba", name: "Sardoba", img: { src: "/images/partners/cut/sardoba.webp", width: 238, height: 85 } },
+  { key: "ittifoq", name: "Ittifoq", img: { src: "/images/partners/cut/ittifoq.webp", width: 242, height: 99 } },
+  { key: "ibrat", name: "Ibrat", img: { src: "/images/partners/cut/ibrat.webp", width: 240, height: 104 } },
 ];
 
 export const PHOTO = {

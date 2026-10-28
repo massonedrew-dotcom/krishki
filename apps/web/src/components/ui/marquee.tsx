@@ -13,8 +13,9 @@ const SCROLL_GAIN = 0.35;
 const MAX_FLING = 30;
 
 /**
- * Endless logo strip. It drifts on its own, speeds up with the page scroll (scrolling up runs it back) and
- * can be dragged with the mouse or a finger; a flick keeps some momentum. The second group is a visual
+ * Endless logo strip. It drifts on its own, speeds up with the page scroll (always right to left) and
+ * can be dragged with the mouse or a finger; a flick keeps some momentum. Logos sit bare on the section
+ * ground, no plates (client, 28 Oct). The second group is a visual
  * duplicate, hidden from assistive tech and the tab order. With reduced motion it is a plain sideways
  * scroller.
  */
@@ -41,7 +42,8 @@ export function Marquee({ items, label }: { items: Item[]; label: string }) {
     };
     const tick = () => {
       const y = window.scrollY;
-      vel = Math.max(-MAX_FLING, Math.min(MAX_FLING, vel + (y - lastY) * SCROLL_GAIN * 0.1));
+      // always right to left (client, 28 Oct): either scroll direction only speeds it up
+      vel = Math.max(-MAX_FLING, Math.min(MAX_FLING, vel + Math.abs(y - lastY) * SCROLL_GAIN * 0.1));
       lastY = y;
       if (!drag) {
         x += (hover ? 0 : DRIFT) + vel;
@@ -103,17 +105,14 @@ export function Marquee({ items, label }: { items: Item[]; label: string }) {
   const group = (hidden: boolean) => (
     <ul className="marquee__group" aria-hidden={hidden || undefined} role={hidden ? "presentation" : undefined}>
       {items.map((p) => (
-        <li
-          key={p.key}
-          className="flex h-24 w-44 shrink-0 items-center justify-center overflow-hidden rounded-media border border-sky-line bg-paper md:h-28 md:w-52"
-        >
+        <li key={p.key} className="marquee__item">
           <Image
             src={p.img.src}
             width={p.img.width}
             height={p.img.height}
             alt={hidden ? "" : p.name}
             sizes="208px"
-            className="h-full w-full object-contain p-2"
+            className="marquee__logo"
             draggable={false}
           />
         </li>

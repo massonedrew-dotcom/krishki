@@ -288,14 +288,11 @@ export default async function HomePage({ params }: Props) {
       </Section>
 
       {/* 7. Partners. TODO(client): permission to show the logos (brief #7). */}
-      <section className="surface-sky py-[var(--section-y)]" aria-labelledby="partners-title">
+      <section className="surface-white py-[var(--space-16)]" aria-labelledby="partners-title">
         <Container>
-          <div className="h-head">
-            <SplitText as="h2" id="partners-title" text={t("partners.title")} />
-            <p data-reveal>{t("partners.lead")}</p>
-          </div>
+          <SplitText as="h2" id="partners-title" className="text-48" text={t("partners.title")} />
         </Container>
-        <div data-reveal>
+        <div className="mt-10 md:mt-12" data-reveal>
           <Marquee items={PARTNERS} label={t("partners.label")} />
         </div>
       </section>

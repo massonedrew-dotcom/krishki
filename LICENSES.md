@@ -36,6 +36,7 @@ Made on the client's Higgsfield account (plan Lite); per Higgsfield terms, outpu
 | `apps/web/public/images/brand/mechta-khozyayki-v2-*.webp` | GPT Image 2.5 high, 2K, transparent | old-site `logo.png` (260×150) | trimmed; a redraw of the client's own wordmark, a vector master is still TODO(client) |
 | `apps/web/public/images/lids/live/*.webp` (SKO, Twist-off red/green, rings; 14 views, 2026-10-27) | GPT Image 2.5: low on chroma green/blue, high/medium on transparent | `lids/sko-34`, `lids/twist-{red,green}-34`, `photos/rings` (all client-derived) | backdrop keyed out and trimmed locally (sharp); no text on the objects |
 | `apps/web/public/images/photos/tubes-elisey-cut.webp` | Higgsfield background remover | client photo `photos/tubes-elisey.webp` | trimmed |
+| `apps/web/public/images/partners/cut/*.webp` (7 partner logos, 2026-10-28) | none (local edit) | `images/partners/*.webp` (client-approved use, see above) | white ground keyed out and trimmed locally (sharp); logo artwork unchanged |
 Masters (PNG) live in `assets/generated/` (git-ignored).
 
 ## Open points
