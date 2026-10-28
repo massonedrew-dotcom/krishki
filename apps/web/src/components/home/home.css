@@ -313,7 +313,8 @@ html[data-hero-lid="live"] .stage-lid {
   .h-head {
     grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
     gap: var(--space-12);
-    align-items: end;
+    /* the lead sits on the heading's last text line, not on its (taller) line box */
+    align-items: last baseline;
     margin-bottom: var(--space-16);
   }
 }
