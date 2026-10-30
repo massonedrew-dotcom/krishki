@@ -30,9 +30,16 @@ function slug(route: string): string {
   return route === "" ? "home" : route.slice(1).replace(/\//g, "-");
 }
 
+/**
+ * Chrome's timing hint when a CSS chunk that Next preloads is applied a little late (seen at random on a
+ * busy CI runner, 2 of ~90 pages). Not a page fault; every other warning and error still fails the sweep.
+ */
+const PRELOAD_TIMING = /^The resource \S+\/_next\/static\/css\/\S+\.css was preloaded using link preload but not used/;
+
 function watch(page: Page): string[] {
   const problems: string[] = [];
   page.on("console", (m) => {
+    if (m.type() === "warning" && PRELOAD_TIMING.test(m.text())) return;
     if (m.type() === "error" || m.type() === "warning") problems.push(`${m.type()}: ${m.text()}`);
   });
   page.on("pageerror", (e) => problems.push(`pageerror: ${e.message}`));

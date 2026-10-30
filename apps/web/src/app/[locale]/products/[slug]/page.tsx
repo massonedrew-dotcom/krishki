@@ -207,7 +207,7 @@ export default async function ProductPage({ params }: Props) {
                   className="lift group flex flex-wrap items-end justify-between gap-6 rounded-card border border-sky-line bg-mist p-6 no-underline md:p-10"
                 >
                   <span>
-                    <span className="caption block">{th(`${k}.tag`)}</span>
+                    <span className="caption block">{th(`${k}.sub`)}</span>
                     <span className="mt-2 block font-display text-48 font-semibold leading-tight text-ink-950">
                       {th(`${k}.name`)}
                     </span>

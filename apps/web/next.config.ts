@@ -3,14 +3,7 @@ import createNextIntlPlugin from "next-intl/plugin";
 
 const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
-/** Old krishki.uz URLs -> new routes (301). */
-const OLD_URLS: [string, string][] = [
-  ["/produkciya", "/ru/products"],
-  ["/uslugi", "/ru/services"],
-  ["/o-nas", "/ru/about"],
-  ["/polezno-znat", "/ru/useful"],
-];
-
+// Old krishki.uz URLs (301) are answered by the middleware (src/lib/old-urls.ts), which also strips trailing slashes.
 // GITHUB_PAGES=1 builds a static preview for GitHub Pages (no server, no redirects, no middleware).
 const isPagesPreview = process.env.GITHUB_PAGES === "1";
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
@@ -33,9 +26,7 @@ const nextConfig: NextConfig = isPagesPreview
       output: "standalone",
       poweredByHeader: false,
       transpilePackages: ["@krishki/shared"],
-      async redirects() {
-        return OLD_URLS.map(([source, destination]) => ({ source, destination, statusCode: 301 }));
-      },
+      skipTrailingSlashRedirect: true,
     };
 
 export default withNextIntl(nextConfig);
