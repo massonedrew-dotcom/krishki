@@ -29,11 +29,12 @@ describe("contrastRatio", () => {
       ["#0b2545", "#f7fafd"], // ink on the page ground
       ["#33506f", "#f7fafd"], // muted on the page ground
       ["#33506f", "#dcedf9"], // muted on the sky band
-      ["#33506f", "#eaf5fd"], // muted on the hero stage
+      ["#b5ac9c", "#110f0c"], // muted on the dark hero stage
+      ["#f3ede2", "#1b1814"], // text on the hero card
       ["#0067a6", "#ffffff"], // link and primary button
       ["#ffffff", "#0067a6"], // primary button label
       ["#ffffff", "#d3131b"], // «Заказать» label on red
-      ["#d3131b", "#eaf5fd"], // red accent text on the hero stage
+      ["#e2c27f", "#110f0c"], // gold accent on the hero stage
       ["#8a5d00", "#ffffff"], // yellow-family text on white
       ["#ffffff", "#004f82"], // text on the blue band
       ["#d9edfa", "#004f82"], // muted text on the blue band

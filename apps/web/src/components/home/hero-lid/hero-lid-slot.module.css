@@ -30,10 +30,6 @@
   transform: scale(calc(1 - var(--open, 0) * 0.15));
   transition: opacity 120ms linear;
 }
-/* the rings photo is shot on white: multiply drops its ground into the light stage */
-.photo[data-photo="on-white"] {
-  mix-blend-mode: multiply;
-}
 
 /* ---------- accordion: four layers standing on their edge on an arc, folded by the scroll (--open) ---------- */
 /* the open row is wider than the slot (it spills over the hero's free space), but never wider than the viewport */
@@ -89,9 +85,8 @@
   object-fit: contain;
   translate: -50% -50%;
   rotate: 90deg;
-  /* the generated frame has a pale studio ground: multiply drops it into the stage, the mask fades its edges */
-  mix-blend-mode: multiply;
-  mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 78%, transparent 100%);
+  /* alpha cutouts (background removed): the layers stand bare on the dark stage */
+  filter: drop-shadow(0 18px 22px rgb(0 0 0 / 0.5));
 }
 /* caption under its layer, upright (not part of the fan): the layer name, then its spec */
 .caption {
@@ -108,7 +103,7 @@
   text-align: center;
   font-size: clamp(0.6875rem, 0.55rem + 0.4vw, 0.8125rem);
   line-height: 1.3;
-  color: var(--ink-700);
+  color: var(--stage-muted);
   /* captions read only while the lid is (almost) fully apart */
   opacity: clamp(0, calc(var(--open, 0) * 4 - 3), 1);
 }
@@ -116,7 +111,7 @@
   font-family: var(--font-display-stack);
   font-size: 1.08em;
   font-weight: 700;
-  color: var(--ink-950);
+  color: var(--stage-text);
 }
 .caption::before {
   content: "";
@@ -126,7 +121,7 @@
   width: 2px;
   height: 0.625rem;
   translate: -50% 0;
-  background: var(--red-600);
+  background: var(--stage-gold-fill);
 }
 /* phones: the pleats sit close, so every second caption goes above its layer, and the edge ones hug the side */
 @media (max-width: 47.99rem) {

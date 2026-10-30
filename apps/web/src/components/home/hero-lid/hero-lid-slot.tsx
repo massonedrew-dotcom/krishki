@@ -30,7 +30,8 @@ export type HeroLidSlotProps = {
  * Hero centre (client, 30 Oct). The page opens with the SKO taken apart: outer lacquer, tinplate, inner lacquer
  * and the rubber ring stand on their edge on an arc, each with its spec. Scrolling folds them back into the real
  * SKO photo (`open` 1 → 0), then the step changes to Twist-Off and the rings. The layer list is aria-hidden: the
- * datasheet card beside it carries the same rows for screen readers. The SKO photo is the LCP image.
+ * datasheet card beside it carries the same rows for screen readers. The layers are the first thing on screen, so they load
+ * with priority, as does the SKO photo they fold into.
  */
 export function HeroLidSlot({ alts, accordion, step = 0, open = 0, id = HERO_LID_ID, sizes = "(min-width: 1024px) 34vw, 72vw", className }: HeroLidSlotProps) {
   const apart = accordion !== undefined && step === 0 ? open : 0;
@@ -56,7 +57,6 @@ export function HeroLidSlot({ alts, accordion, step = 0, open = 0, id = HERO_LID
           className={styles.photo}
           data-on={s === step || undefined}
           data-sko={s === 0 || undefined}
-          data-photo={s === 2 ? "on-white" : undefined}
           draggable={false}
         />
       ))}
@@ -65,7 +65,7 @@ export function HeroLidSlot({ alts, accordion, step = 0, open = 0, id = HERO_LID
         <ul className={styles.stack} aria-hidden="true" data-on={step === 0 || undefined}>
           {ACCORDION_LAYERS.map((l, i) => (
             <li key={l.key} className={styles.layer} style={{ "--i": i, "--n": ACCORDION_LAYERS.length } as CSSProperties}>
-              <Image src={l.src} width={ACCORDION_LAYER_WIDTH} height={l.height} alt="" sizes="(min-width: 1024px) 14vw, 30vw" className={styles.layerImg} draggable={false} />
+              <Image src={l.src} width={ACCORDION_LAYER_WIDTH} height={l.height} alt="" priority sizes="(min-width: 1024px) 14vw, 30vw" className={styles.layerImg} draggable={false} />
               <span className={styles.caption}>
                 <b>{accordion.layers[l.key].name}</b>
                 {accordion.layers[l.key].value}

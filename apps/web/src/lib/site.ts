@@ -74,18 +74,18 @@ export const PARTNERS: { key: string; name: string; img: Img }[] = [
  */
 export const ACCORDION_LAYER_WIDTH = 680;
 export const ACCORDION_LAYERS = [
-  { key: "lacquerOut", src: "/images/lids/accordion/lacquer-out.webp", height: 214 },
-  { key: "tin", src: "/images/lids/accordion/tin.webp", height: 300 },
-  { key: "lacquerIn", src: "/images/lids/accordion/lacquer-in.webp", height: 214 },
-  { key: "ring", src: "/images/lids/accordion/ring.webp", height: 232 },
+  { key: "lacquerOut", src: "/images/lids/accordion/lacquer-out-cut.webp", height: 214 },
+  { key: "tin", src: "/images/lids/accordion/tin-cut.webp", height: 300 },
+  { key: "lacquerIn", src: "/images/lids/accordion/lacquer-in-cut.webp", height: 214 },
+  { key: "ring", src: "/images/lids/accordion/ring-cut.webp", height: 232 },
 ] as const;
 export type AccordionLayerKey = (typeof ACCORDION_LAYERS)[number]["key"];
 
 export const PHOTO = {
   skoGold: { src: "/images/photos/sko-gold-stack.webp", width: 950, height: 650 },
   ringsBox: { src: "/images/photos/rings-box.webp", width: 950, height: 650 },
-  /** The factory's own photo of the wikel rings (the generated 27 Oct packshots were withdrawn, client 29 Oct). */
-  rings: { src: "/images/photos/rings.webp", width: 950, height: 650 },
+  /** The factory's own photo of the wikel rings, background removed (30 Oct) so it stands on the dark hero too. */
+  rings: { src: "/images/photos/rings-cutout.webp", width: 950, height: 650, cutout: true },
   tubesElisey: { src: "/images/photos/tubes-elisey-cut.webp", width: 776, height: 384, cutout: true },
   tubesMechta: { src: "/images/photos/tubes-mechta.webp", width: 810, height: 457 },
   tubesTwist: { src: "/images/photos/tubes-twist.webp", width: 816, height: 456 },

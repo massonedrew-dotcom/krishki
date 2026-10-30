@@ -42,14 +42,14 @@
   --gold-500: #ffc20e;
   --gold-300: #ffd54a;
 
-  /* hero stage: light, sky to white */
-  --stage: #eaf5fd;
-  --stage-raised: #ffffff;
-  --stage-line: #b7d3ea;
-  --stage-text: #0b2545;
-  --stage-muted: #33506f;
-  --stage-gold: #d3131b;
-  --stage-gold-fill: #0090da;
+  /* hero stage: the one dark screen (client, 30 Oct: the light hero lost the lid layers); warm graphite, gold */
+  --stage: #110f0c;
+  --stage-raised: #1b1814;
+  --stage-line: #3b342a;
+  --stage-text: #f3ede2;
+  --stage-muted: #b5ac9c;
+  --stage-gold: #e2c27f;
+  --stage-gold-fill: #d6ae5c;
 
   --danger: #b3261e;
 
@@ -125,8 +125,7 @@
 
 .surface-white,
 .surface-mist,
-.surface-sky,
-.surface-stage {
+.surface-sky {
   --fg: var(--ink-950);
   --fg-muted: var(--ink-700);
   --line: var(--sky-line);
@@ -158,13 +157,24 @@
   --surface-raised: var(--paper);
   --line: #9cc2e2;
 }
-/* hero stage: light sky, white panels */
+/* hero stage: dark warm graphite, gold accent, light text; the «Заказать» red stays */
 .surface-stage {
   --surface: var(--stage);
   --surface-raised: var(--stage-raised);
   --fg: var(--stage-text);
   --fg-muted: var(--stage-muted);
   --line: var(--stage-line);
+  --line-strong: #8a7f6c;
+  --link: var(--stage-text);
+  --accent: var(--stage-gold-fill);
+  --accent-hover: var(--gold-300);
+  --on-accent: var(--stage);
+  --accent-text: var(--stage-gold);
+  --focus: var(--stage-gold);
+  --disabled-bg: var(--stage-raised);
+  --disabled-fg: var(--stage-muted);
+  --select-caret: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1.5 6 6.5l5-5' stroke='%23ffffff' stroke-width='1.5'/%3E%3C/svg%3E");
+  color-scheme: dark;
 }
 
 /* the one strong band per page: brand blue (factory, order CTA), yellow action on it */
