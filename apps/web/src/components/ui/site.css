@@ -140,6 +140,33 @@ html:not(.m) .vrail__dot {
   background: var(--azure-500);
 }
 
+/* ---------- Wordmark: ELIT KONSERVA in the brand red and blue, set in type until a vector logo arrives ---------- */
+.wordmark {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.28em;
+  font-family: var(--font-display-stack);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+.wordmark__a {
+  color: var(--red-600);
+}
+.wordmark__b {
+  color: var(--azure-700);
+}
+/* 1280–1535 px: the one-row header is tight (uz labels are the longest), so the name stacks on two lines */
+@media (min-width: 80rem) and (max-width: 95.99rem) {
+  .site-header .wordmark {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.08em;
+    font-size: 1.0625rem;
+  }
+}
+
 /* ---------- Header ---------- */
 .site-header {
   position: sticky;
@@ -154,7 +181,7 @@ html:not(.m) .vrail__dot {
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: rgb(236 238 240 / 0.92);
+  background: rgb(255 255 255 / 0.92);
   backdrop-filter: saturate(1.4) blur(14px);
   pointer-events: none;
 }
@@ -252,7 +279,7 @@ html:not(.m) .vrail__dot {
 }
 .head-row {
   border-bottom: 1px solid var(--sky-line);
-  background: rgb(236 238 240 / 0.92);
+  background: rgb(255 255 255 / 0.92);
 }
 .head-row__track {
   position: relative; /* keeps the sr-only language names inside the scroller */
@@ -302,10 +329,10 @@ html:not(.m) .vrail__dot {
   border-radius: var(--radius-lid);
   aspect-ratio: 1;
   background:
-    radial-gradient(circle at 50% 50%, transparent 0 56%, rgb(16 19 23 / 0.14) 56.4% 56.9%, transparent 57.3%),
-    radial-gradient(circle at 50% 50%, transparent 0 70%, rgb(200 150 46 / 0.4) 70.3% 70.8%, transparent 71.2%),
+    radial-gradient(circle at 50% 50%, transparent 0 56%, rgb(11 37 69 / 0.14) 56.4% 56.9%, transparent 57.3%),
+    radial-gradient(circle at 50% 50%, transparent 0 70%, rgb(0 144 218 / 0.4) 70.3% 70.8%, transparent 71.2%),
     radial-gradient(circle at 50% 50%, #ffffff 0 62%, var(--sky) 62.4% 100%);
-  box-shadow: inset 0 0 0 1px rgb(16 19 23 / 0.25);
+  box-shadow: inset 0 0 0 1px rgb(11 37 69 / 0.25);
 }
 
 /* subtle grain, no gradients: lives on the azure band and the hero */

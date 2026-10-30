@@ -13,3 +13,4 @@ export type { Tone } from "./section";
 export { SpecTable } from "./spec-table";
 export type { SpecRow } from "./spec-table";
 export { SplitText } from "./split-text";
+export { Wordmark } from "./wordmark";

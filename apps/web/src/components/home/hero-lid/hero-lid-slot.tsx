@@ -1,91 +1,77 @@
 "use client";
 
 import Image from "next/image";
-import { type CSSProperties, useEffect, useState } from "react";
-import { type Img, LID_LIVE } from "@/lib/site";
+import { type CSSProperties, useState } from "react";
+import { ACCORDION_LAYER_WIDTH, ACCORDION_LAYERS, type AccordionLayerKey, type Img, LID_CUTOUT, PHOTO } from "@/lib/site";
 import styles from "./hero-lid-slot.module.css";
 import { HERO_LID_ID } from "./store";
 
-/**
- * Live photo frames per hero step (client, 27 Oct: real-looking lids instead of the 3D render). Within a step
- * the scroll walks through the frames like a lid turned in the hand: SKO top → tilt → inside with the ring.
- */
-const FRAMES: Img[][] = [
-  [LID_LIVE.sko34, LID_LIVE.skoTilt, LID_LIVE.skoInsideTilt, LID_LIVE.skoInside],
-  [LID_LIVE.red34, LID_LIVE.redTilt, LID_LIVE.redInside, LID_LIVE.green34],
-  [LID_LIVE.rings],
-];
-
-/** Number of photo frames of a step. */
-export const frameCount = (step: number) => FRAMES[step]?.length ?? 1;
+/** The factory's own photos per step (client, 29 Oct: no generated packshots; they showed lids we do not make). */
+const PHOTOS: Img[] = [LID_CUTOUT.sko34, LID_CUTOUT.twistRed34, PHOTO.rings];
 
 export type HeroLidSlotProps = {
   /** Alt texts per step (SKO, Twist-Off, ring), from messages. */
   alts: [string, string, string];
+  /** Accordion copy (home.hero.accordion): button labels and one caption per layer. Omit for photos only. */
+  accordion?: { open: string; close: string; label: string; layers: Record<AccordionLayerKey, string> };
   /** Step shown: 0 SKO, 1 Twist-Off, 2 wikel ring. */
   step?: number;
-  /** Frame nearest to the scroll position (gets the alt text); the picture itself follows --pos (CSS). */
-  frame?: number;
   id?: string;
   sizes?: string;
   className?: string;
 };
 
 /**
- * Hero centre: the live photo of the product of the current step. First paint mounts only the first SKO
- * frame (the LCP image); once the page has loaded and is idle, the frames of the current and the next step
- * are mounted eagerly, so a turn never waits for the network and nothing competes with the LCP. Inside a step the frames
- * cross-fade and turn continuously with the scroll (--pos, set by HeroSteps on an ancestor); between steps
- * they fade. The whole slot floats gently. The first SKO frame is the LCP image.
+ * Hero centre: the real photo of the current step's product. On the SKO step a button opens the lid like an
+ * accordion, sideways (client, 30 Oct: «left to right, like bellows»): outer lacquer, tinplate, inner lacquer and
+ * the rubber ring fan out one after another with a little overshoot, each with its caption below; pressing
+ * again folds them back onto the photo. Reduced motion:
+ * the same two states, no travel. The first SKO photo is the LCP image.
  */
-export function HeroLidSlot({ alts, step = 0, frame = 0, id = HERO_LID_ID, sizes = "(min-width: 1024px) 34vw, 72vw", className }: HeroLidSlotProps) {
-  // the extra frames wait for window load + idle, so they never compete with the LCP frame
-  const [warm, setWarm] = useState(false);
-  useEffect(() => {
-    let idle = 0;
-    const go = () => {
-      const ric = window.requestIdleCallback ?? ((cb: () => void) => window.setTimeout(cb, 200));
-      idle = ric(() => setWarm(true));
-    };
-    if (document.readyState === "complete") go();
-    else window.addEventListener("load", go, { once: true });
-    return () => {
-      window.removeEventListener("load", go);
-      (window.cancelIdleCallback ?? window.clearTimeout)(idle);
-    };
-  }, []);
-  const mounted: { s: number; f: number }[] = [];
-  FRAMES.forEach((frames, s) =>
-    frames.forEach((_, f) => {
-      const first = s === 0 && f === 0;
-      if (first || (warm && (s === step || s === step + 1))) mounted.push({ s, f });
-    }),
-  );
+export function HeroLidSlot({ alts, accordion, step = 0, id = HERO_LID_ID, sizes = "(min-width: 1024px) 34vw, 72vw", className }: HeroLidSlotProps) {
+  const [open, setOpen] = useState(false);
+  const hasAccordion = accordion !== undefined && step === 0;
+  const isOpen = open && hasAccordion;
 
   return (
-    <div id={id} data-hero-lid="" data-step={step} className={[styles.slot, className].filter(Boolean).join(" ")}>
-      {mounted.map(({ s, f }) => {
-        const img = FRAMES[s]![f]!;
-        const on = s === step && f === frame;
-        return (
-          <Image
-            key={img.src}
-            src={img.src}
-            width={img.width}
-            height={img.height}
-            alt={on ? alts[s]! : ""}
-            aria-hidden={on ? undefined : true}
-            priority={s === 0 && f === 0}
-            loading={s === 0 && f === 0 ? undefined : "eager"}
-            sizes={sizes}
-            className={styles.photo}
-            data-on={on || undefined}
-            data-cur={s === step || undefined}
-            style={{ "--i": f } as CSSProperties}
-            draggable={false}
-          />
-        );
-      })}
+    <div id={id} data-hero-lid="" data-step={step} data-open={isOpen || undefined} className={[styles.slot, className].filter(Boolean).join(" ")}>
+      {PHOTOS.map((img, s) => (
+        <Image
+          key={img.src}
+          src={img.src}
+          width={img.width}
+          height={img.height}
+          alt={s === step && !isOpen ? alts[s]! : ""}
+          aria-hidden={s === step && !isOpen ? undefined : true}
+          priority={s === 0}
+          sizes={sizes}
+          className={styles.photo}
+          data-on={(s === step && !isOpen) || undefined}
+          data-photo={s === 2 ? "on-white" : undefined}
+          draggable={false}
+        />
+      ))}
+
+      {hasAccordion && (
+        <>
+          <ul className={styles.stack} aria-label={accordion.label} aria-hidden={!isOpen}>
+            {ACCORDION_LAYERS.map((l, i) => (
+              <li
+                key={l.key}
+                className={styles.layer}
+                style={{ "--i": i, "--n": ACCORDION_LAYERS.length } as CSSProperties}
+              >
+                <Image src={l.src} width={ACCORDION_LAYER_WIDTH} height={l.height} alt="" sizes="(min-width: 1024px) 14vw, 30vw" className={styles.layerImg} draggable={false} />
+                <span className={styles.caption}>{accordion.layers[l.key]}</span>
+              </li>
+            ))}
+          </ul>
+          {/* the whole lid is the hit area (client: «нажал на крышку»); the pill carries the visible label */}
+          <button type="button" className={styles.toggle} aria-pressed={isOpen} onClick={() => setOpen((v) => !v)}>
+            <span className={styles.pill}>{isOpen ? accordion.close : accordion.open}</span>
+          </button>
+        </>
+      )}
     </div>
   );
 }

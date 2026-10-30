@@ -9,14 +9,12 @@
   overflow: clip; /* clip, not hidden: hidden would break the sticky stage below */
   border-bottom: 1px solid var(--stage-gold-fill);
   background:
-    radial-gradient(60% 55% at 70% 42%, rgb(214 174 92 / 0.2), transparent 70%),
-    radial-gradient(40% 40% at 8% 96%, rgb(184 35 26 / 0.1), transparent 70%),
+    radial-gradient(60% 55% at 70% 42%, rgb(255 255 255 / 0.95), transparent 70%),
+    radial-gradient(45% 45% at 96% 4%, rgb(255 194 14 / 0.18), transparent 70%),
+    radial-gradient(40% 40% at 4% 96%, rgb(0 144 218 / 0.14), transparent 70%),
     var(--stage);
 }
 /* the living background paints the stage (and the lid) into this rect once it is live */
-html[data-hero-lid="live"] .h-stage {
-  background: transparent;
-}
 .h-stage__grid {
   display: grid;
   gap: var(--space-8);
@@ -51,7 +49,7 @@ html[data-hero-lid="live"] .h-stage {
 .h-facts li {
   max-width: none;
   padding: var(--space-4) 0;
-  border-bottom: 1px solid #2a251e;
+  border-bottom: 1px solid var(--stage-line);
   font-size: var(--text-14);
   color: var(--stage-muted);
 }
@@ -73,18 +71,6 @@ html[data-hero-lid="live"] .h-stage {
   }
   .h-facts {
     align-self: end;
-  }
-  /*
-   * Scroll room for the three product steps (SKO I-82 → Twist-Off 82 → wikel ring) while the stage stays
-   * put. Only when the 3D lid is live: the photo fallback (reduced motion, weak GPU) keeps a one-screen hero.
-   * --hero-pin-top is the measured header height (hero-steps.tsx); the header has a second row below 80rem.
-   */
-  html[data-hero-scroll="on"] .h-stage {
-    height: 460svh; /* 3 steps, 4 photo frames each: room to turn slowly */
-  }
-  .h-stage__grid {
-    position: sticky;
-    top: var(--hero-pin-top, var(--header-h));
   }
 }
 @media (max-width: 63.99rem) {
@@ -113,17 +99,6 @@ html[data-hero-lid="live"] .h-stage {
   .h-facts {
     order: 6;
   }
-  /* live: the step block gets the scroll room and its pin sticks under the header */
-  html[data-hero-scroll="on"] .h-steps {
-    height: 400svh;
-  }
-  html[data-hero-scroll="on"] .h-steps__pin {
-    position: sticky;
-    top: var(--hero-pin-top, var(--header-h));
-    height: calc(100svh - var(--hero-pin-top, var(--header-h)));
-    justify-content: center;
-    padding-block: var(--space-3);
-  }
 }
 
 /* ---------- A: hero product steps (hero-steps/) ---------- */
@@ -144,13 +119,10 @@ html[data-hero-lid="live"] .h-stage {
   }
 }
 .stage-lid {
-  background: radial-gradient(50% 50% at 50% 52%, rgb(214 174 92 / 0.2), transparent 70%);
+  background: radial-gradient(50% 50% at 50% 52%, rgb(255 255 255 / 0.9), transparent 70%);
 }
 .stage-lid img {
-  filter: drop-shadow(0 40px 50px rgb(0 0 0 / 0.55));
-}
-html[data-hero-lid="live"] .stage-lid {
-  background: none;
+  filter: drop-shadow(0 28px 30px rgb(0 79 130 / 0.22));
 }
 
 /* the card: a datasheet fragment with drawing-bracket corners */
@@ -170,7 +142,7 @@ html[data-hero-lid="live"] .stage-lid {
     linear-gradient(var(--c), var(--c)) 0 100% / var(--t) var(--l) no-repeat,
     linear-gradient(var(--c), var(--c)) 100% 100% / var(--l) var(--t) no-repeat,
     linear-gradient(var(--c), var(--c)) 100% 100% / var(--t) var(--l) no-repeat,
-    rgb(17 15 12 / 0.55);
+    rgb(255 255 255 / 0.78);
 }
 .h-step__bar {
   display: flex;
@@ -488,7 +460,8 @@ html[data-home-scroll="on"] .h-stack > *::after {
   inset: 0;
   z-index: 5;
   background: var(--ink-950);
-  opacity: calc(0.35 * var(--recede, 0));
+  /* a light shade: on the light palette a deep one reads as dirty grey */
+  opacity: calc(0.18 * var(--recede, 0));
   pointer-events: none;
 }
 @media (min-width: 48rem) {

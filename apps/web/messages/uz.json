@@ -112,6 +112,12 @@
       "price": "Narxnoma soʻrash",
       "note": "Narx va shartlarni ariza qoldirilgandan soʻng aytamiz. Namunalarni yuboramiz.",
       "slotAlt": "SKO I-82 qopqogʻi, oltin rangli lak",
+      "accordion": {
+        "open": "Qopqoqni qismlarga ajratish",
+        "close": "Qopqoqni yigʻish",
+        "label": "SKO I-82 qopqogʻi nimalardan iborat",
+        "layers": { "lacquerOut": "Tashqi lak", "tin": "Tunuka", "lacquerIn": "Ichki lak", "ring": "Zichlovchi halqa" }
+      },
       "facts": {
         "market": {
           "l": "Bozorda",

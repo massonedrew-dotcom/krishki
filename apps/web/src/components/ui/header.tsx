@@ -1,12 +1,12 @@
-import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { PRIMARY_PHONE } from "@/lib/contacts";
-import { AUDIENCE_NAV, LOGO, NAV, ORDER_HREF } from "@/lib/site";
+import { AUDIENCE_NAV, NAV, ORDER_HREF } from "@/lib/site";
 import { ButtonLink } from "./button";
 import { Container } from "./section";
 import { LangSwitch } from "./lang-switch";
 import { MainNav } from "./main-nav";
+import { Wordmark } from "./wordmark";
 
 /**
  * One sticky header, no burger (client, 27 Oct). From 1280 px a single row: logo, sections, audience buttons,
@@ -28,20 +28,8 @@ export async function Header() {
     <>
     <header className="site-header">
       <Container className="flex h-[var(--header-h)] items-center gap-3 xl:gap-6">
-        <Link href="/" aria-label={t("header.homeLabel")} className="flex min-h-11 shrink-0 items-center gap-3 no-underline">
-          {/* TODO(client): replace the raster logo with a vector file when it arrives. */}
-          <Image
-            src={LOGO.src}
-            width={LOGO.width}
-            height={LOGO.height}
-            alt=""
-            priority
-            sizes="120px"
-            className="h-9 w-auto md:h-14"
-          />
-          <span className="hidden border-l border-sky-line pl-4 font-display text-14 font-semibold tracking-[0.16em] text-ink-700 sm:inline xl:hidden 2xl:inline">
-            {t("brand")}
-          </span>
+        <Link href="/" aria-label={t("header.homeLabel")} className="flex min-h-11 shrink-0 items-center no-underline">
+          <Wordmark className="text-[1.0625rem] md:text-[1.375rem]" />
         </Link>
         <MainNav items={items} label={t("nav.mainLabel")} className="hidden xl:block" listClassName="gap-0" />
         <div className="ml-auto flex items-center gap-2 sm:gap-3">

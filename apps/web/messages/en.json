@@ -112,6 +112,12 @@
       "price": "Request a price list",
       "note": "We give prices and terms after your request. We send samples.",
       "slotAlt": "SKO I-82 lid, gold lacquer",
+      "accordion": {
+        "open": "Take the lid apart",
+        "close": "Put it back together",
+        "label": "What an SKO I-82 lid is made of",
+        "layers": { "lacquerOut": "Outer lacquer", "tin": "Tinplate", "lacquerIn": "Inner lacquer", "ring": "Sealing ring" }
+      },
       "facts": {
         "market": {
           "l": "On the market",

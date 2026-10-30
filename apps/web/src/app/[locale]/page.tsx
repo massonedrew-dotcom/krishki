@@ -9,7 +9,7 @@ import { ButtonLink, Container, Marquee, Section, SplitText } from "@/components
 import { Link } from "@/i18n/navigation";
 import { MAP_URL } from "@/lib/contacts";
 import { organizationJsonLd, pageMetadata } from "@/lib/seo";
-import { LID_LIVE, ORDER_HREF, PARTNERS, PHOTO, TUBE_V2 } from "@/lib/site";
+import { LID_CUTOUT, ORDER_HREF, PARTNERS, PHOTO, TUBE_V2 } from "@/lib/site";
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -51,7 +51,7 @@ const TUBES = [
 const WHOLESALE = `${ORDER_HREF}?direction=wholesale`;
 
 /**
- * Home, plan v4 section 3 in style C. The first screen is direction A (dark graphite stage, gold lid).
+ * Home, plan v4 section 3, light brand palette (client, 29 Oct). The first screen is a light sky stage with the real lid photos.
  * TODO(client): factory photos for the stations without a picture, exact dimensions for the datasheet,
  * ring size and rubber grade, permission to show partner logos.
  */
@@ -68,7 +68,7 @@ export default async function HomePage({ params }: Props) {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd }} />
-      {/* 1. Hero: direction A. Tall with a sticky stage, so scrolling turns the live lid photos step by step. */}
+      {/* 1. Hero: the real lid photos, switched by the step buttons; the SKO opens like an accordion on click. */}
       <section id="hero" className="h-stage surface-stage" aria-labelledby="home-title" data-hero-track="">
         <Container className="h-stage__grid">
           <div className="h-stage__text">
@@ -86,9 +86,20 @@ export default async function HomePage({ params }: Props) {
             </div>
             <p className="h-stage__note max-w-none">{t("hero.note")}</p>
           </div>
-          {/* three scroll steps: the live photo turns through its views, the card shows its datasheet rows */}
+          {/* three product steps: the real photo and its datasheet card */}
           <HeroSteps
             alts={[t("hero.slotAlt"), t("products.items.twist.altRed"), t("products.items.ring.alt")]}
+            accordion={{
+              open: t("hero.accordion.open"),
+              close: t("hero.accordion.close"),
+              label: t("hero.accordion.label"),
+              layers: {
+                lacquerOut: t("hero.accordion.layers.lacquerOut"),
+                tin: t("hero.accordion.layers.tin"),
+                lacquerIn: t("hero.accordion.layers.lacquerIn"),
+                ring: t("hero.accordion.layers.ring"),
+              },
+            }}
             sizes="(min-width: 1024px) 36vw, 90vw"
             items={HERO_STEPS.map((k) => ({
               key: k,
@@ -130,12 +141,12 @@ export default async function HomePage({ params }: Props) {
             <article key={p} className="h-ds__col" aria-labelledby={`ds-${p}`}>
               {p === "sko" ? (
                 <div className="h-ds__pic h-ds__pic--one">
-                  <Image src={LID_LIVE.sko34.src} width={LID_LIVE.sko34.width} height={LID_LIVE.sko34.height} alt={t("products.items.sko.alt")} sizes="(min-width: 1024px) 28vw, 90vw" />
+                  <Image src={LID_CUTOUT.sko34.src} width={LID_CUTOUT.sko34.width} height={LID_CUTOUT.sko34.height} alt={t("products.items.sko.alt")} sizes="(min-width: 1024px) 28vw, 90vw" />
                 </div>
               ) : p === "twist" ? (
                 <div className="h-ds__pic h-ds__pic--pair">
-                  <Image src={LID_LIVE.red34.src} width={LID_LIVE.red34.width} height={LID_LIVE.red34.height} alt={t("products.items.twist.altRed")} sizes="(min-width: 1024px) 18vw, 60vw" />
-                  <Image src={LID_LIVE.green34.src} width={LID_LIVE.green34.width} height={LID_LIVE.green34.height} alt={t("products.items.twist.altGreen")} sizes="(min-width: 1024px) 18vw, 60vw" />
+                  <Image src={LID_CUTOUT.twistRed34.src} width={LID_CUTOUT.twistRed34.width} height={LID_CUTOUT.twistRed34.height} alt={t("products.items.twist.altRed")} sizes="(min-width: 1024px) 18vw, 60vw" />
+                  <Image src={LID_CUTOUT.twistGreen34.src} width={LID_CUTOUT.twistGreen34.width} height={LID_CUTOUT.twistGreen34.height} alt={t("products.items.twist.altGreen")} sizes="(min-width: 1024px) 18vw, 60vw" />
                 </div>
               ) : (
                 <div className="h-ds__pic h-ds__pic--photo">

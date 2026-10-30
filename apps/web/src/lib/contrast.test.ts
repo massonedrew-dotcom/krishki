@@ -24,6 +24,27 @@ describe("contrastRatio", () => {
     ];
     for (const [fg, bg] of pairs) expect(contrastRatio(fg, bg), `${fg} on ${bg}`).toBeGreaterThan(4.5);
   });
+  it("keeps v4 light brand text pairs at AA (4.5)", () => {
+    const pairs: [string, string][] = [
+      ["#0b2545", "#f7fafd"], // ink on the page ground
+      ["#33506f", "#f7fafd"], // muted on the page ground
+      ["#33506f", "#dcedf9"], // muted on the sky band
+      ["#33506f", "#eaf5fd"], // muted on the hero stage
+      ["#0067a6", "#ffffff"], // link and primary button
+      ["#ffffff", "#0067a6"], // primary button label
+      ["#ffffff", "#d3131b"], // «Заказать» label on red
+      ["#d3131b", "#eaf5fd"], // red accent text on the hero stage
+      ["#8a5d00", "#ffffff"], // yellow-family text on white
+      ["#ffffff", "#004f82"], // text on the blue band
+      ["#d9edfa", "#004f82"], // muted text on the blue band
+      ["#ffd54a", "#004f82"], // yellow numbers on the blue band
+      ["#0b2545", "#ffc20e"], // ink on a yellow button
+    ];
+    for (const [fg, bg] of pairs) expect(contrastRatio(fg, bg), `${fg} on ${bg}`).toBeGreaterThan(4.5);
+  });
+  it("keeps v4 control borders at 3:1", () => {
+    expect(contrastRatio("#5d7b98", "#ffffff")).toBeGreaterThan(3);
+  });
   it("keeps control borders at 3:1", () => {
     expect(contrastRatio("#6f8499", "#ffffff")).toBeGreaterThan(3);
   });
