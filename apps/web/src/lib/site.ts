@@ -134,6 +134,9 @@ export const LID_CUTOUT = {
   twistGreen34: { src: "/images/lids/twist-green-34-cutout.webp", width: 783, height: 518 },
   twistRedTop: { src: "/images/lids/twist-red-top-cutout.webp", width: 659, height: 696 },
   twistGreenTop: { src: "/images/lids/twist-green-top-cutout.webp", width: 677, height: 690 },
+  /** Hero only (client, 30 Oct: the keyed-out factory photo looked rough on the dark stage): a clean packshot of the
+   * rings, GPT Image 2.5 from the factory photo, master in assets/generated/accordion-2026-10-30/. */
+  ringsHero: { src: "/images/lids/rings-hero-cut.webp", width: 1024, height: 680 },
 } satisfies Record<string, Img>;
 
 /** Lid photos on white (800 px), for white product panels. */

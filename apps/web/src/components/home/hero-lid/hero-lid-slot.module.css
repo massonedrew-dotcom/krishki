@@ -4,7 +4,6 @@
   aspect-ratio: 1 / 1;
   width: 100%;
   user-select: none;
-  container: lid / size;
 }
 
 /* the real photos: centred, contained, cross-fading by step; the accordion folds onto the SKO photo */
@@ -40,7 +39,6 @@
   width: min(170%, calc(100vw - 2rem));
   aspect-ratio: 4 / 1.75;
   translate: -50% -50%;
-  container-type: size;
   list-style: none;
   pointer-events: none;
   visibility: hidden;
@@ -62,17 +60,20 @@
   z-index: calc(var(--n) - var(--i));
   transform-origin: 50% 100%;
   opacity: clamp(0, calc(var(--t) * 2), 1);
+  /* offsets in % of the layer's own box (container units would need iPadOS 16+): the layer is 13 % of the row
+     wide, so 1 % of the row = 100 / 13 % of the layer; it is 67.35 % of the row tall, so 1 % of the row height =
+     1.485 % of the layer */
   transform:
-    translateX(calc((35 - var(--i) * var(--step)) * (1 - var(--t)) * 1cqw))
-    translateY(calc(var(--arc) * var(--t) + 10cqh * (1 - var(--t))))
+    translateX(calc((35 - var(--i) * var(--step)) / 13 * 100% * (1 - var(--t))))
+    translateY(calc(var(--arc) * var(--t) + 14.85% * (1 - var(--t))))
     rotate(calc(var(--fan) * var(--t)))
     scaleY(calc(0.35 + 0.65 * var(--t)));
 }
 /* the arc: outer pleats lower and leaning out, inner ones higher and nearly upright */
-.layer:nth-child(1) { --fan: -18deg; --arc: 12cqh; }
-.layer:nth-child(2) { --fan: -6deg; --arc: 0cqh; }
-.layer:nth-child(3) { --fan: 6deg; --arc: 0cqh; }
-.layer:nth-child(4) { --fan: 18deg; --arc: 12cqh; }
+.layer:nth-child(1) { --fan: -18deg; --arc: 17.8%; }
+.layer:nth-child(2) { --fan: -6deg; --arc: 0%; }
+.layer:nth-child(3) { --fan: 6deg; --arc: 0%; }
+.layer:nth-child(4) { --fan: 18deg; --arc: 17.8%; }
 /* the 3/4-view layer photo turned 90°, so the disc stands on its edge and fills the tall box */
 .layerImg {
   position: absolute;
