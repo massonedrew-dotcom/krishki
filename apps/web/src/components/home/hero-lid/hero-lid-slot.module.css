@@ -24,16 +24,22 @@
   opacity: 1;
   transform: none;
 }
+/* the SKO photo is the folded accordion: it shows only once the layers are almost together */
+.photo[data-sko][data-on] {
+  opacity: clamp(0, calc(1 - var(--open, 0) * 3), 1);
+  transform: scale(calc(1 - var(--open, 0) * 0.15));
+  transition: opacity 120ms linear;
+}
 /* the rings photo is shot on white: multiply drops its ground into the light stage */
 .photo[data-photo="on-white"] {
   mix-blend-mode: multiply;
 }
 
-/* ---------- accordion: four layers standing on their edge, fanning out left to right on an arc ---------- */
+/* ---------- accordion: four layers standing on their edge on an arc, folded by the scroll (--open) ---------- */
 /* the open row is wider than the slot (it spills over the hero's free space), but never wider than the viewport */
 .stack {
   position: absolute;
-  top: 44%; /* a little above centre: the bottom strip is the button's */
+  top: 40%;
   left: 50%;
   width: min(170%, calc(100vw - 2rem));
   aspect-ratio: 4 / 1.75;
@@ -41,10 +47,16 @@
   container-type: size;
   list-style: none;
   pointer-events: none;
+  visibility: hidden;
+}
+.stack[data-on] {
+  visibility: visible;
 }
 /* each layer is a disc on edge: a tall box 13 % of the row wide, centres at 15 / 38.3 / 61.7 / 85 % */
 .layer {
   --step: 23.333;
+  /* this layer's share of the fold: the outer ones move first, so the row closes like bellows */
+  --t: clamp(0, calc(var(--open, 0) * 1.45 - (var(--n) - 1 - var(--i)) * 0.15), 1);
   position: absolute;
   top: 0;
   left: calc((var(--i) * var(--step) + 8.5) * 1%);
@@ -53,27 +65,18 @@
   max-width: none;
   z-index: calc(var(--n) - var(--i));
   transform-origin: 50% 100%;
-  /* closed: folded onto the row centre, lying flat (squashed) and invisible behind the photo */
-  opacity: 0;
-  transform: translateX(calc((35 - var(--i) * var(--step)) * 1cqw)) translateY(10cqh) rotate(0deg) scaleY(0.35);
-  /* folding back runs right to left, so the ring tucks in first */
-  transition:
-    transform 400ms cubic-bezier(0.55, 0, 0.45, 1) calc((var(--n) - 1 - var(--i)) * 45ms),
-    opacity 220ms linear calc((var(--n) - 1 - var(--i)) * 45ms + 180ms);
+  opacity: clamp(0, calc(var(--t) * 2), 1);
+  transform:
+    translateX(calc((35 - var(--i) * var(--step)) * (1 - var(--t)) * 1cqw))
+    translateY(calc(var(--arc) * var(--t) + 10cqh * (1 - var(--t))))
+    rotate(calc(var(--fan) * var(--t)))
+    scaleY(calc(0.35 + 0.65 * var(--t)));
 }
 /* the arc: outer pleats lower and leaning out, inner ones higher and nearly upright */
 .layer:nth-child(1) { --fan: -18deg; --arc: 12cqh; }
 .layer:nth-child(2) { --fan: -6deg; --arc: 0cqh; }
 .layer:nth-child(3) { --fan: 6deg; --arc: 0cqh; }
 .layer:nth-child(4) { --fan: 18deg; --arc: 12cqh; }
-.slot[data-open] .layer {
-  opacity: 1;
-  transform: translateY(var(--arc)) rotate(var(--fan));
-  /* opening runs left to right with an overshoot, one pleat after another: the «trrr» of an accordion */
-  transition:
-    transform 680ms cubic-bezier(0.34, 1.56, 0.64, 1) calc(var(--i) * 90ms),
-    opacity 160ms linear calc(var(--i) * 90ms);
-}
 /* the 3/4-view layer photo turned 90°, so the disc stands on its edge and fills the tall box */
 .layerImg {
   position: absolute;
@@ -90,24 +93,30 @@
   mix-blend-mode: multiply;
   mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 78%, transparent 100%);
 }
-/* caption under its layer, upright (not part of the fan), with a short red leader line above it */
+/* caption under its layer, upright (not part of the fan): the layer name, then its spec */
 .caption {
   position: absolute;
   top: 100%;
   left: 50%;
   translate: -50% 0;
-  rotate: calc(var(--fan) * -1);
+  rotate: calc(var(--fan) * var(--t) * -1);
+  display: grid;
+  gap: 0.15rem;
   width: max-content;
-  max-width: 8rem;
+  max-width: 9.5rem;
   padding-top: 0.875rem;
   text-align: center;
+  font-size: clamp(0.6875rem, 0.55rem + 0.4vw, 0.8125rem);
+  line-height: 1.3;
+  color: var(--ink-700);
+  /* captions read only while the lid is (almost) fully apart */
+  opacity: clamp(0, calc(var(--open, 0) * 4 - 3), 1);
+}
+.caption b {
   font-family: var(--font-display-stack);
-  font-size: clamp(0.6875rem, 0.55rem + 0.5vw, 0.875rem);
-  font-weight: 600;
-  line-height: 1.2;
+  font-size: 1.08em;
+  font-weight: 700;
   color: var(--ink-950);
-  opacity: 0;
-  transition: opacity 200ms linear;
 }
 .caption::before {
   content: "";
@@ -119,12 +128,11 @@
   translate: -50% 0;
   background: var(--red-600);
 }
-.slot[data-open] .caption {
-  opacity: 1;
-  transition-delay: calc(var(--i) * 90ms + 420ms);
-}
-/* phones: the pleats sit close, so every second caption goes above its layer */
-@container lid (max-width: 26rem) {
+/* phones: the pleats sit close, so every second caption goes above its layer, and the edge ones hug the side */
+@media (max-width: 47.99rem) {
+  .caption {
+    max-width: 6.5rem;
+  }
   .layer:nth-child(even) .caption {
     top: auto;
     bottom: 100%;
@@ -134,11 +142,19 @@
     top: auto;
     bottom: 0;
   }
-  /* the last caption would cross the viewport edge: it ends at its layer's right side instead */
+  .layer:first-child .caption {
+    left: -0.25rem;
+    translate: 0 0;
+    text-align: left;
+  }
+  .layer:first-child .caption::before {
+    left: 1.5rem;
+  }
   .layer:last-child .caption {
     left: auto;
-    right: -0.25rem;
+    right: 0;
     translate: 0 0;
+    max-width: none; /* grows to the left: a long word never crosses the viewport edge */
     text-align: right;
   }
   .layer:last-child .caption::before {
@@ -146,61 +162,8 @@
     right: 1.5rem;
   }
 }
-
-/* the whole slot is the button; the pill is its visible label */
-.toggle {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  border: 0;
-  background: none;
-  padding: 0 0 2%;
-}
-.pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  min-height: 2.75rem;
-  padding: 0 1rem;
-  border-radius: 999px;
-  background: var(--paper);
-  box-shadow: 0 0 0 1px var(--sky-line), 0 10px 24px -14px rgb(0 79 130 / 0.45);
-  font-family: var(--font-display-stack);
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--azure-700);
-  transition:
-    background-color var(--dur-fast) var(--ease-out),
-    color var(--dur-fast) var(--ease-out),
-    transform var(--dur-fast) var(--ease-out);
-}
-.pill::before {
-  content: "";
-  width: 0.5rem;
-  height: 0.5rem;
-  border-radius: 999px;
-  background: var(--gold-500);
-  box-shadow: 0 0 0 3px rgb(255 194 14 / 0.3);
-}
-.toggle:hover .pill {
-  background: var(--azure-700);
-  color: #ffffff;
-}
-.toggle:active .pill {
-  transform: scale(0.97);
-}
-.toggle:focus-visible {
-  outline: none;
-}
-.toggle:focus-visible .pill {
-  outline: 2px solid var(--azure-700);
-  outline-offset: 2px;
-}
-
 @media (prefers-reduced-motion: no-preference) {
-  .slot:not([data-open]) {
+  .slot {
     animation: lid-float 6s ease-in-out infinite;
   }
 }
@@ -217,11 +180,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .photo,
-  .layer,
-  .slot[data-open] .layer,
-  .caption {
+  .photo {
     transition: none;
-    transition-delay: 0s;
   }
 }

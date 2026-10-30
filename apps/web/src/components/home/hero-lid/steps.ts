@@ -43,3 +43,34 @@ export function stepAnchor(i: number): number {
   const s = i === 0 ? 0 : i === STEP_COUNT - 1 ? STEP_COUNT - 0.35 : i + 0.5;
   return s / STEP_COUNT;
 }
+
+/*
+ * Hero timeline (client, 30 Oct): the page opens with the SKO taken apart and its specs; scrolling folds the
+ * layers into the lid, then the product changes to Twist-Off and the rings, then the page scrolls on.
+ *   p 0 … 0.18 apart · 0.18 … 0.42 folding · 0.42 … 0.6 SKO · 0.6 … 0.8 Twist-Off · 0.8 … 1 rings
+ */
+const APART_UNTIL = 0.18;
+const FOLDED_AT = 0.42;
+const PRODUCT_AT = [0, 0.6, 0.8] as const;
+
+/** How far the SKO is apart at progress p: 1 at the top, 0 once folded. */
+export function heroOpen(p: number): number {
+  return 1 - smooth((clamp01(p) - APART_UNTIL) / (FOLDED_AT - APART_UNTIL));
+}
+
+/** The product shown at progress p (0 SKO, 1 Twist-Off, 2 rings). */
+export function heroStep(p: number): number {
+  const c = clamp01(p);
+  let step = 0;
+  PRODUCT_AT.forEach((at, i) => {
+    if (c >= at) step = i;
+  });
+  return step;
+}
+
+/** Progress a step button scrolls to: the middle of that product's own stretch (SKO: assembled). */
+export function heroAnchor(i: number): number {
+  const from = i === 0 ? FOLDED_AT : PRODUCT_AT[i] ?? 0;
+  const to = PRODUCT_AT[i + 1] ?? 1;
+  return (from + to) / 2;
+}

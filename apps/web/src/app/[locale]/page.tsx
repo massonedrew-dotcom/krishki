@@ -68,7 +68,7 @@ export default async function HomePage({ params }: Props) {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd }} />
-      {/* 1. Hero: the real lid photos, switched by the step buttons; the SKO opens like an accordion on click. */}
+      {/* 1. Hero: opens with the SKO taken apart and its specs; the scroll folds it, then turns to Twist-Off and the rings. */}
       <section id="hero" className="h-stage surface-stage" aria-labelledby="home-title" data-hero-track="">
         <Container className="h-stage__grid">
           <div className="h-stage__text">
@@ -90,14 +90,11 @@ export default async function HomePage({ params }: Props) {
           <HeroSteps
             alts={[t("hero.slotAlt"), t("products.items.twist.altRed"), t("products.items.ring.alt")]}
             accordion={{
-              open: t("hero.accordion.open"),
-              close: t("hero.accordion.close"),
-              label: t("hero.accordion.label"),
               layers: {
-                lacquerOut: t("hero.accordion.layers.lacquerOut"),
-                tin: t("hero.accordion.layers.tin"),
-                lacquerIn: t("hero.accordion.layers.lacquerIn"),
-                ring: t("hero.accordion.layers.ring"),
+                lacquerOut: { name: t("hero.accordion.layers.lacquerOut"), value: t("products.items.sko.outside") },
+                tin: { name: t("hero.accordion.layers.tin"), value: t("products.items.sko.material") },
+                lacquerIn: { name: t("hero.accordion.layers.lacquerIn"), value: t("products.items.sko.inside") },
+                ring: { name: t("hero.accordion.layers.ring"), value: t("products.items.sko.seal") },
               },
             }}
             sizes="(min-width: 1024px) 36vw, 90vw"

@@ -72,6 +72,17 @@
   .h-facts {
     align-self: end;
   }
+  /*
+   * Scroll room for the hero timeline (apart → folded SKO → Twist-Off → rings, hero-lid/steps.ts) while the stage
+   * stays put. Only when live: reduced motion keeps a one-screen hero. --hero-pin-top is the measured header height.
+   */
+  html[data-hero-scroll="on"] .h-stage {
+    height: 400svh;
+  }
+  .h-stage__grid {
+    position: sticky;
+    top: var(--hero-pin-top, var(--header-h));
+  }
 }
 @media (max-width: 63.99rem) {
   .h-stage__text {
@@ -98,6 +109,17 @@
   }
   .h-facts {
     order: 6;
+  }
+  /* live: the step block gets the scroll room and its pin sticks under the header */
+  html[data-hero-scroll="on"] .h-steps {
+    height: 360svh;
+  }
+  html[data-hero-scroll="on"] .h-steps__pin {
+    position: sticky;
+    top: var(--hero-pin-top, var(--header-h));
+    height: calc(100svh - var(--hero-pin-top, var(--header-h)));
+    justify-content: center;
+    padding-block: var(--space-3);
   }
 }
 

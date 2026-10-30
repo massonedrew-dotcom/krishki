@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { activeStep, STEP_COUNT, stepAnchor, stepLocal, stepPos } from "./steps";
+import { activeStep, heroAnchor, heroOpen, heroStep, STEP_COUNT, stepAnchor, stepLocal, stepPos } from "./steps";
 
 describe("hero steps mapping", () => {
   it("starts on the SKO and ends on the ring", () => {
@@ -33,5 +33,35 @@ describe("hero steps mapping", () => {
     expect(stepPos(2)).toBeCloseTo(STEP_COUNT - 1, 5);
     expect(stepLocal(0.5, 0)).toBe(1);
     expect(stepLocal(0, 1)).toBe(0);
+  });
+});
+
+describe("hero timeline: apart → folded → products", () => {
+  it("opens apart and is folded before the product changes", () => {
+    expect(heroOpen(0)).toBe(1);
+    expect(heroOpen(0.1)).toBe(1);
+    expect(heroOpen(0.5)).toBe(0);
+    expect(heroStep(0.3)).toBe(0);
+  });
+
+  it("folds without ever opening again while scrolling down", () => {
+    let prev = 2;
+    for (let i = 0; i <= 200; i++) {
+      const o = heroOpen(i / 200);
+      expect(o).toBeLessThanOrEqual(prev + 1e-9);
+      prev = o;
+    }
+  });
+
+  it("goes SKO → Twist-Off → rings", () => {
+    expect(heroStep(0.55)).toBe(0);
+    expect(heroStep(0.7)).toBe(1);
+    expect(heroStep(0.95)).toBe(2);
+    expect(heroStep(2)).toBe(2);
+  });
+
+  it("each step button's anchor shows that product, and the SKO assembled", () => {
+    for (let i = 0; i < STEP_COUNT; i++) expect(heroStep(heroAnchor(i))).toBe(i);
+    expect(heroOpen(heroAnchor(0))).toBe(0);
   });
 });
