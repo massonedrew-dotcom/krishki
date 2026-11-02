@@ -41,7 +41,7 @@ export function LeadForm({ defaultDirection, defaultProduct }: LeadFormProps) {
   const req = t("required");
 
   return (
-    <form onSubmit={onSubmit} className="grid gap-5 md:grid-cols-2" aria-describedby="lead-form-status">
+    <form onSubmit={onSubmit} className="lead-form grid gap-3 md:grid-cols-2 xl:grid-cols-3" aria-describedby="lead-form-status">
       <Field label={t("name")} required requiredLabel={req}>
         {(c) => <Input {...c} name="name" autoComplete="name" />}
       </Field>
@@ -78,12 +78,12 @@ export function LeadForm({ defaultDirection, defaultProduct }: LeadFormProps) {
           </Select>
         )}
       </Field>
-      <div className="md:col-span-2">
+      <div className="md:col-span-2 xl:col-span-3">
         <Field label={t("message")} hint={t("messageHint")}>
-          {(c) => <Textarea {...c} name="message" rows={4} />}
+          {(c) => <Textarea {...c} name="message" rows={2} />}
         </Field>
       </div>
-      <div className="md:col-span-2">
+      <div className="md:col-span-2 xl:col-span-3">
         <Checkbox
           name="consent"
           required
@@ -97,8 +97,8 @@ export function LeadForm({ defaultDirection, defaultProduct }: LeadFormProps) {
           }
         />
       </div>
-      <div className="flex flex-wrap items-center gap-4 md:col-span-2">
-        <Button type="submit" size="lg">
+      <div className="flex flex-wrap items-center gap-4 md:col-span-2 xl:col-span-3">
+        <Button type="submit">
           {t("submit")}
         </Button>
         <p id="lead-form-status" role="status" className="max-w-none text-14 text-fg-muted">

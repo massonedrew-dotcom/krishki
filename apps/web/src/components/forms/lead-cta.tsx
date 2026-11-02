@@ -17,14 +17,14 @@ export async function LeadCta({ id = "lead-form", defaultDirection, defaultProdu
 
   return (
     <section id={id} aria-labelledby={`${id}-title`} className="surface-azure grain py-[var(--section-y)]">
-      <Container className="grid gap-12 lg:grid-cols-12 lg:gap-x-10">
+      <Container className="grid gap-8 lg:grid-cols-12 lg:gap-x-10">
         <div className="lg:col-span-5">
           <Eyebrow>{t("eyebrow")}</Eyebrow>
-          <SplitText as="h2" id={`${id}-title`} className="text-64" text={t("title")} />
-          <p className="mt-6 text-18 text-fg-muted" data-reveal>
+          <SplitText as="h2" id={`${id}-title`} className="text-48" text={t("title")} />
+          <p className="mt-4 text-16 text-fg-muted" data-reveal>
             {t("lead")}
           </p>
-          <ul className="mt-8 grid gap-1 text-18" data-reveal>
+          <ul className="mt-4 grid gap-1 text-18" data-reveal>
             <li>
               <a href={primary.href} className="tnum inline-flex min-h-11 items-center font-semibold text-white">
                 {primary.display}
@@ -40,7 +40,7 @@ export async function LeadCta({ id = "lead-form", defaultDirection, defaultProdu
             </li>
           </ul>
         </div>
-        <div className="surface-white lead-card rounded-card p-6 shadow-lift md:p-10 lg:col-span-7" data-reveal>
+        <div className="surface-white lead-card rounded-card p-5 shadow-lift md:p-6 lg:col-span-7" data-reveal>
           <LeadForm defaultDirection={defaultDirection} defaultProduct={defaultProduct} />
         </div>
       </Container>

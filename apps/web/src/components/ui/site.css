@@ -711,3 +711,12 @@ html:not(.m) .vrail__dot {
 .surface-white.lead-card {
   background: var(--paper);
 }
+
+/* lead form: compact everywhere, it should not outweigh the page */
+.lead-form .control {
+  min-height: 2.625rem;
+  padding-block: var(--space-2);
+}
+.lead-form textarea.control {
+  min-height: 4.5rem;
+}

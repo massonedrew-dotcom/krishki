@@ -326,9 +326,9 @@ export default async function HomePage({ params }: Props) {
             </p>
           </div>
           <div className="h-frame lg:col-span-7" data-reveal>
-            <div className="h-frame__in p-6 md:p-10">
-              <h3 className="text-28">{tf("title")}</h3>
-              <p className="mb-6 mt-2 text-ink-700">{tf("lead")}</p>
+            <div className="h-frame__in p-5 md:p-6">
+              <h3 className="text-22">{tf("title")}</h3>
+              <p className="mb-4 mt-1 text-14 text-ink-700">{tf("lead")}</p>
               <LeadForm />
             </div>
           </div>
