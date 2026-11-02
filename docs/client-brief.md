@@ -26,6 +26,9 @@ Source: docs/brief-elit-konserva.docx, catalog pages in assets/reference/.
 - The broken Google link in #2/#4 is **krishki-surur.uz** (ООО «SURUR XAYR BIZNES», Zangiata district, Tashkent region): a direct Uzbek competitor, SKO I-82 + Twist-off 82 + sealing ring. Client: «конкурент, но сайт у них некрасивый; у нас будет современный, красивый, с 3D». Their site: WordPress brochure, Russian only, no prices, MOQ 800 pcs, WhatsApp/Telegram, exports to TJ/TM/KG/KZ/AZ/GE, self-reported «23 года», «2 млрд+ крышек», no factory photos or certificates shown. Use it as a benchmark to beat, not a style reference.
 - New domain: https://elit-konserva.com (not krishki.uz).
 
+## Update 2026-11-02
+- Positioning requested by the client, relayed by the project owner: largest plant in Uzbekistan in this category, most modern production, highest quality. Used on the home and about pages. Source is the client's statement; no supporting document on file yet.
+
 ## Unanswered — ask again
 - 17: social links, exact production address and map pin
 - 18: consent to neural-network translation for uz/en with client review
