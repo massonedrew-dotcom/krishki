@@ -126,7 +126,7 @@
         },
         "geo": {
           "l": "Supply",
-          "v": "Uzbekistan and Central Asia"
+          "v": "Uzbekistan and the CIS"
         }
       }
     },
@@ -308,7 +308,7 @@
       "label": "Partner logos"
     },
     "geo": {
-      "title": "Uzbekistan and Central Asia",
+      "title": "Uzbekistan and the CIS",
       "text": "The factory is in Kokand, Fergana region. We send samples and build batches for your run.",
       "cta": "How to find us"
     }
@@ -744,8 +744,11 @@
     },
     "geo": {
       "eyebrow": "Geography",
-      "title": "Uzbekistan and Central Asia",
-      "text": "The factory is in Kokand, Fergana region. We supply across Uzbekistan and the countries of the region.",
+      "title": "From Kokand across the CIS",
+      "text": "The factory is in Kokand, Fergana region. We deliver across Uzbekistan and to CIS countries.",
+      "origin": "Kokand",
+      "mapTitle": "Dot map: delivery lines from Kokand to CIS countries",
+      "countries": {"kz":"Kazakhstan","kg":"Kyrgyzstan","tj":"Tajikistan","tm":"Turkmenistan","ru":"Russia","by":"Belarus","az":"Azerbaijan"},
       "cta": "Open on the map"
     }
   },

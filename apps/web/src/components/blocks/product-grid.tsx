@@ -52,23 +52,25 @@ export function ProductGrid({ items, filters, filterLabel, countLabel, packLabel
           {countLabel.replace("{count}", String(visible))}
         </p>
       </div>
-      <ul className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <ul className="mt-6 grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-4">
         {items.map((it) => (
           <li
             key={it.key}
             hidden={active !== "all" && it.type !== active}
-            className="lift relative flex max-w-none flex-col overflow-hidden rounded-card border border-sky-line bg-paper"
+            className={`lift relative flex max-w-none flex-col overflow-hidden rounded-card border border-sky-line bg-paper ${it.type === "ring" ? "col-span-2 lg:flex-row" : ""}`}
           >
-            <Photo img={it.img} alt={it.alt} sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 100vw" ratio="4 / 3" className="rounded-none" />
-            <div className="flex flex-1 flex-col items-start gap-3 p-6">
+            <div className={it.type === "ring" ? "lg:w-3/5 lg:shrink-0" : undefined}>
+              <Photo img={it.img} alt={it.alt} sizes="(min-width: 1024px) 24vw, 50vw" ratio={it.type === "ring" ? "9 / 10" : "3 / 2"} className="rounded-none" />
+            </div>
+            <div className="flex flex-1 flex-col items-start gap-2 p-3 md:p-4">
               <Badge>{it.tag}</Badge>
-              <h3 className="text-28">
+              <h3 className="text-16 md:text-18">
                 <Link href={it.href} className="no-underline after:absolute after:inset-0 after:content-['']">
                   {it.name}
                 </Link>
               </h3>
-              <p className="text-16 text-ink-700">{it.desc}</p>
-              <p className="caption mt-auto pt-2">
+              <p className="hidden text-14 text-ink-700 md:block">{it.desc}</p>
+              <p className="caption mt-auto hidden md:block">
                 {packLabel}: <span className="tnum text-ink-950">{it.pack}</span>
               </p>
               <span className="arrow-link">{moreLabel}</span>

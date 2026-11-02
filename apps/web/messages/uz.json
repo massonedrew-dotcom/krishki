@@ -126,7 +126,7 @@
         },
         "geo": {
           "l": "Yetkazib berish",
-          "v": "Oʻzbekiston va Markaziy Osiyo"
+          "v": "Oʻzbekiston va MDH"
         }
       }
     },
@@ -308,7 +308,7 @@
       "label": "Hamkorlar logotiplari"
     },
     "geo": {
-      "title": "Oʻzbekiston va Markaziy Osiyo",
+      "title": "Oʻzbekiston va MDH",
       "text": "Zavod Qoʻqonda, Fargʻona viloyatida. Namunalarni yuboramiz va partiyalarni sizning tirajingizga yigʻamiz.",
       "cta": "Bizni qanday topish mumkin"
     }
@@ -744,8 +744,11 @@
     },
     "geo": {
       "eyebrow": "Geografiya",
-      "title": "Oʻzbekiston va Markaziy Osiyo",
-      "text": "Zavod Qoʻqonda, Fargʻona viloyatida. Oʻzbekiston va mintaqa davlatlariga yetkazamiz.",
+      "title": "Qoʻqondan butun MDH boʻylab",
+      "text": "Zavod Qoʻqonda, Fargʻona viloyatida. Oʻzbekiston boʻylab va MDH davlatlariga yetkazib beramiz.",
+      "origin": "Qoʻqon",
+      "mapTitle": "Nuqtali xarita: Qoʻqondan MDH davlatlariga yetkazib berish yoʻnalishlari",
+      "countries": {"kz":"Qozogʻiston","kg":"Qirgʻiziston","tj":"Tojikiston","tm":"Turkmaniston","ru":"Rossiya","by":"Belarus","az":"Ozarbayjon"},
       "cta": "Xaritada ochish"
     }
   },

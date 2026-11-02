@@ -35,6 +35,10 @@ const YEARS = [
   { key: "y2016", year: "2016", at: 66.7, left: false },
   { key: "y2022", year: "2022", at: 86.7, left: false },
 ] as const;
+/** The line as a wave through the seven lids; x follows the 7-column grid, y the staggered rows in home.css. */
+const WAVE =
+  "M19 100C70 100 70 0 120.5 0S171 100 222 100 273 0 323.5 0 374 100 425 100 476 0 526.5 0 577 100 628 100 666 50 700 50";
+
 const AUDIENCE = [
   { key: "distributors", href: "/distributors" },
   { key: "suppliers", href: "/suppliers" },
@@ -187,19 +191,21 @@ export default async function HomePage({ params }: Props) {
               <p data-reveal>{t("factory.lead")}</p>
             </div>
             <ol className="h-stations">
+              <svg className="h-wave" viewBox="0 0 700 100" preserveAspectRatio="none" aria-hidden="true">
+                <path className="h-wave__track" d={WAVE} />
+                <path className="h-wave__fill" d={WAVE} pathLength={1} />
+              </svg>
               {STATIONS.map((s, i) => (
                 <li key={s.key} className={`h-st${s.gold ? " h-st--gold" : ""}`}>
                   <span className="h-st__node tnum" aria-hidden="true">
-                    {String(i + 1).padStart(2, "0")}
+                    <Image src={LID_CUTOUT.skoTop.src} width={LID_CUTOUT.skoTop.width} height={LID_CUTOUT.skoTop.height} alt="" sizes="5rem" />
+                    <span>{String(i + 1).padStart(2, "0")}</span>
                   </span>
                   <h3>{t(`factory.stations.${s.key}.t`)}</h3>
                   <p>{t(`factory.stations.${s.key}.d`)}</p>
                 </li>
               ))}
             </ol>
-          </Container>
-        </div>
-        <Container className="pb-[var(--section-y)]">
           <div className="h-ruler tnum" aria-hidden="true">
             <div className="h-ruler__scale" />
             {YEARS.map((y) => (
@@ -221,7 +227,8 @@ export default async function HomePage({ params }: Props) {
               </li>
             ))}
           </ol>
-        </Container>
+          </Container>
+        </div>
       </section>
 
       {/* 4. Who we work with: a drawing index linking to the audience pages */}
@@ -276,14 +283,14 @@ export default async function HomePage({ params }: Props) {
         </div>
         <div className="grid gap-6 md:grid-cols-2">
           {(["lacquer", "private"] as const).map((k) => (
-            <article key={k} className="h-frame" data-reveal>
+            <article key={k} className="h-frame h-frame--row" data-reveal>
               <div className="h-frame__in">
                 <div className="h-frame__pic">
                   <Image
                     src={k === "lacquer" ? PHOTO.lithoMix.src : PHOTO.privateSko.src}
                     fill
                     alt={t(`services.items.${k}.alt`)}
-                    sizes="(min-width: 768px) 45vw, 100vw"
+                    sizes="(min-width: 1024px) 20vw, 100vw"
                   />
                 </div>
                 <div className="h-frame__body">

@@ -2,9 +2,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { PageHero } from "@/components/blocks/page-hero";
-import { SpecList } from "@/components/blocks/spec-list";
 import { LeadCta } from "@/components/forms/lead-cta";
-import { Photo, Section, SplitText } from "@/components/ui";
+import { Section } from "@/components/ui";
 import { cx } from "@/lib/cx";
 import { pageMetadata } from "@/lib/seo";
 import { LOGO, PHOTO, TUBE_V2, type Img } from "@/lib/site";
@@ -19,17 +18,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 type Brand = {
   key: "mechta" | "elisey" | "moya" | "rosa" | "gurman";
   specs: string[];
-  tubes?: Img[];
-  photo?: Img;
+  images: Img[];
   logo?: boolean;
+  wide?: boolean;
 };
 
 const BRANDS: Brand[] = [
-  { key: "mechta", specs: ["types", "tube", "group"], tubes: [TUBE_V2.skoMechta, TUBE_V2.twistGreen], logo: true },
-  { key: "elisey", specs: ["types", "tube", "group"], photo: PHOTO.tubesElisey },
-  { key: "moya", specs: ["metal", "outer", "inner", "top", "inks", "pack"], tubes: [TUBE_V2.moyaMechta] },
-  { key: "rosa", specs: ["metal", "outer", "inner", "top", "inks", "pack"], tubes: [TUBE_V2.rosa] },
-  { key: "gurman", specs: ["tube", "designs", "rest"], tubes: [TUBE_V2.gurmanFamily, TUBE_V2.gurmanG] },
+  { key: "mechta", specs: ["types", "tube", "group"], images: [TUBE_V2.skoMechta, TUBE_V2.twistGreen], logo: true, wide: true },
+  { key: "elisey", specs: ["types", "tube", "group"], images: [PHOTO.tubesElisey] },
+  { key: "gurman", specs: ["tube", "designs", "rest"], images: [TUBE_V2.gurmanFamily, TUBE_V2.gurmanG] },
+  { key: "moya", specs: ["metal", "outer", "inner", "top", "inks", "pack"], images: [TUBE_V2.moyaMechta] },
+  { key: "rosa", specs: ["metal", "outer", "inner", "top", "inks", "pack"], images: [TUBE_V2.rosa] },
 ];
 
 export default async function BrandsPage({ params }: Props) {
@@ -41,57 +40,43 @@ export default async function BrandsPage({ params }: Props) {
     <>
       <PageHero eyebrow={t("hero.eyebrow")} title={t("hero.title")} lead={t("hero.lead")} />
 
-      {BRANDS.map((b, i) => {
-        const flip = i % 2 === 1;
-        return (
-          <Section key={b.key} tone={flip ? "mist" : "white"} labelledBy={`brand-${b.key}`}>
-            <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-x-12">
-              <div className={cx("lg:col-span-5", flip && "lg:order-2")} data-reveal>
-                {b.tubes ? (
-                  <div className="relative mx-auto flex max-w-md items-end justify-center gap-4 py-8">
-                    <div aria-hidden="true" className="lid-disc absolute inset-x-0 top-1/2 -translate-y-1/2" />
-                    {b.tubes.map((img) => (
-                      <Image
-                        key={img.src}
-                        src={img.src}
-                        width={img.width}
-                        height={img.height}
-                        alt={b.tubes?.length === 1 || img === b.tubes?.[0] ? t(`${b.key}.imgAlt`) : ""}
-                        sizes="(min-width: 1024px) 18rem, 45vw"
-                        className="packshot relative h-auto max-h-[26rem] w-auto min-w-0 flex-1 object-contain"
-                        style={{ maxWidth: b.tubes && b.tubes.length > 1 ? "48%" : "62%" }}
-                      />
-                    ))}
-                  </div>
-                ) : b.photo ? (
-                  <Photo
-                    img={b.photo}
-                    alt={t(`${b.key}.imgAlt`)}
-                    sizes="(min-width: 1024px) 40vw, 100vw"
-                    card
+      <Section tone="white">
+        <div className="grid gap-4 lg:grid-cols-2">
+          {BRANDS.map((b) => (
+            <article key={b.key} aria-labelledby={`brand-${b.key}`} className={cx("brand-panel", b.wide && "brand-panel--wide")} data-reveal>
+              <div className="brand-panel__pics">
+                {b.images.map((img, i) => (
+                  <Image
+                    key={img.src}
+                    src={img.src}
+                    width={img.width}
+                    height={img.height}
+                    alt={i === 0 ? t(`${b.key}.imgAlt`) : ""}
+                    sizes="(min-width: 1024px) 12rem, 30vw"
                   />
-                ) : null}
+                ))}
               </div>
-              <div className={cx("lg:col-span-7", flip && "lg:order-1")}>
-                {b.logo ? (
-                  <Image src={LOGO.src} width={LOGO.width} height={LOGO.height} alt="" sizes="9rem" className="mb-4 h-20 w-auto" />
-                ) : null}
+              <div className="min-w-0">
+                {b.logo ? <Image src={LOGO.src} width={LOGO.width} height={LOGO.height} alt="" sizes="6rem" className="mb-2 h-10 w-auto" /> : null}
                 <p className="caption">{t(`${b.key}.alt`)}</p>
-                <SplitText as="h2" id={`brand-${b.key}`} className="mt-2 text-64" text={t(`${b.key}.name`)} />
-                <p className="mt-4 font-display text-22 text-azure-700" data-reveal>
-                  {t(`${b.key}.slogan`)}
-                </p>
-                <p className="mt-4 text-18 text-ink-700" data-reveal>
-                  {t(`${b.key}.text`)}
-                </p>
-                <div className="mt-8" data-reveal>
-                  <SpecList rows={b.specs.map((k) => ({ label: t(`${b.key}.specs.${k}.l`), value: t(`${b.key}.specs.${k}.v`) }))} />
-                </div>
+                <h2 id={`brand-${b.key}`} className="mt-1 text-28">
+                  {t(`${b.key}.name`)}
+                </h2>
+                <p className="mt-1 font-display text-16 text-azure-700">{t(`${b.key}.slogan`)}</p>
+                <p className="mt-2 text-14 text-ink-700">{t(`${b.key}.text`)}</p>
               </div>
-            </div>
-          </Section>
-        );
-      })}
+              <dl className="brand-panel__specs tnum">
+                {b.specs.map((k) => (
+                  <div key={k}>
+                    <dt>{t(`${b.key}.specs.${k}.l`)}</dt>
+                    <dd>{t(`${b.key}.specs.${k}.v`)}</dd>
+                  </div>
+                ))}
+              </dl>
+            </article>
+          ))}
+        </div>
+      </Section>
 
       <LeadCta />
     </>

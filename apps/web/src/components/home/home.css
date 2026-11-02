@@ -292,8 +292,8 @@
 /* ---------- section heads ---------- */
 .h-head {
   display: grid;
-  gap: var(--space-4);
-  margin-bottom: var(--space-12);
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
 }
 .h-head h2 {
   font-size: var(--text-48);
@@ -309,7 +309,7 @@
     gap: var(--space-12);
     /* the lead sits on the heading's last text line, not on its (taller) line box */
     align-items: last baseline;
-    margin-bottom: var(--space-16);
+    margin-bottom: 2rem;
   }
 }
 
@@ -339,7 +339,7 @@
 }
 .h-ds__pic {
   position: relative;
-  aspect-ratio: 16 / 10; /* client, 27 Oct: smaller boxes, bigger products */
+  aspect-ratio: 2 / 1;
   background: var(--paper);
 }
 .h-ds__pic img {
@@ -398,8 +398,17 @@
     border-top: 0;
     border-left: 1px solid var(--ink-950);
   }
+  #products {
+    padding-block: 2.5rem;
+  }
+  .h-ds__pic {
+    aspect-ratio: auto;
+    height: 9rem;
+  }
   .h-ds__col > * {
-    padding: var(--space-3) var(--space-6);
+    font-size: var(--text-14);
+    line-height: 1.35;
+    padding: 0.375rem var(--space-4);
     border-top: 1px solid var(--hair-soft);
   }
   .h-ds__col > :nth-child(-n + 2),
@@ -410,14 +419,15 @@
     padding: 0;
   }
   .h-ds__col > h3 {
-    padding-top: var(--space-6);
+    padding-top: var(--space-3);
+    font-size: 1.25rem;
   }
   .h-ds__col > .h-ds__act {
-    padding: var(--space-6);
+    padding: var(--space-3) var(--space-4);
     border-top: 1px solid var(--ink-950);
   }
   .h-ds__labels > span {
-    padding: var(--space-3) var(--space-6);
+    padding: 0.375rem var(--space-4);
     border-top: 1px solid var(--hair-soft);
     font-size: var(--text-14);
     color: var(--ink-700);
@@ -535,8 +545,7 @@ html[data-home-scroll="on"] .h-stack > *::after {
   width: 3.375rem;
   height: 3.375rem;
   border-radius: var(--radius-lid);
-  border: 2px solid var(--fg-muted);
-  background: var(--surface);
+  background: radial-gradient(circle, var(--surface) 0 56%, color-mix(in srgb, var(--fg) 14%, var(--surface)) 58% 100%);
   font-family: var(--font-display-stack);
   font-weight: 600;
   font-size: 1rem;
@@ -549,8 +558,24 @@ html[data-home-scroll="on"] .h-stack > *::after {
     color 400ms var(--ease-out),
     transform 500ms var(--ease-out);
 }
+/* the marker is a lid from above: a pressed groove and a dashed rim that turns with the scroll */
+.h-st__node::before,
+.h-st__node::after {
+  content: "";
+  position: absolute;
+  border-radius: inherit;
+  pointer-events: none;
+}
+.h-st__node::before {
+  inset: 0;
+  border: 2px dashed currentColor;
+  transform: rotate(calc(var(--line-progress) * 300deg));
+}
+.h-st__node::after {
+  inset: 0.5rem;
+  border: 1px solid color-mix(in srgb, currentColor 45%, transparent);
+}
 .h-st--gold .h-st__node {
-  border-color: var(--gold-300);
   color: var(--gold-300);
 }
 .h-st h3 {
@@ -585,15 +610,14 @@ html[data-home-scroll="on"] .h-st:not([data-lit]) .h-st__node {
   opacity: 0.5;
 }
 html[data-home-scroll="on"] .h-st[data-lit] .h-st__node {
-  background: var(--gold-300);
-  border-color: var(--gold-300);
+  background: radial-gradient(circle at 38% 32%, #fff3c9 0 12%, var(--gold-300) 45%, color-mix(in srgb, var(--gold-300) 72%, var(--ink-950)) 100%);
   color: var(--ink-950);
   transform: scale(1.08);
 }
 @media (min-width: 70rem) {
   /* pinned: the track gives the scroll room, the pin holds the line on screen */
   .h-line-track {
-    height: 260svh;
+    height: 170svh;
   }
   .h-line-pin {
     position: sticky;
@@ -602,7 +626,8 @@ html[data-home-scroll="on"] .h-st[data-lit] .h-st__node {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding-top: var(--space-12);
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
   }
   .h-stations {
     grid-template-columns: repeat(7, minmax(0, 1fr));
@@ -663,8 +688,8 @@ html[data-home-scroll="on"] .h-st[data-lit] .h-st__node {
   .h-ruler {
     display: block;
     position: relative;
-    height: 10rem;
-    margin-top: var(--space-24);
+    height: 8.5rem;
+    margin-top: 2.5rem;
   }
   .h-years {
     position: absolute;
@@ -869,4 +894,124 @@ html[data-home-scroll="on"] .h-st[data-lit] .h-st__node {
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--ink-700);
+}
+
+/* a low panel: picture beside the text, so two services fit one screen */
+@media (min-width: 64rem) {
+  .h-frame--row .h-frame__in {
+    flex-direction: row;
+  }
+  .h-frame--row .h-frame__pic {
+    flex: 0 0 44%;
+    aspect-ratio: auto;
+    min-height: 19rem;
+    border-right: 1px solid var(--ink-950);
+    border-bottom: 0;
+  }
+  .h-frame--row .h-frame__body {
+    padding: var(--space-4);
+  }
+  .h-frame--row .h-frame__body h3 {
+    font-size: 1.375rem;
+  }
+  .h-frame--row .h-frame__body p:not(.h-frame__tag) {
+    font-size: var(--text-14);
+  }
+}
+
+/* phones: the passport columns swipe sideways instead of stacking into a long page */
+@media (max-width: 63.99rem) {
+  .h-ds {
+    display: flex;
+    gap: var(--space-3);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+  }
+  .h-ds__col {
+    flex: 0 0 86%;
+    scroll-snap-align: start;
+  }
+  .h-frame__pic {
+    aspect-ratio: 2 / 1;
+  }
+}
+
+/* client, 2 Nov: the markers are the factory's own SKO lid seen from above, turning with the scroll,
+   and the line runs as a wave. These rules replace the earlier drawn marker. */
+.h-st__node {
+  background: none;
+  color: var(--ink-950);
+}
+.h-st__node::before,
+.h-st__node::after {
+  content: none;
+}
+.h-st__node img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transform: rotate(calc(var(--line-progress) * 300deg));
+}
+.h-st__node span {
+  position: relative;
+}
+html[data-home-scroll="on"] .h-st:not([data-lit]) .h-st__node {
+  opacity: 1;
+}
+html[data-home-scroll="on"] .h-st:not([data-lit]) .h-st__node img {
+  filter: grayscale(1) brightness(0.55);
+  opacity: 1;
+}
+html[data-home-scroll="on"] .h-st:not([data-lit]) .h-st__node span {
+  color: var(--fg);
+}
+html[data-home-scroll="on"] .h-st[data-lit] .h-st__node {
+  background: none;
+}
+.h-wave {
+  display: none;
+}
+@media (min-width: 70rem) {
+  .h-stations::before,
+  .h-stations::after {
+    content: none;
+  }
+  .h-stations {
+    position: relative;
+    padding-top: 0;
+  }
+  .h-wave {
+    display: block;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    top: 2.25rem;
+    height: 4rem;
+    overflow: visible;
+    pointer-events: none;
+  }
+  .h-wave path {
+    fill: none;
+    vector-effect: non-scaling-stroke;
+  }
+  .h-wave__track {
+    stroke: var(--fg-muted);
+    stroke-width: 2;
+    stroke-dasharray: 2 8;
+    stroke-linecap: round;
+  }
+  .h-wave__fill {
+    stroke: var(--gold-300);
+    stroke-width: 3;
+    stroke-dasharray: var(--line-progress) 1;
+  }
+  .h-st__node {
+    width: 4.5rem;
+    height: 4.5rem;
+  }
+  .h-st:nth-child(odd of .h-st) {
+    margin-top: 4rem;
+  }
 }

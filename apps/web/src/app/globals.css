@@ -64,7 +64,7 @@
   --space-16: 4rem;
   --space-24: 6rem;
   --space-32: 8rem;
-  --section-y: 4.5rem;
+  --section-y: 3rem;
   --page-x: 1rem;
   --container-max: 90rem;
   --header-h: 4rem;
@@ -112,7 +112,7 @@
 
 @media (min-width: 48rem) {
   :root {
-    --section-y: 7.5rem;
+    --section-y: 4.5rem;
     --page-x: 2rem;
     --header-h: 4.75rem;
   }

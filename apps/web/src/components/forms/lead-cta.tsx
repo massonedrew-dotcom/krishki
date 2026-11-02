@@ -40,7 +40,7 @@ export async function LeadCta({ id = "lead-form", defaultDirection, defaultProdu
             </li>
           </ul>
         </div>
-        <div className="surface-white rounded-card p-6 shadow-lift md:p-10 lg:col-span-7" data-reveal>
+        <div className="surface-white lead-card rounded-card p-6 shadow-lift md:p-10 lg:col-span-7" data-reveal>
           <LeadForm defaultDirection={defaultDirection} defaultProduct={defaultProduct} />
         </div>
       </Container>

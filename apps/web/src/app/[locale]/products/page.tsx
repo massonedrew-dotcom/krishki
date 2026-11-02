@@ -40,7 +40,7 @@ export default async function ProductsPage({ params }: Props) {
       <Section tone="white">
         <ProductGrid
           filterLabel={t("filter.label")}
-          countLabel={t("filter.count")}
+          countLabel={t.raw("filter.count") as string}
           packLabel={t("packLabel")}
           moreLabel={tc("cta.more")}
           filters={[
