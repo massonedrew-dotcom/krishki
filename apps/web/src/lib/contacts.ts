@@ -11,5 +11,3 @@ export const TELEGRAM = { handle: "@krishki_uz", href: "https://t.me/krishki_uz"
 export const WHATSAPP = { href: "https://wa.me/998975908822" } as const;
 export const INSTAGRAM = { handle: "@krishki.uz", href: "https://www.instagram.com/krishki.uz/" } as const;
 export const FACEBOOK = { handle: "krishkiuz", href: "https://www.facebook.com/krishkiuz/" } as const;
-/** Search link by address only. TODO(client): replace with the exact map pin of the production site (brief #17). */
-export const MAP_URL = "https://www.google.com/maps/search/?api=1&query=Kokand+Kipchok+Arik+98A";

@@ -7,7 +7,6 @@ import { HeroSteps } from "@/components/home/hero-steps";
 import { HomeScroll } from "@/components/home/home-scroll";
 import { ButtonLink, Container, Marquee, Section, SplitText } from "@/components/ui";
 import { Link } from "@/i18n/navigation";
-import { MAP_URL } from "@/lib/contacts";
 import { organizationJsonLd, pageMetadata } from "@/lib/seo";
 import { LID_CUTOUT, ORDER_HREF, PARTNERS, PHOTO, TUBE_V2 } from "@/lib/site";
 
@@ -325,9 +324,6 @@ export default async function HomePage({ params }: Props) {
             <p className="mt-5 text-18 text-ink-700" data-reveal>
               {t("geo.text")}
             </p>
-            <ButtonLink href={MAP_URL} variant="secondary" className="mt-8" data-reveal>
-              {t("geo.cta")}
-            </ButtonLink>
           </div>
           <div className="h-frame lg:col-span-7" data-reveal>
             <div className="h-frame__in p-6 md:p-10">

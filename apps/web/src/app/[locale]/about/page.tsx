@@ -6,10 +6,8 @@ import { SectionHead } from "@/components/blocks/section-head";
 import { EXPORT_COUNTRIES, ExportMap } from "@/components/blocks/export-map";
 import { LeadCta } from "@/components/forms/lead-cta";
 import { Container, Marquee, Photo, Section } from "@/components/ui";
-import { MAP_URL } from "@/lib/contacts";
 import { pageMetadata } from "@/lib/seo";
 import { PARTNERS, PHOTO } from "@/lib/site";
-import { ButtonLink } from "@/components/ui";
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -98,9 +96,6 @@ export default async function AboutPage({ params }: Props) {
                 </li>
               ))}
             </ul>
-            <ButtonLink href={MAP_URL} variant="secondary" className="mt-6" data-reveal>
-              {t("geo.cta")}
-            </ButtonLink>
           </div>
           <div className="lg:col-span-8" data-reveal>
             <ExportMap

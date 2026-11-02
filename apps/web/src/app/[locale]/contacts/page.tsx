@@ -3,7 +3,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { PageHero } from "@/components/blocks/page-hero";
 import { LeadForm } from "@/components/forms/lead-form";
 import { Section } from "@/components/ui";
-import { EMAIL, FACEBOOK, INSTAGRAM, MAP_URL, PHONES, TELEGRAM, WHATSAPP } from "@/lib/contacts";
+import { EMAIL, FACEBOOK, INSTAGRAM, PHONES, TELEGRAM, WHATSAPP } from "@/lib/contacts";
 import { pageMetadata } from "@/lib/seo";
 
 type Props = { params: Promise<{ locale: string }> };
@@ -81,9 +81,6 @@ export default async function ContactsPage({ params }: Props) {
             <dt className="caption border-b border-line pb-3">{t("addressTitle")}</dt>
             <dd className="mt-3">
               <address className="text-18 not-italic">{t("address")}</address>
-              <a href={MAP_URL} className="link mt-2 inline-flex min-h-11 items-center">
-                {t("map")}
-              </a>
               <p className="caption mt-4">
                 {t("hours")}: <span className="text-ink-950">{t("hoursValue")}</span>
               </p>

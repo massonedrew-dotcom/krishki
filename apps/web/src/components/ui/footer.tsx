@@ -1,6 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import { EMAIL, FACEBOOK, INSTAGRAM, MAP_URL, PHONES, TELEGRAM, WHATSAPP } from "@/lib/contacts";
+import { EMAIL, FACEBOOK, INSTAGRAM, PHONES, TELEGRAM, WHATSAPP } from "@/lib/contacts";
 import { AUDIENCE_NAV, EXTRA_NAV, NAV, ORDER_HREF } from "@/lib/site";
 import { Container } from "./section";
 import { Wordmark } from "./wordmark";
@@ -77,9 +77,6 @@ export async function Footer() {
         <div className="md:col-span-3">
           <h2 className="caption">{t("footer.addressTitle")}</h2>
           <address className="mt-3 not-italic">{t("footer.address")}</address>
-          <a href={MAP_URL} className="link mt-1 inline-flex min-h-11 items-center">
-            {t("footer.map")}
-          </a>
           <h2 className="caption mt-6">{t("footer.socialsTitle")}</h2>
           <ul className="mt-2 flex flex-wrap gap-x-5">
             {socials.map((s) => (

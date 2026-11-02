@@ -6,7 +6,6 @@ import { LeadForm } from "@/components/forms/lead-form";
 import { SectionHead } from "@/components/blocks/section-head";
 import { Link } from "@/i18n/navigation";
 import { ButtonLink, Container, Marquee, Section } from "@/components/ui";
-import { MAP_URL } from "@/lib/contacts";
 import { pageMetadata } from "@/lib/seo";
 import { PARTNERS, TUBE_V2 } from "@/lib/site";
 
@@ -149,10 +148,7 @@ export default async function DistributorsPage({ params }: Props) {
             <h2 id="geo-title" className="text-36">
               {t("geo.title")}
             </h2>
-            <p className="mb-8 mt-4 text-18 text-ink-700">{t("geo.text")}</p>
-            <ButtonLink href={MAP_URL} variant="secondary">
-              {t("geo.cta")}
-            </ButtonLink>
+            <p className="mt-4 text-18 text-ink-700">{t("geo.text")}</p>
           </article>
         </div>
       </Section>
