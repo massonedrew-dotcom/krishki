@@ -26,9 +26,9 @@ export default async function AboutPage({ params }: Props) {
   const tc = await getTranslations("common");
 
   const gallery = [
-    { key: "gold", img: PHOTO.skoGold },
-    { key: "twist", img: PHOTO.twistStack },
-    { key: "tubes", img: PHOTO.tubesTwist },
+    // client, 11 Nov: the factory's own «Мечта хозяйки» line instead of plain lid stacks
+    { key: "sko", img: PHOTO.tubesMechta },
+    { key: "twist", img: PHOTO.tubesTwist },
     { key: "rings", img: PHOTO.ringsBox },
   ] as const;
 
@@ -67,10 +67,10 @@ export default async function AboutPage({ params }: Props) {
 
       <Section tone="white" labelledBy="gallery-title">
         <SectionHead eyebrow={t("gallery.eyebrow")} title={t("gallery.title")} id="gallery-title" />
-        <div className="mt-6 grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-4">
+        <div className="mt-6 grid gap-3 sm:grid-cols-3 lg:gap-4">
           {gallery.map((g) => (
             <div key={g.key} data-reveal>
-              <Photo img={g.img} alt={t(`gallery.alts.${g.key}`)} sizes="(min-width: 1024px) 24vw, 50vw" card ratio="1 / 1" />
+              <Photo img={g.img} alt={t(`gallery.alts.${g.key}`)} sizes="(min-width: 640px) 32vw, 100vw" card ratio="4 / 3" />
             </div>
           ))}
         </div>

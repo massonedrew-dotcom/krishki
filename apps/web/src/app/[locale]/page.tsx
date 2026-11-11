@@ -26,6 +26,7 @@ const STATIONS = [
   { key: "seal", gold: false },
   { key: "qc", gold: false },
   { key: "pack", gold: false },
+  { key: "delivery", gold: false },
 ] as const;
 /** Years sit at their true position on a 1996-2026 ruler (percent of 30 years). */
 const YEARS = [
@@ -34,9 +35,12 @@ const YEARS = [
   { key: "y2016", year: "2016", at: 66.7, left: false },
   { key: "y2022", year: "2022", at: 86.7, left: false },
 ] as const;
-/** The line as a wave through the seven lids; x follows the 7-column grid, y the staggered rows in home.css. */
+/**
+ * The line as a wave through the eight lids; x follows the 8-column grid (node centres 88.8 units apart from 19),
+ * y the staggered rows in home.css (odd stations low, even high).
+ */
 const WAVE =
-  "M19 100C70 100 70 0 120.5 0S171 100 222 100 273 0 323.5 0 374 100 425 100 476 0 526.5 0 577 100 628 100 666 50 700 50";
+  "M19 100C63.4 100 63.4 0 107.8 0S152.2 100 196.6 100 241.1 0 285.5 0 329.9 100 374.3 100 418.7 0 463.1 0 507.5 100 551.9 100 596.3 0 640.7 0 672 50 700 50";
 
 const AUDIENCE = [
   { key: "distributors", href: "/distributors" },

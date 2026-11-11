@@ -25,9 +25,9 @@ Six advantages on the site (headlines): Высокое качество; Раб�
 
 ## 2. Contacts
 - Address: Республика Узбекистан, Ферганская область, г. Коканд, ул. Кипчок Арик, 98 А (production address and map pin: TODO(client), brief #17)
-- Phones on site: +998 97 590-88-22, +998 91 152-42-03, +998 73 542-34-91. Oleg's work phone: TODO(client)
+- Phones on site (client, 11 Nov 2026): +998 99 033-33-09 (Oleg, replaces +998 97 590-88-22 and +998 73 542-34-91), +998 91 152-42-03.
 - Email: info@krishki.uz (access unclear, brief #12; a new mailbox is planned)
-- WhatsApp: https://wa.me/998975908822
+- WhatsApp: https://wa.me/998990333309 (Oleg's number, 11 Nov 2026; was 998975908822)
 - Telegram: https://t.me/krishki_uz (also used as channel)
 - Facebook: https://www.facebook.com/krishkiuz/
 - Instagram: https://www.instagram.com/krishki.uz/

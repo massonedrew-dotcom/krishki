@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 const STEPS = ["brief", "design", "print", "batch"] as const;
-const SPECS = ["types", "moq", "max", "coat", "price"] as const;
+const SPECS = ["types", "moq", "max", "stm", "coat", "price"] as const;
 
 export default async function PrivateLabelPage({ params }: Props) {
   const { locale } = await params;

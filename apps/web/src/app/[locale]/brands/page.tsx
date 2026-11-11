@@ -16,19 +16,23 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 type Brand = {
-  key: "mechta" | "elisey" | "moya" | "rosa" | "gurman";
+  key: "mechta" | "elisey" | "moya" | "rosa" | "gurman" | "yopyop";
   specs: string[];
   images: Img[];
   logo?: boolean;
   wide?: boolean;
+  /** The tube label carries no slogan. */
+  noSlogan?: boolean;
 };
 
 const BRANDS: Brand[] = [
   { key: "mechta", specs: ["types", "tube", "group"], images: [TUBE_V2.skoMechta, TUBE_V2.twistGreen], logo: true, wide: true },
   { key: "elisey", specs: ["types", "tube", "group"], images: [PHOTO.tubesElisey] },
-  { key: "gurman", specs: ["tube", "designs", "rest"], images: [TUBE_V2.gurmanFamily, TUBE_V2.gurmanG] },
+  { key: "gurman", specs: ["tube", "group", "designs", "rest"], images: [TUBE_V2.gurmanFamily, TUBE_V2.gurmanG] },
   { key: "moya", specs: ["metal", "outer", "inner", "top", "inks", "pack"], images: [TUBE_V2.moyaMechta] },
   { key: "rosa", specs: ["metal", "outer", "inner", "top", "inks", "pack"], images: [TUBE_V2.rosa] },
+  // TODO(client): the Yop-Yop tube photo (the label was sent in chat, 11 Nov; no file in the repo yet)
+  { key: "yopyop", specs: ["types", "tube", "group"], images: [], noSlogan: true },
 ];
 
 export default async function BrandsPage({ params }: Props) {
@@ -44,6 +48,7 @@ export default async function BrandsPage({ params }: Props) {
         <div className="grid gap-4 lg:grid-cols-2">
           {BRANDS.map((b) => (
             <article key={b.key} aria-labelledby={`brand-${b.key}`} className={cx("brand-panel", b.wide && "brand-panel--wide")} data-reveal>
+              {b.images.length > 0 ? (
               <div className="brand-panel__pics">
                 {b.images.map((img, i) => (
                   <Image
@@ -56,13 +61,14 @@ export default async function BrandsPage({ params }: Props) {
                   />
                 ))}
               </div>
-              <div className="min-w-0">
+              ) : null}
+              <div className={cx("min-w-0", b.images.length === 0 && "col-span-full")}>
                 {b.logo ? <Image src={LOGO.src} width={LOGO.width} height={LOGO.height} alt="" sizes="6rem" className="mb-2 h-10 w-auto" /> : null}
                 <p className="caption">{t(`${b.key}.alt`)}</p>
                 <h2 id={`brand-${b.key}`} className="mt-1 text-28">
                   {t(`${b.key}.name`)}
                 </h2>
-                <p className="mt-1 font-display text-16 text-azure-700">{t(`${b.key}.slogan`)}</p>
+                {b.noSlogan ? null : <p className="mt-1 font-display text-16 text-azure-700">{t(`${b.key}.slogan`)}</p>}
                 <p className="mt-2 text-14 text-ink-700">{t(`${b.key}.text`)}</p>
               </div>
               <dl className="brand-panel__specs tnum">

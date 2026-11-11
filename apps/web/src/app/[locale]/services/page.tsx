@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return pageMetadata(locale, "/services", "services");
 }
 
-const LINES = ["lids", "combo", "cans", "chem"] as const;
+const LINES = ["lids", "combo", "cans", "chem", "delivery"] as const;
 const PROCESS = ["prepress", "print", "lacquer", "qc"] as const;
 const SPECS = ["material", "sheet", "thickness", "lacquer", "inks", "qc", "lead", "price"] as const;
 

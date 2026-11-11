@@ -107,7 +107,7 @@
     "hero": {
       "titleLead": "Oʻzbekistondagi eng yirik metall qopqoqlar zavodi",
       "titleAccent": "1996-yildan",
-      "lead": "Eng zamonaviy ishlab chiqarish va eng yuqori sifat. SKO I-82, Twist-Off 82 qopqoqlari va zichlovchi halqalar. Tunukaga lak berish va litografiya oʻzimizda, PPG laklari.",
+      "lead": "Eng zamonaviy ishlab chiqarish va eng yuqori sifat. SKO I-82, Twist-Off 82 qopqoqlari va zichlovchi halqalar. Tunukaga lak berish va litografiya oʻzimizda, PPG laklari. Oʻzbekiston va MDH boʻylab yetkazib berish.",
       "order": "Buyurtma",
       "price": "Narxnoma soʻrash",
       "note": "Narx va shartlarni ariza qoldirilgandan soʻng aytamiz. Namunalarni yuboramiz.",
@@ -153,7 +153,7 @@
           "outside": "oltin rangli lak",
           "inside": "oziq-ovqat emali va lak, kumushrang-kulrang",
           "seal": "oziq-ovqat kauchugidan halqa",
-          "pack": "tuba, 50 dona"
+          "pack": "tuba 50 dona · guruh oʻrama 500 va 1 000 dona"
         },
         "twist": {
           "name": "Twist-Off 82",
@@ -181,7 +181,7 @@
       }
     },
     "factory": {
-      "title": "Zavod: yetti operatsiya",
+      "title": "Zavod: sakkiz operatsiya",
       "lead": "Qopqoqning Qoʻqon zavodidagi yoʻli. Har bir partiyani oʻz laboratoriyamiz tekshiradi.",
       "stations": {
         "tin": {
@@ -210,7 +210,11 @@
         },
         "pack": {
           "t": "Qadoqlash",
-          "d": "50 va 20 dona tubalar, 850 dona quti. Oʻzbekiston va Markaziy Osiyo boʻylab joʻnatish."
+          "d": "50 va 20 dona tubalar, guruh oʻrama 500 va 1 000 dona, 850 dona quti."
+        },
+        "delivery": {
+          "t": "Yetkazib berish",
+          "d": "Oʻzbekiston va MDH davlatlariga yetkazib beramiz."
         }
       },
       "years": {
@@ -227,8 +231,8 @@
           "d": "Alohida Twist-Off sexi va yangi omborlar"
         },
         "y2022": {
-          "s": "«Eliseyskie krishki»",
-          "d": "SKO liniyasi «Eliseyskie krishki»"
+          "s": "yangi hamkorlar",
+          "d": "Ishlab chiqarish hamkorlarini kengaytirish"
         }
       }
     },
@@ -247,14 +251,14 @@
         },
         "private": {
           "t": "Oʻz brendingiz ostida",
-          "d": "SKO va Twist-Off qopqoqlarida sizning dizayningiz. Litografiya bizning zavodda, 1 000 donadan.",
+          "d": "SKO va Twist-Off qopqoqlarida sizning dizayningiz. Litografiya bizning zavodda, 1 000 donadan. STM — istalgan brend buyurtma asosida 5 mln qopqoqdan.",
           "cta": "Bu qanday ishlaydi"
         }
       }
     },
     "brands": {
       "title": "Brendlar",
-      "lead": "«Mechta khozyayki», «Eliseyskie krishki», «Moya mechta» va «Rosa». Uy sharoitida konservalash uchun litografiyali tubalar.",
+      "lead": "«Mechta khozyayki», «Eliseyskie krishki», «Moya mechta», «Rosa» va Yop-Yop. Uy sharoitida konservalash uchun litografiyali tubalar.",
       "cta": "Barcha brendlar",
       "items": {
         "mechta": {
@@ -285,7 +289,7 @@
       }
     },
     "services": {
-      "title": "Tunukani oʻz zavodimizda laklash va litografiya",
+      "title": "Laklash, tunuka litografiyasi va yetkazib berish",
       "items": {
         "lacquer": {
           "tag": "Lak va litografiya",
@@ -297,7 +301,7 @@
         "private": {
           "tag": "Oʻz brendingiz ostida",
           "title": "Har bir bankada sizning brendingiz",
-          "text": "SKO va twist-off qopqoqlarida sizning dizayningiz. Tiraj 1 000 donadan.",
+          "text": "SKO va twist-off qopqoqlarida sizning dizayningiz. Tiraj 1 000 donadan. STM — istalgan brend buyurtma asosida 5 mln qopqoqdan.",
           "cta": "Bu qanday ishlaydi",
           "alt": "Buyurtmachi logotipli SKO qopqoqlari"
         }
@@ -333,8 +337,8 @@
     },
     "packLabel": "Oʻrama",
     "items": {
-      "skoGold": { "type": "sko", "tag": "SKO I-82", "name": "SKO oltin rangli", "desc": "Tashqarisi oltin lak, ichi oziq-ovqat emali. Konservalash klassikasi.", "pack": "Tuba 50 dona · qop 500 · quti 1 000", "alt": "Oltin rangli SKO I-82 qopqoqlari" },
-      "skoLitho": { "type": "sko", "tag": "SKO I-82", "name": "SKO rangli", "desc": "Uy konservasi uchun sabzavot va mevali litografiya.", "pack": "Tuba 50 dona, qop 500 dona", "alt": "Rangli litografiyali SKO qopqoqlari" },
+      "skoGold": { "type": "sko", "tag": "SKO I-82", "name": "SKO oltin rangli", "desc": "Tashqarisi oltin lak, ichi oziq-ovqat emali. Konservalash klassikasi.", "pack": "Tuba 50 dona · guruh oʻrama 500 va 1 000 dona", "alt": "Oltin rangli SKO I-82 qopqoqlari" },
+      "skoLitho": { "type": "sko", "tag": "SKO I-82", "name": "SKO rangli", "desc": "Uy konservasi uchun sabzavot va mevali litografiya.", "pack": "Tuba 50 dona · guruh oʻrama 500 va 1 000 dona", "alt": "Rangli litografiyali SKO qopqoqlari" },
       "skoPrivate": { "type": "sko", "tag": "Oʻz brendingiz ostida", "name": "SKO oʻz brendingiz ostida", "desc": "Sizning dizayningiz va logotipingiz. Mustahkamlangan qoplama — soʻrov boʻyicha.", "pack": "1 000 donadan", "alt": "Buyurtmachi logotipli SKO qopqoqlari" },
       "twistMono": { "type": "twist", "tag": "Twist-off 82", "name": "Twist-off bir rangli", "desc": "Yorqin bir rangli litografiya: yashil va qizil.", "pack": "Tuba 20 dona · qop 240 · quti 850", "alt": "Yashil va qoramtir qizil twist-off qopqoqlari dastasi" },
       "twistFull": { "type": "twist", "tag": "Twist-off 82", "name": "Twist-off rangli", "desc": "Pomidor va sabzavot assortisi. Markazda vakuum tugmasi.", "pack": "Tuba 20 dona · qop 240 · quti 850", "alt": "Pomidor rasmli twist-off qopqoqlari" },
@@ -411,16 +415,16 @@
           "title": "«Mechta khozyayki»",
           "tube": "50 dona",
           "tubeNote": "Termosiqiladigan plyonkadagi rangli bosmali tuba: 49 oltin va 1 litografiyali qopqoq.",
-          "group": "500 dona",
-          "groupNote": "10 ta tuba polietilen qopda.",
+          "group": "500 va 1 000 dona",
+          "groupNote": "Guruh oʻramada 10 yoki 20 ta tuba.",
           "alt": "«Mechta khozyayki» qopqoqlari tubalari"
         },
         "elisey": {
           "title": "«Eliseyskie krishki»",
           "tube": "50 dona",
           "tubeNote": "Termosiqiladigan plyonkadagi koʻk yorliqli tuba: 49 oltin va 1 litografiyali qopqoq.",
-          "group": "1 000 dona",
-          "groupNote": "10 ta tuba karton qutida.",
+          "group": "500 va 1 000 dona",
+          "groupNote": "Guruh oʻramada 10 yoki 20 ta tuba.",
           "alt": "«Eliseyskie krishki» qopqoqlari tubalari"
         }
       }
@@ -522,11 +526,11 @@
   "brands": {
     "meta": {
       "title": "Qopqoq brendlari: Mechta khozyayki, Eliseyskie, Rosa",
-      "description": "ELIT KONSERVA qatorlari: «Mechta khozyayki», «Eliseyskie krishki», «Moya mechta», «Rosa», «Gurman». 50 talik tubalar, xususiyatlar va oʻrama."
+      "description": "ELIT KONSERVA qatorlari: «Mechta khozyayki», «Eliseyskie krishki», «Moya mechta», «Rosa», «Gurman», Yop-Yop. 50 talik tubalar, xususiyatlar va oʻrama."
     },
     "hero": {
       "eyebrow": "Brendlar",
-      "title": "Beshta qator. Bitta zavod.",
+      "title": "Oltita qator. Bitta zavod.",
       "lead": "Uy konservasi uchun litografiyali 50 talik tubalar. Har birining oʻz oʻramasi va oʻz xarakteri bor."
     },
     "specsCaption": "Xususiyatlar",
@@ -538,19 +542,19 @@
       "specs": {
         "types": { "l": "Turlari", "v": "SKO I-82 · Twist-off 82" },
         "tube": { "l": "Tuba", "v": "50 dona (SKO) · 20 dona (twist-off)" },
-        "group": { "l": "Guruh oʻrama", "v": "500 dona (SKO) · 240 dona (twist-off), qop" }
+        "group": { "l": "Guruh oʻrama", "v": "500 va 1 000 dona (SKO) · 240 dona (twist-off)" }
       },
       "imgAlt": "«Mechta khozyayki» tubalari: SKO va twist-off"
     },
     "elisey": {
       "name": "Eliseyskie krishki",
-      "alt": "Yangi SKO qatori, 2022-yil",
+      "alt": "50 talik tuba",
       "slogan": "Konservalash qulayligi",
-      "text": "2022-yilda ishga tushirilgan SKO qopqoqlari qatori. Tubada koʻk yorliq.",
+      "text": "Tubada koʻk yorliqli SKO I-82 qopqoqlari.",
       "specs": {
         "types": { "l": "Turi", "v": "SKO I-82" },
         "tube": { "l": "Tuba", "v": "50 dona, koʻk yorliq" },
-        "group": { "l": "Guruh oʻrama", "v": "1 000 dona, karton quti" }
+        "group": { "l": "Guruh oʻrama", "v": "500 va 1 000 dona" }
       },
       "imgAlt": "«Eliseyskie krishki» tubalari"
     },
@@ -565,7 +569,7 @@
         "inner": { "l": "Ichki emal", "v": "EP 5147/S (Rossiya)" },
         "top": { "l": "Qoplovchi lak", "v": "PPG 2040 (Germaniya)" },
         "inks": { "l": "Boʻyoqlar", "v": "HUBER GROUP (Germaniya)" },
-        "pack": { "l": "Oʻrama", "v": "Tuba 50 dona, oq quti 1 000 dona" }
+        "pack": { "l": "Oʻrama", "v": "Tuba 50 dona · guruh oʻrama 500 va 1 000 dona" }
       },
       "imgAlt": "«Moya mechta» tubasi"
     },
@@ -580,7 +584,7 @@
         "inner": { "l": "Ichki emal", "v": "EP 5147/S (Rossiya)" },
         "top": { "l": "Qoplovchi lak", "v": "PPG 2040 (Germaniya)" },
         "inks": { "l": "Boʻyoqlar", "v": "HUBER GROUP (Germaniya)" },
-        "pack": { "l": "Oʻrama", "v": "Tuba 50 dona, logotipli quti 1 000 dona" }
+        "pack": { "l": "Oʻrama", "v": "Tuba 50 dona · guruh oʻrama 500 va 1 000 dona" }
       },
       "imgAlt": "«Rosa» tubasi"
     },
@@ -592,13 +596,37 @@
       "specs": {
         "tube": { "l": "Tuba", "v": "50 dona" },
         "designs": { "l": "Dizaynlar", "v": "«Gurman G» · «Oila uchun»" },
-        "rest": { "l": "Qolgani", "v": "Xususiyatlar — soʻrov boʻyicha" }
+        "rest": { "l": "Qolgani", "v": "Xususiyatlar — soʻrov boʻyicha" },
+        "group": {
+          "l": "Guruh oʻrama",
+          "v": "500 va 1 000 dona"
+        }
       },
       "imgAlt": "«Gurman» tubalari"
     },
     "cta": {
       "title": "Bozoringizga mos qatorni tanlaymiz",
       "text": "Qayerda sotishingizni ayting, mos dizayn va oʻramani taklif qilamiz."
+    },
+    "yopyop": {
+      "name": "Yop-Yop",
+      "alt": "50 talik tuba",
+      "text": "Oʻzbek naqshli tubadagi SKO I-82 qopqoqlari.",
+      "specs": {
+        "types": {
+          "l": "Turi",
+          "v": "SKO I-82"
+        },
+        "tube": {
+          "l": "Tuba",
+          "v": "50 dona"
+        },
+        "group": {
+          "l": "Guruh oʻrama",
+          "v": "500 va 1 000 dona"
+        }
+      },
+      "imgAlt": "Yop-Yop qopqoqlari tubasi"
     }
   },
   "services": {
@@ -614,12 +642,16 @@
     },
     "lines": {
       "eyebrow": "Nima qilamiz",
-      "title": "Toʻrt yoʻnalish",
+      "title": "Beshta yoʻnalish",
       "items": {
         "lids": { "t": "SKO va twist-off qopqoqlari", "d": "Lak va rangli litografiya." },
         "combo": { "t": "Kombinatsiyalangan banka va tubalar uchun detallar", "d": "Metall detallarga lak va bosma." },
         "cans": { "t": "Konserva bankalari", "d": "Konserva idishlari uchun qoplama va bosma." },
-        "chem": { "t": "Kimyo va aerozollar uchun idish", "d": "Maishiy kimyo va aerozollar uchun tunuka bankalar." }
+        "chem": { "t": "Kimyo va aerozollar uchun idish", "d": "Maishiy kimyo va aerozollar uchun tunuka bankalar." },
+        "delivery": {
+          "t": "Yetkazib berish",
+          "d": "Buyurtmani Oʻzbekiston va MDH davlatlariga yetkazib beramiz."
+        }
       }
     },
     "process": {
@@ -643,14 +675,14 @@
         "lacquer": { "l": "Lak", "v": "PPG (Germaniya)" },
         "inks": { "l": "Boʻyoqlar", "v": "UV, HUBER GROUP (Germaniya)" },
         "qc": { "l": "Nazorat", "v": "Qoplama massasi, qattiqlik, adgeziya — GOST boʻyicha" },
-        "lead": { "l": "Muddat", "v": "Hajmingizga qarab aytamiz" },
-        "price": { "l": "Narx", "v": "Soʻrov boʻyicha" }
+        "lead": { "l": "Muddat", "v": "Buyurtma hajmiga bogʻliq" },
+        "price": { "l": "Narx", "v": "Buyurtma hajmiga bogʻliq" }
       }
     },
     "benefits": {
       "t1": "Topshirigʻingizga mos dizayn",
       "t2": "Bosmadan oldingi tayyorgarlik bizda",
-      "t3": "Qisqa muddatlar: hajmingizga qarab aytamiz"
+      "t3": "Narx va muddat buyurtma hajmiga bogʻliq"
     },
     "ctaTitle": "Topshiriqni yuboring — hisoblab beramiz"
   },
@@ -662,7 +694,7 @@
     "hero": {
       "eyebrow": "Oʻz brendingiz ostida",
       "title": "Har bir bankada sizning brendingiz",
-      "lead": "SKO va twist-off qopqoqlariga sizning dizayningizni bosamiz. Litografiya va lak — bizning zavodda. Hajm 1 000 donadan.",
+      "lead": "SKO va twist-off qopqoqlariga sizning dizayningizni bosamiz. Litografiya va lak — bizning zavodda. Hajm 1 000 donadan. Xususiy savdo belgisi (STM) — istalgan brend buyurtma asosida 5 million qopqoqdan.",
       "alt": "Buyurtmachi logotipli SKO va twist-off qopqoqlari"
     },
     "steps": {
@@ -692,7 +724,11 @@
         "moq": { "l": "Minimal partiya", "v": "1 000 dona" },
         "max": { "l": "Maksimum", "v": "10 000 000 dona" },
         "coat": { "l": "Qoplama", "v": "Mustahkamlangan — soʻrov boʻyicha" },
-        "price": { "l": "Narx", "v": "Texnik topshiriq boʻyicha" }
+        "price": { "l": "Narx", "v": "Buyurtma hajmiga bogʻliq" },
+        "stm": {
+          "l": "Xususiy savdo belgisi (STM)",
+          "v": "Istalgan brend buyurtma asosida — 5 000 000 qopqoqdan"
+        }
       }
     },
     "ctaTitle": "Brendingiz haqida gapirib bering"
@@ -700,7 +736,7 @@
   "about": {
     "meta": {
       "title": "ELIT KONSERVA: Oʻzbekistondagi eng yirik qopqoq zavodi",
-      "description": "Qoʻqondagi konserva qopqoqlari zavodi: 1996-yildan, halqalar 2014 dan, twist-off 2016 dan, «Eliseyskie krishki» 2022 dan. Har bir partiya laboratoriyada."
+      "description": "Qoʻqondagi konserva qopqoqlari zavodi: 1996-yildan, halqalar 2014 dan, twist-off 2016 dan, 2022-yilda hamkorlar kengaydi. Har bir partiya laboratoriyada."
     },
     "hero": {
       "eyebrow": "Zavod haqida",
@@ -715,7 +751,7 @@
         "y1996": { "y": "1996", "t": "Tashkil topgan", "d": "ELIT KONSERVA Qoʻqonda ishini boshlaydi." },
         "y2014": { "y": "2014", "t": "Zichlovchi halqalar", "d": "Oziq-ovqat rezinasidan zichlovchi halqalar ishlab chiqarishni boshlaymiz." },
         "y2016": { "y": "2016", "t": "Twist-off", "d": "Alohida sexda yangi liniya va qoʻshimcha omborlar." },
-        "y2022": { "y": "2022", "t": "Eliseyskie krishki", "d": "SKO qopqoqlarining yangi qatori." }
+        "y2022": { "y": "2022", "t": "Yangi hamkorlar", "d": "Ishlab chiqarish hamkorlari kengaydi." }
       }
     },
     "quality": {
@@ -729,11 +765,10 @@
     },
     "gallery": {
       "eyebrow": "Mahsulotlar",
-      "title": "Zavoddan nima chiqadi",
+      "title": "Zavod ishlab chiqaradigan mahsulotlar",
       "alts": {
-        "gold": "Oltin rangli SKO qopqoqlari dastalari",
-        "twist": "Rangli twist-off qopqoqlari",
-        "tubes": "Omborda qopqoqli tubalar",
+        "sko": "Omborda «Mechta khozyayki» SKO qopqoqlari tubalari",
+        "twist": "«Mechta khozyayki» twist-off qopqoqlari tubalari, yashil va toʻq qizil",
         "rings": "Zichlovchi halqalar solingan quti"
       }
     },
@@ -843,7 +878,7 @@
         },
         "brands": {
           "t": "Brend liniyalari",
-          "d": "«Mechta khozyayki», «Eliseyskie krishki», «Moya mechta» va «Rosa». Barcha brendlar zavodga tegishli."
+          "d": "«Mechta khozyayki», «Eliseyskie krishki», «Moya mechta», «Rosa» va Yop-Yop. Barcha brendlar zavodga tegishli."
         }
       }
     },
@@ -860,17 +895,17 @@
         "mechta": {
           "l": "Mechta khozyayki, SKO",
           "unit": "50 dona",
-          "group": "10 ta tuba = 500 dona, polietilen qop"
+          "group": "500 va 1 000 dona (10 yoki 20 tuba)"
         },
         "elisey": {
           "l": "Eliseyskie krishki",
           "unit": "50 dona",
-          "group": "10 ta tuba = 1 000 dona, karton quti"
+          "group": "500 va 1 000 dona (10 yoki 20 tuba)"
         },
         "moya": {
           "l": "Moya mechta, Rosa",
           "unit": "50 dona",
-          "group": "Qutida 1 000 dona"
+          "group": "500 va 1 000 dona (10 yoki 20 tuba)"
         },
         "twist": {
           "l": "Mechta khozyayki, twist-off 82",

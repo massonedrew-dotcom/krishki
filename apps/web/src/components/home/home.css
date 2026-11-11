@@ -630,7 +630,7 @@ html[data-home-scroll="on"] .h-st[data-lit] .h-st__node {
     padding-bottom: 1.5rem;
   }
   .h-stations {
-    grid-template-columns: repeat(7, minmax(0, 1fr));
+    grid-template-columns: repeat(8, minmax(0, 1fr));
     column-gap: var(--space-5, 1.25rem);
     padding-top: 0.5rem;
   }
