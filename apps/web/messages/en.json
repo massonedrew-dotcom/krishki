@@ -153,7 +153,7 @@
           "outside": "gold lacquer",
           "inside": "food enamel and lacquer, silver-grey",
           "seal": "food-grade rubber ring",
-          "pack": "tube of 50 · group packs of 500 and 1,000"
+          "pack": "block of 50 · group packs of 500 and 1,000"
         },
         "twist": {
           "name": "Twist-Off 82",
@@ -165,7 +165,7 @@
           "outside": "single-colour lithography and lacquer",
           "inside": "lacquer",
           "seal": "plastisol, sterilisation and pasteurisation; vacuum button",
-          "pack": "tube of 20 pcs · 850 pcs box for canneries"
+          "pack": "block of 20 · bag of 200 · corrugated box of 850 for canneries"
         },
         "ring": {
           "name": "Sealing ring",
@@ -210,7 +210,7 @@
         },
         "pack": {
           "t": "Packing",
-          "d": "Tubes of 50 and 20 pcs, group packs of 500 and 1,000 pcs, a 850 pcs box."
+          "d": "Blocks of 50 and 20 pcs. SKO in packs of 500 and 1,000; twist-off in bags of 200 or corrugated boxes of 850."
         },
         "delivery": {
           "t": "Delivery",
@@ -251,40 +251,40 @@
         },
         "private": {
           "t": "Private label",
-          "d": "Your design on SKO and Twist-Off lids. Lithography at our factory, runs from 1,000 pcs. An own brand (STM) to order from 5 million lids.",
+          "d": "Your design on SKO and Twist-Off lids. Lithography at our factory, runs from 500,000 pcs. An own brand (STM) to order from 5 million lids.",
           "cta": "How it works"
         }
       }
     },
     "brands": {
       "title": "Brands",
-      "lead": "Mechta khozyayki, Eliseyskie krishki, Moya mechta, Rosa and Yop-Yop. Lithographed tubes for home canning.",
+      "lead": "Mechta khozyayki, Eliseyskie krishki, Moya mechta, Rosa and Yop-Yop. Lithographed blocks for home canning.",
       "cta": "All brands",
       "items": {
         "mechta": {
           "n": "Mechta khozyayki",
-          "d": "SKO · tube of 50",
-          "alt": "Mechta khozyayki lid tube, 50 pcs"
+          "d": "SKO · block of 50",
+          "alt": "Mechta khozyayki lid block, 50 pcs"
         },
         "twistGreen": {
           "n": "Mechta khozyayki",
           "d": "Twist-Off, green · 20 pcs",
-          "alt": "Twist-Off Mechta khozyayki tube, green"
+          "alt": "Twist-Off Mechta khozyayki block, green"
         },
         "twistRed": {
           "n": "Mechta khozyayki",
           "d": "Twist-Off, red · 20 pcs",
-          "alt": "Twist-Off Mechta khozyayki tube, red"
+          "alt": "Twist-Off Mechta khozyayki block, red"
         },
         "moya": {
           "n": "Moya mechta",
-          "d": "SKO · tube of 50",
-          "alt": "Moya mechta lid tube"
+          "d": "SKO · block of 50",
+          "alt": "Moya mechta lid block"
         },
         "rosa": {
           "n": "Rosa",
-          "d": "SKO · tube of 50",
-          "alt": "Rosa lid tube"
+          "d": "SKO · block of 50",
+          "alt": "Rosa lid block"
         }
       }
     },
@@ -301,7 +301,7 @@
         "private": {
           "tag": "Private label",
           "title": "Your brand on every jar",
-          "text": "Your design on SKO and twist-off lids. Runs from 1,000 pcs. An own brand (STM) to order from 5 million lids.",
+          "text": "Your design on SKO and twist-off lids. Runs from 500,000 pcs. An own brand (STM) to order from 5 million lids.",
           "cta": "How it works",
           "alt": "SKO lids with a customer logo"
         }
@@ -320,12 +320,12 @@
   "products": {
     "meta": {
       "title": "Products: SKO lids, twist-off, sealing rings",
-      "description": "ELIT KONSERVA catalogue: gold and lithographed SKO I-82 lids, twist-off 82, sealing rings. Private label from 1,000 pcs."
+      "description": "ELIT KONSERVA catalogue: gold and lithographed SKO I-82 lids, twist-off 82, sealing rings. Private label from 500,000 pcs."
     },
     "hero": {
       "eyebrow": "Products",
       "title": "Lids for SKO I-82 and twist-off 82 jars",
-      "lead": "From gold to full colour. And your brand — from 1,000 pcs."
+      "lead": "From gold to full colour. And your brand — from 500,000 pcs."
     },
     "filter": {
       "label": "Product type",
@@ -337,12 +337,12 @@
     },
     "packLabel": "Packaging",
     "items": {
-      "skoGold": { "type": "sko", "tag": "SKO I-82", "name": "SKO gold", "desc": "Gold lacquer outside, food enamel inside. The canning classic.", "pack": "Tube 50 · group packs of 500 and 1,000", "alt": "Gold SKO I-82 lids" },
-      "skoLitho": { "type": "sko", "tag": "SKO I-82", "name": "SKO full colour", "desc": "Lithography with vegetables and fruit for home canning.", "pack": "Tube 50 · group packs of 500 and 1,000", "alt": "SKO lids with colour lithography" },
-      "skoPrivate": { "type": "sko", "tag": "Private label", "name": "SKO private label", "desc": "Your design and logo. Reinforced coating on request.", "pack": "From 1,000 pcs", "alt": "SKO lids with customer logos" },
-      "twistMono": { "type": "twist", "tag": "Twist-off 82", "name": "Twist-off single colour", "desc": "Bright single-colour lithography: green and red.", "pack": "Tube 20 · bag 240 · box 850", "alt": "A stack of green and maroon twist-off lids" },
-      "twistFull": { "type": "twist", "tag": "Twist-off 82", "name": "Twist-off full colour", "desc": "Tomatoes and mixed vegetables. Vacuum button in the centre.", "pack": "Tube 20 · bag 240 · box 850", "alt": "Twist-off lids with a tomato design" },
-      "twistPrivate": { "type": "twist", "tag": "Private label", "name": "Twist-off private label", "desc": "Your design on a screw lid. Lithography and lacquer at our factory.", "pack": "From 1,000 pcs", "alt": "Twist-off lids with customer logos" },
+      "skoGold": { "type": "sko", "tag": "SKO I-82", "name": "SKO gold", "desc": "Gold lacquer outside, food enamel inside. The canning classic.", "pack": "Block 50 · group packs of 500 and 1,000", "alt": "Gold SKO I-82 lids" },
+      "skoLitho": { "type": "sko", "tag": "SKO I-82", "name": "SKO full colour", "desc": "Lithography with vegetables and fruit for home canning.", "pack": "Block 50 · group packs of 500 and 1,000", "alt": "SKO lids with colour lithography" },
+      "skoPrivate": { "type": "sko", "tag": "Private label", "name": "SKO private label", "desc": "Your design and logo. Reinforced coating on request.", "pack": "From 500,000 pcs", "alt": "SKO lids with customer logos" },
+      "twistMono": { "type": "twist", "tag": "Twist-off 82", "name": "Twist-off single colour", "desc": "Bright single-colour lithography: green and red.", "pack": "Block 20 · bag 200 · corrugated box 850", "alt": "A stack of green and maroon twist-off lids" },
+      "twistFull": { "type": "twist", "tag": "Twist-off 82", "name": "Twist-off full colour", "desc": "Tomatoes and mixed vegetables. Vacuum button in the centre.", "pack": "Block 20 · bag 200 · corrugated box 850", "alt": "Twist-off lids with a tomato design" },
+      "twistPrivate": { "type": "twist", "tag": "Private label", "name": "Twist-off private label", "desc": "Your design on a screw lid. Lithography and lacquer at our factory.", "pack": "From 500,000 pcs", "alt": "Twist-off lids with customer logos" },
       "ring": { "type": "ring", "tag": "Ring", "name": "Sealing ring", "desc": "Food-grade rubber made to GOST. Produced since 2014.", "pack": "30 kg bag or box", "alt": "Food-grade rubber sealing rings" }
     },
     "compare": {
@@ -354,7 +354,7 @@
         "jar": { "l": "Jar", "sko": "SKO I-82 finish", "twist": "82 neck with thread" },
         "close": { "l": "Closing", "sko": "Seamer", "twist": "By hand" },
         "seal": { "l": "Seal", "sko": "Food-grade rubber ring", "twist": "Plastisol for sterilisation" },
-        "tube": { "l": "Tube", "sko": "50 pcs", "twist": "20 pcs" },
+        "tube": { "l": "Block", "sko": "50 pcs", "twist": "20 pcs" },
         "moq": { "l": "Minimum order", "sko": "1,000 pcs", "twist": "1,000 pcs" }
       }
     }
@@ -414,18 +414,18 @@
         "mechta": {
           "title": "“Mechta khozyayki”",
           "tube": "50 pcs",
-          "tubeNote": "A tube in shrink film with full-colour print: 49 gold lids and one lithographed.",
+          "tubeNote": "A block in shrink film with full-colour print: 49 gold lids and one lithographed.",
           "group": "500 and 1,000 pcs",
-          "groupNote": "10 or 20 tubes per group pack.",
-          "alt": "Mechta khozyayki lid tubes"
+          "groupNote": "10 or 20 blocks per group pack.",
+          "alt": "Mechta khozyayki lid blocks"
         },
         "elisey": {
           "title": "“Eliseyskie krishki”",
           "tube": "50 pcs",
-          "tubeNote": "A tube with a blue label in shrink film: 49 gold lids and one lithographed.",
+          "tubeNote": "A block with a blue label in shrink film: 49 gold lids and one lithographed.",
           "group": "500 and 1,000 pcs",
-          "groupNote": "10 or 20 tubes per group pack.",
-          "alt": "Eliseyskie krishki lid tubes"
+          "groupNote": "10 or 20 blocks per group pack.",
+          "alt": "Eliseyskie krishki lid blocks"
         }
       }
     },
@@ -466,15 +466,15 @@
         "mechta": {
           "title": "“Mechta khozyayki”",
           "tube": "20 pcs",
-          "tubeNote": "A tube with a light-blue “Mechta khozyayki” label.",
-          "group": "240 pcs",
-          "groupNote": "12 tubes in a bag.",
-          "alt": "Twist-off lid tubes, green and red"
+          "tubeNote": "A block with a light-blue “Mechta khozyayki” label.",
+          "group": "200 pcs",
+          "groupNote": "10 blocks in a polythene bag.",
+          "alt": "Twist-off lid blocks, green and red"
         },
         "bulk": {
           "title": "For canneries",
           "tube": "850 pcs",
-          "tubeNote": "Loose in a box.",
+          "tubeNote": "Loose in a corrugated box.",
           "group": "",
           "groupNote": "",
           "alt": ""
@@ -526,12 +526,12 @@
   "brands": {
     "meta": {
       "title": "Lid brands: Mechta khozyayki, Eliseyskie, Rosa",
-      "description": "ELIT KONSERVA lines: Mechta khozyayki, Eliseyskie krishki, Moya mechta, Rosa, Gurman, Yop-Yop. Tubes of 50, specifications and packaging."
+      "description": "ELIT KONSERVA lines: Mechta khozyayki, Eliseyskie krishki, Moya mechta, Rosa, Gurman, Yop-Yop. Blocks of 50, specifications and packaging."
     },
     "hero": {
       "eyebrow": "Brands",
       "title": "Six lines. One factory.",
-      "lead": "Tubes of 50 with lithography for home canning. Each has its own packaging and character."
+      "lead": "Blocks of 50 with lithography for home canning. Each has its own packaging and character."
     },
     "specsCaption": "Specifications",
     "mechta": {
@@ -541,26 +541,26 @@
       "text": "Our main brand. SKO and twist-off lids for home canning.",
       "specs": {
         "types": { "l": "Types", "v": "SKO I-82 · Twist-off 82" },
-        "tube": { "l": "Tube", "v": "50 pcs (SKO) · 20 pcs (twist-off)" },
-        "group": { "l": "Group pack", "v": "500 and 1,000 pcs (SKO) · 240 pcs (twist-off)" }
+        "tube": { "l": "Block", "v": "50 pcs (SKO) · 20 pcs (twist-off)" },
+        "group": { "l": "Group pack", "v": "500 and 1,000 pcs (SKO) · 200 pcs (twist-off)" }
       },
-      "imgAlt": "Mechta khozyayki tubes: SKO and twist-off"
+      "imgAlt": "Mechta khozyayki blocks: SKO and twist-off"
     },
     "elisey": {
       "name": "Eliseyskie krishki",
-      "alt": "Tube of 50",
+      "alt": "Block of 50",
       "slogan": "Canning made easy",
-      "text": "SKO I-82 lids with a blue label on the tube.",
+      "text": "SKO I-82 lids with a blue label on the block.",
       "specs": {
         "types": { "l": "Type", "v": "SKO I-82" },
-        "tube": { "l": "Tube", "v": "50 pcs, blue label" },
+        "tube": { "l": "Block", "v": "50 pcs, blue label" },
         "group": { "l": "Group pack", "v": "500 and 1,000 pcs" }
       },
-      "imgAlt": "Eliseyskie krishki tubes"
+      "imgAlt": "Eliseyskie krishki blocks"
     },
     "moya": {
       "name": "Moya mechta",
-      "alt": "Tube of 50",
+      "alt": "Block of 50",
       "slogan": "Prosperity in the family, peace in the home",
       "text": "SKO lids with a red check label and vegetables.",
       "specs": {
@@ -569,13 +569,13 @@
         "inner": { "l": "Inner enamel", "v": "EP 5147/S (Russia)" },
         "top": { "l": "Top coat", "v": "PPG 2040 (Germany)" },
         "inks": { "l": "Inks", "v": "HUBER GROUP (Germany)" },
-        "pack": { "l": "Packaging", "v": "Tube of 50 · group packs of 500 and 1,000" }
+        "pack": { "l": "Packaging", "v": "Block of 50 · group packs of 500 and 1,000" }
       },
-      "imgAlt": "Moya mechta tube"
+      "imgAlt": "Moya mechta block"
     },
     "rosa": {
       "name": "Rosa",
-      "alt": "Tube of 50",
+      "alt": "Block of 50",
       "slogan": "Prosperity in the family, peace in the home",
       "text": "SKO lids with a summer garden on the label.",
       "specs": {
@@ -584,9 +584,9 @@
         "inner": { "l": "Inner enamel", "v": "EP 5147/S (Russia)" },
         "top": { "l": "Top coat", "v": "PPG 2040 (Germany)" },
         "inks": { "l": "Inks", "v": "HUBER GROUP (Germany)" },
-        "pack": { "l": "Packaging", "v": "Tube of 50 · group packs of 500 and 1,000" }
+        "pack": { "l": "Packaging", "v": "Block of 50 · group packs of 500 and 1,000" }
       },
-      "imgAlt": "Rosa tube"
+      "imgAlt": "Rosa block"
     },
     "gurman": {
       "name": "Gurman",
@@ -594,7 +594,7 @@
       "slogan": "For the family",
       "text": "Two labels: light-blue “Gurman G” with fruit and blue “For the family” with a folk ornament.",
       "specs": {
-        "tube": { "l": "Tube", "v": "50 pcs" },
+        "tube": { "l": "Block", "v": "50 pcs" },
         "designs": { "l": "Designs", "v": "“Gurman G” · “For the family”" },
         "rest": { "l": "The rest", "v": "Specifications on request" },
         "group": {
@@ -602,7 +602,7 @@
           "v": "500 and 1,000 pcs"
         }
       },
-      "imgAlt": "Gurman tubes"
+      "imgAlt": "Gurman blocks"
     },
     "cta": {
       "title": "We will match a line to your market",
@@ -610,15 +610,15 @@
     },
     "yopyop": {
       "name": "Yop-Yop",
-      "alt": "Tube of 50",
-      "text": "SKO I-82 lids in a tube with an Uzbek ornament.",
+      "alt": "Block of 50",
+      "text": "SKO I-82 lids in a block with an Uzbek ornament.",
       "specs": {
         "types": {
           "l": "Type",
           "v": "SKO I-82"
         },
         "tube": {
-          "l": "Tube",
+          "l": "Block",
           "v": "50 pcs"
         },
         "group": {
@@ -626,7 +626,7 @@
           "v": "500 and 1,000 pcs"
         }
       },
-      "imgAlt": "Yop-Yop lid tube"
+      "imgAlt": "Yop-Yop lid block"
     }
   },
   "services": {
@@ -688,13 +688,13 @@
   },
   "privateLabel": {
     "meta": {
-      "title": "Private label lids: SKO and twist-off from 1,000 pcs",
-      "description": "We print your design on SKO I-82 and twist-off 82 lids: lithography and lacquer at our Kokand factory. From 1,000 pcs, samples available."
+      "title": "Private label lids: SKO and twist-off from 500,000 pcs",
+      "description": "We print your design on SKO I-82 and twist-off 82 lids: lithography and lacquer at our Kokand factory. From 500,000 pcs, samples available."
     },
     "hero": {
       "eyebrow": "Private label",
       "title": "Your brand on every jar",
-      "lead": "We print your design on SKO and twist-off lids. Lithography and lacquer at our factory. Volume from 1,000 pcs. An own brand (STM), any brand made to order, from 5 million lids.",
+      "lead": "We print your design on SKO and twist-off lids. Lithography and lacquer at our factory. Volume from 500,000 pcs. An own brand (STM), any brand made to order, from 5 million lids.",
       "alt": "SKO and twist-off lids with customer logos"
     },
     "steps": {
@@ -704,7 +704,7 @@
         "brief": { "t": "Brief", "d": "Tell us the lid type and the volume you need. We send samples." },
         "design": { "t": "Artwork", "d": "We prepare pre-press for your design." },
         "print": { "t": "Print and lacquer", "d": "Tinplate lithography and PPG lacquer at our plant." },
-        "batch": { "t": "Batch", "d": "Lids in the quantity you need: from 1,000 to 10,000,000 pcs." }
+        "batch": { "t": "Batch", "d": "Lids in the quantity you need: from 500,000 to 10,000,000 pcs." }
       }
     },
     "examples": {
@@ -721,7 +721,7 @@
       "columns": { "param": "Parameter", "value": "Value" },
       "rows": {
         "types": { "l": "Lid types", "v": "SKO I-82 · Twist-off 82" },
-        "moq": { "l": "Minimum batch", "v": "1,000 pcs" },
+        "moq": { "l": "Minimum batch", "v": "500,000 pcs" },
         "max": { "l": "Maximum", "v": "10,000,000 pcs" },
         "coat": { "l": "Coating", "v": "Reinforced — on request" },
         "price": { "l": "Price", "v": "Depends on order volume" },
@@ -742,7 +742,7 @@
       "eyebrow": "About the factory",
       "title": "Uzbekistan's largest lid factory. Since 1996.",
       "lead": "The most modern production in the country: we make canning lids and print on tinplate. Every batch is checked in our lab.",
-      "alt": "A warehouse of lid tubes"
+      "alt": "A warehouse of lid blocks"
     },
     "timeline": {
       "eyebrow": "History",
@@ -767,8 +767,8 @@
       "eyebrow": "Products",
       "title": "Products made at the factory",
       "alts": {
-        "sko": "Mechta khozyayki SKO lid tubes in the warehouse",
-        "twist": "Mechta khozyayki twist-off lid tubes, green and burgundy",
+        "sko": "Mechta khozyayki SKO lid blocks in the warehouse",
+        "twist": "Mechta khozyayki twist-off lid blocks, green and burgundy",
         "rings": "A box of sealing rings"
       }
     },
@@ -859,7 +859,7 @@
       "terms": "We give prices and terms after your request.",
       "cta": "Request a price list",
       "more": "Batches and packing",
-      "alt": "Lid tubes: Mechta khozyayki, twist-off, Moya mechta and Rosa"
+      "alt": "Lid blocks: Mechta khozyayki, twist-off, Moya mechta and Rosa"
     },
     "supply": {
       "title": "What we supply",
@@ -895,22 +895,22 @@
         "mechta": {
           "l": "Mechta khozyayki, SKO",
           "unit": "50 pcs",
-          "group": "500 and 1,000 pcs (10 or 20 tubes)"
+          "group": "500 and 1,000 pcs (10 or 20 blocks)"
         },
         "elisey": {
           "l": "Eliseyskie krishki",
           "unit": "50 pcs",
-          "group": "500 and 1,000 pcs (10 or 20 tubes)"
+          "group": "500 and 1,000 pcs (10 or 20 blocks)"
         },
         "moya": {
           "l": "Moya mechta, Rosa",
           "unit": "50 pcs",
-          "group": "500 and 1,000 pcs (10 or 20 tubes)"
+          "group": "500 and 1,000 pcs (10 or 20 blocks)"
         },
         "twist": {
           "l": "Mechta khozyayki, twist-off 82",
           "unit": "20 pcs",
-          "group": "12 tubes = 240 pcs in a bag; 850 pcs loose in a box for canneries"
+          "group": "10 blocks = 200 pcs in a polythene bag; 850 pcs in a corrugated box for canneries"
         },
         "ring": {
           "l": "Sealing ring",
