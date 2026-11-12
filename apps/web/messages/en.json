@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "ELIT KONSERVA — SKO I-82 and twist-off lids, Kokand",
-    "description": "Uzbekistan's largest lid factory, since 1996: SKO I-82 lids, twist-off 82, sealing rings, tinplate lacquering and lithography. Batches from 1,000 pcs."
+    "description": "Uzbekistan's largest lid factory, since 1996: SKO I-82 lids, twist-off 82, sealing rings, tinplate lacquering and lithography. Batches from 500,000 pcs."
   },
   "common": {
     "brand": "ELIT KONSERVA",
@@ -96,13 +96,13 @@
     "consent": "I agree to the processing of personal data:",
     "consentLink": "privacy policy",
     "submit": "Send request",
-    "note": "Batches from 1,000 pcs. We send samples.",
+    "note": "Batches from 500,000 pcs. We send samples.",
     "pending": "Sending requests will work soon. For now please call or write on Telegram — we answer right away."
   },
   "home": {
     "meta": {
       "title": "Uzbekistan's largest SKO I-82 and twist-off lid factory",
-      "description": "ELIT KONSERVA, Uzbekistan's largest lid factory: SKO I-82 and twist-off 82 lids, sealing rings, tinplate lithography. Since 1996, batches from 1,000 to 10,000,000 pcs."
+      "description": "ELIT KONSERVA, Uzbekistan's largest lid factory: SKO I-82 and twist-off 82 lids, sealing rings, tinplate lithography. Since 1996, batches from 500,000 to 10,000,000 pcs."
     },
     "hero": {
       "titleLead": "Uzbekistan's largest metal lid factory",
@@ -122,7 +122,7 @@
         },
         "batch": {
           "l": "Order size",
-          "v": "1,000 – 10,000,000 pcs"
+          "v": "500,000 – 10,000,000 pcs"
         },
         "geo": {
           "l": "Supply",
@@ -241,7 +241,7 @@
       "items": {
         "distributors": {
           "t": "For distributors",
-          "d": "Wholesale and export: batches from 1,000 to 10,000,000 pcs, samples sent.",
+          "d": "Wholesale and export: batches from 500,000 to 10,000,000 pcs, samples sent.",
           "cta": "For distributors"
         },
         "suppliers": {
@@ -355,7 +355,7 @@
         "close": { "l": "Closing", "sko": "Seamer", "twist": "By hand" },
         "seal": { "l": "Seal", "sko": "Food-grade rubber ring", "twist": "Plastisol for sterilisation" },
         "tube": { "l": "Block", "sko": "50 pcs", "twist": "20 pcs" },
-        "moq": { "l": "Minimum order", "sko": "1,000 pcs", "twist": "1,000 pcs" }
+        "moq": { "l": "Minimum order", "sko": "500,000 pcs", "twist": "500,000 pcs" }
       }
     }
   },
@@ -373,14 +373,14 @@
       "price": "Price",
       "priceValue": "On request",
       "moq": "Minimum order",
-      "moqValue": "from 1,000 pcs",
+      "moqValue": "from 500,000 pcs",
       "back": "All products",
       "stepBack": "Products"
     },
     "sko": {
       "meta": {
         "title": "SKO I-82 lid: gold, colour, private label",
-        "description": "SKO I-82 lids for glass jars: EZhK tinplate 0.17–0.20 mm, food-grade rubber ring, stiffening rib. From 1,000 pcs, samples available."
+        "description": "SKO I-82 lids for glass jars: EZhK tinplate 0.17–0.20 mm, food-grade rubber ring, stiffening rib. From 500,000 pcs, samples available."
       },
       "hero": {
         "eyebrow": "SKO I-82 lid",
@@ -432,7 +432,7 @@
     "twist": {
       "meta": {
         "title": "Twist-off 82: screw lids with a vacuum button",
-        "description": "Twist-off 82 lids for threaded jars: vacuum button, plastisol for sterilisation, closed by hand. From 1,000 pcs, samples available."
+        "description": "Twist-off 82 lids for threaded jars: vacuum button, plastisol for sterilisation, closed by hand. From 500,000 pcs, samples available."
       },
       "hero": {
         "eyebrow": "Twist-off 82",
@@ -850,12 +850,12 @@
   "distributors": {
     "meta": {
       "title": "For distributors: SKO and twist-off lids wholesale",
-      "description": "Wholesale and export supply of SKO I-82 lids, twist-off 82 lids and sealing rings from Kokand. Batches from 1,000 to 10,000,000 pcs, samples sent."
+      "description": "Wholesale and export supply of SKO I-82 lids, twist-off 82 lids and sealing rings from Kokand. Batches from 500,000 to 10,000,000 pcs, samples sent."
     },
     "hero": {
       "eyebrow": "For distributors",
       "title": "Wholesale and export supply",
-      "lead": "For wholesale buyers and exporters in the CIS countries. Batches from 1,000 to 10,000,000 pcs. We send samples.",
+      "lead": "For wholesale buyers and exporters in the CIS countries. Batches from 500,000 to 10,000,000 pcs. We send samples.",
       "terms": "We give prices and terms after your request.",
       "cta": "Request a price list",
       "more": "Batches and packing",
@@ -884,7 +884,7 @@
     },
     "lots": {
       "title": "Batches and packing",
-      "lead": "We supply batches from 1,000 to 10,000,000 pcs.",
+      "lead": "We supply batches from 500,000 to 10,000,000 pcs.",
       "caption": "Packing by line",
       "columns": {
         "param": "Line",
@@ -935,7 +935,7 @@
     },
     "cta": {
       "title": "Request a price list and samples",
-      "text": "Tell us the lid type and volume. Batches from 1,000 pcs.",
+      "text": "Tell us the lid type and volume. Batches from 500,000 pcs.",
       "button": "Leave a request"
     }
   },
@@ -1046,7 +1046,7 @@
       "rows": {
         "metal": { "l": "Tinplate", "v": "EZhK" },
         "thickness": { "l": "Thickness", "v": "0.17–0.20 mm" },
-        "moq": { "l": "Minimum order", "v": "1,000 pcs" }
+        "moq": { "l": "Minimum order", "v": "500,000 pcs" }
       }
     },
     "motion": {

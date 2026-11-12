@@ -3,7 +3,7 @@
 ## Project
 B2B website for ELIT KONSERVA (Kokand, Uzbekistan, since 1996), brand «Мечта хозяйки» and «Елисейские крышки».
 Products: SKO I-82 lids, Twist-Off lids, wikel sealing rings. Services: tin lacquering (PPG lacquers), tin lithography, private-label lids.
-Orders from 1,000 to 10,000,000 units. Export to Central Asia.
+Orders from 500,000 to 10,000,000 units (client, 12 Nov 2026). Export to Central Asia.
 Goal of the site: generate qualified B2B leads (wholesale, export, private label, retail) and show factory credibility.
 
 ## Stack (do not change without approval)

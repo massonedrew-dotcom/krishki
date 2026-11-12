@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "ELIT KONSERVA — SKO I-82 va twist-off qopqoqlari, Qoʻqon",
-    "description": "Oʻzbekistondagi eng yirik qopqoq zavodi, 1996-yildan: SKO I-82 qopqoqlari, twist-off 82, zichlovchi halqalar, tunuka lak va litografiyasi. 1 000 donadan."
+    "description": "Oʻzbekistondagi eng yirik qopqoq zavodi, 1996-yildan: SKO I-82 qopqoqlari, twist-off 82, zichlovchi halqalar, tunuka lak va litografiyasi. 500 000 donadan."
   },
   "common": {
     "brand": "ELIT KONSERVA",
@@ -96,13 +96,13 @@
     "consent": "Shaxsiy maʼlumotlarni qayta ishlashga roziman:",
     "consentLink": "maxfiylik siyosati",
     "submit": "Arizani yuborish",
-    "note": "1 000 donadan. Namunalarni yuboramiz.",
+    "note": "500 000 donadan. Namunalarni yuboramiz.",
     "pending": "Arizalarni yuborish tez orada ishga tushadi. Hozircha qoʻngʻiroq qiling yoki Telegramga yozing — darhol javob beramiz."
   },
   "home": {
     "meta": {
       "title": "Oʻzbekistondagi eng yirik SKO I-82 va twist-off qopqoqlari zavodi",
-      "description": "ELIT KONSERVA, Oʻzbekistondagi eng yirik qopqoq zavodi: SKO I-82 va twist-off 82 qopqoqlari, zichlovchi halqalar, tunuka litografiyasi. 1996-yildan, 1 000 dan 10 000 000 donagacha."
+      "description": "ELIT KONSERVA, Oʻzbekistondagi eng yirik qopqoq zavodi: SKO I-82 va twist-off 82 qopqoqlari, zichlovchi halqalar, tunuka litografiyasi. 1996-yildan, 500 000 dan 10 000 000 donagacha."
     },
     "hero": {
       "titleLead": "Oʻzbekistondagi eng yirik metall qopqoqlar zavodi",
@@ -122,7 +122,7 @@
         },
         "batch": {
           "l": "Buyurtma hajmi",
-          "v": "1 000 – 10 000 000 dona"
+          "v": "500 000 – 10 000 000 dona"
         },
         "geo": {
           "l": "Yetkazib berish",
@@ -241,7 +241,7 @@
       "items": {
         "distributors": {
           "t": "Distribyutorlarga",
-          "d": "Ulgurji va eksport: 1 000 dan 10 000 000 donagacha partiyalar, namunalarni yuboramiz.",
+          "d": "Ulgurji va eksport: 500 000 dan 10 000 000 donagacha partiyalar, namunalarni yuboramiz.",
           "cta": "Distribyutorlar uchun"
         },
         "suppliers": {
@@ -355,7 +355,7 @@
         "close": { "l": "Yopish", "sko": "Zakatka mashinasi", "twist": "Qoʻlda" },
         "seal": { "l": "Zichlash", "sko": "Oziq-ovqat kauchugidan halqa", "twist": "Sterilizatsiyaga chidamli plastizol" },
         "tube": { "l": "Blok", "sko": "50 dona", "twist": "20 dona" },
-        "moq": { "l": "Minimal buyurtma", "sko": "1 000 dona", "twist": "1 000 dona" }
+        "moq": { "l": "Minimal buyurtma", "sko": "500 000 dona", "twist": "500 000 dona" }
       }
     }
   },
@@ -373,14 +373,14 @@
       "price": "Narx",
       "priceValue": "Soʻrov boʻyicha",
       "moq": "Minimal buyurtma",
-      "moqValue": "1 000 donadan",
+      "moqValue": "500 000 donadan",
       "back": "Barcha mahsulotlar",
       "stepBack": "Mahsulotlar"
     },
     "sko": {
       "meta": {
         "title": "SKO I-82 qopqogʻi: oltin, rangli, oʻz brendingiz",
-        "description": "Shisha bankalar uchun SKO I-82 qopqoqlari: EZhK tunuka 0,17–0,20 mm, oziq-ovqat kauchugidan halqa, qattiqlik qirrasi. 1 000 donadan, namunalar."
+        "description": "Shisha bankalar uchun SKO I-82 qopqoqlari: EZhK tunuka 0,17–0,20 mm, oziq-ovqat kauchugidan halqa, qattiqlik qirrasi. 500 000 donadan, namunalar."
       },
       "hero": {
         "eyebrow": "SKO I-82 qopqogʻi",
@@ -432,7 +432,7 @@
     "twist": {
       "meta": {
         "title": "Twist-off 82: vakuum tugmali burama qopqoqlar",
-        "description": "Rezbali bankalar uchun twist-off 82 qopqoqlari: vakuum tugmasi, sterilizatsiyaga chidamli plastizol, qoʻlda buraladi. 1 000 donadan, namunalar."
+        "description": "Rezbali bankalar uchun twist-off 82 qopqoqlari: vakuum tugmasi, sterilizatsiyaga chidamli plastizol, qoʻlda buraladi. 500 000 donadan, namunalar."
       },
       "hero": {
         "eyebrow": "Twist-off 82",
@@ -850,12 +850,12 @@
   "distributors": {
     "meta": {
       "title": "Distribyutorlarga: SKO va twist-off qopqoqlari ulgurji",
-      "description": "Qoʻqondan SKO I-82, twist-off 82 qopqoqlari va zichlovchi halqalarni ulgurji va eksport yetkazib berish. 1 000 dan 10 000 000 donagacha, namunalar bor."
+      "description": "Qoʻqondan SKO I-82, twist-off 82 qopqoqlari va zichlovchi halqalarni ulgurji va eksport yetkazib berish. 500 000 dan 10 000 000 donagacha, namunalar bor."
     },
     "hero": {
       "eyebrow": "Distribyutorlarga",
       "title": "Ulgurji va eksport yetkazib berish",
-      "lead": "MDH davlatlaridagi ulgurji xaridorlar va eksportchilar uchun. 1 000 dan 10 000 000 donagacha partiyalar, namunalarni yuboramiz.",
+      "lead": "MDH davlatlaridagi ulgurji xaridorlar va eksportchilar uchun. 500 000 dan 10 000 000 donagacha partiyalar, namunalarni yuboramiz.",
       "terms": "Narx va shartlarni ariza qoldirilgandan soʻng aytamiz.",
       "cta": "Narxnoma soʻrash",
       "more": "Qadoqlash va partiyalar",
@@ -884,7 +884,7 @@
     },
     "lots": {
       "title": "Partiyalar va qadoqlash",
-      "lead": "1 000 dan 10 000 000 donagacha partiyalarni yetkazamiz.",
+      "lead": "500 000 dan 10 000 000 donagacha partiyalarni yetkazamiz.",
       "caption": "Liniyalar boʻyicha qadoqlash",
       "columns": {
         "param": "Liniya",
@@ -935,7 +935,7 @@
     },
     "cta": {
       "title": "Narxnoma va namunalarni soʻrang",
-      "text": "Qopqoq turi va hajmini yozing. Partiyalar 1 000 donadan.",
+      "text": "Qopqoq turi va hajmini yozing. Partiyalar 500 000 donadan.",
       "button": "Ariza qoldirish"
     }
   },
@@ -1046,7 +1046,7 @@
       "rows": {
         "metal": { "l": "Tunuka", "v": "EZhK" },
         "thickness": { "l": "Qalinligi", "v": "0,17–0,20 mm" },
-        "moq": { "l": "Minimal buyurtma", "v": "1 000 dona" }
+        "moq": { "l": "Minimal buyurtma", "v": "500 000 dona" }
       }
     },
     "motion": {

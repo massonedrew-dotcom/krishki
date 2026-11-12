@@ -11,7 +11,7 @@ Rule: nothing here is invented. Unknowns are `TODO(client)`. Note: the site-fetc
 | Twist-Off production since | 2016 (new line, separate workshop, extra warehouses) | /o-nas/ |
 | Sealing rings (викельные кольца) since | 2014 | site |
 | New SKO line «Елисейские Крышки» | 2022 | site |
-| Order size | 1,000 to 10,000,000 pcs | site |
+| Order size | 500,000 to 10,000,000 pcs | client, 12 Nov 2026 (was 1,000) |
 | Territory | Uzbekistan and Central Asia | site |
 | Samples | "Отправляем образцы" | site |
 | Positioning | "leader in the domestic metal-lid market"; fully automated cycles (claims of the old site, no proof) | /o-nas/ |
@@ -40,7 +40,7 @@ Six advantages on the site (headlines): Высокое качество; Раб�
 - Coating: outside gold single colour + lacquer; inside food enamel + lacquer, silver-grey.
 - Food-grade rubber sealing ring; extra stiffening rib.
 - Site variants: (1) industrial gold; (2) household full-colour lithographed (vegetables, fruits); (3) private label with the customer's mark (priced per technical spec, reinforced coating on request).
-- Min order 1,000 pcs, price on request.
+- Min order 500,000 pcs (client, 12 Nov 2026), price on request.
 - Packaging «Мечта хозяйки»: 50-pc stack in shrink film with full-colour print (49 gold + 1 lithographed lid); group pack 10 stacks = 500 pcs in a polythene bag.
 - Packaging «Елисейские крышки»: 50-pc stack, blue label, shrink film (49 gold + 1 lithographed); group pack 10 stacks = 1,000 pcs in a cardboard box.
 
@@ -49,7 +49,7 @@ Six advantages on the site (headlines): Высокое качество; Раб�
 - Outside bright single-colour lithography + lacquer (green and red in the catalog); inside lacquer.
 - Central vacuum button for visual and audible check; plastisol gasket suitable for sterilisation and pasteurisation; closes by hand, no seamer needed.
 - Variants: single-colour; full-colour household (tomatoes, vegetable mix); private label.
-- Min order 1,000 pcs. Packaging: 20-pc stack, light-blue «Мечта хозяйки» label; group pack 12 stacks = 240 pcs in a bag; bulk box of 850 pcs for canneries.
+- Min order 500,000 pcs (client, 12 Nov 2026). Packaging: 20-pc stack, light-blue «Мечта хозяйки» label; group pack 10 blocks = 200 pcs in a polythene bag (client, 12 Nov 2026); bulk box of 850 pcs for canneries.
 
 ### 3.3 Wikel sealing ring (Викельное кольцо)
 - Rubber ring for SKO I-82 lids, made to GOST from food-grade rubber, sits under the lid's inner rim. Min order: one pack. Packaging: 30 kg bag or 30 kg corrugated box.
