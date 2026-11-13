@@ -5,7 +5,7 @@ import styles from "./hero-lid-slot.module.css";
 import { HERO_LID_ID } from "./store";
 
 /** The factory's own photos per step (client, 29 Oct: no generated packshots; they showed lids we do not make). */
-const PHOTOS: Img[] = [LID_CUTOUT.sko34, LID_CUTOUT.twistRed34, LID_CUTOUT.ringsHero];
+const PHOTOS: Img[] = [LID_CUTOUT.sko34, LID_CUTOUT.twistGreenHero, LID_CUTOUT.ringsHero];
 
 export type AccordionCopy = {
   /** Layer name (home.hero.accordion.layers) and its spec from the SKO datasheet row (home.products.items.sko). */

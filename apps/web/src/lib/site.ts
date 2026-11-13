@@ -85,7 +85,8 @@ export const PHOTO = {
   skoGold: { src: "/images/photos/sko-gold-stack.webp", width: 950, height: 650 },
   ringsBox: { src: "/images/photos/rings-box.webp", width: 950, height: 650 },
   /** The factory's own photo of the wikel rings, background removed (30 Oct) so it stands on the dark hero too. */
-  rings: { src: "/images/photos/rings-cutout.webp", width: 950, height: 650, cutout: true },
+  /** Client photo of 13 Nov, background removed with Nano Banana 2.1 (master in assets/generated/client-2026-11-13/). */
+  rings: { src: "/images/lids/rings-hero-v2-cut.webp", width: 1024, height: 563, cutout: true },
   tubesElisey: { src: "/images/photos/tubes-elisey-cut.webp", width: 776, height: 384, cutout: true },
   tubesMechta: { src: "/images/photos/tubes-mechta.webp", width: 810, height: 457 },
   tubesTwist: { src: "/images/photos/tubes-twist.webp", width: 816, height: 456 },
@@ -134,9 +135,10 @@ export const LID_CUTOUT = {
   twistGreen34: { src: "/images/lids/twist-green-34-cutout.webp", width: 783, height: 518 },
   twistRedTop: { src: "/images/lids/twist-red-top-cutout.webp", width: 659, height: 696 },
   twistGreenTop: { src: "/images/lids/twist-green-top-cutout.webp", width: 677, height: 690 },
-  /** Hero only (client, 30 Oct: the keyed-out factory photo looked rough on the dark stage): a clean packshot of the
-   * rings, GPT Image 2.5 from the factory photo, master in assets/generated/accordion-2026-10-30/. */
-  ringsHero: { src: "/images/lids/rings-hero-cut.webp", width: 1024, height: 680 },
+  /** Hero rings (client photo of 13 Nov), background removed with Nano Banana 2.1, master in assets/generated/client-2026-11-13/. */
+  ringsHero: { src: "/images/lids/rings-hero-v2-cut.webp", width: 1024, height: 563 },
+  /** Hero step 2 (client, 13 Nov: green instead of red): client photo, background removed with Nano Banana 2.1. */
+  twistGreenHero: { src: "/images/lids/twist-green-hero-cut.webp", width: 1024, height: 799 },
 } satisfies Record<string, Img>;
 
 /** Lid photos on white (800 px), for white product panels. */

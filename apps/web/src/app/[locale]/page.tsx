@@ -95,7 +95,7 @@ export default async function HomePage({ params }: Props) {
           </div>
           {/* three product steps: the real photo and its datasheet card */}
           <HeroSteps
-            alts={[t("hero.slotAlt"), t("products.items.twist.altRed"), t("products.items.ring.alt")]}
+            alts={[t("hero.slotAlt"), t("products.items.twist.altGreen"), t("products.items.ring.alt")]}
             accordion={{
               layers: {
                 lacquerOut: { name: t("hero.accordion.layers.lacquerOut"), value: t("products.items.sko.outside") },
