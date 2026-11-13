@@ -114,6 +114,8 @@ export const TUBE_V2 = {
   skoMechta: tubeV2("sko-mechta", 528),
   twistGreen: tubeV2("twist-green", 560),
   twistRed: tubeV2("twist-red", 567),
+  /** Nano Banana 2.1 from the client label (chat, 13 Nov) and the Rosa block; master in assets/generated/client-2026-11-13/. */
+  yopYop: tubeV2("yop-yop", 569),
 } satisfies Record<string, Img>;
 
 export const TUBE = {
@@ -137,8 +139,8 @@ export const LID_CUTOUT = {
   twistGreenTop: { src: "/images/lids/twist-green-top-cutout.webp", width: 677, height: 690 },
   /** Hero rings (client photo of 13 Nov), background removed with Nano Banana 2.1, master in assets/generated/client-2026-11-13/. */
   ringsHero: { src: "/images/lids/rings-hero-v2-cut.webp", width: 1024, height: 563 },
-  /** Hero step 2 (client, 13 Nov: green instead of red): client photo, background removed with Nano Banana 2.1. */
-  twistGreenHero: { src: "/images/lids/twist-green-hero-cut.webp", width: 1024, height: 799 },
+  /** Hero step 2 (client, 13 Nov: green instead of red, no glare): client photo, background and window glare removed with Nano Banana 2.1. */
+  twistGreenHero: { src: "/images/lids/twist-green-hero-cut.webp", width: 1024, height: 798 },
 } satisfies Record<string, Img>;
 
 /** Lid photos on white (800 px), for white product panels. */

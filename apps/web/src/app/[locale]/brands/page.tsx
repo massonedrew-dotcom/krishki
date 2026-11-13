@@ -31,8 +31,7 @@ const BRANDS: Brand[] = [
   { key: "gurman", specs: ["tube", "group", "designs", "rest"], images: [TUBE_V2.gurmanFamily, TUBE_V2.gurmanG] },
   { key: "moya", specs: ["metal", "outer", "inner", "top", "inks", "pack"], images: [TUBE_V2.moyaMechta] },
   { key: "rosa", specs: ["metal", "outer", "inner", "top", "inks", "pack"], images: [TUBE_V2.rosa] },
-  // TODO(client): the Yop-Yop tube photo (the label was sent in chat, 11 Nov; no file in the repo yet)
-  { key: "yopyop", specs: ["types", "tube", "group"], images: [], noSlogan: true },
+  { key: "yopyop", specs: ["types", "tube", "group"], images: [TUBE_V2.yopYop], noSlogan: true },
 ];
 
 export default async function BrandsPage({ params }: Props) {
